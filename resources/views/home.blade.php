@@ -2,11 +2,10 @@
     <x-slot:title>{{ $title }}</x-slot>
 
     <!-- Banner Utama -->
-    <section class="bg-gradient-to-r from-gray-900 to-gray-800 text-black py-16 px-6 text-center">
+    <section class="text-black py-16 px-6 text-center">
         <h1 class="text-3xl font-bold mb-4">OrbitCalc - Perhitungan Satelit Praktis & Akurat</h1>
         <p class="text-lg max-w-3xl mx-auto mb-6">Selamat datang di OrbitCalc! Aplikasi ini membantu Anda menghitung berbagai parameter orbit satelit, menyimpan riwayat perhitungan, dan menghubungi tim pengembang jika dibutuhkan.</p>
         <p class="text-md max-w-xl mx-auto">Solusi cepat dan efisien untuk mendukung studi atau proyek berbasis sistem komunikasi satelit.</p>
-        <a href="#kalkulator" class="inline-block bg-yellow-400 text-black font-semibold py-2 px-6 rounded-full hover:bg-yellow-500 mt-8 transition duration-300"></a>
     </section>
 
     <!-- Penjelasan Fitur -->
