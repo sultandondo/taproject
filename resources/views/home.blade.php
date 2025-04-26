@@ -26,11 +26,6 @@
                 <h3 class="text-xl font-semibold mb-2">📊 Riwayat Perhitungan</h3>
                 <p>Lihat data input dan hasil perhitungan sebelumnya untuk keperluan pencatatan dan analisis.</p>
             </div>
-
-            <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition">
-                <h3 class="text-xl font-semibold mb-2">📩 Hubungi Kami</h3>
-                <p>Kirimkan pertanyaan atau masukan melalui formulir kontak yang telah disediakan di halaman ini.</p>
-            </div>
         </div>
     </section>
 
