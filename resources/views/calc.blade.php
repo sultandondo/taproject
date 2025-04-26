@@ -1,69 +1,149 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot>
-    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-md">
-    <h1 class="text-2xl font-bold mb-4 text-center">Form Parameter Orbit</h1>
 
-    <form method="GET" action="">
-    @csrf
-        <div class="mb-4">
-            <label for="jenis_orbit" class="block font-medium">Jenis Orbit:</label>
-            <select name="jenis_orbit" id="jenis_orbit" onchange="updateKetinggian(); showFields()" required class="border p-2 w-full rounded">
-                <option value="">-- Pilih Orbit --</option>
-                <option value="LEO" {{ request('jenis_orbit') == 'LEO' ? 'selected' : '' }}>LEO</option>
-                <option value="MEO" {{ request('jenis_orbit') == 'MEO' ? 'selected' : '' }}>MEO</option>
-                <option value="GEO" {{ request('jenis_orbit') == 'GEO' ? 'selected' : '' }}>GEO</option>
-            </select>
-        </div>
+    <div class="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl mx-auto">
+        <h1 class="text-2xl font-bold mb-6 text-center">Form Parameter Orbit</h1>
 
-        <div class="mb-4">
-            <label for="ketinggian" class="block font-medium">Ketinggian (km):</label>
-            <input type="text" name="ketinggian" id="ketinggian" class="border p-2 w-full rounded">
-        </div>
+        <form method="GET" action="">
+            @csrf
 
-        <div id="apogee_field" class="mb-4">
-            <label class="block font-medium">Apogee (km):</label>
-            <input type="number" name="apogee" id="apogee" class="border p-2 w-full rounded" min="0">
-        </div>
+            <div class="mb-4">
+                <label for="jenis_orbit" class="block font-medium mb-1 text-gray-700">Jenis Orbit:</label>
+                <select name="jenis_orbit" id="jenis_orbit" onchange="handleOrbitChange()" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                    <option value="">-- Pilih Orbit --</option>
+                    <option value="LEO" {{ request('jenis_orbit') == 'LEO' ? 'selected' : '' }}>LEO</option>
+                    <option value="MEO" {{ request('jenis_orbit') == 'MEO' ? 'selected' : '' }}>MEO</option>
+                    <option value="GEO" {{ request('jenis_orbit') == 'GEO' ? 'selected' : '' }}>GEO</option>
+                </select>
+            </div>
 
-        <div id="perigee_field" class="mb-4">
-            <label class="block font-medium">Perigee (km):</label>
-            <input type="number" name="perigee" id="perigee" class="border p-2 w-full rounded mt-2" min="0">
-        </div>
+            <div class="mb-4">
+                <label for="jenis_Satuan" class="block font-medium mb-1 text-gray-700">Satuan:</label>
+                <select name="jenis_Satuan" id="jenis_Satuan" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                    <option value="">-- Pilih Satuan --</option>
+                    <option value="MHz">MHz</option>
+                    <option value="GHz">GHz</option>
+                </select>
+            </div>
 
-        <div id="inklinasi_field" class="mb-4">
-            <label for="inklinasi" class="block font-medium">Sudut Inklinasi (°):</label>
-            @if(request('jenis_orbit') == 'LEO')
-                <p>Orbit yang dipilih adalah <strong>LEO</strong></p>
-                <input type="number" name="ketinggian">
-            @elseif(request('jenis_orbit') == 'MEO')
-                <p>Orbit yang dipilih adalah <strong>MEO</strong></p>
-                <input type="number" name="ketinggian">
-            @elseif(request('jenis_orbit') == 'GEO')
-                <p>Orbit yang dipilih adalah <strong>GEO</strong></p>
-                <input type="number" name="ketinggian" value="0" placeholder="0" readonly>
-            @else
-                <p><em>Belum memilih jenis orbit</em></p>
-            @endif
+            <div id="nilai_field" class="mb-4">
+                <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ):</label>
+                <input type="number" name="nilai_field" id="nilai_field" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+            </div>
 
-            <input type="number" name="inklinasi" id="inklinasi" step="0.01" class="border p-2 w-full rounded" min="0">
-        </div>
+            <div id="orbitFields" style="display: none;">
+                <div class="mb-4">
+                    <label for="ketinggian" class="block font-medium mb-1 text-gray-700">Ketinggian (km):</label>
+                    <input type="text" name="ketinggian" id="ketinggian" class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                </div>
 
-        <div id="elevasi_field" class="mb-4">
-            <label for="elevasi" class="block font-medium">Sudut Elevasi (°):</label>
-            <input type="number" name="elevasi" id="elevasi" step="0.01" class="border p-2 w-full rounded" min="0">
-        </div>
+                <div id="apogee_field" class="mb-4">
+                    <label class="block font-medium mb-1 text-gray-700">Apogee (km):</label>
+                    <input type="number" name="apogee" id="apogee" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
 
-        <div id="slant_range_field" class="mb-4">
-            <label for="slant_range" class="block font-medium">Slant Range (km):</label>
-            <input type="number" name="slant_range" id="slant_range" class="border p-2 w-full rounded" min="0">
-        </div>
+                <div id="perigee_field" class="mb-4">
+                    <label class="block font-medium mb-1 text-gray-700">Perigee (km):</label>
+                    <input type="number" name="perigee" id="perigee" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
 
-        <div id="azimuth_field" class="mb-4">
-            <label for="azimuth" class="block font-medium">Sudut Azimuth (°):</label>
-            <input type="number" name="azimuth" id="azimuth" class="border p-2 w-full rounded" min="0">
-        </div>
+                <div id="inklinasi_field" class="mb-4">
+                    <label class="block font-medium mb-1 text-gray-700">Sudut Inklinasi (°):</label>
+                    <input type="number" name="inklinasi" id="inklinasi" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
 
-        <button type="submit" class="bg-blue-500 text-black px-4 py-2 rounded hover:bg-blue-600 w-full">Simpan</button>
-    </form>
-</div>
+                <div id="elevasi_field" class="mb-4">
+                    <label for="elevasi" class="block font-medium mb-1 text-gray-700">Sudut Elevasi (°):</label>
+                    <input type="number" name="elevasi" id="elevasi" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
+                <div id="re_field" class="mb-4">
+                    <label for="re" class="block font-medium mb-1 text-gray-700">Radius Bumi (Re) [km]:</label>
+                    <input type="number" name="re" id="re" value="6378" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                </div>
+
+                <div id="altitude_field" class="mb-4">
+                    <label for="altitude" class="block font-medium mb-1 text-gray-700">Mean Orbit Altitude:</label>
+                    <input type="number" name="altitude" id="altitude" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
+                <div id="radius_field" class="mb-4">
+                    <label for="radius" class="block font-medium mb-1 text-gray-700">Mean Orbit Radius:</label>
+                    <input type="number" name="radius" id="radius" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
+                <div id="slant_range_field" class="mb-4">
+                    <label for="slant_range" class="block font-medium mb-1 text-gray-700">Slant Range (km):</label>
+                    <input type="number" name="slant_range" id="slant_range" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
+                <div id="pathloss_field" class="mb-4">
+                    <label for="pathloss" class="block font-medium mb-1 text-gray-700">Path Loss:</label>
+                    <input type="number" name="pathloss" id="pathloss" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
+                <div id="azimuth_field" class="mb-4">
+                    <label for="azimuth" class="block font-medium mb-1 text-gray-700">Sudut Azimuth (°):</label>
+                    <input type="number" name="azimuth" id="azimuth" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+            </div>
+
+            <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 w-full font-semibold text-lg">Simpan</button>
+        </form>
+    </div>
+
+    <script>
+        function handleOrbitChange() {
+            const orbit = document.getElementById('jenis_orbit').value;
+            const orbitFields = document.getElementById('orbitFields');
+
+            const apogee = document.getElementById('apogee_field');
+            const perigee = document.getElementById('perigee_field');
+            const azimuth = document.getElementById('azimuth_field');
+            const inklinasi = document.getElementById('inklinasi');
+            const inklinasiField = document.getElementById('inklinasi_field');
+
+            const re = document.getElementById('re');
+            const reField = document.getElementById('re_field');
+            const altitudeField = document.getElementById('altitude_field');
+            const radiusField = document.getElementById('radius_field');
+            const pathlossField = document.getElementById('pathloss_field');
+
+            if (orbit) {
+                orbitFields.style.display = 'block';
+
+                if (orbit === 'GEO') {
+                    apogee.style.display = 'none';
+                    perigee.style.display = 'none';
+                    azimuth.style.display = 'block';
+
+                    inklinasi.value = 0;
+                    inklinasi.readOnly = true;
+
+                    reField.style.display = 'none';
+                    altitudeField.style.display = 'none';
+                    radiusField.style.display = 'none';
+                    pathlossField.style.display = 'none';
+                } else {
+                    apogee.style.display = 'block';
+                    perigee.style.display = 'block';
+                    azimuth.style.display = 'none';
+
+                    inklinasi.value = '';
+                    inklinasi.readOnly = false;
+
+                    re.value = 6378;
+                    re.readOnly = true;
+                    reField.style.display = 'block';
+                    altitudeField.style.display = 'block';
+                    radiusField.style.display = 'block';
+                    pathlossField.style.display = 'block';
+                }
+            } else {
+                orbitFields.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', handleOrbitChange);
+    </script>
 </x-layout>

@@ -22,6 +22,14 @@ Route::get('/calc', function () {
     return view('calc', ['title'=> 'Lets Calculate!']);
 });
 
-Route::get('/frek', function () {
-    return view('frek', ['title'=> 'Lets Calculate!']);
+Route::get('/transmitter', function () {
+    return view('transmitter', ['title'=> 'Lets Calculate!']);
+});
+
+Route::get('/receiver', function () {
+    return view('receiver', ['title' => 'Form Receiver']);
+})->name('receiver.form');
+
+Route::get('/antena', function () {
+    return view('antena', ['title'=> 'Lets Calculate!']);
 });
