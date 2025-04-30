@@ -52,14 +52,34 @@
                     <input type="number" name="inklinasi" id="inklinasi" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
                 </div>
 
+                <div id="Latitude_field" class="mb-4">
+                    <label class="block font-medium mb-1 text-gray-700">Latitude (°):</label>
+                    <input type="number" name="latitude" id="latitude" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
+                <div id="Longitude_field" class="mb-4">
+                    <label class="block font-medium mb-1 text-gray-700">Longitude (°):</label>
+                    <input type="number" name="longitude" id="longitude" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
                 <div id="elevasi_field" class="mb-4">
                     <label for="elevasi" class="block font-medium mb-1 text-gray-700">Sudut Elevasi (°):</label>
                     <input type="number" name="elevasi" id="elevasi" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
                 </div>
 
+                <div id="ree_field" class="mb-4">
+                    <label for="re" class="block font-medium mb-1 text-gray-700">Radius Bumi (Re) [km]:</label>
+                    <input type="text" name="re" id="re" value="6.378" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                </div>
+
+                <div id="smageo_field" class="mb-4">
+                    <label for="re" class="block font-medium mb-1 text-gray-700">Semi Major Axis GEO [km]:</label>
+                    <input type="text" name="smageo" id="smageo" value="42.164,156" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                </div>
+
                 <div id="re_field" class="mb-4">
                     <label for="re" class="block font-medium mb-1 text-gray-700">Radius Bumi (Re) [km]:</label>
-                    <input type="number" name="re" id="re" value="6378" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                    <input type="text" name="re" id="re" value="6.378" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
                 </div>
 
                 <div id="altitude_field" class="mb-4">
@@ -86,6 +106,12 @@
                     <label for="azimuth" class="block font-medium mb-1 text-gray-700">Sudut Azimuth (°):</label>
                     <input type="number" name="azimuth" id="azimuth" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
                 </div>
+
+                <div id="sudutpusatbumi_field" class="mb-4">
+                    <label for="sudutpusatbumi" class="block font-medium mb-1 text-gray-700">Sudut Pusat Bumi (°):</label>
+                    <input type="number" name="sudutpusatbumi" id="sudutpusatbumi" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0">
+                </div>
+
             </div>
 
             <button type="submit" class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 w-full font-semibold text-lg">Simpan</button>
@@ -108,14 +134,24 @@
             const altitudeField = document.getElementById('altitude_field');
             const radiusField = document.getElementById('radius_field');
             const pathlossField = document.getElementById('pathloss_field');
-
+            const sudutpusatbumiField = document.getElementById('sudutpusatbumi_field');
+            const smageoField = document.getElementById('smageo_field');
+            const reeField = document.getElementById('ree_field');
+            const latitudeField = document.getElementById('Latitude_field');
+            const longitudeField = document.getElementById('Longitude_field');
             if (orbit) {
                 orbitFields.style.display = 'block';
 
                 if (orbit === 'GEO') {
+                    
                     apogee.style.display = 'none';
                     perigee.style.display = 'none';
                     azimuth.style.display = 'block';
+                    sudutpusatbumiField.style.display = 'block';
+                    smageoField.style.display = 'block';
+                    reeField.style.display = 'block';
+                    latitudeField.style.display = 'block';
+                    longitudeField.style.display = 'block';
 
                     inklinasi.value = 0;
                     inklinasi.readOnly = true;
@@ -125,6 +161,11 @@
                     radiusField.style.display = 'none';
                     pathlossField.style.display = 'none';
                 } else {
+                    sudutpusatbumiField.style.display = 'none';
+                    smageoField.style.display = 'none';
+                    reeField.style.display = 'none';
+                    latitudeField.style.display = 'none';
+                    longitudeField.style.display = 'none';
                     apogee.style.display = 'block';
                     perigee.style.display = 'block';
                     azimuth.style.display = 'none';
@@ -132,12 +173,13 @@
                     inklinasi.value = '';
                     inklinasi.readOnly = false;
 
-                    re.value = 6378;
+                    re.value = 6.378;
                     re.readOnly = true;
                     reField.style.display = 'block';
                     altitudeField.style.display = 'block';
                     radiusField.style.display = 'block';
                     pathlossField.style.display = 'block';
+                
                 }
             } else {
                 orbitFields.style.display = 'none';

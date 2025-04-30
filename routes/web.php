@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
+    return view('login', ['title' => 'Menu Login']);
+});
+
+Route::get('/', function () {
     return view('home', ['title' => 'Home Page']);
 });
 
@@ -22,8 +26,12 @@ Route::get('/calc', function () {
     return view('calc', ['title'=> 'Lets Calculate!']);
 });
 
+Route::get('/frek', function () {
+    return view('frek', ['title'=> 'Lets Frekuensi!']);
+});
+
 Route::get('/transmitter', function () {
-    return view('transmitter', ['title'=> 'Lets Calculate!']);
+    return view('transmitter', ['title'=> 'Lets Transmiter']);
 });
 
 Route::get('/receiver', function () {
@@ -31,5 +39,5 @@ Route::get('/receiver', function () {
 })->name('receiver.form');
 
 Route::get('/antena', function () {
-    return view('antena', ['title'=> 'Lets Calculate!']);
+    return view('antena', ['title'=> 'Lets Antena!']);
 });
