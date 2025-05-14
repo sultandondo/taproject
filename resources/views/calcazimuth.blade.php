@@ -3,10 +3,8 @@
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl mx-auto">
         <h1 class="text-2xl font-bold mb-6 text-center">Form Frekuensi</h1>
 
-        <form method="POST" action="{{ route('frek.store') }}">
+        <form method="GET" action="">
         @csrf
-        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-
 
         {{-- Pilihan Satuan Frekuensi --}}
         <div class="mb-6">
@@ -28,7 +26,7 @@
                 <div class="relative">
                     <label for="frekuensi" class="block font-medium mb-2 text-gray-700">Frekuensi:</label>
                     <div class="flex items-center">
-                        <input type="text" name="frekuensi" id="frekuensi" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi">
+                        <input type="number" name="frekuensi" id="frekuensi" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi">
                         <!-- Menampilkan satuan frekuensi yang dipilih -->
                         <span id="frekuensi_satuan_display" class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-700">GHz</span>
                     </div>
@@ -36,8 +34,7 @@
                 <div class="relative">
                     <label for="panjang_gelombang" class="block font-medium mb-2 text-gray-700">Panjang Gelombang (λ):</label>
                     <div class="flex items-center">
-                        <input type="text" name="panjang_gelombang" id="panjang_gelombang" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;"
-                        placeholder="Hasil Panjang Gelombang">
+                        <input type="text" name="panjang_gelombang" id="panjang_gelombang" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" placeholder="Hasil Panjang Gelombang">
                         <!-- Menambahkan satuan meters di dalam input -->
                         <span class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-700">Meter</span>
                     </div>
@@ -46,8 +43,7 @@
                 <div class="relative">
                     <label for="path_loss" class="block font-medium mb-2 text-gray-700">Path Loss:</label>
                     <div class="flex items-center">
-                        <input type="text" name="path_loss" id="path_loss" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;"
-                        placeholder="Hasil Path Loss">
+                        <input type="text" name="path_loss" id="path_loss" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" placeholder="Hasil Path Loss">
                         <!-- Menambahkan satuan dB di dalam input -->
                         <span class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-700">dB</span>
                     </div>
@@ -72,8 +68,7 @@
                 <div class="relative">
                     <label for="panjang_gelombang_downlink" class="block font-medium mb-2 text-gray-700">Panjang Gelombang (λ):</label>
                     <div class="flex items-center">
-                        <input type="text" name="panjang_gelombang_downlink" id="panjang_gelombang_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;" 
-                        placeholder="Hasil Panjang Gelombang">
+                        <input type="text" name="panjang_gelombang_downlink" id="panjang_gelombang_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" placeholder="Hasil Panjang Gelombang">
                         <!-- Menambahkan satuan meters di dalam input -->
                         <span class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-700">Meter</span>
                     </div>
@@ -82,8 +77,7 @@
                 <div class="relative">
                     <label for="path_loss_downlink" class="block font-medium mb-2 text-gray-700">Path Loss:</label>
                     <div class="flex items-center">
-                        <input type="text" name="path_loss_downlink" id="path_loss_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;" 
-                        placeholder="Hasil Path Loss">
+                        <input type="text" name="path_loss_downlink" id="path_loss_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16" placeholder="Hasil Path Loss">
                         <!-- Menambahkan satuan dB di dalam input -->
                         <span class="absolute right-0 top-1/2 transform -translate-y-1/2 text-gray-700">dB</span>
                     </div>

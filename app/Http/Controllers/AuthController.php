@@ -4,39 +4,43 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
 
 class AuthController extends Controller
 {
-    // Menampilkan form login
-    public function showLoginForm()
-    {
+    public function showLogin() {
+        if (auth()->check()) {
+            return redirect()->route('home');
+        }
+
         return view('login');
     }
 
-    // Menangani proses login
-    public function login(Request $request)
-    {
-        // Validasi input
-        $request->validate([
+    public function login(Request $request) {
+        $credentials = $request->validate([
             'email' => 'required|email',
-            'password' => 'required|min:6',
+            'password' => 'required'
         ]);
 
-        // Cek kredensial
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-            // Redirect ke dashboard atau halaman lain setelah login berhasil
-            return redirect()->intended('/dashboard');
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate(); // prevent session fixation
+            return redirect()->intended('/home');
         }
 
-        // Jika login gagal
-        return back()->with('error', 'Email atau password salah');
+        return back()->withErrors([
+            'email' => 'Login gagal. Cek kembali email dan password.',
+        ]);
     }
 
-    // Logout user
-    public function logout()
-    {
+    public function dashboard() {
+        return view('home', ['title' => 'Home Page']);
+    }
+
+    public function logout(Request $request) {
         Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
         return redirect('/');
     }
 }
