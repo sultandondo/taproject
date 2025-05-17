@@ -20,10 +20,10 @@ class DataController extends Controller
         return view('data.create');
     }
 
-    // Menyimpan data baru
+    // Menyimpan data Orbit
     public function store(Request $request)
     {
-        // dd($request->all());
+        //dd($request->all());
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'jenis_orbit' => 'nullable|string',
@@ -100,6 +100,7 @@ class DataController extends Controller
         return redirect()->route('frek.show')->with('success', 'Data berhasil ditambahkan');
     }
 
+    //Menyimpan data Frekuensi
         public function store_frek(Request $request)
     {
     
@@ -134,19 +135,52 @@ class DataController extends Controller
         return redirect()->route('transmitter.show')->with('success', 'Data berhasil ditambahkan');
     }
 
-      public function store_transmitter(Request $request)
-    {
     
+    // Menyimpan data Transmitter
+    public function store_transmitter(Request $request)
+    {
         // dd($request->all());
         $request->validate([
             'user_id' => 'required|exists:users,id',
-            'frekuensi_satuan'=> 'nullable|string',
-            'frekuensi'=> 'nullable|numeric',
-            'panjang_gelombang'=> 'nullable|numeric',
-            'path_loss'=> 'nullable|numeric',
-            'frekuensi_downlink'=> 'nullable|numeric',
-            'panjang_gelombang_downlink'=> 'nullable|numeric',
-            'path_loss_downlink'=> 'nullable|numeric',
+            'watt_up' => 'nullable|numeric',
+            'dbw_up' => 'nullable|numeric',
+            'dbm_up' => 'nullable|numeric',
+            'alength_up' => 'nullable|numeric',
+            'blength_up' => 'nullable|numeric',
+            'clength_up' => 'nullable|numeric',
+            'totlength_up' => 'nullable|numeric',
+            'cabletype_up' => 'nullable|string',
+            'guideloss_up' => 'nullable|numeric',
+            'totalloss_up' => 'nullable|numeric',
+            'connect_up' => 'nullable|numeric',
+            'totconnect_up' => 'nullable|numeric',
+            'filter_up' => 'nullable|numeric',
+            'device_up' => 'nullable|string',
+            'devicee_up' => 'nullable|numeric',
+            'atn_up' => 'nullable|numeric',
+            'totlinelosses_up' => 'nullable|numeric',
+            'totpowerdeliv_up' => 'nullable|numeric',
+            
+    
+            'watt_down' => 'nullable|numeric',
+            'dbw_down' => 'nullable|numeric',
+            'dbm_down' => 'nullable|numeric',
+            'alength_down' => 'nullable|numeric',
+            'blength_down' => 'nullable|numeric',
+            'clength_down' => 'nullable|numeric',
+            'totlength_down' => 'nullable|numeric',
+            'cabletype_down' => 'nullable|string',
+            'guideloss_down' => 'nullable|numeric',
+            'totalloss_down' => 'nullable|numeric',
+            'connect_down' => 'nullable|numeric',
+            'totconnect_down' => 'nullable|numeric',
+            'filter_down' => 'nullable|numeric',
+            'device_down' => 'nullable|string',
+            'devicee_down' => 'nullable|numeric',
+            'atn_down' => 'nullable|numeric',
+            'totlinelosses_down' => 'nullable|numeric',
+            'totrfpowerdeliv_down' => 'nullable|numeric',
+
             // validasi kolom lainnya sesuai kebutuhan
         ]);
 
@@ -154,19 +188,272 @@ class DataController extends Controller
         
         $data = Data::create([
             'user_id' => $request->user_id,
-            'frekuensi_satuan' => $request->input('frekuensi_satuan'),
-            'frekuensi' => $request->input('frekuensi'),
-            'panjang_gelombang' => $request->input('panjang_gelombang'),
-            'path_loss' => $request->input('path_loss'),
-            'frekuensi_downlink' => $request->input('frekuensi_downlink'),
-            'panjang_gelombang_downlink' => $request->input('panjang_gelombang_downlink'),
-            'path_loss_downlink' => $request->input('path_loss_downlink'),
+            'watt_up' => $request->input('watt_up'),
+            'dbw_up' => $request->input('dbw_up'),
+            'dbm_up' => $request->input('dbm_up'),
+            'alength_up' => $request->input('alength_up'),
+            'blength_up' => $request->input('blength_up'),
+            'clength_up' => $request->input('clength_up'),
+            'totlength_up' => $request->input('totlength_up'),
+            'cabletype_up' => $request->input('cabletype_up'),
+            'guideloss_up' => $request->input('guideloss_up'),
+            'totalloss_up' => $request->input('totalloss_up'),
+            'connect_up' => $request->input('connect_up'),
+            'totconnect_up' => $request->input('totconnect_up'),
+            'filter_up' => $request->input('filter_up'),
+            'device_up' => $request->input('device_up'),
+            'devicee_up' => $request->input('devicee_up'),
+            'atn_up' => $request->input('atn_up'),
+            'totlinelosses_up' => $request->input('totlinelosses_up'),
+            'totpowerdeliv_up' => $request->input('totpowerdeliv_up'),
+
+            'watt_down' => $request->input('watt_down'),
+            'dbw_down' => $request->input('dbw_down'),
+            'dbm_down' => $request->input('dbm_down'),
+            'alength_down' => $request->input('alength_down'),
+            'blength_down' => $request->input('blength_down'),
+            'clength_down' => $request->input('clength_down'),
+            'totlength_down' => $request->input('totlength_down'),
+            'cabletype_down' => $request->input('cabletype_down'),
+            'guideloss_down' => $request->input('guideloss_down'),
+            'totalloss_down' => $request->input('totalloss_down'),
+            'connect_down' => $request->input('connect_down'),
+            'totconnect_down' => $request->input('totconnect_down'),
+            'filter_down' => $request->input('filter_down'),
+            'device_down' => $request->input('device_down'),
+            'devicee_down' => $request->input('devicee_down'),
+            'atn_down' => $request->input('atn_down'),
+            'totlinelosses_down' => $request->input('totlinelosses_down'),
+            'totrfpowerdeliv_down' => $request->input('totrfpowerdeliv_down'),
 
             // Field lainnya
         ]);
 
-        return redirect()->route('transmitter.show')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('receiver.show')->with('success', 'Data berhasil ditambahkan');
     }
+
+    //Menyimpan data Receiver
+    public function store_receiver(Request $request)
+    {
+    
+        // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'cabletype_uprec'=> 'nullable|string',
+            'typecable'=> 'nullable|numeric',
+            'alength_uprec'=> 'nullable|numeric',
+            'blength_uprec'=> 'nullable|numeric',
+            'clength_uprec'=> 'nullable|numeric',
+            'la_uprec'=> 'nullable|numeric',
+            'lb_uprec'=> 'nullable|numeric',
+            'lb_uprec'=> 'nullable|numeric',
+            'lc_uprec'=> 'nullable|numeric',
+            'lbpf_uprec'=> 'nullable|numeric',
+            'lother_uprec'=> 'nullable|numeric',
+            'connect_uprec'=> 'nullable|numeric',
+            'totconnect_uprec'=> 'nullable|numeric',
+            'antenna to lna_uprec'=> 'nullable|numeric',
+            'tranlincoe_uprec'=> 'nullable|numeric',
+            'antemper_uprec'=> 'nullable|numeric',
+            'spactemp_uprec'=> 'nullable|numeric',
+            'tlna_uprec'=> 'nullable|numeric',
+            'lnagain_uprec'=> 'nullable|numeric',
+            'glna_uprec'=> 'nullable|numeric',
+            '2ndstagetemp_uprec'=> 'nullable|numeric',
+            'ts_uprec'=> 'nullable|numeric',
+
+            'cabletype_downrec'=> 'nullable|string',
+            'typecable_downrec'=> 'nullable|numeric',
+            'alength_downrec'=> 'nullable|numeric',
+            'blength_downrec'=> 'nullable|numeric',
+            'clength_downrec'=> 'nullable|numeric',
+            'la_downrec'=> 'nullable|numeric',
+            'lb_downrec'=> 'nullable|numeric',
+            'lc_downrec'=> 'nullable|numeric',
+            'lbpf_downrec'=> 'nullable|numeric',
+            'lother_downrec'=> 'nullable|numeric',
+            'connect_downrec'=> 'nullable|numeric',
+            'totconnect_downrec'=> 'nullable|numeric',
+            'antenna_to_lna_downrec'=> 'nullable|numeric',
+            'tranlincoe_downrec'=> 'nullable|numeric',
+            'antemper_downrec'=> 'nullable|numeric',
+            'spactemp_downrec'=> 'nullable|numeric',
+            'tlna_downrec'=> 'nullable|numeric',
+            'lnagain_downrec'=> 'nullable|numeric',
+            'glna_downrec'=> 'nullable|numeric',
+            'dtype_downrec'=> 'nullable|string',
+            'dloss_length_downrec'=> 'nullable|numeric',
+            'dloss_per_meter_downrec'=> 'nullable|numeric',
+            'dloss_result_downrec'=> 'nullable|numeric',
+            'tcomrcvr_downrec'=> 'nullable|numeric',
+            'ts_downrec'=> 'nullable|numeric',
+
+
+
+            // validasi kolom lainnya sesuai kebutuhan
+        ]);
+
+        // Data::create($request->all());
+        
+        $data = Data::create([
+            'user_id' => $request->user_id,
+            'cabletype_uprec' => $request->input('cabletype_uprec'),
+            'typecable' => $request->input('typecable'),
+            'alength_uprec' => $request->input('alength_uprec'),
+            'blength_uprec' => $request->input('blength_uprec'),
+            'clength_uprec' => $request->input('clength_uprec'),
+            'la_uprec' => $request->input('la_uprec'),
+            'lb_uprec' => $request->input('lb_uprec'),
+            'lc_uprec' => $request->input('lc_uprec'),
+            'lbpf_uprec' => $request->input('lbpf_uprec'),
+            'lother_uprec' => $request->input('lother_uprec'),
+            'connect_uprec' => $request->input('connect_uprec'),
+            'totconnect_uprec' => $request->input('totconnect_uprec'),
+            'antenna to lna_uprec' => $request->input('antenna to lna_uprec'),
+            'tranlincoe_uprec' => $request->input('tranlincoe_uprec'),
+            'antemper_uprec' => $request->input('antemper_uprec'),
+            'spactemp_uprec' => $request->input('spactemp_uprec'),
+            'tlna_uprec' => $request->input('tlna_uprec'),
+            'lnagain_uprec' => $request->input('lnagain_uprec'),
+            'glna_uprec' => $request->input('glna_uprec'),
+            '2ndstagetemp_uprec' => $request->input('2ndstagetemp_uprec'),
+            'ts_uprec' => $request->input('ts_uprec'),
+
+            'cabletype_downrec' => $request->input('cabletype_downrec'),
+            'typecable_downrec' => $request->input('typecable_downrec'),
+            'alength_downrec' => $request->input('alength_downrec'),
+            'blength_downrec' => $request->input('blength_downrec'),
+            'clength_downrec' => $request->input('clength_downrec'),
+            'la_downrec' => $request->input('la_downrec'),
+            'lb_downrec' => $request->input('lb_downrec'),
+            'lc_downrec' => $request->input('lc_downrec'),
+            'lbpf_downrec' => $request->input('lbpf_downrec'),
+            'lother_downrec' => $request->input('lother_downrec'),
+            'connect_downrec' => $request->input('connect_downrec'),
+            'totconnect_downrec' => $request->input('totconnect_downrec'),
+            'antenna_to_lna_downrec' => $request->input('antenna_to_lna_downrec'),
+            'tranlincoe_downrec' => $request->input('tranlincoe_downrec'),
+            'antemper_downrec' => $request->input('antemper_downrec'),
+            'spactemp_downrec' => $request->input('spactemp_downrec'),
+            'tlna_downrec' => $request->input('tlna_downrec'),
+            'lnagain_downrec' => $request->input('lnagain_downrec'),
+            'glna_uprec' => $request->input('glna_uprec'),
+            'dtype_downrec' => $request->input('dtype_downrec'),
+            'dloss_length_downrec' => $request->input('dloss_length_downrec'),
+            'dloss_per_meter_downrec' => $request->input('dloss_per_meter_downrec'),
+            'dloss_result_downrec' => $request->input('dloss_result_downrec'),
+            'tcomrcvr_downrec' => $request->input('tcomrcvr_downrec'),
+            'ts_downrec' => $request->input('ts_downrec'),
+
+
+            // Field lainnya
+        ]);
+
+        return redirect()->route('receiver.show')->with('success', 'Data berhasil ditambahkan');
+    }
+
+     //Menyimpan data Frekuensi
+        public function store_calcazimuth(Request $request)
+    {
+    
+        // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'latitude_up'=> 'nullable|numeric',
+            'innhem_up'=> 'nullable|numeric',
+            'innhem2_up'=> 'nullable|numeric',
+            'longitude_up'=> 'nullable|numeric',
+            'eastofsat_up'=> 'nullable|numeric',
+            'eastofsat2_up'=> 'nullable|numeric',
+            'sat_in_quad_up'=> 'nullable|numeric',
+            'quad_result_up'=> 'nullable|numeric',
+            'quad_angle_range_up'=> 'nullable|numeric',
+            'sat_in_quad_value_up'=> 'nullable|numeric',
+            'quad_result_value_up'=> 'nullable|numeric',
+            'quad_angle_range_value_up'=> 'nullable|numeric',
+            'sat_in_quad_value2_up'=> 'nullable|numeric',
+            'quad_result_value2_up'=> 'nullable|numeric',
+            'quad_angle_range_value2_up'=> 'nullable|numeric',
+            'sat_in_quad_value3_up'=> 'nullable|numeric',
+            'quad_result_value3_up'=> 'nullable|numeric',
+            'quad_angle_range_value3_up'=> 'nullable|numeric',
+            'azimuthcalc_up'=> 'nullable|numeric',
+            'azimuthresult_up'=> 'nullable|numeric',
+
+            'latitude_down'=> 'nullable|numeric',
+            'innhem_down'=> 'nullable|numeric',
+            'innhem2_down'=> 'nullable|numeric',
+            'longitude_down'=> 'nullable|numeric',
+            'eastofsat_down'=> 'nullable|numeric',
+            'eastofsat2_down'=> 'nullable|numeric',
+            'sat_in_quad_down'=> 'nullable|numeric',
+            'quad_result_down'=> 'nullable|numeric',
+            'quad_angle_range_down'=> 'nullable|numeric',
+            'sat_in_quad_value_down'=> 'nullable|numeric',
+            'quad_result_value_down'=> 'nullable|numeric',
+            'quad_angle_range_value_down'=> 'nullable|numeric',
+            'sat_in_quad_value2_down'=> 'nullable|numeric',
+            'quad_result_value2_down'=> 'nullable|numeric',
+            'quad_angle_range_value2_down'=> 'nullable|numeric',
+            'sat_in_quad_value3_down'=> 'nullable|numeric',
+            'quad_result_value3_down'=> 'nullable|numeric',
+            'quad_angle_range_value3_down'=> 'nullable|numeric',
+            'azimuthcalc_down'=> 'nullable|numeric',
+            'azimuthresult_down'=> 'nullable|numeric',
+            // validasi kolom lainnya sesuai kebutuhan
+        ]);
+
+        // Data::create($request->all());
+        
+        $data = Data::create([
+            'user_id' => $request->user_id,
+            'latitude_up' => $request->input('latitude_up'),
+            'innhem_up' => $request->input('innhem_up'),
+            'innhem2_up' => $request->input('innhem2_up'),
+            'longitude_up' => $request->input('longitude_up'),
+            'eastofsat_up' => $request->input('eastofsat_up'),
+            'eastofsat2_up' => $request->input('eastofsat2_up'),
+            'sat_in_quad_up' => $request->input('sat_in_quad_up'),
+            'quad_result_up' => $request->input('quad_result_up'),
+            'quad_angle_range_up' => $request->input('quad_angle_range_up'),
+            'sat_in_quad_value_up' => $request->input('sat_in_quad_value_up'),
+            'quad_result_value_up' => $request->input('quad_result_value_up'),
+            'quad_angle_range_value_up' => $request->input('quad_angle_range_value_up'),
+            'sat_in_quad_value2_up' => $request->input('sat_in_quad_value2_up'),
+            'quad_result_value2_up' => $request->input('quad_result_value2_up'),
+            'quad_angle_range_value2_up' => $request->input('quad_angle_range_value2_up'),
+            'sat_in_quad_value3_up' => $request->input('sat_in_quad_value3_up'),
+            'quad_result_value3_up' => $request->input('quad_result_value3_up'),
+            'quad_angle_range_value3_up' => $request->input('quad_angle_range_value3_up'),
+            'azimuthcalc_up' => $request->input('azimuthcalc_up'),
+            'azimuthresult_up' => $request->input('azimuthresult_up'),
+
+            'latitude_down' => $request->input('latitude_down'),
+            'innhem_down' => $request->input('innhem_down'),
+            'innhem2_down' => $request->input('innhem2_down'),
+            'longitude_down' => $request->input('longitude_down'),
+            'eastofsat_down' => $request->input('eastofsat_down'),
+            'eastofsat2_down' => $request->input('eastofsat2_down'),
+            'sat_in_quad_down' => $request->input('sat_in_quad_down'),
+            'quad_result_down' => $request->input('quad_result_down'),
+            'quad_angle_range_down' => $request->input('quad_angle_range_down'),
+            'sat_in_quad_value_down' => $request->input('sat_in_quad_value_down'),
+            'quad_result_value_down' => $request->input('quad_result_value_down'),
+            'quad_angle_range_value_down' => $request->input('quad_angle_range_value_down'),
+            'sat_in_quad_value2_down' => $request->input('sat_in_quad_value2_down'),
+            'quad_result_value2_down' => $request->input('quad_result_value2_down'),
+            'quad_angle_range_value2_down' => $request->input('quad_angle_range_value2_down'),
+            'sat_in_quad_value3_down' => $request->input('sat_in_quad_value3_down'),
+            'quad_result_value3_down' => $request->input('quad_result_value3_down'),
+            'quad_angle_range_value3_down' => $request->input('quad_angle_range_value3_down'),
+            'azimuthcalc_down' => $request->input('azimuthcalc_down'),
+            'azimuthresult_down' => $request->input('azimuthresult_down'),
+            // Field lainnya
+        ]);
+
+        return redirect()->route('calcazimuth.show')->with('success', 'Data berhasil ditambahkan');
+    }
+
     // Menampilkan form untuk mengedit data
     public function edit($id)
     {

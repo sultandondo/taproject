@@ -5,14 +5,17 @@
         <!-- Uplink Section -->
         <h2 class="text-2xl font-bold mb-6 text-center">Uplink</h2>
         <div class="bg-white shadow-lg rounded-lg p-6">
-            <form method="GET" action="">
+            <form method="POST" action="{{ route('receiver.store') }}">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
                 <!-- Cable Losses -->
                 <div class="mb-4">
                     <label class="block font-medium mb-1 text-gray-700">Cable or Waveguide ("Line") Losses:</label>
                 </div>
                 <div class="mb-4">
                     <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide Type:</label>
-                    <input type="text" name="cabletype_up" id="cabletype_up" class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                    <input type="text" name="cabletype_uprec" id="cabletype_uprec" class="border border-gray-300 p-3 w-full rounded bg-gray-50">
                 </div>
                 <div class="mb-4">
                     <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss per meter (dB):</label>
@@ -76,8 +79,8 @@
                 </div>
 
                 <div class="w-1/3 mb-4">
-                    <label for="totconnect_up" class="block font-medium text-green-700 mb-1">Total Penurunan Daya (Connector):</label>
-                    <input type="text" id="totconnect_up" name="totconnect_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"  placeholder="Hasil Total Connector" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
+                    <label for="totconnect_uprec" class="block font-medium text-green-700 mb-1">Total Penurunan Daya (Connector):</label>
+                    <input type="text" id="totconnect_uprec" name="totconnect_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"  placeholder="Hasil Total Connector" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="totconnect_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
 
@@ -555,7 +558,7 @@ function calculateTotalLossComponent() {
 function calculateTotalConnector() {
     const connectorValue = parseFloat(document.getElementById('connect_uprec').value) || 0;
     const totalLoss = connectorValue * 0.05; // Loss per konektor = 0.05 dB
-    document.getElementById('totconnect_up').value = totalLoss.toFixed(2);
+    document.getElementById('totconnect_uprec').value = totalLoss.toFixed(2);
     calculateTotalLossFinal();
 }
 
@@ -567,7 +570,7 @@ function calculateTotalLossFinal() {
     const lc = parseFloat(document.getElementById('lc_uprec').value) || 0;
     const lbpf = parseFloat(document.getElementById('lbpf_uprec').value) || 0;
     const lother = parseFloat(document.getElementById('lother_uprec').value) || 0;
-    const totconnect = parseFloat(document.getElementById('totconnect_up').value) || 0;
+    const totconnect = parseFloat(document.getElementById('totconnect_uprec').value) || 0;
 
     // Menghitung total loss
     const total = la + lb + lc + lbpf + lother + totconnect;
@@ -1008,7 +1011,7 @@ document.addEventListener("DOMContentLoaded", function() {
             return `<p>Panjang Kabel C = ${length} meter</p><p>Loss per meter = ${loss} dB/meter</p><p>LC = ${length} × ${loss} = ${val} dB</p>`;
           }
         },
-        { buttonId: 'totconnect_popup_btn', popupId: 'totconnect_popup', inputId: 'totconnect_up', formulaId: 'totconnect_formula', 
+        { buttonId: 'totconnect_popup_btn', popupId: 'totconnect_popup', inputId: 'totconnect_uprec', formulaId: 'totconnect_formula', 
           formula: "L<sub>connector</sub> = Jumlah Konektor × 0,05 dB", 
           detailFunc: (val) => {
             const connectors = parseFloat(document.getElementById("connect_uprec").value) || 0;
@@ -1023,7 +1026,7 @@ document.addEventListener("DOMContentLoaded", function() {
             const lc = parseFloat(document.getElementById("lc_uprec").value) || 0;
             const lbpf = parseFloat(document.getElementById("lbpf_uprec").value) || 0;
             const lother = parseFloat(document.getElementById("lother_uprec").value) || 0;
-            const connector = parseFloat(document.getElementById("totconnect_up").value) || 0;
+            const connector = parseFloat(document.getElementById("totconnect_uprec").value) || 0;
             return `<p>LA = ${la} dB</p><p>LB = ${lb} dB</p><p>LC = ${lc} dB</p><p>L<sub>BPF</sub> = ${lbpf} dB</p><p>L<sub>other</sub> = ${lother} dB</p><p>L<sub>connector</sub> = ${connector} dB</p><p>L<sub>total</sub> = ${la} + ${lb} + ${lc} + ${lbpf} + ${lother} + ${connector} = ${val} dB</p>`;
           }
         },

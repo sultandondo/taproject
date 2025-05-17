@@ -3,6 +3,11 @@
 
     <div class="container mx-auto px-4 py-8">
     <h2 class="text-2xl font-bold mb-6 text-center">Uplink</h2>
+
+    <form method="POST" action="{{ route('transmitter.store') }}">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+
     <div class="bg-white shadow-lg rounded-lg p-6">
         <div class="flex justify-between space-x-4 items-start mb-4">
             <!-- Input Watt -->

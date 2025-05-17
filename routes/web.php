@@ -43,11 +43,18 @@ Route::middleware('auth')->group(function () {
     Route::get('/transmitter', function () {
         return view('transmitter', ['title'=> 'Lets Calculate Transmiter']);
     })->name('transmitter.show');
+    
     Route::post('/transmitter', [DataController::class, 'store_transmitter'])->name('transmitter.store'); // Menangani form dengan POST
 
     Route::get('/receiver', function () {
         return view('receiver', ['title' => 'Lets Calculate Receiver']);
-    })->name('receiver.form');
+    })->name('receiver.show');
+    Route::post('/receiver', [DataController::class, 'store_receiver'])->name('receiver.store'); // Menangani form dengan POST
+
+    Route::get('/calcazimuth', function () {
+        return view('calcazimuth', ['title' => 'Lets Calculate Receiver']);
+    })->name('calcazimuth.show');
+    Route::post('/calcazimuth', [DataController::class, 'store_calcazimuth'])->name('calcazimuth.store'); // Menangani form dengan POST
 
     Route::get('/antena', function () {
         return view('antena', ['title'=> 'Lets Antena!']);
