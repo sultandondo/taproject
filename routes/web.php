@@ -59,4 +59,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/antena', function () {
         return view('antena', ['title'=> 'Lets Antena!']);
     });
+
+    Route::get('/annpolaloss', function () {
+        return view('annpolaloss', ['title'=> 'Lets Antenna Polarization Loss!']);
+    });
 });

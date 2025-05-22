@@ -43,7 +43,7 @@
                 <!-- Loss Calculations -->
                 <div class="flex justify-start space-x-6 items-center mb-4">
                     <div class="w-1/3">
-                        <label for="la_uprec" class="block font-medium text-green-700 mb-1">LA (dB):</label>
+                        <label for="la_uprec" class="block font-medium text-gray-700 mb-1">LA (dB):</label>
                         <input type="text" id="la_uprec" name="la_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LA" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                         <button type="button" id="la_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                     </div>
@@ -79,19 +79,19 @@
                 </div>
 
                 <div class="w-1/3 mb-4">
-                    <label for="totconnect_uprec" class="block font-medium text-green-700 mb-1">Total Penurunan Daya (Connector):</label>
+                    <label for="totconnect_uprec" class="block font-medium text-grey-700 mb-1">Total Penurunan Daya (Connector):</label>
                     <input type="text" id="totconnect_uprec" name="totconnect_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"  placeholder="Hasil Total Connector" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="totconnect_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
 
                 <div class="mb-4">
-                    <label class="block font-medium text-green-700 mb-1">Total In-Line Losses from Antenna to LNA (dB):</label>
+                    <label class="block font-medium text-grey-700 mb-1">Total In-Line Losses from Antenna to LNA (dB):</label>
                     <input type="number" step="any" name="antenna to lna_uprec" id="antenna to lna_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="antenna_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
 
                 <div class="mb-4">
-                    <label class="block font-medium text-green-700 mb-1">Transmission Line Coefficient (α):</label>
+                    <label class="block font-medium text-grey-700 mb-1">Transmission Line Coefficient (α):</label>
                     <input type="number" step="any" name="tranlincoe_uprec" id="tranlincoe_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                    <button type="button" id="tranlincoe_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
@@ -119,7 +119,7 @@
 
                 <!-- GLNA Output (Readonly) -->
                 <div class="w-1/3 mb-4">
-                    <label for="glna_uprec" class="block font-medium text-green-700 mb-1">GLNA:</label>
+                    <label for="glna_uprec" class="block font-medium text-grey-700 mb-1">GLNA:</label>
                     <input type="text" id="glna_uprec" name="glna_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil Total Connector" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="glna_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
@@ -130,7 +130,7 @@
                 </div>
 
                 <div class="w-1/3 mb-4">
-                    <label for="ts_uprec" class="block font-medium text-green-700 mb-1">System Noise Temperature (Ts):</label>
+                    <label for="ts_uprec" class="block font-medium text-grey-700 mb-1">System Noise Temperature (Ts):</label>
                     <input type="text" id="ts_uprec" name="ts_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil Total Connector" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="ts_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>

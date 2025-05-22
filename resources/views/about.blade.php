@@ -3,7 +3,7 @@
 
     <!-- Hero Section dengan Gradient Vibrant -->
     <div class="bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600 py-16 px-4 text-center">
-        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4 drop-shadow-md">About Us</h1>
+        <h1 class="text-4xl sm:text-5xl font-bold text-white mb-4 drop-shadow-md">SkyLinkCalc</h1>
         <div class="w-24 h-1 bg-yellow-400 mx-auto mb-8"></div>
         
         <h2 class="text-2xl sm:text-3xl font-bold text-white mb-3 drop-shadow-md">Kami adalah Tim yang Luar Biasa!</h2>

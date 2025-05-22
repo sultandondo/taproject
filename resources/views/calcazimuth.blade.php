@@ -20,7 +20,7 @@
                     <input type="number" id="latitude_up" name="latitude_up" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Masukkan Latitude" step="any">
                 </div>
                 <div class="w-1/3 mb-4">
-                    <label for="innhem_up" class="block font-medium text-green-700 mb-1">In N. Hem?:</label>
+                    <label for="innhem_up" class="block font-medium text-grey-700 mb-1">In N. Hem?:</label>
                     <input type="text" id="innhem_up" name="innhem_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="innhem_up_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
           
@@ -34,7 +34,7 @@
                 </div>
 
                  <div class="w-1/3 mb-4">
-                    <label for="eastofsat_up" class="block font-medium text-green-700 mb-1">East of Sat:</label>
+                    <label for="eastofsat_up" class="block font-medium text-grey-700 mb-1">East of Sat:</label>
                     <input type="text" id="eastofsat_up" name="eastofsat_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="eastofsat_up_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
           
@@ -48,15 +48,15 @@
                         <table class="w-full">
                             <thead>
                                 <tr>
-                                    <th class="p-3 text-left text-green-700 font-medium"></th>
-                                    <th class="p-3 text-center text-green-700 font-medium underline">Sat. in Quad?</th>
-                                    <th class="p-3 text-center text-green-700 font-medium underline">Quad. Result:</th>
-                                    <th class="p-3 text-center text-green-700 font-medium underline">Quad. Angle Range:</th>
+                                    <th class="p-3 text-left text-grey-700 font-medium"></th>
+                                    <th class="p-3 text-center text-grey-700 font-medium underline">Sat. in Quad?</th>
+                                    <th class="p-3 text-center text-grey-700 font-medium underline">Quad. Result:</th>
+                                    <th class="p-3 text-center text-grey-700 font-medium underline">Quad. Angle Range:</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad NE</td>
+                                    <td class="p-3 font-medium text-grey-700">Quad NE</td>
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_up" name="sat_in_quad_up" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -77,7 +77,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad SE</td>
+                                    <td class="p-3 font-medium text-grey-700">Quad SE</td>
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_value_up" name="sat_in_quad_value_up" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -98,7 +98,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad SW</td>
+                                    <td class="p-3 font-medium text-grey-700">Quad SW</td>
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_value2_up" name="sat_in_quad_value2_up" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -119,7 +119,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad NW</td>
+                                    <td class="p-3 font-medium text-grey-700">Quad NW</td>
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_value3_up" name="sat_in_quad_value3_up" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -145,13 +145,13 @@
                 </div>
 
                 <div class="w-1/3 mb-4">
-                    <label for="azimuthcalc_up" class="block font-medium text-green-700 mb-1">AzimuthCalc:</label>
+                    <label for="azimuthcalc_up" class="block font-medium text-grey-700 mb-1">AzimuthCalc:</label>
                     <input type="text" id="azimuthcalc_up" name="azimuthcalc_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="azimuthcalc_up_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
                
                 <div class="w-1/3 mb-4">
-                    <label for="azimuthresult_up" class="block font-medium text-green-700 mb-1">Azimuth Result:</label>
+                    <label for="azimuthresult_up" class="block font-medium text-grey-700 mb-1">Azimuth Result:</label>
                     <input type="text" id="azimuthresult_up" name="azimuthresult_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="azimuthresult_up_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
@@ -173,7 +173,7 @@
                 </div>
 
                 <div class="w-1/3 mb-4">
-                    <label for="innhem_down" class="block font-medium text-green-700 mb-1">In N. Hem?:</label>
+                    <label for="innhem_down" class="block font-medium text-grey-700 mb-1">In N. Hem?:</label>
                     <input type="text" id="innhem_down" name="innhem_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="innhem_down_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
           
@@ -182,12 +182,12 @@
                 </div>
 
                 <div class="mb-4">
-                    <label for="longitude_down" class="block font-medium text-gray-700">Δ Longitude:</label>
+                    <label for="longitude_down" class="block font-medium text-grey-700">Δ Longitude:</label>
                     <input type="number" id="longitude_down" name="longitude_down" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Masukkan Longitude" step="any">
                 </div>
 
                  <div class="w-1/3 mb-4">
-                    <label for="eastofsat_down" class="block font-medium text-green-700 mb-1">East of Sat:</label>
+                    <label for="eastofsat_down" class="block font-medium text-grey-700 mb-1">East of Sat:</label>
                     <input type="text" id="eastofsat_down" name="eastofsat_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="eastofsat_down_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
           
@@ -201,15 +201,15 @@
                         <table class="w-full">
                             <thead>
                                 <tr>
-                                    <th class="p-3 text-left text-green-700 font-medium"></th>
-                                    <th class="p-3 text-center text-green-700 font-medium underline">Sat. in Quad?</th>
-                                    <th class="p-3 text-center text-green-700 font-medium underline">Quad. Result:</th>
-                                    <th class="p-3 text-center text-green-700 font-medium underline">Quad. Angle Range:</th>
+                                    <th class="p-3 text-left text-grey-700 font-medium"></th>
+                                    <th class="p-3 text-center text-grey-700 font-medium underline">Sat. in Quad?</th>
+                                    <th class="p-3 text-center text-grey-700 font-medium underline">Quad. Result:</th>
+                                    <th class="p-3 text-center text-grey-700 font-medium underline">Quad. Angle Range:</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad NE</td> 
+                                    <td class="p-3 font-medium text-grey-700">Quad NE</td> 
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_down" name="sat_in_quad_down" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -230,7 +230,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad SE</td>
+                                    <td class="p-3 font-medium text-grey-700">Quad SE</td>
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_value_down" name="sat_in_quad_value_down" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -251,7 +251,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad SW</td>
+                                    <td class="p-3 font-medium text-grey-700">Quad SW</td>
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_value2_down" name="sat_in_quad_value2_down" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -272,7 +272,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td class="p-3 font-medium text-green-700">Quad NW</td>
+                                    <td class="p-3 font-medium text-grey-700">Quad NW</td>
                                     <td class="p-3">
                                         <input type="text" id="sat_in_quad_value3_down" name="sat_in_quad_value3_down" 
                                             class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" 
@@ -298,13 +298,13 @@
                 </div>
 
                 <div class="w-1/3 mb-4">
-                    <label for="azimuthcalc_down" class="block font-medium text-green-700 mb-1">AzimuthCalc:</label>
+                    <label for="azimuthcalc_down" class="block font-medium text-grey-700 mb-1">AzimuthCalc:</label>
                     <input type="text" id="azimuthcalc_down" name="azimuthcalc_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="azimuthcalc_down_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
                
                 <div class="w-1/3 mb-4">
-                    <label for="azimuthresult_down" class="block font-medium text-green-700 mb-1">Azimuth Result:</label>
+                    <label for="azimuthresult_down" class="block font-medium text-grey-700 mb-1">Azimuth Result:</label>
                     <input type="text" id="azimuthresult_down" name="azimuthresult_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                     <button type="button" id="azimuthresult_down_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                 </div>
