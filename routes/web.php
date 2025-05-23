@@ -60,6 +60,10 @@ Route::middleware('auth')->group(function () {
         return view('antena', ['title'=> 'Lets Antena!']);
     });
 
+    Route::get('/antennagain', function () {
+        return view('antennagain', ['title'=> 'Lets Antenna Gain!']);
+    });
+
     Route::get('/annpolaloss', function () {
         return view('annpolaloss', ['title'=> 'Lets Antenna Polarization Loss!']);
     });

@@ -1,3 +1,4 @@
+menu login
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,11 +11,13 @@
 </head>
 
 <body class="bg-gray-100">
-    <!-- Navbar -->
-    
     <!-- Main Content -->
-    <div class="flex items-center justify-center min-h-screen bg-gray-200">
-        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <div class="flex items-center justify-end min-h-screen bg-gray-200">
+        <!-- Background Image -->
+        <img src="{{ asset('img/asw.jpg') }}" alt="Background Image" class="absolute inset-0 w-full h-full object-cover z-0">
+
+        <!-- Form Login -->
+        <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md mr-9 z-10">
             <h2 class="text-2xl font-bold text-center mb-6">Login</h2>
 
             @if ($errors->any())

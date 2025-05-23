@@ -454,6 +454,75 @@ class DataController extends Controller
         return redirect()->route('calcazimuth.show')->with('success', 'Data berhasil ditambahkan');
     }
 
+    //Menyimpan data Antenna Polarization Loss
+        public function store_annpolaloss(Request $request)
+    {
+    
+        // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'axtxantenna_up'=> 'nullable|numeric',
+            'axialratio1_up'=> 'nullable|numeric',
+            'axrxantenna_up'=> 'nullable|numeric',
+            'axialratio2_up'=> 'nullable|numeric',
+            'degrees_up'=> 'nullable|numeric',
+            'radians_up'=> 'nullable|numeric',
+            'polarizationloss_up'=> 'nullable|numeric',
+            'hasilpolarizationloss_up'=> 'nullable|numeric',
+            'crosspolpowerfraction_up'=> 'nullable|numeric',
+            'dbcrosspolpowerfraction_up'=> 'nullable|numeric',
+            'crosspolarizationisolation_up'=> 'nullable|numeric',
+
+            'axtxantenna_down'=> 'nullable|numeric',
+            'axialratio1_down'=> 'nullable|numeric',
+            'axrxantenna_down'=> 'nullable|numeric',
+            'axialratio2_down'=> 'nullable|numeric',
+            'degrees_down'=> 'nullable|numeric',
+            'radians_down'=> 'nullable|numeric',
+            'polarizationloss_down'=> 'nullable|numeric',
+            'hasilpolarizationloss_down'=> 'nullable|numeric',
+            'crosspolpowerfraction_down'=> 'nullable|numeric',
+            'dbcrosspolpowerfraction_down'=> 'nullable|numeric',
+            'crosspolarizationisolation_down'=> 'nullable|numeric',
+
+            // validasi kolom lainnya sesuai kebutuhan
+        ]);
+
+        // Data::create($request->all());
+        
+        $data = Data::create([
+            'user_id' => $request->user_id,
+            'axtxantenna_up' => $request->input('axtxantenna_up'),
+            'axialratio1_up' => $request->input('axialratio1_up'),
+            'axrxantenna_up' => $request->input('axrxantenna_up'),
+            'axialratio2_up' => $request->input('axialratio2_up'),
+            'degrees_up' => $request->input('degrees_up'),
+            'radians_up' => $request->input('radians_up'),
+            'polarizationloss_up' => $request->input('polarizationloss_up'),
+            'hasilpolarizationloss_up' => $request->input('hasilpolarizationloss_up'),
+            'crosspolpowerfraction_up' => $request->input('crosspolpowerfraction_up'),
+            'dbcrosspolpowerfraction_up' => $request->input('dbcrosspolpowerfraction_up'),
+            'crosspolarizationisolation_up' => $request->input('crosspolarizationisolation_up'),
+
+            'axtxantenna_down' => $request->input('axtxantenna_down'),
+            'axialratio1_down' => $request->input('axialratio1_down'),
+            'axrxantenna_down' => $request->input('axrxantenna_down'),
+            'axialratio2_down' => $request->input('axialratio2_down'),
+            'degrees_down' => $request->input('degrees_down'),
+            'radians_down' => $request->input('radians_down'),
+            'polarizationloss_down' => $request->input('polarizationloss_down'),
+            'hasilpolarizationloss_down' => $request->input('hasilpolarizationloss_down'),
+            'crosspolpowerfraction_down' => $request->input('crosspolpowerfraction_down'),
+            'dbcrosspolpowerfraction_down' => $request->input('dbcrosspolpowerfraction_down'),
+            'crosspolarizationisolation_down' => $request->input('crosspolarizationisolation_down'),
+
+
+            // Field lainnya
+        ]);
+
+        return redirect()->route('annpolaloss.show')->with('success', 'Data berhasil ditambahkan');
+    }
+
     // Menampilkan form untuk mengedit data
     public function edit($id)
     {

@@ -189,6 +189,32 @@ return new class extends Migration
             $table->double('azimuthcalc_down')->nullable();
             $table->double('azimuthresult_down')->nullable();
 
+            //Database Antenna Polarization Loss Uplink
+            $table->double('axtxantenna_up')->nullable();
+            $table->double('axialratio1_up')->nullable();
+            $table->double('axrxantenna_up')->nullable();
+            $table->double('axialratio2_up')->nullable();
+            $table->double('degrees_up')->nullable();
+            $table->double('radians_up')->nullable();
+            $table->double('polarizationloss_up')->nullable();
+            $table->double('hasilpolarizationloss_up')->nullable();
+            $table->double('crosspolpowerfraction_up')->nullable();
+            $table->double('dbcrosspolpowerfraction_up')->nullable();
+            $table->double('crosspolarizationisolation_up')->nullable();
+            
+            //Database Antenna Polarization Loss Downlink
+            $table->double('axtxantenna_down')->nullable();
+            $table->double('axialratio1_down')->nullable();
+            $table->double('axrxantenna_down')->nullable();
+            $table->double('axialratio2_down')->nullable();
+            $table->double('degrees_down')->nullable();
+            $table->double('radians_down')->nullable();
+            $table->double('polarizationloss_down')->nullable();
+            $table->double('hasilpolarizationloss_down')->nullable();
+            $table->double('crosspolpowerfraction_down')->nullable();
+            $table->double('dbcrosspolpowerfraction_down')->nullable();
+            $table->double('crosspolarizationisolation_down')->nullable();
+
             $table->timestamps();
         });
     }

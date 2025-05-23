@@ -184,6 +184,31 @@ class Data extends Model
         'azimuthcalc_down',
         'azimuthresult_down',
 
+    //Untuk Antenna Polarization Loss
+        'axtxantenna_up',
+        'axialratio1_up',
+        'axrxantenna_up',
+        'axialratio2_up',
+        'degrees_up',
+        'radians_up',
+        'polarizationloss_up',
+        'hasilpolarizationloss_up',
+        'crosspolpowerfraction_up',
+        'dbcrosspolpowerfraction_up',
+        'crosspolarizationisolation_up',
+
+        'axtxantenna_down',
+        'axialratio1_down',
+        'axrxantenna_down',
+        'axialratio2_down',
+        'degrees_down',
+        'radians_down',
+        'polarizationloss_down',
+        'hasilpolarizationloss_down',
+        'crosspolpowerfraction_down',
+        'dbcrosspolpowerfraction_down',
+        'crosspolarizationisolation_down',
+
     ];
 
     // Relasi ke tabel User
