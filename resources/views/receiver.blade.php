@@ -5,7 +5,7 @@
         <!-- Uplink Section -->
         <h2 class="text-2xl font-bold mb-6 text-center">Uplink</h2>
         <div class="bg-white shadow-lg rounded-lg p-6">
-            <form method="POST" action="{{ route('receiver.store') }}">
+            <form method="POST" action="{{ route('receiver.store', $dataId)}}">
                 @csrf
                 <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 

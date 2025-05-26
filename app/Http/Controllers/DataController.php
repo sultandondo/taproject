@@ -8,12 +8,59 @@ use Illuminate\Http\Request;
 class DataController extends Controller
 {
     // Menampilkan daftar data
-    public function index()
-    {
-        $data = Data::with('user')->get();
-        return view('data.index', compact('data'));
-    }
+    public function show()
+{
+    $data = Data::with('user')->get();
+    //$title = 'History Page'; // Set the title or dynamic value here
+    return view('history', compact('data'));
+}
 
+    public function showFrekuensiForm($id)
+{
+    $data = Data::findOrFail($id);
+    
+    return view('frek', [
+        'title'=> 'Lets Calculate Frekuensi!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
+// Method untuk menampilkan form transmitter dengan data yang sudah ada
+public function showTransmitterForm($id)
+{
+    $data = Data::findOrFail($id);
+    return view('transmitter', [
+        'title'=> 'Lets Calculate Frekuensi!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
+// Method untuk menampilkan form receiver dengan data yang sudah ada
+public function showReceiverForm($id)
+{
+    $data = Data::findOrFail($id);
+    return view('receiver', [
+        'title'=> 'Lets Calculate Frekuensi!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
+public function showAzimuthForm($id)
+{
+    $data = Data::findOrFail($id);
+    return view('calcazimuth', [
+        'title'=> 'Lets Calculate Frekuensi!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
     // Menampilkan form untuk membuat data baru
     public function create()
     {
@@ -97,11 +144,11 @@ class DataController extends Controller
             // Field lainnya
         ]);
 
-        return redirect()->route('frek.show')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     //Menyimpan data Frekuensi
-        public function store_frek(Request $request)
+        public function store_frek(Request $request, $id)
     {
     
         // dd($request->all());
@@ -118,8 +165,8 @@ class DataController extends Controller
         ]);
 
         // Data::create($request->all());
-        
-        $data = Data::create([
+        $data = Data::findOrFail($id);
+        $data->update([
             'user_id' => $request->user_id,
             'frekuensi_satuan' => $request->input('frekuensi_satuan'),
             'frekuensi' => $request->input('frekuensi'),
@@ -132,12 +179,12 @@ class DataController extends Controller
             // Field lainnya
         ]);
 
-        return redirect()->route('transmitter.show')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('transmitter.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     
     // Menyimpan data Transmitter
-    public function store_transmitter(Request $request)
+    public function store_transmitter(Request $request, $id)
     {
         // dd($request->all());
         $request->validate([
@@ -185,8 +232,8 @@ class DataController extends Controller
         ]);
 
         // Data::create($request->all());
-        
-        $data = Data::create([
+        $data = Data::findOrFail($id);
+        $data->update([
             'user_id' => $request->user_id,
             'watt_up' => $request->input('watt_up'),
             'dbw_up' => $request->input('dbw_up'),
@@ -229,11 +276,11 @@ class DataController extends Controller
             // Field lainnya
         ]);
 
-        return redirect()->route('receiver.show')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('receiver.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     //Menyimpan data Receiver
-    public function store_receiver(Request $request)
+    public function store_receiver(Request $request, $id)
     {
     
         // dd($request->all());
@@ -295,7 +342,8 @@ class DataController extends Controller
 
         // Data::create($request->all());
         
-        $data = Data::create([
+        $data = Data::findOrFail($id);
+        $data->update([
             'user_id' => $request->user_id,
             'cabletype_uprec' => $request->input('cabletype_uprec'),
             'typecable' => $request->input('typecable'),
@@ -349,7 +397,7 @@ class DataController extends Controller
             // Field lainnya
         ]);
 
-        return redirect()->route('receiver.show')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('receiver.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
      //Menyimpan data Frekuensi
@@ -522,6 +570,7 @@ class DataController extends Controller
 
         return redirect()->route('annpolaloss.show')->with('success', 'Data berhasil ditambahkan');
     }
+
 
     // Menampilkan form untuk mengedit data
     public function edit($id)

@@ -1,9 +1,10 @@
 <x-layout>
     <x-slot:title>{{ $title }}</x-slot>
+    
     <div class="bg-white p-8 rounded-lg shadow-md w-full max-w-2xl mx-auto">
         <h1 class="text-2xl font-bold mb-6 text-center">Form Frekuensi</h1>
 
-        <form method="POST" action="{{ route('frek.store') }}">
+        <form method="POST" action="{{ route('frek.store', $dataId )}}">
         @csrf
         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 

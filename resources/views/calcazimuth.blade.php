@@ -17,7 +17,7 @@
                 <!-- Input Latitude dan Longitude -->
                 <div class="mb-4">
                     <label for="latitude_up" class="block font-medium text-gray-700">Latitude:</label>
-                    <input type="number" id="latitude_up" name="latitude_up" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Masukkan Latitude" step="any">
+                    <input type="number" id="latitude_up" name="latitude_up" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Masukkan Latitude" step="any" value="{{ $data->userlat_up }}">
                 </div>
                 <div class="w-1/3 mb-4">
                     <label for="innhem_up" class="block font-medium text-grey-700 mb-1">In N. Hem?:</label>
@@ -30,7 +30,7 @@
 
                 <div class="mb-4">
                     <label for="longitude_up" class="block font-medium text-gray-700">Δ Longitude:</label>
-                    <input type="number" id="longitude_up" name="longitude_up" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Masukkan Longitude" step="any">
+                    <input type="number" id="longitude_up" name="longitude_up" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Masukkan Longitude" step="any"  value="{{ $data->userlong_up - $data->spaceslot_up }}">
                 </div>
 
                  <div class="w-1/3 mb-4">
