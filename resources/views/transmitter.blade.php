@@ -317,6 +317,19 @@
                     <button type="button" id="totrfpowerdeliv_down_popup_btn" class="text-blue-500 mt-2">Lihat Detail</button>
                  </div>
                  <button type="submit" class="bg-blue-500 text-black px-4 py-2 rounded hover:bg-blue-600 w-full"onclick="window.location.href='{{ url('/receiver') }}'">Simpan</button>
+                 
+                 <div class="flex justify-center mt-4">
+
+                    <!-- Tombol Next di kiri -->
+                    <a href="/frek/{{$dataId}}" class="text-center bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600">
+                        Halaman Sebelum
+                    </a>
+
+                    <!-- Tombol Previous di kanan -->
+                    <!-- <a href="/halaman-sebelumnya" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                        Next
+                    </a> -->
+                </div>
         </div>
     </div>
 

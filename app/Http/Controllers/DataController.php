@@ -15,6 +15,22 @@ class DataController extends Controller
     return view('history', compact('data'));
 }
 
+    public function showCalcForm($id)
+{
+    // dd($id);
+    if ($id == 0) {
+        return view('calc', ['title'=> 'Lets Calculate Orbit!', 'dataId' => $id,]);
+    } else {
+        $data = Data::findOrFail($id);
+        
+        return view('calc', [
+            'title'=> 'Lets Calculate Frekuensi!',
+            'data' => $data,
+            'dataId' => $id,
+            'userId' => $data->user_id
+        ]);
+    }
+}
     public function showFrekuensiForm($id)
 {
     $data = Data::findOrFail($id);
@@ -68,10 +84,11 @@ public function showAzimuthForm($id)
     }
 
     // Menyimpan data Orbit
-    public function store(Request $request)
+    public function store(Request $request, $id)
     {
-        //dd($request->all());
-        $request->validate([
+        
+        // dd($request->all());
+        $validated = $request->validate([
             'user_id' => 'required|exists:users,id',
             'jenis_orbit' => 'nullable|string',
             'inklinasi' => 'nullable|numeric',
@@ -109,42 +126,47 @@ public function showAzimuthForm($id)
         ]);
 
         // Data::create($request->all());
-        
-        $data = Data::create([
-            'user_id' => $request->user_id,
-            'jenis_orbit' => $request->input('jenis_orbit'),
-            'inklinasi' => $request->input('inklinasi'),
-            'userlat_up' => $request->input('userlat_up'),
-            'userlong_up' => $request->input('userlong_up'),
-            'spaceslot_up' => $request->input('spaceslot_up'),
-            'slantrangetouser_up_input' => $request->input('slantrangetouser_up_input'),
-            'userelevationangel_up_input' => $request->input('userelevationangel_up_input'),
-            'userazimuthangle_up_input' => $request->input('userazimuthangle_up_input'),
-            'earthcentralangle_up_input' => $request->input('earthcentralangle_up_input'),
+        if ($id == 0) {
+            $data = Data::create([
+                'user_id' => $request->user_id,
+                'jenis_orbit' => $request->input('jenis_orbit'),
+                'inklinasi' => $request->input('inklinasi'),
+                'userlat_up' => $request->input('userlat_up'),
+                'userlong_up' => $request->input('userlong_up'),
+                'spaceslot_up' => $request->input('spaceslot_up'),
+                'slantrangetouser_up_input' => $request->input('slantrangetouser_up_input'),
+                'userelevationangel_up_input' => $request->input('userelevationangel_up_input'),
+                'userazimuthangle_up_input' => $request->input('userazimuthangle_up_input'),
+                'earthcentralangle_up_input' => $request->input('earthcentralangle_up_input'),
 
-            'userlat_down' => $request->input('userlat_down'),
-            'userlong_down' => $request->input('userlong_down'),
-            'spaceslot_down' => $request->input('spaceslot_down'),
-            'slantrangetouser_down_input' => $request->input('slantrangetouser_down_input'),
-            'userelevationangel_down_input' => $request->input('userelevationangel_down_input'),
-            'userazimuthangle_down_input' => $request->input('userazimuthangle_down_input'),
-            'earthcentralangle_down_input' => $request->input('earthcentralangle_down_input'),
-            
-            'ketinggian' => $request->input('ketinggian'),
-            'apogee' => $request->input('apogee'),
-            'perigee' => $request->input('perigee'),
-            'eccentricity' => $request->input('eccentricity'),
-            'argumenop' => $request->input('argumenop'),
-            'raan' => $request->input('raan'),
-            'elevasi' => $request->input('elevasi'),
-            'altitude' => $request->input('altitude'),
-            'radius' => $request->input('radius'),
-            'slant_range' => $request->input('slant_range'),
-            
-            // Field lainnya
-        ]);
+                'userlat_down' => $request->input('userlat_down'),
+                'userlong_down' => $request->input('userlong_down'),
+                'spaceslot_down' => $request->input('spaceslot_down'),
+                'slantrangetouser_down_input' => $request->input('slantrangetouser_down_input'),
+                'userelevationangel_down_input' => $request->input('userelevationangel_down_input'),
+                'userazimuthangle_down_input' => $request->input('userazimuthangle_down_input'),
+                'earthcentralangle_down_input' => $request->input('earthcentralangle_down_input'),
+                
+                'ketinggian' => $request->input('ketinggian'),
+                'apogee' => $request->input('apogee'),
+                'perigee' => $request->input('perigee'),
+                'eccentricity' => $request->input('eccentricity'),
+                'argumenop' => $request->input('argumenop'),
+                'raan' => $request->input('raan'),
+                'elevasi' => $request->input('elevasi'),
+                'altitude' => $request->input('altitude'),
+                'radius' => $request->input('radius'),
+                'slant_range' => $request->input('slant_range'),
+                
+                // Field lainnya
+            ]);
 
-        return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+            return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+        } else {
+            $data = Data::findOrFail($id);
+            $data->update(array_merge($data->toArray(), $validated));
+            return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+        }
     }
 
     //Menyimpan data Frekuensi

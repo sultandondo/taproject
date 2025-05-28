@@ -26,12 +26,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/history', [DataController::class, 'show'])->name('history');
 
-    Route::get('/calc', function () {
-        return view('calc', ['title'=> 'Lets Calculate Orbit!']);
-    })->name('calc.show');
+    // Route::get('/calc', function () {
+    //     return view('calc', ['title'=> 'Lets Calculate Orbit!']);
+    // })->name('calc.show');
 
-
-    Route::post('/calc', [DataController::class, 'store'])->name('data.store'); // Menangani form dengan POST
+    Route::get('/calc/{id}', [DataController::class, 'showCalcForm'])->name('calc.show');
+    Route::post('/calc/{id}', [DataController::class, 'store'])->name('data.store'); // Menangani form dengan POST
 
     // Route::get('/frek', function () {
     //     return view('frek', ['title'=> 'Lets Calculate Frekuensi!']);
@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
         return view('annpolaloss', ['title'=> 'Lets Antenna Polarization Loss!']);
     });
 
-    Route::get('/uplinkbudgetatn', function () {
-        return view('uplinkbudgetatn', ['title'=> 'Lets Antenna Polarization Loss!']);
+    Route::get('/updownlinkbudgetatn', function () {
+        return view('updownlinkbudgetatn', ['title'=> 'Lets Calculation Uplink & Downlink Budget Antenna!']);
     });
 });

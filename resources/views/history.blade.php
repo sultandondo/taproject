@@ -3,7 +3,7 @@
         <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">History</h1>
         
         <div class="overflow-x-auto">
-            <table class="min-w-full table-auto border-collapse shadow-md rounded-lg bg-gray-100">
+            <table class="zebra-striped min-w-full table-auto border-collapse shadow-md rounded-lg bg-gray-100">
                 <thead class="bg-gray-200 text-gray-700">
                     <tr>
                         <th class="px-4 py-3 border text-left text-sm font-semibold">Jenis Orbit</th>
