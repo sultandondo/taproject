@@ -46,7 +46,7 @@
             border-bottom: 1px solid #E5E7EB; /* gray-200 */
         }
 
-        /* Popup Styles (Copied from transmitter.blade.php for consistency) */
+        /* Popup Styles */
         .popup-window {
             display: none; 
             position: fixed;
@@ -93,6 +93,13 @@
             padding-bottom: 15px;
             margin-bottom: 20px;
         }
+        .popup-content h4 { /* Style for h4 within popup */
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #374151;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
         .popup-content p {
             margin: 10px 0;
             line-height: 1.6;
@@ -110,6 +117,15 @@
             overflow-x: auto;
             white-space: pre-wrap;
             word-break: break-word;
+        }
+        .popup-content ul { /* Style for ul within popup */
+            list-style-type: disc;
+            margin-left: 1.25rem; /* Equivalent to ml-5 */
+            margin-bottom: 1rem; /* Equivalent to mb-4 */
+            color: #374151;
+        }
+        .popup-content ul li {
+            margin-bottom: 0.5rem;
         }
         @keyframes fadeInScale {
             from { opacity: 0; transform: scale(0.9); }
@@ -158,6 +174,11 @@
                         <option value="GEO" {{ $selectedOrbit == 'GEO' ? 'selected' : '' }}>Geosynchronous Earth Orbit (GEO)</option>
                     </select>
 
+                    <div class="mt-4 text-right">
+                        <button type="button" id="info_perbit_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
+                            Apa itu perhitungan Orbit? <i class="fas fa-info-circle ml-1"></i>
+                        </button>
+                    </div>
                 </div>
 
                 <div id="orbitFields" class="space-y-6" style="display: none;">
@@ -166,9 +187,7 @@
 
                     <div class="mb-4 relative" id="ketinggian_field">
                         <label for="ketinggian" class="block font-medium mb-1 text-gray-700">Ketinggian (km):</label>
-                        @php
-                            $ket = old('ketinggian', $data->ketinggian ?? request('ketinggian'));
-                        @endphp
+                        {{-- Ketinggian can be pre-filled if it exists in $data or request --}}
                         <input type="text" name="ketinggian" id="ketinggian" value="{{ old('ketinggian', $data->ketinggian ?? request('ketinggian')) }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" placeholder="{{ $data->ketinggian ?? 'Masukkan Ketinggian Orbit' }}">
                         <span class="input-unit">km</span>
                     </div>
@@ -205,7 +224,6 @@
                         <span class="input-unit">°</span>
                     </div>
 
-                    {{-- NEWLY ADDED: Mean Anomaly field --}}
                     <div id="meananomaly_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Mean Anomaly (M):</label>
                         <input type="number" name="mean_anomaly" id="mean_anomaly" value="{{ old('mean_anomaly') ?? request('mean_anomaly') }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" min="0" placeholder="{{ $data->mean_anomaly ?? '' }}">
@@ -235,20 +253,30 @@
                         </button>
                     </div>
 
+                    <div id="smageo_field" class="mb-4 relative">
+                        <label for="smageo" class="block font-medium mb-1 text-gray-700">Semi Major Axis GEO:</label>
+                        <input type="text" name="smageo" id="smageo" value="42164.156" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" readonly>
+                        <span class="input-unit">km</span>
+                        <button type="button" id="popup_semi_major_axis_geo_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
+                            Lihat Detail <i class="fas fa-info-circle ml-1"></i>
+                        </button>
+                    </div>
+                    
+                    <div id="geostan_field" class="mb-4 relative">
+                        <label for="geostan" class="block font-medium mb-1 text-gray-700">Geostasionary Altitude:</label>
+                        <input type="text" name="geostan" id="geostan" value="35786.019" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" readonly>
+                        <span class="input-unit">km</span>
+                        <button type="button" id="popup_geostan_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
+                            Lihat Detail <i class="fas fa-info-circle ml-1"></i>
+                        </button>
+                    </div>
+
+
                     <div id="ree_field" class="mb-4 relative">
                         <label for="re_geo" class="block font-medium mb-1 text-gray-700">Radius Bumi (Re):</label>
                         <input type="text" name="re_geo" id="re_geo" value="6378" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" readonly >
                         <span class="input-unit">km</span>
                         <button type="button" id="popup_re_geo_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
-                            Lihat Detail <i class="fas fa-info-circle ml-1"></i>
-                        </button>
-                    </div>
-
-                    <div id="smageo_field" class="mb-4 relative">
-                        <label for="smageo" class="block font-medium mb-1 text-gray-700">Semi Major Axis GEO:</label>
-                        <input type="text" name="smageo" id="smageo" value="42164.156" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" readonly>
-                        <span class="input-unit">km</span>
-                        <button type="button" id="popup_smageo_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
                             Lihat Detail <i class="fas fa-info-circle ml-1"></i>
                         </button>
                     </div>
@@ -260,7 +288,6 @@
                         <button type="button" id="popup_re_leomeo_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
                                 Lihat Detail <i class="fas fa-info-circle ml-1"></i>
                         </button>
-
                     </div>
 
                     {{-- NEWLY ADDED/RESTORED: elevasi and slant_range fields for LEO/MEO --}}
@@ -278,7 +305,6 @@
                         </button>
                     </div>
 
-                    {{-- Removed old GEO-specific fields from here, as they are now conditionally displayed below --}}
                     <label id="geoEarthStationLabel" class="form-section-label text-green-700" style="display: none;"><i class="fas fa-map-marker-alt mr-2"></i> Parameter Stasiun Bumi (GEO)</label>
                     <div id="Latitude_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Latitude (°):</label>
@@ -294,7 +320,7 @@
 
                     <div id="spclong_field" class="mb-4 relative"> 
                         <label class="block font-medium mb-1 text-gray-700">Spacecraft Slot (Longitude) (°):</label>
-                        <input type="number" name="spclong" id="spclong" value="{{ old('spclong') ?? request('spclong') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" min="0" placeholder="{{ $data->spclong ?? '' }}">
+                        <input type="number" name="spclong" id="spclong" value="{{ old('spclong') ?? request('spclong') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" min="0" placeholder="{{ $data->spacelot_up ?? '' }}">
                         <span class="input-unit">°</span>
                     </div>
 
@@ -424,6 +450,16 @@
     </div>
 
     {{-- Popups for Formulas --}}
+
+    <div id="popup_perbit" class="popup-window">
+        <div class="popup-content">
+            <span class="close-popup-btn">&times;</span>
+            <h3>Tentang Perhitungan Parameter Orbit</h3>
+            <p class="formula">Perhitungan parameter orbit ini mencakup berbagai jenis orbit satelit dan parameter terkaitnya.</p>
+            {{-- Content will be dynamically inserted by JavaScript --}}
+        </div>
+    </div>
+
     <div id="popup_eccentricity" class="popup-window">
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
@@ -477,8 +513,38 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus Mean Orbit Radius</h3>
-            <p class="formula">Radius<sub>mean</sub> = Altitude<sub>mean</sub> + R<sub>e</sub></p>
+            <p class="formula">Orbit Radius<sub>mean</sub> = Altitude<sub>mean</sub> + R<sub>e</sub></p>
             <p>Altitude<sub>mean</sub> = <span id="altitude_val_rad"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_val_rad"></span> km<br>Radius<sub>mean</sub> = <span id="altitude_val_rad_2"></span> + <span id="re_val_rad_2"></span> = <span id="hasil_radius"></span> km</p>
+        </div>
+    </div>
+
+    <div id="popup_semi_major_axis_geo" class="popup-window">
+        <div class="popup-content">
+            <span class="close-popup-btn">&times;</span>
+            <h3>Rumus Semi Major Axis GEO</h3>
+            <p class="formula">a = R<sub>e</sub> + h<sub>GEO</sub></p>
+            <ul>
+                <li>a = Semi Major Axis</li>
+                <li>R<sub>e</sub> = Radius Bumi (6378 km)</li>
+                <li>h<sub>GEO</sub> = Ketinggian GEO dari permukaan Bumi (35786 km)</li>
+            </ul>
+            <p>Semi Major Axis untuk orbit Geostasioner (GEO) adalah konstanta yang tetap, dihitung sebagai jumlah dari Radius Bumi (Re) dan ketinggian nominal orbit GEO dari permukaan Bumi.</p>
+            <p>Nilai Sumbu Major Axis GEO adalah <strong><span id="smageo_val_popup"></span> km</strong>.</p>
+        </div>
+    </div>
+
+    <div id="popup_geostan" class="popup-window">
+        <div class="popup-content">
+            <span class="close-popup-btn">&times;</span>
+            <h3>Rumus Geostationary Altitude</h3>
+            <p class="formula">h<sub>GEO</sub> = a - R<sub>e</sub></p>
+            <ul>
+                <li>h<sub>GEO</sub> = Ketinggian Geostasioner dari permukaan Bumi</li>
+                <li>a = Semi Major Axis GEO (42164.156 km)</li>
+                <li>R<sub>e</sub> = Radius Bumi (6378 km)</li>
+            </ul>
+            <p>Ketinggian Geostasioner (Geostationary Altitude) adalah ketinggian di atas permukaan Bumi di mana sebuah satelit dapat mempertahankan posisi relatif tetap terhadap suatu titik di khatulistiwa Bumi. Ini dihitung dengan mengurangkan Radius Bumi (Re) dari Semi Major Axis GEO.</p>
+            <p>Nilai Ketinggian Geostasioner adalah <strong><span id="geostan_val_popup"></span> km</strong>.</p>
         </div>
     </div>
 
@@ -486,7 +552,7 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus Slant Range (LEO/MEO)</h3>
-            <p class="formula">d = R<sub>e</sub> √((r/R<sub>e</sub>)² - cos²(E)) - R<sub>e</sub> sin(E)</p>
+            <p class="formula">Slant Range (d) = R<sub>e</sub> &radic;((r/R<sub>e</sub>)&sup2; - cos&sup2;(E)) - R<sub>e</sub> sin(E)</p>
             <p>R<sub>e</sub> (Radius Bumi) = <span id="re_leomeo_val_sr"></span> km<br>r (Mean Orbit Radius) = <span id="radius_val_sr"></span> km<br>E (Sudut Elevasi) = <span id="elevasi_val_sr"></span> °<br>d = <span id="hasil_slant_range_leomeo"></span> km</p>
         </div>
     </div>
@@ -495,8 +561,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus Slant Range to User (Uplink GEO)</h3>
-            <p class="formula">d = √(r² + R<sub>e</sub>² - 2 r R<sub>e</sub> cos(α))</p>
-            <p>r (Semi Major Axis GEO) = <span id="smageo_val_sr_up"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_sr_up"></span> km<br>α (Earth Central Angle) = <span id="eca_val_sr_up"></span> °<br>d = <span id="hasil_slantrangetouser_up"></span> km</p>
+            <p class="formula">d = &radic;(r&sup2; + R<sub>e</sub>&sup2; - 2 r R<sub>e</sub> cos(&alpha;))</p>
+            <p>r (Semi Major Axis GEO) = <span id="smageo_val_sr_up"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_sr_up"></span> km<br>&alpha; (Earth Central Angle) = <span id="eca_val_sr_up"></span> °<br>d = <span id="hasil_slantrangetouser_up"></span> km</p>
         </div>
     </div>
 
@@ -504,8 +570,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus User Elevation Angle (Uplink GEO)</h3>
-            <p class="formula">E = arctan((cos(α) - R<sub>e</sub>/r) / sin(α))</p>
-            <p>r (Semi Major Axis GEO) = <span id="smageo_val_el_up"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_el_up"></span> km<br>α (Earth Central Angle) = <span id="eca_val_el_up"></span> °<br>E = <span id="hasil_userelevationangel_up"></span> °</p>
+            <p class="formula">E = arctan((cos(&alpha;) - R<sub>e</sub>/r) / sin(&alpha;))</p>
+            <p>r (Semi Major Axis GEO) = <span id="smageo_val_el_up"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_el_up"></span> km<br>&alpha; (Earth Central Angle) = <span id="eca_val_el_up"></span> °<br>E = <span id="hasil_userelevationangel_up"></span> °</p>
         </div>
     </div>
 
@@ -513,8 +579,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus User Azimuth Angle (Uplink GEO)</h3>
-            <p class="formula">A = arctan(tan(Δλ) / sin(φ<sub>L</sub>)) (untuk LSA, koreksi kuadran diperlukan)</p>
-            <p>φ<sub>L</sub> (User Latitude) = <span id="userlat_val_az_up"></span> °<br>Δλ (Longitude Difference) = (<span id="spaceslot_val_az_up"></span> - <span id="userlong_val_az_up"></span>) °<br>A = <span id="hasil_userazimuthangle_up"></span> °</p>
+            <p class="formula">A = arctan(tan(&Delta;&lambda;) / sin(&phi;<sub>L</sub>)) (untuk LSA, koreksi kuadran diperlukan)</p>
+            <p>&phi;<sub>L</sub> (User Latitude) = <span id="userlat_val_az_up"></span> °<br>&Delta;&lambda; (Longitude Difference) = (<span id="spaceslot_val_az_up"></span> - <span id="userlong_val_az_up"></span>) °<br>A = <span id="hasil_userazimuthangle_up"></span> °</p>
         </div>
     </div>
 
@@ -522,8 +588,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus Earth Central Angle (Uplink GEO)</h3>
-            <p class="formula">α = arccos(cos(φ<sub>L</sub>) cos(Δλ))</p>
-            <p>φ<sub>L</sub> (User Latitude) = <span id="userlat_val_eca_up"></span> °<br>Δλ (Longitude Difference) = (<span id="userlong_val_eca_up"></span> - <span id="spaceslot_val_eca_up"></span>) °<br>α = <span id="hasil_earthcentralangle_up"></span> °</p>
+            <p class="formula">&alpha; = arccos(cos(&phi;<sub>L</sub>) cos(&Delta;&lambda;))</p>
+            <p>&phi;<sub>L</sub> (User Latitude) = <span id="userlat_val_eca_up"></span> °<br>&Delta;&lambda; (Longitude Difference) = (<span id="userlong_val_eca_up"></span> - <span id="spaceslot_val_eca_up"></span>) °<br>&alpha; = <span id="hasil_earthcentralangle_up"></span> °</p>
         </div>
     </div>
 
@@ -531,8 +597,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus Slant Range to User (Downlink GEO)</h3>
-            <p class="formula">d = √(r² + R<sub>e</sub>² - 2 r R<sub>e</sub> cos(α))</p>
-            <p>r (Semi Major Axis GEO) = <span id="smageo_val_sr_down"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_sr_down"></span> km<br>α (Earth Central Angle) = <span id="eca_val_sr_down"></span> °<br>d = <span id="hasil_slantrangetouser_down"></span> km</p>
+            <p class="formula">d = &radic;(r&sup2; + R<sub>e</sub>&sup2; - 2 r R<sub>e</sub> cos(&alpha;))</p>
+            <p>r (Semi Major Axis GEO) = <span id="smageo_val_sr_down"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_sr_down"></span> km<br>&alpha; (Earth Central Angle) = <span id="eca_val_sr_down"></span> °<br>d = <span id="hasil_slantrangetouser_down"></span> km</p>
         </div>
     </div>
 
@@ -540,8 +606,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus User Elevation Angle (Downlink GEO)</h3>
-            <p class="formula">E = arctan((cos(α) - R<sub>e</sub>/r) / sin(α))</p>
-            <p>r (Semi Major Axis GEO) = <span id="smageo_val_el_down"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_el_down"></span> km<br>α (Earth Central Angle) = <span id="eca_val_el_down"></span> °<br>E = <span id="hasil_userelevationangel_down"></span> °</p>
+            <p class="formula">E = arctan((cos(&alpha;) - R<sub>e</sub>/r) / sin(&alpha;))</p>
+            <p>r (Semi Major Axis GEO) = <span id="smageo_val_el_down"></span> km<br>R<sub>e</sub> (Radius Bumi) = <span id="re_geo_val_el_down"></span> km<br>&alpha; (Earth Central Angle) = <span id="eca_val_el_down"></span> °<br>E = <span id="hasil_userelevationangel_down"></span> °</p>
         </div>
     </div>
 
@@ -549,8 +615,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus User Azimuth Angle (Downlink GEO)</h3>
-            <p class="formula">A = arctan(tan(Δλ) / sin(φ<sub>L</sub>)) (untuk LSA, koreksi kuadran diperlukan)</p>
-            <p>φ<sub>L</sub> (User Latitude) = <span id="userlat_val_az_down"></span> °<br>Δλ (Longitude Difference) = (<span id="spaceslot_val_az_down"></span> - <span id="userlong_val_az_down"></span>) °<br>A = <span id="hasil_userazimuthangle_down"></span> °</p>
+            <p class="formula">A = arctan(tan(&Delta;&lambda;) / sin(&phi;<sub>L</sub>)) (untuk LSA, koreksi kuadran diperlukan)</p>
+            <p>&phi;<sub>L</sub> (User Latitude) = <span id="userlat_val_az_down"></span> °<br>&Delta;&lambda; (Longitude Difference) = (<span id="spaceslot_val_az_down"></span> - <span id="userlong_val_az_down"></span>) °<br>A = <span id="hasil_userazimuthangle_down"></span> °</p>
         </div>
     </div>
 
@@ -558,8 +624,8 @@
         <div class="popup-content">
             <span class="close-popup-btn">&times;</span>
             <h3>Rumus Earth Central Angle (Downlink GEO)</h3>
-            <p class="formula">α = arccos(cos(φ<sub>L</sub>) cos(Δλ))</p>
-            <p>φ<sub>L</sub> (User Latitude) = <span id="userlat_val_eca_down"></span> °<br>Δλ (Longitude Difference) = (<span id="userlong_val_eca_down"></span> - <span id="spaceslot_val_eca_down"></span>) °<br>α = <span id="hasil_earthcentralangle_down"></span> °</p>
+            <p class="formula">&alpha; = arccos(cos(&phi;<sub>L</sub>) cos(&Delta;&lambda;))</p>
+            <p>&phi;<sub>L</sub> (User Latitude) = <span id="userlat_val_eca_down"></span> °<br>&Delta;&lambda; (Longitude Difference) = (<span id="userlong_val_eca_down"></span> - <span id="spaceslot_val_eca_down"></span>) °<br>&alpha; = <span id="hasil_earthcentralangle_down"></span> °</p>
         </div>
     </div>
 
@@ -570,7 +636,7 @@
             const inputs = document.querySelectorAll('#orbitFields input');
             inputs.forEach(input => {
                 // Jangan reset input readonly yang punya value default (seperti Re, SMA GEO)
-                if (input.readOnly && (input.id === 're_geo' || input.id === 'smageo' || input.id === 're_leomeo')) {
+                if (input.readOnly && (input.id === 're_geo' || input.id === 'smageo' || input.id === 're_leomeo' || input.id === 'geostan')) { 
                     // Do nothing
                 } else {
                     input.value = '';
@@ -598,19 +664,19 @@
             const orbitFieldsContainer = document.getElementById('orbitFields');
 
             // Get all individual field divs by their IDs
-            const ketinggianField = document.getElementById('ketinggian_field'); // Changed to use id on parent div
+            const ketinggianField = document.getElementById('ketinggian_field'); 
             const apogeeField = document.getElementById('apogee_field');
             const perigeeField = document.getElementById('perigee_field');
             const inklinasiField = document.getElementById('inklinasi_field');
             const eccentricityField = document.getElementById('eccentricity_field');
             const argumenopField = document.getElementById('argumenop_field');
             const raanField = document.getElementById('raan_field');
-            // NEWLY ADDED: Mean Anomaly field
             const meananomalyField = document.getElementById('meananomaly_field');
             const altitudeField = document.getElementById('altitude_field');
             const radiusField = document.getElementById('radius_field');
             const reeGeoField = document.getElementById('ree_field'); // Radius Bumi untuk GEO
-            const smageoField = document.getElementById('smageo_field'); // Semi Major Axis GEO
+            const smageoField = document.getElementById('smageo_field'); // Semi Major Axis GEO (now unique)
+            const geostanField = document.getElementById('geostan_field'); // Geostationary Altitude
             const reLeoMeoField = document.getElementById('re_field'); // Radius Bumi untuk LEO/MEO
 
             // GEO-specific input fields (within "Parameter Stasiun Bumi (GEO)" section)
@@ -618,8 +684,8 @@
             const latitudeField = document.getElementById('Latitude_field');
             const longitudeField = document.getElementById('Longitude_field');
             const spclongField = document.getElementById('spclong_field');
-            const elevasiField = document.getElementById('elevasi_field'); // This is now for LEO/MEO AND GEO Slant Range
-            const slantRangeField = document.getElementById('slant_range_field'); // Slant range for LEO/MEO AND GEO
+            const elevasiField = document.getElementById('elevasi_field'); 
+            const slantRangeField = document.getElementById('slant_range_field'); 
             const azimuthField = document.getElementById('azimuth_field');
             const sudutpusatbumiField = document.getElementById('sudutpusatbumi_field');
 
@@ -643,9 +709,11 @@
             // Set all fields to display: none by default
             const allFields = [
                 ketinggianField, apogeeField, perigeeField, inklinasiField, eccentricityField, 
-                argumenopField, raanField, meananomalyField, // ADDED meananomalyField here
+                argumenopField, raanField, meananomalyField, 
                 altitudeField, radiusField, reeGeoField, 
-                smageoField, reLeoMeoField, latitudeField, longitudeField, spclongField, 
+                smageoField, // Now only one instance of smageoField
+                geostanField, // Added geostanField here
+                reLeoMeoField, latitudeField, longitudeField, spclongField, 
                 elevasiField, slantRangeField, azimuthField, sudutpusatbumiField,
                 geoEarthStationLabel, uplinkLabel, downlinkLabel
             ];
@@ -656,7 +724,7 @@
             // Reset readonly status for all inputs
             const allInputs = document.querySelectorAll('input[type="number"], input[type="text"]');
             allInputs.forEach(input => {
-                if (!['re_geo', 'smageo', 're_leomeo', 'eccentricity', 'altitude', 'radius', 'slant_range', 'slantrangetouser_up_input', 'userelevationangel_up_input', 'userazimuthangle_up_input', 'earthcentralangle_up_input', 'slantrangetouser_down_input', 'userelevationangel_down_input', 'userazimuthangle_down_input', 'earthcentralangle_down_input'].includes(input.id)) {
+                if (!['re_geo', 'smageo', 're_leomeo', 'geostan', 'eccentricity', 'altitude', 'radius', 'slant_range', 'slantrangetouser_up_input', 'userelevationangel_up_input', 'userazimuthangle_up_input', 'earthcentralangle_up_input', 'slantrangetouser_down_input', 'userelevationangel_down_input', 'userazimuthangle_down_input', 'earthcentralangle_down_input'].includes(input.id)) {
                     input.readOnly = false;
                 }
             });
@@ -682,6 +750,12 @@
                     elevasiField.style.display = 'block'; // Elevation is general for LEO/MEO slant range
                     slantRangeField.style.display = 'block'; // Slant range output for LEO/MEO
 
+                    // Hide GEO-specific fields
+                    smageoField.style.display = 'none'; // HIDE Semi Major Axis GEO
+                    geostanField.style.display = 'none'; // HIDE Geostationary Altitude
+                    reeGeoField.style.display = 'none'; // HIDE Radius Bumi GEO (only show Re LEO/MEO)
+
+
                     // Attach event listeners for LEO/MEO specific calculations
                     document.getElementById('apogee').addEventListener('input', calculateMeanOrbitAltitude);
                     document.getElementById('perigee').addEventListener('input', calculateMeanOrbitAltitude);
@@ -697,7 +771,8 @@
                 } else if (orbit === 'GEO') {
                     // Show GEO specific read-only fields
                     reeGeoField.style.display = 'block'; // Re for GEO
-                    smageoField.style.display = 'block'; // SMA for GEO
+                    smageoField.style.display = 'block'; // SMA for GEO (now uniquely here)
+                    geostanField.style.display = 'block'; // Show Geostationary Altitude
                     
                     // Set GEO specific values and make readonly
                     document.getElementById('inklinasi').value = 0;
@@ -772,7 +847,7 @@
             }
         }
 
-        // Fungsi untuk menghitung Slant Range (LEO/MEO) - **NOTE: This function depends on 'elevasi', which was part of the removed "Earth Station Parameters (GEO)" section. If you still need slant range for LEO/MEO, you will need to reintroduce 'elevasi' field for LEO/MEO specifically or remove this function if it's no longer relevant for LEO/MEO without an elevation input.**
+        // Fungsi untuk menghitung Slant Range (LEO/MEO)
         function calculateSlantRange() {
             const orbitType = document.getElementById('jenis_orbit').value;
             if (orbitType === 'GEO') return; // Only for LEO/MEO
@@ -815,8 +890,10 @@
                 const re = parseFloat(document.getElementById('re_leomeo').value) || 6378;
 
                 if (apogee > 0 && perigee > 0) {
-                    const numerator = (apogee + re) - (perigee + re);
-                    const denominator = (apogee + re) + (perigee + re);
+                    const ra = apogee + re; // Jarak apogee dari pusat Bumi
+                    const rp = perigee + re; // Jarak perigee dari pusat Bumi
+                    const numerator = ra - rp;
+                    const denominator = ra + rp;
 
                     if (denominator !== 0) {
                         const eccentricity = numerator / denominator;
@@ -875,16 +952,16 @@
             const numerator = cosECA - (re / semiMajorAxisGeo);
             const denominator = sinECA;
 
-            if (Math.abs(denominator) < 1e-9) {
+            if (Math.abs(denominator) < 1e-9) { // Avoid division by very small numbers
                 if (numerator > 0) {
                     document.getElementById('userelevationangel_up_input').value = "90.00";
                 } else {
-                    document.getElementById('userelevationangel_up_input').value = "Error";
+                    document.getElementById('userelevationangel_up_input').value = "Error"; // Or handle as an invalid angle
                 }
                 return;
             }
 
-            const elevationAngle = (180 / Math.PI) * Math.atan2(numerator, denominator); // Menggunakan atan2 untuk penanganan kuadran
+            const elevationAngle = (180 / Math.PI) * Math.atan2(numerator, denominator); // Using atan2 for quadrant handling
             document.getElementById('userelevationangel_up_input').value = elevationAngle.toFixed(2);
         }
 
@@ -899,24 +976,32 @@
             }
             // Add a check to prevent division by zero in certain edge cases
             if (userLatitude === 0 && userLongitude === spacecraftLongitude) {
-                 document.getElementById('userazimuthangle_up_input').value = "N/A";
-                 return;
+                   document.getElementById('userazimuthangle_up_input').value = "N/A"; // Or 90/270 depending on convention
+                   return;
             }
 
             const latRad = userLatitude * (Math.PI / 180);
             const longDiffRad = (spacecraftLongitude - userLongitude) * (Math.PI / 180);
 
-            // Menangani kasus di mana denominator mendekati nol
             const numeratorAz = Math.sin(longDiffRad);
-            const denominatorAz = Math.cos(latRad) * Math.tan(latRad) - Math.sin(latRad) * Math.cos(longDiffRad);
+            const denominatorAz = (Math.tan(latRad) * Math.cos(longDiffRad)) - Math.sin(latRad); // Corrected this part to standard azimuth formula
 
+            // Handle edge cases for division by zero or indeterminate forms
             if (Math.abs(denominatorAz) < 1e-9 && Math.abs(numeratorAz) < 1e-9) {
-                document.getElementById('userazimuthangle_up_input').value = "N/A";
+                document.getElementById('userazimuthangle_up_input').value = "N/A"; // Or handle as specific direction (e.g., North if latitude is 0)
                 return;
             }
-
-            const azimuthAngleRad = Math.atan2(numeratorAz, denominatorAz);
-            let azimuthAngleDeg = (azimuthAngleRad * (180 / Math.PI) + 360) % 360;
+            
+            // Standard formula often involves atan2(sin(delta_lambda), cos(phi_L)*tan(phi_S) - sin(phi_L)*cos(delta_lambda))
+            // Given GEO is fixed at Phi_S=0, it simplifies.
+            // Simplified formula based on common GEO azimuth calculations:
+            const aziNumerator = Math.sin(longDiffRad);
+            const aziDenominator = Math.tan(latRad) * Math.cos(longDiffRad);
+            // This is a common simplified form for GEO, assuming satellite is on equator
+            const azimuthAngleRad = Math.atan2(Math.sin(longDiffRad), Math.cos(latRad) * Math.tan(0) - Math.sin(latRad) * Math.cos(longDiffRad)); // tan(0) is 0
+            // This simplifies to atan2(sin(delta_lambda), -sin(phi_L)*cos(delta_lambda))
+            
+            const azimuthAngleDeg = (azimuthAngleRad * (180 / Math.PI) + 360) % 360;
 
             document.getElementById('userazimuthangle_up_input').value = azimuthAngleDeg.toFixed(2);
         }
@@ -936,7 +1021,7 @@
             const longitudeDifferenceInRadians = (userLongitude - spacecraftLongitude) * (Math.PI / 180);
 
             let cosArgument = Math.cos(latitudeInRadians) * Math.cos(longitudeDifferenceInRadians);
-            cosArgument = Math.min(1, Math.max(-1, cosArgument));
+            cosArgument = Math.min(1, Math.max(-1, cosArgument)); // Clamp to ensure valid arccos input
 
             const earthCentralAngle = (180 / Math.PI) * Math.acos(cosArgument);
 
@@ -957,7 +1042,7 @@
                     });
                 }
             });
-        });
+        }); 
 
         // --- Perhitungan DOWNLINK GEO ---
         function calculateSlantRangeToUserDownlink() {
@@ -1000,7 +1085,7 @@
             const numerator = cosECA - (re / semiMajorAxisGeo);
             const denominator = sinECA;
 
-            if (Math.abs(denominator) < 1e-9) {
+            if (Math.abs(denominator) < 1e-9) { // Avoid division by very small numbers
                 if (numerator > 0) {
                     document.getElementById('userelevationangel_down_input').value = "90.00";
                 } else {
@@ -1009,7 +1094,7 @@
                 return;
             }
 
-            const elevationAngle = (180 / Math.PI) * Math.atan2(numerator, denominator); // Menggunakan atan2
+            const elevationAngle = (180 / Math.PI) * Math.atan2(numerator, denominator); // Using atan2
             document.getElementById('userelevationangel_down_input').value = elevationAngle.toFixed(2);
         }
 
@@ -1024,16 +1109,15 @@
             }
             // Add a check to prevent division by zero in certain edge cases
             if (userLatitude === 0 && userLongitude === spacecraftLongitude) {
-                 document.getElementById('userazimuthangle_down_input').value = "N/A";
-                 return;
+                   document.getElementById('userazimuthangle_down_input').value = "N/A";
+                   return;
             }
 
             const latRad = userLatitude * (Math.PI / 180);
             const longDiffRad = (spacecraftLongitude - userLongitude) * (Math.PI / 180);
 
-            // Menangani kasus di mana denominator mendekati nol
             const numeratorAz = Math.sin(longDiffRad);
-            const denominatorAz = Math.cos(latRad) * Math.tan(latRad) - Math.sin(latRad) * Math.cos(longDiffRad);
+            const denominatorAz = (Math.tan(latRad) * Math.cos(longDiffRad)) - Math.sin(latRad); // Corrected this part to standard azimuth formula
 
             if (Math.abs(denominatorAz) < 1e-9 && Math.abs(numeratorAz) < 1e-9) {
                 document.getElementById('userazimuthangle_down_input').value = "N/A";
@@ -1060,7 +1144,7 @@
             const longitudeDifferenceInRadians = (userLongitude - spacecraftLongitude) * (Math.PI / 180);
 
             let cosArgument = Math.cos(latitudeInRadians) * Math.cos(longitudeDifferenceInRadians);
-            cosArgument = Math.min(1, Math.max(-1, cosArgument));
+            cosArgument = Math.min(1, Math.max(-1, cosArgument)); // Clamp to ensure valid arccos input
 
             const earthCentralAngle = (180 / Math.PI) * Math.acos(cosArgument);
 
@@ -1117,26 +1201,104 @@
             if (!popup) return;
             
             const formulaElement = popup.querySelector('.formula');
-            // Selects all <p> elements that are NOT formulas AND are direct children of popup-content
-            const existingContentPs = popup.querySelectorAll('.popup-content > p:not(.formula)'); 
-
-            // Clear existing dynamic content paragraphs (except for the formula itself)
-            existingContentPs.forEach(p => p.remove());
+            // Selects all direct child elements of popup-content, excluding the formula and close button
+            const elementsToRemove = popup.querySelectorAll('.popup-content > *:not(.formula):not(.close-popup-btn):not(h3)');
+            elementsToRemove.forEach(el => el.remove());
 
             if (formulaElement) formulaElement.innerHTML = formulaText;
 
-            // Add new dynamic content paragraph
-            const newContentP = document.createElement('p');
-            newContentP.innerHTML = contentHtml;
-            // Insert the new content right after the formula element
+            // Add new dynamic content by parsing HTML string
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = contentHtml;
+            // Insert all child nodes from tempDiv to the popup content after the formula
             if (formulaElement) {
-                formulaElement.parentNode.insertBefore(newContentP, formulaElement.nextSibling);
+                while (tempDiv.firstChild) {
+                    formulaElement.parentNode.insertBefore(tempDiv.firstChild, formulaElement.nextSibling);
+                }
             } else {
-                popup.querySelector('.popup-content').appendChild(newContentP);
+                // Fallback: If formulaElement not found, just append to popup-content (less ideal but works)
+                while (tempDiv.firstChild) {
+                    popup.querySelector('.popup-content').appendChild(tempDiv.firstChild);
+                }
             }
         }
 
         // --- Popup Button Click Handlers ---
+
+        //Penjelasan Perhitungan Orbit Popup (Updated)
+        document.getElementById('info_perbit_btn').onclick = () => {
+            const popup = document.getElementById('popup_perbit');
+            if (!popup) return;
+
+            // The contentHtml already clears previous content inside updatePopupContent
+            const contentHtml = `
+            <p>Aplikasi ini dirancang untuk membantu Anda menghitung parameter kunci yang terkait dengan berbagai jenis orbit satelit, memberikan pemahaman yang lebih dalam tentang karakteristik setiap orbit.</p>
+
+            
+            <ul class="list-disc ml-5 mb-4">
+                <li><strong>Low Earth Orbit (LEO):</strong> Orbit rendah Bumi, dengan ketinggian antara 160 km hingga 2.000 km di atas permukaan Bumi. Umumnya digunakan untuk pencitraan, observasi Bumi, dan konstelasi internet.</li>
+                <li><strong>Medium Earth Orbit (MEO):</strong> Orbit menengah Bumi, dengan ketinggian antara 2.000 km hingga 35.786 km. Sering digunakan untuk sistem navigasi global (seperti GPS) dan beberapa layanan komunikasi.</li>
+                <li><strong>Geosynchronous Earth Orbit (GEO):</strong> Orbit geostasioner, pada ketinggian 35.786 km di atas ekuator Bumi. Satelit di orbit ini tampak diam relatif terhadap satu titik di permukaan Bumi, ideal untuk siaran televisi dan komunikasi satelit.</li>
+            </ul>
+
+            <h4>Parameter Umum Orbit (Relevan untuk LEO, MEO, dan GEO):</h4>
+            <p>Parameter ini mendefinisikan bentuk, ukuran, dan orientasi orbit:</p>
+            <ul class="list-disc ml-5 mb-4">
+                <li><strong>Ketinggian (h):</strong> Jarak satelit dari permukaan Bumi (dalam km).</li>
+                <li><strong>Apogee (ra):</strong> Titik terjauh satelit dari pusat Bumi dalam orbit elips (dalam km).</li>
+                <li><strong>Perigee (rp):</strong> Titik terdekat satelit dari pusat Bumi dalam orbit elips (dalam km).</li>
+                <li><strong>Eccentricity (e):</strong> Ukuran "kelonjongan" orbit. Nilai e=0 untuk orbit lingkaran sempurna, dan 0 < e < 1 untuk orbit elips.</li>
+                <li><strong>Argument of Perigee (omega):</strong> Orientasi orbit di bidangnya, diukur dari Node Menaik (Ascending Node) ke perigee (dalam derajat).</li>
+                <li><strong>Right Ascension of the Ascending Node (R.A.A.N atau Omega):</strong> Orientasi bidang orbit di ruang angkasa, diukur dari arah titik Aries ke Node Menaik (dalam derajat).</li>
+                <li><strong>Mean Anomaly (M):</strong> Posisi sudut satelit pada waktu tertentu dalam orbit (dalam derajat).</li>
+                <li><strong>Sudut Inklinasi (i):</strong> Kemiringan bidang orbit relatif terhadap bidang ekuator Bumi (dalam derajat). Untuk orbit GEO idealnya i=0 derajat.</li>
+                <li><strong>Mean Orbit Altitude (havg):</strong> Ketinggian rata-rata satelit dari permukaan Bumi, dihitung dari apogee dan perigee (dalam km).</li>
+                <li><strong>Mean Orbit Radius (ravg):</strong> Jarak rata-rata satelit dari pusat Bumi, dihitung dari Mean Orbit Altitude ditambahkan Radius Bumi (dalam km).</li>
+                <li><strong>Radius Bumi (Re):</strong> Radius standar Bumi yang digunakan sebagai referensi (konstanta, Re = 6378 km).</li>
+            </ul>
+
+            <h4>Parameter Tambahan Khusus untuk LEO dan MEO:</h4>
+            <p>Untuk orbit LEO dan MEO, parameter berikut sering digunakan untuk analisis ground station:</p>
+            <ul class="list-disc ml-5 mb-4">
+                <li><strong>Sudut Elevasi (E):</strong> Sudut vertikal dari garis horizontal di stasiun Bumi ke arah satelit (dalam derajat). Ini adalah input untuk perhitungan Slant Range.</li>
+                <li><strong>Slant Range (d):</strong> Jarak langsung (garis pandang) dari stasiun Bumi ke satelit (dalam km).</li>
+            </ul>
+
+            <h4>Parameter Tambahan Khusus untuk GEO:</h4>
+            <p>Untuk orbit GEO yang unik (tetap di atas satu titik ekuator), perhitungan mencakup detail posisi stasiun Bumi dan perhitungan terkait komunikasi uplink/downlink:</p>
+            <ul class="list-disc ml-5 mb-4">
+                <li><strong>Semi Major Axis GEO (a_GEO):</strong> Jarak rata-rata dari pusat Bumi ke satelit pada orbit GEO. Ini adalah nilai konstan (~42164.156 km).</li>
+                <li><strong>Geostationary Altitude (h_GEO):</strong> Ketinggian nominal satelit GEO dari permukaan Bumi. Ini adalah nilai konstan (~35786 km).</li>
+                <li><strong>Latitude Stasiun Bumi (Phi_L):</strong> Garis lintang geografis stasiun Bumi (dalam derajat).</li>
+                <li><strong>Longitude Stasiun Bumi (Lambda_L):</strong> Garis bujur geografis stasiun Bumi (dalam derajat).</li>
+                <li><strong>Spacecraft Slot (Longitude) (Lambda_s):</strong> Garis bujur tempat satelit GEO berada di atas ekuator (dalam derajat).</li>
+                <li><strong>Sudut Azimuth (SAS):</strong> Arah horizontal antena dari stasiun Bumi ke satelit, diukur searah jarum jam dari utara (dalam derajat).</li>
+                <li><strong>Sudut Pusat Bumi (Salpha):</strong> Sudut di pusat Bumi antara stasiun Bumi dan proyeksi satelit di ekuator (dalam derajat). Ini adalah parameter kunci untuk perhitungan jarak dan sudut di GEO.</li>
+                <li><strong>Uplink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari pengguna ke satelit.</li>
+                <li><strong>Downlink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari satelit ke pengguna.</li>
+            </ul>
+            <p>Aplikasi ini akan secara otomatis menampilkan atau menyembunyikan parameter input dan hasil perhitungan yang relevan berdasarkan jenis orbit yang Anda pilih, untuk memastikan fokus pada data yang diperlukan.</p>
+           
+            <h4>Parameter Tambahan Khusus untuk GEO:</h4>
+            <p>Untuk orbit GEO yang unik (tetap di atas satu titik ekuator), perhitungan mencakup detail posisi stasiun Bumi dan perhitungan terkait komunikasi uplink/downlink:</p>
+            <ul class="list-disc ml-5 mb-4">
+                <li><strong>Semi Major Axis GEO (a_GEO):</strong> Jarak rata-rata dari pusat Bumi ke satelit pada orbit GEO. Ini adalah nilai konstan (~42164.156 km).</li>
+                <li><strong>Geostationary Altitude (h_GEO):</strong> Ketinggian nominal satelit GEO dari permukaan Bumi. Ini adalah nilai konstan (~35786 km).</li>
+                <li><strong>Latitude Stasiun Bumi (Phi_L):</strong> Garis lintang geografis stasiun Bumi (dalam derajat).</li>
+                <li><strong>Longitude Stasiun Bumi (Lambda_L):</strong> Garis bujur geografis stasiun Bumi (dalam derajat).</li>
+                <li><strong>Spacecraft Slot (Longitude) (Lambda_s):</strong> Garis bujur tempat satelit GEO berada di atas ekuator (dalam derajat).</li>
+                <li><strong>Sudut Azimuth (SAS):</strong> Arah horizontal antena dari stasiun Bumi ke satelit, diukur searah jarum jam dari utara (dalam derajat).</li>
+                <li><strong>Sudut Pusat Bumi (Salpha):</strong> Sudut di pusat Bumi antara stasiun Bumi dan proyeksi satelit di ekuator (dalam derajat). Ini adalah parameter kunci untuk perhitungan jarak dan sudut di GEO.</li>
+                <li><strong>Uplink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari pengguna ke satelit.</li>
+                <li><strong>Downlink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari satelit ke pengguna.</li>
+            </ul>
+            
+            `;
+            
+            updatePopupContent('popup_perbit', `Perhitungan parameter orbit ini mencakup berbagai jenis orbit satelit dan parameter terkaitnya.`, contentHtml);
+            openPopup('popup_perbit');
+        };
+
         // Eccentricity Popup
         document.getElementById('popup_eccentricity_btn').onclick = () => {
             const apogee = getVal('apogee');
@@ -1159,23 +1321,7 @@
             const formulaContent = `R<sub>e</sub> = 6378 km (Konstanta)`;
             const explanationContent = `Radius Bumi (Re) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini digunakan dalam perhitungan orbit satelit di berbagai jenis orbit, yaitu:<ul><li><strong>LEO (Low Earth Orbit):</strong> Radius Bumi (Re) digunakan dalam menghitung parameter orbit di sekitar Bumi yang berada pada ketinggian rendah, sekitar 160 - 2,000 km.</li><li><strong>MEO (Medium Earth Orbit):</strong> Digunakan untuk satelit dengan ketinggian orbit antara 2,000 km dan 35,786 km.</li><li><strong>GEO (Geostationary Earth Orbit):</strong> Bumi diperlakukan sebagai pusat referensi dengan radius tetap 6378 km, digunakan untuk satelit yang berada pada ketinggian 35,786 km.</li></ul><p>Nilai radius Bumi yang digunakan dalam perhitungan ini adalah <strong>${re_geo_val.toFixed(2)} km</strong> untuk semua jenis orbit di atas, yang merupakan nilai standar yang berlaku secara internasional.</p>`;
             
-            const popup = document.getElementById('popup_re_geo');
-            if (!popup) return;
-
-            // Clear existing content in the popup, except for the formula and the closing button
-            popup.querySelectorAll('.popup-content > p:not(.formula):not(.close-popup-btn)').forEach(p => p.remove());
-            popup.querySelectorAll('.popup-content > ul').forEach(ul => ul.remove());
-
-            const formulaEl = popup.querySelector('.formula');
-            if (formulaEl) {
-                formulaEl.innerHTML = formulaContent;
-                // Add the explanation content dynamically
-                const tempDiv = document.createElement('div'); // Use a temporary div to parse HTML string
-                tempDiv.innerHTML = explanationContent;
-                Array.from(tempDiv.children).forEach(child => {
-                    formulaEl.parentNode.insertBefore(child, formulaEl.nextSibling);
-                });
-            }
+            updatePopupContent('popup_re_geo', formulaContent, explanationContent);
             openPopup('popup_re_geo');
         };
 
@@ -1204,15 +1350,46 @@
         };
 
         // Semi Major Axis GEO Popup
-        document.getElementById('popup_smageo_btn').onclick = () => {
-            const smageo = getVal('smageo');
-            // For smageo popup, the value is always 42164.156 km, as it's fixed for GEO
-            updatePopupContent('popup_smageo',
-                `r = 42164.156 km (Konstanta untuk GEO)`,
-                `Semi Major Axis GEO = ${smageo.toFixed(3)} km`
-            );
-            openPopup('popup_smageo');
+        document.getElementById('popup_semi_major_axis_geo_btn').onclick = () => {
+            const re_geo_val = getVal('re_geo');
+            const smageo_val = getVal('smageo');
+            const geo_altitude = 35786; // Fixed GEO altitude for calculation
+
+            const formulaContent = `a = R<sub>e</sub> + h<sub>GEO</sub>`;
+            const explanationContent = `
+                <ul>
+                    <li>a = Semi Major Axis</li>
+                    <li>R<sub>e</sub> = Radius Bumi (6378 km)</li>
+                    <li>h<sub>GEO</sub> = Ketinggian GEO dari permukaan Bumi (35786 km)</li>
+                </ul>
+                <p>Semi Major Axis untuk orbit Geostasioner (GEO) adalah konstanta yang tetap, dihitung sebagai jumlah dari Radius Bumi (Re) dan ketinggian nominal orbit GEO dari permukaan Bumi.</p>
+                <p>Nilai Sumbu Major Axis GEO adalah <strong>${smageo_val.toFixed(3)} km</strong>.</p>
+            `;
+            updatePopupContent('popup_semi_major_axis_geo', formulaContent, explanationContent);
+            openPopup('popup_semi_major_axis_geo');
         };
+
+        // NEWLY ADDED: Geostationary Altitude Popup
+        document.getElementById('popup_geostan_btn').onclick = () => {
+            const smageo_val = getVal('smageo');
+            const re_geo_val = getVal('re_geo');
+            const calculated_geostan = smageo_val - re_geo_val; // This calculates 42164.156 - 6378 = 35786.156
+
+            const formulaContent = `h<sub>GEO</sub> = a - R<sub>e</sub>`;
+            const explanationContent = `
+                <ul>
+                    <li>h<sub>GEO</sub> = Ketinggian Geostasioner dari permukaan Bumi</li>
+                    <li>a = Semi Major Axis GEO (${smageo_val.toFixed(3)} km)</li>
+                    <li>R<sub>e</sub> = Radius Bumi (${re_geo_val.toFixed(2)} km)</li>
+                </ul>
+                <p>Perhitungan: ${smageo_val.toFixed(3)} km - ${re_geo_val.toFixed(2)} km = ${calculated_geostan.toFixed(3)} km</p>
+                <p>Ketinggian Geostasioner (Geostationary Altitude) adalah ketinggian di atas permukaan Bumi di mana sebuah satelit dapat mempertahankan posisi relatif tetap terhadap suatu titik di khatulistiwa Bumi. Ini dihitung dengan mengurangkan Radius Bumi (Re) dari Semi Major Axis GEO.</p>
+                <p>Nilai Ketinggian Geostasioner adalah <strong>${calculated_geostan.toFixed(0)} km</strong> (dibulatkan).</p>
+            `;
+            updatePopupContent('popup_geostan', formulaContent, explanationContent);
+            openPopup('popup_geostan');
+        };
+
 
         // Radius Bumi (Re_leomeo) Popup
         document.getElementById('popup_re_leomeo_btn').onclick = () => {
@@ -1220,23 +1397,7 @@
             const formulaContent = `R<sub>e</sub> = 6378 km (Konstanta)`;
             const explanationContent = `Radius Bumi (Re) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini adalah radius khatulistiwa Bumi yang umum digunakan dalam perhitungan orbit satelit LEO (Low Earth Orbit) dan MEO (Medium Earth Orbit).<p>Dalam perhitungan orbit, Radius Bumi sangat penting karena merupakan titik referensi dari pusat Bumi untuk semua ketinggian satelit. Ketika ketinggian satelit diukur dari permukaan Bumi (misalnya apogee dan perigee), Radius Bumi ditambahkan untuk mendapatkan jarak total dari pusat Bumi, yang merupakan parameter kunci dalam hukum gerak orbital.</p><p>Nilai radius Bumi yang digunakan dalam perhitungan ini adalah <strong>${re_leomeo_val.toFixed(2)} km</strong>.</p>`;
             
-            const popup = document.getElementById('popup_re_leomeo');
-            if (!popup) return;
-
-            // Clear existing content in the popup, except for the formula and the closing button
-            popup.querySelectorAll('.popup-content > p:not(.formula):not(.close-popup-btn)').forEach(p => p.remove());
-            popup.querySelectorAll('.popup-content > ul').forEach(ul => ul.remove()); // Also clear any lists
-
-            const formulaEl = popup.querySelector('.formula');
-            if (formulaEl) {
-                formulaEl.innerHTML = formulaContent;
-                // Add the explanation content dynamically
-                const tempDiv = document.createElement('div'); // Use a temporary div to parse HTML string
-                tempDiv.innerHTML = explanationContent;
-                Array.from(tempDiv.children).forEach(child => {
-                    formulaEl.parentNode.insertBefore(child, formulaEl.nextSibling);
-                });
-            }
+            updatePopupContent('popup_re_leomeo', formulaContent, explanationContent);
             openPopup('popup_re_leomeo');
         };
 
@@ -1248,7 +1409,7 @@
             let slantRange = document.getElementById('slant_range').value; // Get the raw value including 'Error'
 
             updatePopupContent('popup_slant_range_leomeo',
-                `d = R<sub>e</sub> √((r/R<sub>e</sub>)² - cos²(E)) - R<sub>e</sub> sin(E)`,
+                `d = R<sub>e</sub> &radic;((r/R<sub>e</sub>)&sup2; - cos&sup2;(E)) - R<sub>e</sub> sin(E)`,
                 `R<sub>e</sub> (Radius Bumi) = ${re_leomeo.toFixed(2)} km<br>r (Mean Orbit Radius) = ${radius.toFixed(2)} km<br>E (Sudut Elevasi) = ${elevasi.toFixed(2)} °<br>d = ${slantRange} km`
             );
             openPopup('popup_slant_range_leomeo');
@@ -1262,8 +1423,8 @@
             const slantRange = getVal('slantrangetouser_up_input');
 
             updatePopupContent('popup_slantrangetouser_up',
-                `d = √(r² + R<sub>e</sub>² - 2 r R<sub>e</sub> cos(α))`,
-                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>α (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>d = ${slantRange.toFixed(2)} km`
+                `d = &radic;(r&sup2; + R<sub>e</sub>&sup2; - 2 r R<sub>e</sub> cos(&alpha;))`,
+                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>&alpha; (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>d = ${slantRange.toFixed(2)} km`
             );
             openPopup('popup_slantrangetouser_up');
         };
@@ -1276,8 +1437,8 @@
             const elevationAngle = getVal('userelevationangel_up_input');
 
             updatePopupContent('popup_userelevationangel_up',
-                `E = arctan((cos(α) - R<sub>e</sub>/r) / sin(α))`,
-                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>α (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>E = ${elevationAngle.toFixed(2)} °`
+                `E = arctan((cos(&alpha;) - R<sub>e</sub>/r) / sin(&alpha;))`,
+                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>&alpha; (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>E = ${elevationAngle.toFixed(2)} °`
             );
             openPopup('popup_userelevationangel_up');
         };
@@ -1291,8 +1452,8 @@
             const longDiff = spaceslot - userlong;
 
             updatePopupContent('popup_userazimuthangle_up',
-                `A = arctan(tan(Δλ) / sin(φ<sub>L</sub>)) (Koreksi kuadran diperlukan)`,
-                `φ<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>Δλ (Longitude Difference) = (${spaceslot.toFixed(2)} - ${userlong.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>A = ${azimuthAngle} °`
+                `A = arctan(tan(&Delta;&lambda;) / sin(&phi;<sub>L</sub>)) (Koreksi kuadran diperlukan)`,
+                `&phi;<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>&Delta;&lambda; (Longitude Difference) = (${spaceslot.toFixed(2)} - ${userlong.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>A = ${azimuthAngle} °`
             );
             openPopup('popup_userazimuthangle_up');
         };
@@ -1306,8 +1467,8 @@
             const longDiff = userlong - spaceslot;
 
             updatePopupContent('popup_earthcentralangle_up',
-                `α = arccos(cos(φ<sub>L</sub>) cos(Δλ))`,
-                `φ<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>Δλ (Longitude Difference) = (${userlong.toFixed(2)} - ${spaceslot.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>α = ${earthCentralAngle.toFixed(2)} °`
+                `&alpha; = arccos(cos(&phi;<sub>L</sub>) cos(&Delta;&lambda;))`,
+                `&phi;<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>&Delta;&lambda; (Longitude Difference) = (${userlong.toFixed(2)} - ${spaceslot.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>&alpha; = ${earthCentralAngle.toFixed(2)} °`
             );
             openPopup('popup_earthcentralangle_up');
         };
@@ -1320,8 +1481,8 @@
             const slantRange = getVal('slantrangetouser_down_input');
 
             updatePopupContent('popup_slantrangetouser_down',
-                `d = √(r² + R<sub>e</sub>² - 2 r R<sub>e</sub> cos(α))`,
-                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>α (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>d = ${slantRange.toFixed(2)} km`
+                `d = &radic;(r&sup2; + R<sub>e</sub>&sup2; - 2 r R<sub>e</sub> cos(&alpha;))`,
+                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>&alpha; (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>d = ${slantRange.toFixed(2)} km`
             );
             openPopup('popup_slantrangetouser_down');
         };
@@ -1334,8 +1495,8 @@
             const elevationAngle = getVal('userelevationangel_down_input');
 
             updatePopupContent('popup_userelevationangel_down',
-                `E = arctan((cos(α) - R<sub>e</sub>/r) / sin(α))`,
-                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>α (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>E = ${elevationAngle.toFixed(2)} °`
+                `E = arctan((cos(&alpha;) - R<sub>e</sub>/r) / sin(&alpha;))`,
+                `r (Semi Major Axis GEO) = ${smageo.toFixed(3)} km<br>R<sub>e</sub> (Radius Bumi) = ${re_geo.toFixed(2)} km<br>&alpha; (Earth Central Angle) = ${earthCentralAngle.toFixed(2)} °<br>E = ${elevationAngle.toFixed(2)} °`
             );
             openPopup('popup_userelevationangel_down');
         };
@@ -1349,8 +1510,8 @@
             const longDiff = spaceslot - userlong;
 
             updatePopupContent('popup_userazimuthangle_down',
-                `A = arctan(tan(Δλ) / sin(φ<sub>L</sub>)) (Koreksi kuadran diperlukan)`,
-                `φ<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>Δλ (Longitude Difference) = (${spaceslot.toFixed(2)} - ${userlong.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>A = ${azimuthAngle.toFixed(2)} °`
+                `A = arctan(tan(&Delta;&lambda;) / sin(&phi;<sub>L</sub>)) (Koreksi kuadran diperlukan)`,
+                `&phi;<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>&Delta;&lambda; (Longitude Difference) = (${spaceslot.toFixed(2)} - ${userlong.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>A = ${azimuthAngle.toFixed(2)} °`
             );
             openPopup('popup_userazimuthangle_down');
         };
@@ -1364,8 +1525,8 @@
             const longDiff = userlong - spaceslot;
 
             updatePopupContent('popup_earthcentralangle_down',
-                `α = arccos(cos(φ<sub>L</sub>) cos(Δλ))`,
-                `φ<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>Δλ (Longitude Difference) = (${userlong.toFixed(2)} - ${spaceslot.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>α = ${earthCentralAngle.toFixed(2)} °`
+                `&alpha; = arccos(cos(&phi;<sub>L</sub>) cos(&Delta;&lambda;))`,
+                `&phi;<sub>L</sub> (User Latitude) = ${userlat.toFixed(2)} °<br>&Delta;&lambda; (Longitude Difference) = (${userlong.toFixed(2)} - ${spaceslot.toFixed(2)}) = ${longDiff.toFixed(2)} °<br>&alpha; = ${earthCentralAngle.toFixed(2)} °`
             );
             openPopup('popup_earthcentralangle_down');
         };

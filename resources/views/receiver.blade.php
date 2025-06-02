@@ -1,6 +1,15 @@
 <x-layout>
     <x-slot:title>Form Receiver</x-slot>
     <div class="container mx-auto px-4 py-8">
+    
+    <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl border-t-8 border-blue-600 transform transition-all duration-300 hover:shadow-3xl">
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
+                <i class="fas fa-satellite-dish mr-2 text-blue-600"></i> Perhitungan Parameter Receiver
+            </h1>
+            <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
+                Masukkan parameter receiver untuk uplink dan downlink.
+            </p>
         
         <!-- Uplink Section -->
         <h2 class="text-2xl font-bold mb-6 text-center">Uplink</h2>

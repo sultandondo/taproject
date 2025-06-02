@@ -78,33 +78,6 @@
             position: relative;
         }
 
-        .earth::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: 
-                /* Amerika */
-                radial-gradient(ellipse 55px 75px at 25% 45%, rgba(76, 175, 80, 0.9) 20%, transparent 60%),
-                /* Afrika */
-                radial-gradient(ellipse 45px 95px at 52% 55%, rgba(139, 195, 74, 0.8) 15%, transparent 55%),
-                /* Asia */
-                radial-gradient(ellipse 65px 55px at 75% 35%, rgba(102, 187, 106, 0.9) 18%, transparent 50%),
-                /* Australia */
-                radial-gradient(ellipse 25px 20px at 80% 70%, rgba(124, 179, 66, 0.7) 25%, transparent 65%),
-                /* Greenland */
-                radial-gradient(ellipse 20px 35px at 35% 20%, rgba(200, 230, 201, 0.6) 30%, transparent 70%),
-                /* Clouds */
-                radial-gradient(ellipse 40px 25px at 15% 30%, rgba(255, 255, 255, 0.3) 0%, transparent 70%),
-                radial-gradient(ellipse 35px 20px at 60% 25%, rgba(255, 255, 255, 0.25) 0%, transparent 60%),
-                radial-gradient(ellipse 45px 30px at 85% 45%, rgba(255, 255, 255, 0.3) 0%, transparent 65%),
-                radial-gradient(ellipse 30px 40px at 20% 75%, rgba(255, 255, 255, 0.2) 0%, transparent 50%);
-            border-radius: 50%;
-            animation: continentMove 40s linear infinite reverse;
-        }
-
         .earth::after {
             content: '';
             position: absolute;
