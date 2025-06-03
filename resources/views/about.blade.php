@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
+<x-layout>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +22,7 @@
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Sesuaikan dengan home page */
     position: relative;
     overflow: hidden;
-}
+    }
 
         .hero-custom-bg::before {
             content: '';
@@ -206,26 +205,9 @@
         }
     </style>
 </head>
-<body class="bg-gray-50"> <nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="flex justify-between items-center h-16">
-                <div class="flex items-center space-x-3">
-    <div class="w-10 h-10 rounded-lg overflow-hidden">
-        <img src="{{ asset('img/LogoSLC.png') }}" alt=" Logo" class="w-full h-full object-contain">
-    </div>
-    <span class="font-bold text-xl text-gradient">SkyLinkCal</span>
-</div>
-                <div class="hidden md:flex space-x-8">
-                    <a href="#" class="text-gray-700 hover:text-blue-600 font-medium transition">Home</a>
-                    <a href="#advisors" class="text-gray-700 hover:text-blue-600 font-medium transition">Advisors</a>
-                    <a href="#team" class="text-gray-700 hover:text-blue-600 font-medium transition">Team</a>
-                    <a href="#contact" class="text-gray-700 hover:text-blue-600 font-medium transition">Contact</a>
-                </div>
-                <button class="md:hidden">
-                    <i class="fas fa-bars text-gray-700"></i>
-                </button>
-            </div>
-        </div>
-    </nav>
+
+<body class="bg-gray-50"> 
+    
 
     <section class="relative min-h-screen flex items-center justify-center hero-custom-bg">
         <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto hero-section-content">
@@ -498,56 +480,7 @@
         </div>
     </section>
 
-    <footer class="bg-gray-900 text-white py-16 px-4 sm:px-6 lg:px-8" id="contact">
-        <div class="max-w-7xl mx-auto"> <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center space-x-3 mb-6">
-                        <div class="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-satellite text-white text-xl"></i>
-                        </div>
-                        <span class="font-bold text-2xl">SkyLinkCal</span>
-                    </div>
-                    <p class="text-gray-400 max-w-md mb-6">
-                        Platform terdepan untuk perhitungan satelit profesional dengan teknologi canggih dan dukungan expert.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold text-white mb-6">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition">Home</a></li>
-                        <li><a href="#advisors" class="text-gray-400 hover:text-white transition">Advisors</a></li>
-                        <li><a href="#team" class="text-gray-400 hover:text-white transition">Team</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-white transition">Contact</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h3 class="text-xl font-semibold text-white mb-6">Contact Us</h3>
-                    <ul class="space-y-3 text-gray-400">
-                        <li><i class="fas fa-map-marker-alt mr-3"></i> Bandung, Indonesia</li>
-                        <li><i class="fas fa-envelope mr-3"></i> info@skylinkcalc.com</li>
-                        <li><i class="fas fa-phone mr-3"></i> +62 812-3456-7890</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="border-t border-gray-800 pt-8 text-center text-gray-500 text-sm">
-                &copy; 2024 SkyLinkCal. All rights reserved.
-            </div>
-        </div>
-    </footer>
+   
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
@@ -573,4 +506,5 @@
         });
     </script>
 </body>
-</html>
+
+</x-layout>

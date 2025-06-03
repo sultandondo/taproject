@@ -215,6 +215,8 @@ return new class extends Migration
             $table->double('dbcrosspolpowerfraction_down')->nullable();
             $table->double('crosspolarizationisolation_down')->nullable();
 
+            //Database Antenna Gain
+
             $table->timestamps();
         });
     }

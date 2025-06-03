@@ -64,15 +64,27 @@ Route::get('/antena', function () {
     return view('antena', ['title'=> 'Lets Antena!']);
 });
 
-Route::get('/antennagain', function () {
-    return view('antennagain', ['title'=> 'Lets Antenna Gain!']);
-});
 
-Route::get('/annpolaloss', function () {
-    return view('annpolaloss', ['title'=> 'Lets Antenna Polarization Loss!']);
-});
+Route::get('/antennagain/{id}', [DataController::class, 'showAntennagain'])->name('antennagain.show');
+Route::post('/antennagain/{id}', [DataController::class, 'store_antennagain'])->name('antennagain.store'); // Menangani form dengan POST
+
+Route::get('/annpoinloss/{id}', [DataController::class, 'showAntennaPointingLoss'])->name('annpoinloss.show');
+Route::post('/annpoinloss/{id}', [DataController::class, 'store_annpoinloss'])->name('annpoinloss.store'); // Menangani form dengan POST
+
+
+Route::get('/atnmosionos/{id}', [DataController::class, 'showAtmosIonos'])->name('atnmosionos.show');
+
+
+Route::get('/annpolaloss/{id}', [DataController::class, 'showAnnpolaloss'])->name('annpolaloss.show');
 
 Route::get('/updownlinkbudgetatn', function () {
     return view('updownlinkbudgetatn', ['title'=> 'Lets Calculation Uplink & Downlink Budget Antenna!']);
 });
+
+Route::get('/about', function () {
+    return view('about', ['title' => 'About Us']);
+})->name('about.us'); // <--- Add this line!
+
+Route::get('/home', [AuthController::class, 'dashboard'])->name('home');
+
 ;

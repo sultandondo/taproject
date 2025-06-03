@@ -77,6 +77,55 @@ public function showAzimuthForm($id)
         'userId' => $data->user_id
     ]);
 }
+
+    public function showAntennagain($id)
+{
+    $data = Data::findOrFail($id);
+    
+    return view('antennagain', [
+        'title'=> 'Lets Calculate Antenagain!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
+public function showAntennaPointingLoss($id)
+{
+    $data = Data::findOrFail($id);
+    
+    return view('annpoinloss', [
+        'title'=> 'Lets Calculate Antenna Pointing Loss!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
+public function showAnnpolaloss($id)
+{
+    $data = Data::findOrFail($id);
+    
+    return view('annpolaloss', [
+        'title'=> 'Lets Calculate Antenna Polararization Loss !',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
+public function showAtmosIonos($id)
+{
+    $data = Data::findOrFail($id);
+    
+    return view('atnmosionos', [
+        'title'=> 'Lets Calculate Antenagain!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
     // Menampilkan form untuk membuat data baru
     public function create()
     {
@@ -419,7 +468,7 @@ public function showAzimuthForm($id)
             // Field lainnya
         ]);
 
-        return redirect()->route('receiver.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('antennagain.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
      //Menyimpan data Frekuensi
@@ -591,6 +640,22 @@ public function showAzimuthForm($id)
         ]);
 
         return redirect()->route('annpolaloss.show')->with('success', 'Data berhasil ditambahkan');
+    }
+
+    //GainAntenna
+      public function store_antennagain(Request $request, $id)
+    {
+
+        $data = Data::findOrFail($id);
+        return redirect()->route('annpoinloss.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+    }
+
+    //Antenna Pointing Loss
+    public function store_annpoinloss(Request $request, $id)
+    {
+
+        $data = Data::findOrFail($id);
+        return redirect()->route('annpolaloss.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
 

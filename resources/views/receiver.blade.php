@@ -149,7 +149,7 @@
     </div>
     <h2 class="text-2xl font-bold mb-6 text-center">Downlink</h2>
     <div class="bg-white shadow-lg rounded-lg p-6">
-        <form method="GET" action="">
+      
 
         <!-- Cable Losses -->
         <div class="mb-4">
@@ -295,7 +295,6 @@
             </div>
                         
                         <button type="submit" class="bg-blue-500 text-black px-4 py-2 rounded hover:bg-blue-600 w-full">Simpan</button>
-                    </form>
                 </div>
             </form>
         </div>

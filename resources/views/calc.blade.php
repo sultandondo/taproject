@@ -165,7 +165,7 @@
                         $selectedOrbit = old('jenis_orbit', $data->jenis_orbit ?? request('jenis_orbit'));
                     @endphp
 
-                    <select name="jenis_orbit" id="jenis_orbit" onchange="handleOrbitChange()"
+                    <select required name="jenis_orbit" id="jenis_orbit" onchange="handleOrbitChange()"
                             class="border border-blue-300 p-3 w-full rounded-lg bg-white shadow-sm text-gray-800
                                 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200">
                         <option value="">-- Pilih Orbit --</option>
