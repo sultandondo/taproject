@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\ContactController;
+Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
 
 Route::get('/', [AuthController::class, 'showLogin'])->name('masuk');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('cred');
@@ -71,11 +73,10 @@ Route::post('/antennagain/{id}', [DataController::class, 'store_antennagain'])->
 Route::get('/annpoinloss/{id}', [DataController::class, 'showAntennaPointingLoss'])->name('annpoinloss.show');
 Route::post('/annpoinloss/{id}', [DataController::class, 'store_annpoinloss'])->name('annpoinloss.store'); // Menangani form dengan POST
 
+Route::get('/annpolaloss/{id}', [DataController::class, 'showAnnpolaloss'])->name('annpolaloss.show');
+Route::post('/annpolaloss/{id}', [DataController::class, 'store_Annpolaloss'])->name('annpolaloss.store'); // Menangani form dengan POST
 
 Route::get('/atnmosionos/{id}', [DataController::class, 'showAtmosIonos'])->name('atnmosionos.show');
-
-
-Route::get('/annpolaloss/{id}', [DataController::class, 'showAnnpolaloss'])->name('annpolaloss.show');
 
 Route::get('/updownlinkbudgetatn', function () {
     return view('updownlinkbudgetatn', ['title'=> 'Lets Calculation Uplink & Downlink Budget Antenna!']);

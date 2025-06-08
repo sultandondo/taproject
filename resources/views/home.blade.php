@@ -104,7 +104,8 @@
                         </div>
                         <h3 class="text-2xl font-bold text-gray-900 mb-6">Hubungi Tim Ahli</h3>
                         
-                        <form class="space-y-4">
+                        <form action="{{ route('contact.send') }}" method="POST" class="space-y-4">
+                            @csrf
                             <div>
                                 <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
                                 <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" placeholder="Masukkan nama Anda">

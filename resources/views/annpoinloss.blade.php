@@ -260,7 +260,7 @@
                     λ = c / f<br>
                     Dimana:<br>
                     λ = Panjang gelombang (meter)<br>
-                    c = Kecepatan cahaya (~300.000.000 m/s)<br>
+                    c = Kecepatan cahaya (~299.8 m/s)<br>
                     f = Frekuensi (Hz)
                 </div>
                 <div class="input-values">
@@ -412,7 +412,7 @@
 
             const frequency = parseFloat(freqField.value);
             if (!isNaN(frequency) && frequency > 0) {
-                const wavelength = 300 / frequency; // c = 300 Mm/s (kecepatan cahaya disesuaikan untuk f dalam MHz)
+                const wavelength = 299.8 / frequency; // c = 299.8 m/s (kecepatan cahaya disesuaikan untuk f dalam MHz)
                 wavelengthField.value = wavelength.toFixed(6);
             } else {
                 wavelengthField.value = '';

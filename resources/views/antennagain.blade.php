@@ -4,7 +4,9 @@
         <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl border-t-8 border-blue-600 transform transition-all duration-300 hover:shadow-3xl">
             <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
-                <i class="fas fa-satellite-dish mr-2 text-blue-600"></i> Perhitungan Parameter Antenna Gain
+                <i class="fas fa-satellite-dish mr- text-blue-600"></i> Perhitungan Parameter 
+                <p class=" mr- text-blue-600"></p> Antenna Gain
+
             </h1>
             <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
                 Masukkan parameter Antenna Gain untuk uplink dan downlink.
@@ -31,13 +33,13 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena:</label>
+                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
                             <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Yagi">Yagi Antenna</option>
                                 <option value="Helix">Helix Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
-                                <option value="User Defined">User Defined (Input Manual)</option>
+                      
                             </select>
                         </div>
 
@@ -77,20 +79,13 @@
                                 <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                                 <input type="number" name="beamwidth_manual_upgrounds" id="beamwidth_manual_upgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
                             </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Nama Tipe Antena:</label>
-                                <input type="text" name="antenna_name_upgrounds" id="antenna_name_upgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Contoh: Yagi 5 elemen, Helix 4 turn, Parabolic 2m">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Catatan Tambahan:</label>
-                                <textarea name="notes_upgrounds" id="notes_upgrounds" rows="3" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Catatan tambahan tentang antena (opsional)"></textarea>
-                            </div>
+                            
                         </div>
                     </div>
 
                     <div class="mb-8">
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700 text-lg">Wahana Antariksa (Uplink):</label>
+                            <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Uplink):</label>
                         </div>
                         <div class="mb-6">
                             <label for="jenis_polarizationspacecraft_up" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
@@ -101,14 +96,14 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="jenis_antenaspacecraft_up" class="block font-medium mb-1 text-gray-700">Jenis Antena:</label>
+                            <label for="jenis_antenaspacecraft_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
                             <select name="jenis_antenaspacecraft_up" id="jenis_antenaspacecraft_up" onchange="handleAntennaChangeSpacecraft('up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Monopole">Monopole Antenna</option>
                                 <option value="Dipole">Dipole Antenna</option>
                                 <option value="Patch">Patch Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
-                                <option value="User Defined">User Defined (Input Manual)</option>
+                         
                             </select>
                         </div>
 
@@ -137,14 +132,7 @@
                                 <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                                 <input type="number" name="beamwidth_manual_upspacecraft" id="beamwidth_manual_upspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
                             </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Nama Tipe Antena:</label>
-                                <input type="text" name="antenna_name_upspacecraft" id="antenna_name_upspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Contoh: Monopole λ/4, Dipole λ/2, Patch 6dBi">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Catatan Tambahan:</label>
-                                <textarea name="notes_upspacecraft" id="notes_upspacecraft" rows="3" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Catatan tambahan tentang antena (opsional)"></textarea>
-                            </div>
+                           
                         </div>
                     </div>
 
@@ -172,7 +160,7 @@
             <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
                     <div class="mb-8">
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700 text-lg">Stasiun Bumi (Downlink):</label>
+                            <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Downlink):</label>
                         </div>
 
                         <div class="mb-6">
@@ -185,13 +173,12 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="jenis_antenagrounds_down" class="block font-medium mb-1 text-gray-700">Jenis Antena:</label>
+                            <label for="jenis_antenagrounds_down" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
                             <select name="jenis_antenagrounds_down" id="jenis_antenagrounds_down" onchange="handleAntennaChangeGrounds('down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Yagi">Yagi Antenna</option>
                                 <option value="Helix">Helix Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
-                                <option value="User Defined">User Defined (Input Manual)</option>
                             </select>
                         </div>
 
@@ -231,20 +218,13 @@
                                 <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                                 <input type="number" name="beamwidth_manual_downgrounds" id="beamwidth_manual_downgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
                             </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Nama Tipe Antena:</label>
-                                <input type="text" name="antenna_name_downgrounds" id="antenna_name_downgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Contoh: Yagi 5 elemen, Helix 4 turn, Parabolic 2m">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Catatan Tambahan:</label>
-                                <textarea name="notes_downgrounds" id="notes_downgrounds" rows="3" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Catatan tambahan tentang antena (opsional)"></textarea>
-                            </div>
+                           
                         </div>
                     </div>
 
                     <div class="mb-8">
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700 text-lg">Wahana Antariksa (Downlink):</label>
+                            <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Downlink):</label>
                         </div>
                         <div class="mb-6">
                             <label for="jenis_polarizationspacecraft_down" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
@@ -255,14 +235,13 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="jenis_antenaspacecraft_down" class="block font-medium mb-1 text-gray-700">Jenis Antena:</label>
+                            <label for="jenis_antenaspacecraft_down" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
                             <select name="jenis_antenaspacecraft_down" id="jenis_antenaspacecraft_down" onchange="handleAntennaChangeSpacecraft('down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Monopole">Monopole Antenna</option>
                                 <option value="Dipole">Dipole Antenna</option>
                                 <option value="Patch">Patch Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
-                                <option value="User Defined">User Defined (Input Manual)</option>
                             </select>
                         </div>
 
@@ -291,14 +270,7 @@
                                 <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                                 <input type="number" name="beamwidth_manual_downspacecraft" id="beamwidth_manual_downspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
                             </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Nama Tipe Antena:</label>
-                                <input type="text" name="antenna_name_downspacecraft" id="antenna_name_downspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Contoh: Monopole λ/4, Dipole λ/2, Patch 6dBi">
-                            </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Catatan Tambahan:</label>
-                                <textarea name="notes_downspacecraft" id="notes_downspacecraft" rows="3" class="border border-gray-300 p-3 w-full rounded bg-gray-50" placeholder="Catatan tambahan tentang antena (opsional)"></textarea>
-                            </div>
+                       
                         </div>
                     </div>
 
@@ -339,7 +311,7 @@
                     λ = c / f<br>
                     Dimana:<br>
                     λ = Panjang gelombang (meter)<br>
-                    c = Kecepatan cahaya (~300.000.000 m/s)<br>
+                    c = Kecepatan cahaya (~299.8 m/s)<br>
                     f = Frekuensi (Hz)
                 </div>
                 <div class="input-values">
@@ -436,7 +408,7 @@
 
             const frequency = parseFloat(freqField.value);
             if (!isNaN(frequency) && frequency > 0) {
-                const wavelength = 300 / frequency; // c = 300 Mm/s (kecepatan cahaya disesuaikan untuk f dalam MHz)
+                const wavelength = 299.8 / frequency; // c = 299.8 m/s (kecepatan cahaya disesuaikan untuk f dalam MHz)
                 wavelengthField.value = wavelength.toFixed(6);
             } else {
                 wavelengthField.value = '';

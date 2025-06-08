@@ -1,6 +1,11 @@
 <x-layout>
     <x-slot:title>Antenna Polaritation Loss</x-slot>
     <div class="container mx-auto px-4 py-8">
+     <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+        <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl border-t-8 border-blue-600 transform transition-all duration-300 hover:shadow-3xl">
+            <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
+                <i class="fas fa-satellite-dish mr- text-blue-600"></i> Perhitungan Parameter 
+                <p class=" mr- text-blue-600"></p> Antenna Polarization Loss
         
         <!-- Uplink Section -->
         <h2 class="text-2xl font-bold mb-6 text-center">Uplink</h2>
@@ -153,6 +158,10 @@
                 <input type="number" step="any" name="crosspolarizationisolation_down" id="crosspolarizationisolation_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                 <button type="button" id="crosspolarizationisolation_down_btn" class="text-blue-500 mt-2">Lihat Detail</button>
             </div>
+
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-full transition duration-150 ease-in-out">
+                    Hitung & Simpan Parameter Antenna Polarization Loss
+                </button>
         </div>
     </div>  
 

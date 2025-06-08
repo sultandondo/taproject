@@ -413,7 +413,7 @@
                         Misi & <span class="text-gradient">Visi</span> Kami
                     </h2>
                     <p class="text-xl text-gray-600 mb-8">
-                        Berkomitmen untuk menghadirkan solusi perhitungan satelit yang akurat, efisien, dan mudah digunakan
+                        Berkomitmen untuk menghadirkan solusi perhitungan satelit yang efisien dan mudah digunakan
                     </p>
 
                     <div class="space-y-6">
@@ -423,7 +423,7 @@
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900 mb-2">Misi</h4>
-                                <p class="text-gray-600">Mengembangkan platform perhitungan satelit yang presisi untuk mendukung pendidikan dan penelitian dalam bidang komunikasi satelit</p>
+                                <p class="text-gray-600">Mengembangkan platform perhitungan link budget satelit yang dapat mendukung pendidikan dan penelitian dalam bidang komunikasi satelit</p>
                             </div>
                         </div>
 
@@ -433,45 +433,19 @@
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900 mb-2">Visi</h4>
-                                <p class="text-gray-600">Menjadi platform terdepan dalam tools perhitungan satelit yang inovatif dan terpercaya di Indonesia</p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                <i class="fas fa-heart text-white text-sm"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-semibold text-gray-900 mb-2">Nilai</h4>
-                                <p class="text-gray-600">Integritas, inovasi, dan kolaborasi dalam setiap aspek pengembangan untuk menciptakan dampak positif</p>
+                                <p class="text-gray-600">Menjadi platform yang bermanfaat dalam tools perhitungan satelit yang inovatif</p>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="relative" data-aos="fade-left">
-                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl p-8 text-white">
-                        <div class="text-center mb-8">
-                            <h3 class="text-2xl font-bold mb-4">Pencapaian Tim</h3>
-                            <p class="text-blue-100">Hasil kerja keras dan dedikasi kami</p>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-6">
-                            <div class="text-center">
-                                <div class="text-3xl font-bold mb-2">100%</div>
-                                <div class="text-blue-100 text-sm">Commitment</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold mb-2">6+</div>
-                                <div class="text-blue-100 text-sm">Months Development</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold mb-2">50+</div>
-                                <div class="text-blue-100 text-sm">Testing Hours</div>
-                            </div>
-                            <div class="text-center">
-                                <div class="text-3xl font-bold mb-2">1</div>
-                                <div class="text-blue-100 text-sm">Dream Team</div>
+                <div class="relative">
+                        <div class="w-96 h-96 mx-auto relative">
+                            <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 animate-pulse"></div>
+                            <div class="absolute inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-30 animate-pulse" style="animation-delay: 1s;"></div>
+                            <div class="absolute inset-8 bg-gradient-to-r from-blue-600 to-purple-700 rounded-full opacity-40 animate-pulse" style="animation-delay: 2s;"></div>
+                            <div class="absolute inset-16 bg-white rounded-full flex items-center justify-center shadow-2xl">
+                                <img src="{{ asset('img/LogoSLCBiru.png') }}" alt="Logo SkyLinkCal" class="w-37 h-37 object-contain">
                             </div>
                         </div>
                     </div>

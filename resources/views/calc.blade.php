@@ -131,6 +131,24 @@
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
         }
+
+        /* Styling untuk pesan error */
+.error-message {
+    color: #dc2626;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: none;
+}
+
+.input-error {
+    border-color: #dc2626 !important;
+    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+}
+
+.input-valid {
+    border-color: #16a34a !important;
+    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1) !important;
+}
     </style>
 
     <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -185,24 +203,41 @@
 
                     <label class="form-section-label text-purple-700"><i class="fas fa-ruler-combined mr-2"></i> Parameter Orbit Umum</label>
 
-                    <div class="mb-4 relative" id="ketinggian_field">
-                        <label for="ketinggian" class="block font-medium mb-1 text-gray-700">Ketinggian (km):</label>
-                        {{-- Ketinggian can be pre-filled if it exists in $data or request --}}
-                        <input type="text" name="ketinggian" id="ketinggian" value="{{ old('ketinggian', $data->ketinggian ?? request('ketinggian')) }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" placeholder="{{ $data->ketinggian ?? 'Masukkan Ketinggian Orbit' }}">
-                        <span class="input-unit">km</span>
-                    </div>
-
                     <div id="apogee_field" class="mb-4 relative">
-                        <label class="block font-medium mb-1 text-gray-700">Apogee (km):</label>
-                        <input type="number" name="apogee" id="apogee" value="{{ old('apogee', $data->apogee ?? request('apogee')) }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" min="0" placeholder="{{ $data->apogee ?? '' }}">
-                        <span class="input-unit">km</span>
-                    </div>
+    <label class="block font-medium mb-1 text-gray-700">Apogee (km):</label>
+    <input type="number" 
+           name="apogee" 
+           id="apogee" 
+           value="{{ old('apogee', $data->apogee ?? request('apogee')) }}" 
+           class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" 
+           min="200" 
+           max="2000" 
+           step="0.1" 
+           placeholder="{{ $data->apogee ?? 'Masukkan nilai antara 200-2000 km' }}">
+    <span class="input-unit">km</span>
+    <div id="apogee-error" class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> 
+        <span id="apogee-error-text"></span>
+    </div>
+</div>
 
                     <div id="perigee_field" class="mb-4 relative">
-                        <label class="block font-medium mb-1 text-gray-700">Perigee (km):</label>
-                        <input type="number" name="perigee" id="perigee" value="{{ old('perigee') ?? request('perigee') }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" min="0" placeholder="{{ $data->perigee ?? '' }}">
-                        <span class="input-unit">km</span>
-                    </div>
+    <label class="block font-medium mb-1 text-gray-700">Perigee (km):</label>
+    <input type="number" 
+           name="perigee" 
+           id="perigee" 
+           value="{{ old('perigee') ?? request('perigee') }}" 
+           class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" 
+           min="200" 
+           max="2000" 
+           step="0.1" 
+           placeholder="{{ $data->perigee ?? 'Masukkan nilai antara 200-2000 km' }}">
+    <span class="input-unit">km</span>
+    <div id="perigee-error" class="error-message">
+        <i class="fas fa-exclamation-triangle"></i> 
+        <span id="perigee-error-text"></span>
+    </div>
+</div>
 
                     <div id="eccentricity_field" class="mb-4">
                         <label for="eccentricity" class="block font-medium mb-1 text-gray-700">Eccentricity (e):</label>
@@ -225,7 +260,7 @@
                     </div>
 
                     <div id="meananomaly_field" class="mb-4 relative">
-                        <label class="block font-medium mb-1 text-gray-700">Mean Anomaly (M):</label>
+                        <label class="block font-medium mb-1 text-gray-700">True Anomaly (M):</label>
                         <input type="number" name="mean_anomaly" id="mean_anomaly" value="{{ old('mean_anomaly') ?? request('mean_anomaly') }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50 pr-12" min="0" placeholder="{{ $data->mean_anomaly ?? '' }}">
                         <span class="input-unit">°</span>
                     </div>
@@ -664,7 +699,6 @@
             const orbitFieldsContainer = document.getElementById('orbitFields');
 
             // Get all individual field divs by their IDs
-            const ketinggianField = document.getElementById('ketinggian_field'); 
             const apogeeField = document.getElementById('apogee_field');
             const perigeeField = document.getElementById('perigee_field');
             const inklinasiField = document.getElementById('inklinasi_field');
@@ -708,7 +742,7 @@
 
             // Set all fields to display: none by default
             const allFields = [
-                ketinggianField, apogeeField, perigeeField, inklinasiField, eccentricityField, 
+                apogeeField, perigeeField, inklinasiField, eccentricityField, 
                 argumenopField, raanField, meananomalyField, 
                 altitudeField, radiusField, reeGeoField, 
                 smageoField, // Now only one instance of smageoField
@@ -734,7 +768,6 @@
 
                 if (orbit === 'LEO' || orbit === 'MEO') {
                     // Show LEO/MEO specific input fields
-                    ketinggianField.style.display = 'block';
                     apogeeField.style.display = 'block';
                     perigeeField.style.display = 'block';
                     inklinasiField.style.display = 'block';
@@ -784,7 +817,6 @@
 
 
                     // Hide LEO/MEO specific fields for GEO
-                    ketinggianField.style.display = 'none';
                     apogeeField.style.display = 'none';
                     perigeeField.style.display = 'none';
                     altitudeField.style.display = 'none';
@@ -816,6 +848,85 @@
                 orbitFieldsContainer.style.display = 'none';
             }
         }
+
+        // Fungsi validasi untuk Apogee dan Perigee
+function validateApogeePerigee() {
+    const apogeeInput = document.getElementById('apogee');
+    const perigeeInput = document.getElementById('perigee');
+    const apogeeError = document.getElementById('apogee-error');
+    const perigeeError = document.getElementById('perigee-error');
+    const apogeeErrorText = document.getElementById('apogee-error-text');
+    const perigeeErrorText = document.getElementById('perigee-error-text');
+    
+    if (!apogeeInput || !perigeeInput) return; // Guard untuk memastikan element ada
+    
+    const apogeeValue = parseFloat(apogeeInput.value);
+    const perigeeValue = parseFloat(perigeeInput.value);
+    
+    let apogeeValid = true;
+    let perigeeValid = true;
+    
+    // Reset styling
+    apogeeInput.classList.remove('input-error', 'input-valid');
+    perigeeInput.classList.remove('input-error', 'input-valid');
+    if (apogeeError) apogeeError.style.display = 'none';
+    if (perigeeError) perigeeError.style.display = 'none';
+    
+    // Validasi Apogee
+    if (apogeeInput.value !== '') {
+        if (isNaN(apogeeValue) || apogeeValue < 200 || apogeeValue > 2000) {
+            apogeeValid = false;
+            apogeeInput.classList.add('input-error');
+            if (apogeeError) {
+                apogeeError.style.display = 'block';
+                if (apogeeValue < 200) {
+                    apogeeErrorText.textContent = 'Nilai apogee tidak boleh kurang dari 200 km';
+                } else if (apogeeValue > 2000) {
+                    apogeeErrorText.textContent = 'Nilai apogee tidak boleh lebih dari 2000 km';
+                } else {
+                    apogeeErrorText.textContent = 'Masukkan nilai yang valid';
+                }
+            }
+        } else {
+            apogeeInput.classList.add('input-valid');
+        }
+    }
+    
+    // Validasi Perigee
+    if (perigeeInput.value !== '') {
+        if (isNaN(perigeeValue) || perigeeValue < 200 || perigeeValue > 2000) {
+            perigeeValid = false;
+            perigeeInput.classList.add('input-error');
+            if (perigeeError) {
+                perigeeError.style.display = 'block';
+                if (perigeeValue < 200) {
+                    perigeeErrorText.textContent = 'Nilai perigee tidak boleh kurang dari 200 km';
+                } else if (perigeeValue > 2000) {
+                    perigeeErrorText.textContent = 'Nilai perigee tidak boleh lebih dari 2000 km';
+                } else {
+                    perigeeErrorText.textContent = 'Masukkan nilai yang valid';
+                }
+            }
+        } else {
+            perigeeInput.classList.add('input-valid');
+        }
+    }
+    
+    // Validasi bahwa perigee tidak boleh lebih besar dari apogee
+    if (apogeeValid && perigeeValid && apogeeInput.value !== '' && perigeeInput.value !== '') {
+        if (perigeeValue >= apogeeValue) {
+            perigeeValid = false;
+            perigeeInput.classList.remove('input-valid');
+            perigeeInput.classList.add('input-error');
+            if (perigeeError) {
+                perigeeError.style.display = 'block';
+                perigeeErrorText.textContent = 'Nilai perigee harus lebih kecil dari apogee';
+            }
+        }
+    }
+    
+    return apogeeValid && perigeeValid;
+}
 
 
         // Fungsi untuk menghitung Mean Orbit Altitude
@@ -1167,20 +1278,47 @@
             });
         });
 
+        // Validasi sebelum submit form
+document.querySelector('form').addEventListener('submit', function(e) {
+    const orbitType = document.getElementById('jenis_orbit').value;
+    if (orbitType === 'LEO' || orbitType === 'MEO') {
+        if (!validateApogeePerigee()) {
+            e.preventDefault();
+            alert('Mohon perbaiki nilai Apogee dan Perigee sebelum melanjutkan.');
+            return false;
+        }
+    }
+});
+
         // Initialize display based on existing value (if page reloads with selected orbit)
         document.addEventListener('DOMContentLoaded', function() {
             handleOrbitChange(); // Initial setup of form fields based on selected orbit (or default)
 
-            // Attach event listeners for LEO/MEO fields only if they are visible
-            // This needs to be called after handleOrbitChange to ensure elements are visible
-            const orbitType = document.getElementById('jenis_orbit').value;
-            if (orbitType === 'LEO' || orbitType === 'MEO') {
-                document.getElementById('apogee').addEventListener('input', calculateMeanOrbitAltitude);
-                document.getElementById('perigee').addEventListener('input', calculateMeanOrbitAltitude);
-                document.getElementById('elevasi').addEventListener('input', calculateSlantRange);
-                document.getElementById('apogee').addEventListener('input', calculateEccentricity);
-                document.getElementById('perigee').addEventListener('input', calculateEccentricity);
-            }
+             // Attach validation event listeners
+    const apogeeInput = document.getElementById('apogee');
+    const perigeeInput = document.getElementById('perigee');
+    const elevasiInput = document.getElementById('elevasi');
+    
+    if (apogeeInput) {
+        apogeeInput.addEventListener('input', function() {
+            validateApogeePerigee();
+            calculateMeanOrbitAltitude();
+            calculateEccentricity();
+        });
+        apogeeInput.addEventListener('blur', validateApogeePerigee);
+    }
+    if (perigeeInput) {
+        perigeeInput.addEventListener('input', function() {
+            validateApogeePerigee();
+            calculateMeanOrbitAltitude();
+            calculateEccentricity();
+        });
+        perigeeInput.addEventListener('blur', validateApogeePerigee);
+    }
+    
+    if (elevasiInput) {
+        elevasiInput.addEventListener('input', calculateSlantRange);
+    }
         });
 
         // --- General Popup Logic ---
