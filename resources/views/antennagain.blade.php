@@ -1,19 +1,221 @@
 <x-layout>
     <x-slot:title>Antenna Gain Calculator</x-slot>
+
+    {{-- Link to Font Awesome for icons and Animate.css for animations --}}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        /* General styles for readonly inputs */
+        input[readonly] {
+            background-color: #e6f4e1; /* Lighter green */
+            color: #166534; /* Darker green text */
+            border-color: #81c784; /* Green border */
+            cursor: not-allowed;
+            font-weight: 500;
+        }
+
+        /* Styles for input focus states */
+        input[type="number"]:focus,
+        input[type="text"]:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #3B82F6; /* blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* blue-500 with opacity */
+        }
+
+        /* Styling for labels in form sections - not directly used in the provided Antenna Gain, but good to include for consistency */
+        .form-section-label {
+            display: block;
+            font-weight: bold;
+            color: #1F2937; /* gray-800 */
+            margin-bottom: 1rem;
+            margin-top: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #E5E7EB; /* gray-200 */
+        }
+
+        /* Basic styling for input groups */
+        .input-group > div {
+            margin-bottom: 1rem;
+        }
+        .input-group > div:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Consistent input height and padding */
+        input[type="number"],
+        input[type="text"] {
+            height: 48px; /* Standard height for p-3 inputs */
+        }
+
+        /* Wrapper for input fields with units next to them */
+        .input-with-unit-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem; /* Space between input and unit */
+            flex-wrap: nowrap; /* Prevent wrapping by default */
+        }
+        .input-with-unit-wrapper input {
+            flex-grow: 1; /* Allow input to take available space */
+            min-width: 80px; /* Minimum width for input to be readable */
+        }
+
+
+        /* Styling for unit text */
+        .unit-text {
+            color: #4B5563; /* gray-700 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* Medium font weight */
+            white-space: nowrap; /* Prevent unit text from wrapping */
+            flex-shrink: 0; /* Prevent shrinking of the unit text */
+        }
+
+        /* --- Popup Styles (Crucial Fixes for Overlay Behavior) --- */
+        .popup-window {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        .popup-content {
+            position: relative;
+            background-color: white;
+            padding: 20px 30px 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: fadeInScale 0.3s ease-out;
+            box-sizing: border-box;
+            margin: 1rem;
+        }
+        .close-popup-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .close-popup-btn:hover {
+            color: #000;
+        }
+
+        .formula {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
+            overflow-wrap: break-word; /* Ensure long formulas wrap */
+        }
+
+        .popup-content h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+
+        .popup-content p {
+            margin: 8px 0;
+            line-height: 1.5;
+            color: #374151;
+        }
+        
+        /* Keyframes for popup animation */
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* --- Mobile Responsive Adjustments (max-width: 640px - Tailwind's 'sm' breakpoint) --- */
+        @media (max-width: 640px) {
+            /* Adjust main container padding */
+            .container.mx-auto.px-4.py-8 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+                padding-top: 2rem;
+                padding-bottom: 2rem;
+            }
+            /* Adjust main card padding */
+            .bg-white.p-8 {
+                padding: 1rem;
+            }
+            /* Force flex containers to stack vertically on small screens */
+            .flex.flex-col.sm\:flex-row,
+            .flex.justify-between.mt-6 { /* Also applies to navigation buttons */
+                flex-direction: column !important; /* Force column layout */
+                align-items: stretch !important; /* Stretch items to full width */
+                gap: 1rem !important; /* Consistent vertical gap */
+                space-x-0: true !important; /* Tailwind utility removal */
+            }
+
+            /* Ensure children of stacked flex containers take full width */
+            .flex.justify-between.mt-6 a {
+                width: 100% !important; /* Make navigation buttons full width */
+                text-align: center;
+            }
+            /* Adjust font sizes for better readability on small screens */
+            .text-3xl.sm\:text-4xl {
+                font-size: 2rem;
+            }
+            .text-lg {
+                font-size: 1rem;
+            }
+            /* Adjust button padding */
+            .px-6.py-3 {
+                padding: 0.75rem 1.5rem;
+            }
+            .bg-blue-600.px-8.py-4 {
+                padding: 1rem 1.5rem;
+            }
+            /* Ensure input-with-unit-wrapper *doesn't* stack vertically, prioritize unit alignment */
+            .input-with-unit-wrapper {
+                flex-wrap: nowrap; /* Force no wrapping to keep unit on same line */
+                justify-content: space-between; /* Distribute space between input and unit */
+            }
+            .input-with-unit-wrapper input {
+                flex-grow: 1; /* Allow input to grow */
+                min-width: 80px; /* Still maintain minimum width */
+                max-width: calc(100% - 60px); /* Limit input width to leave space for unit (adjust 60px as needed) */
+            }
+            .input-with-unit-wrapper .unit-text {
+                flex-shrink: 0; /* Prevent shrinking of the unit text */
+                text-align: right; /* Align unit to the right */
+                padding-left: 5px; /* Add a little padding to separate from input */
+            }
+        }
+    </style>
+
     <div class="container mx-auto px-4 py-8">
         <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl border-t-8 border-blue-600 transform transition-all duration-300 hover:shadow-3xl">
             <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
-                <i class="fas fa-satellite-dish mr- text-blue-600"></i> Perhitungan Parameter 
-                <p class=" mr- text-blue-600"></p> Antenna Gain
-
+                <i class="fas fa-satellite-dish mr-2 text-blue-600"></i> Perhitungan Parameter Antenna Gain
             </h1>
             <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
                 Masukkan parameter Antenna Gain untuk uplink dan downlink.
             </p>
 
-            <h2 class="text-2xl font-bold mb-6 text-center text-black-600">Uplink Antenna Sistem</h2>
-            <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Uplink Antenna Sistem</h2>
+            <div class="bg-blue-50 shadow-lg rounded-lg p-6 mb-8 border border-blue-200">
                 <form method="POST" action="{{ route('antennagain.store', ['id' => $dataId]) }}" id="antennaForm">
                     @csrf
                     <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
@@ -25,7 +227,7 @@
 
                         <div class="mb-6">
                             <label for="jenis_polarizationgrounds_up" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
-                            <select name="jenis_polarizationgrounds_up" id="jenis_polarizationgrounds_up" onchange="handlePolarizationChange('grounds', 'up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_polarizationgrounds_up" id="jenis_polarizationgrounds_up" onchange="handlePolarizationChange('grounds', 'up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="RHCP">RHCP</option>
                                 <option value="LHCP">LHCP</option>
                                 <option value="Linear">Linear</option>
@@ -34,52 +236,60 @@
 
                         <div class="mb-4">
                             <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Yagi">Yagi Antenna</option>
                                 <option value="Helix">Helix Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
-                      
                             </select>
                         </div>
 
-                        <!-- Calculator Link Section -->
                         <div id="calculator_link_upgrounds" class="mb-6" style="display: none;">
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                <h4 class="font-semibold text-blue-800 mb-2">Kalkulator Khusus</h4>
-                                <p class="text-sm text-blue-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
-                                <a id="calculator_link_btn_upgrounds" href="#" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-purple-800 mb-2">Kalkulator Khusus</h4>
+                                <p class="text-sm text-purple-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
+                                <a id="calculator_link_btn_upgrounds" href="#" target="_blank" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
                                     <span id="calculator_link_text_upgrounds">Buka Kalkulator</span> →
                                 </a>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Frekuensi Uplink (MHz):</label>
-                            <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0" step="0.01" value="" required>
+                            <label class="block font-medium mb-1 text-gray-700">Frekuensi Uplink:</label>
+                            <div class="input-with-unit-wrapper">
+                                <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" step="0.01" value="" required>
+                                <span class="unit-text">MHz</span>
+                            </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ) (m):</label>
-                            <input type="number" name="wavelength_upgrounds" id="wavelength_upgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0" step="0.001" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;" value="">
-                            <button type="button" onclick="showWavelengthDetail('up')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
+                            <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ):</label>
+                            <div class="input-with-unit-wrapper">
+                                <input type="number" name="wavelength_upgrounds" id="wavelength_upgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50" min="0" step="0.001" readonly value="">
+                                <span class="unit-text">m</span>
+                            </div>
+                            <button type="button" onclick="showWavelengthDetail('up')" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail Perhitungan <i class="fas fa-info-circle ml-1"></i></button>
                         </div>
 
-                        <!-- User Defined Fields -->
                         <div id="user_defined_fields_upgrounds">
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                                <h4 class="font-semibold text-blue-800 mb-2">Input Manual - Ground Station (Uplink)</h4>
-                                <p class="text-sm text-blue-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai yang akurat.</p>
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+                                <h4 class="font-semibold text-purple-800 mb-2">Input Manual - Ground Station (Uplink)</h4>
+                                <p class="text-sm text-purple-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Gain (dBiC):</label>
-                                <input type="number" name="gain_manual_upgrounds" id="gain_manual_upgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain dalam dBiC" required>
+                                <label class="block font-medium mb-1 text-gray-700">Gain:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="gain_manual_upgrounds" id="gain_manual_upgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
+                                    <span class="unit-text">dBiC</span>
+                                </div>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
-                                <input type="number" name="beamwidth_manual_upgrounds" id="beamwidth_manual_upgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
+                                <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="beamwidth_manual_upgrounds" id="beamwidth_manual_upgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
+                                    <span class="unit-text">°</span>
+                                </div>
                             </div>
-                            
                         </div>
                     </div>
 
@@ -89,7 +299,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="jenis_polarizationspacecraft_up" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
-                            <select name="jenis_polarizationspacecraft_up" id="jenis_polarizationspacecraft_up" onchange="handlePolarizationChange('spacecraft', 'up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_polarizationspacecraft_up" id="jenis_polarizationspacecraft_up" onchange="handlePolarizationChange('spacecraft', 'up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="RHCP">RHCP</option>
                                 <option value="LHCP">LHCP</option>
                                 <option value="Linear">Linear</option>
@@ -97,17 +307,15 @@
                         </div>
                         <div class="mb-4">
                             <label for="jenis_antenaspacecraft_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenaspacecraft_up" id="jenis_antenaspacecraft_up" onchange="handleAntennaChangeSpacecraft('up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_antenaspacecraft_up" id="jenis_antenaspacecraft_up" onchange="handleAntennaChangeSpacecraft('up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Monopole">Monopole Antenna</option>
                                 <option value="Dipole">Dipole Antenna</option>
                                 <option value="Patch">Patch Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
-                         
                             </select>
                         </div>
 
-                        <!-- Calculator Link Section -->
                         <div id="calculator_link_upspacecraft" class="mb-6" style="display: none;">
                             <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                                 <h4 class="font-semibold text-green-800 mb-2">Kalkulator Khusus Spacecraft</h4>
@@ -118,21 +326,25 @@
                             </div>
                         </div>
 
-                        <!-- User Defined Fields Spacecraft -->
                         <div id="user_defined_fields_upspacecraft">
                             <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                                 <h4 class="font-semibold text-green-800 mb-2">Input Manual - Spacecraft (Uplink)</h4>
-                                <p class="text-sm text-green-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai yang akurat.</p>
+                                <p class="text-sm text-green-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Gain (dBiC):</label>
-                                <input type="number" name="gain_manual_upspacecraft" id="gain_manual_upspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain dalam dBiC" required>
+                                <label class="block font-medium mb-1 text-gray-700">Gain:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="gain_manual_upspacecraft" id="gain_manual_upspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
+                                    <span class="unit-text">dBiC</span>
+                                </div>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
-                                <input type="number" name="beamwidth_manual_upspacecraft" id="beamwidth_manual_upspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
+                                <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="beamwidth_manual_upspacecraft" id="beamwidth_manual_upspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
+                                    <span class="unit-text">°</span>
+                                </div>
                             </div>
-                           
                         </div>
                     </div>
 
@@ -156,8 +368,8 @@
             </div>
 
 
-            <h2 class="text-2xl font-bold mb-6 text-center text-black-600">Downlink Antenna Sistem</h2>
-            <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Downlink Antenna Sistem</h2>
+            <div class="bg-blue-50 shadow-lg rounded-lg p-6 mb-8 border border-blue-200">
                     <div class="mb-8">
                         <div class="mb-4">
                             <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Downlink):</label>
@@ -165,7 +377,7 @@
 
                         <div class="mb-6">
                             <label for="jenis_polarizationgrounds_down" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
-                            <select name="jenis_polarizationgrounds_down" id="jenis_polarizationgrounds_down" onchange="handlePolarizationChange('grounds', 'down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_polarizationgrounds_down" id="jenis_polarizationgrounds_down" onchange="handlePolarizationChange('grounds', 'down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="RHCP">RHCP</option>
                                 <option value="LHCP">LHCP</option>
                                 <option value="Linear">Linear</option>
@@ -174,7 +386,7 @@
 
                         <div class="mb-4">
                             <label for="jenis_antenagrounds_down" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_down" id="jenis_antenagrounds_down" onchange="handleAntennaChangeGrounds('down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_antenagrounds_down" id="jenis_antenagrounds_down" onchange="handleAntennaChangeGrounds('down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Yagi">Yagi Antenna</option>
                                 <option value="Helix">Helix Antenna</option>
@@ -182,43 +394,52 @@
                             </select>
                         </div>
 
-                        <!-- Calculator Link Section -->
                         <div id="calculator_link_downgrounds" class="mb-6" style="display: none;">
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                                <h4 class="font-semibold text-blue-800 mb-2">Kalkulator Khusus</h4>
-                                <p class="text-sm text-blue-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
-                                <a id="calculator_link_btn_downgrounds" href="#" target="_blank" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                                <h4 class="font-semibold text-purple-800 mb-2">Kalkulator Khusus</h4>
+                                <p class="text-sm text-purple-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
+                                <a id="calculator_link_btn_downgrounds" href="#" target="_blank" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
                                     <span id="calculator_link_text_downgrounds">Buka Kalkulator</span> →
                                 </a>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Frekuensi Downlink (MHz):</label>
-                            <input type="number" name="frequency_downgrounds" id="frequency_downgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0" step="0.01" value="" required>
+                            <label class="block font-medium mb-1 text-gray-700">Frekuensi Downlink:</label>
+                            <div class="input-with-unit-wrapper">
+                                <input type="number" name="frequency_downgrounds" id="frequency_downgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" step="0.01" value="" required>
+                                <span class="unit-text">MHz</span>
+                            </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ) (m):</label>
-                            <input type="number" name="wavelength_downgrounds" id="wavelength_downgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" min="0" step="0.001" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;" value="">
-                            <button type="button" onclick="showWavelengthDetail('down')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
+                            <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ):</label>
+                            <div class="input-with-unit-wrapper">
+                                <input type="number" name="wavelength_downgrounds" id="wavelength_downgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50" min="0" step="0.001" readonly value="">
+                                <span class="unit-text">m</span>
+                            </div>
+                            <button type="button" onclick="showWavelengthDetail('down')" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail Perhitungan <i class="fas fa-info-circle ml-1"></i></button>
                         </div>
 
-                        <!-- User Defined Fields -->
                         <div id="user_defined_fields_downgrounds">
-                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                                <h4 class="font-semibold text-blue-800 mb-2">Input Manual - Ground Station (Downlink)</h4>
-                                <p class="text-sm text-blue-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai yang akurat.</p>
+                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+                                <h4 class="font-semibold text-purple-800 mb-2">Input Manual - Ground Station (Downlink)</h4>
+                                <p class="text-sm text-purple-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Gain (dBiC):</label>
-                                <input type="number" name="gain_manual_downgrounds" id="gain_manual_downgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain dalam dBiC" required>
+                                <label class="block font-medium mb-1 text-gray-700">Gain:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="gain_manual_downgrounds" id="gain_manual_downgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
+                                    <span class="unit-text">dBiC</span>
+                                </div>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
-                                <input type="number" name="beamwidth_manual_downgrounds" id="beamwidth_manual_downgrounds" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
+                                <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="beamwidth_manual_downgrounds" id="beamwidth_manual_downgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
+                                    <span class="unit-text">°</span>
+                                </div>
                             </div>
-                           
                         </div>
                     </div>
 
@@ -228,7 +449,7 @@
                         </div>
                         <div class="mb-6">
                             <label for="jenis_polarizationspacecraft_down" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
-                            <select name="jenis_polarizationspacecraft_down" id="jenis_polarizationspacecraft_down" onchange="handlePolarizationChange('spacecraft', 'down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_polarizationspacecraft_down" id="jenis_polarizationspacecraft_down" onchange="handlePolarizationChange('spacecraft', 'down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="RHCP">RHCP</option>
                                 <option value="LHCP">LHCP</option>
                                 <option value="Linear">Linear</option>
@@ -236,7 +457,7 @@
                         </div>
                         <div class="mb-4">
                             <label for="jenis_antenaspacecraft_down" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenaspacecraft_down" id="jenis_antenaspacecraft_down" onchange="handleAntennaChangeSpacecraft('down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <select name="jenis_antenaspacecraft_down" id="jenis_antenaspacecraft_down" onchange="handleAntennaChangeSpacecraft('down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Monopole">Monopole Antenna</option>
                                 <option value="Dipole">Dipole Antenna</option>
@@ -245,7 +466,6 @@
                             </select>
                         </div>
 
-                        <!-- Calculator Link Section -->
                         <div id="calculator_link_downspacecraft" class="mb-6" style="display: none;">
                             <div class="bg-green-50 border border-green-200 rounded-lg p-4">
                                 <h4 class="font-semibold text-green-800 mb-2">Kalkulator Khusus Spacecraft</h4>
@@ -256,21 +476,25 @@
                             </div>
                         </div>
 
-                        <!-- User Defined Fields Spacecraft -->
                         <div id="user_defined_fields_downspacecraft">
                             <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
                                 <h4 class="font-semibold text-green-800 mb-2">Input Manual - Spacecraft (Downlink)</h4>
-                                <p class="text-sm text-green-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai yang akurat.</p>
+                                <p class="text-sm text-green-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Gain (dBiC):</label>
-                                <input type="number" name="gain_manual_downspacecraft" id="gain_manual_downspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain dalam dBiC" required>
+                                <label class="block font-medium mb-1 text-gray-700">Gain:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="gain_manual_downspacecraft" id="gain_manual_downspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
+                                    <span class="unit-text">dBiC</span>
+                                </div>
                             </div>
                             <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
-                                <input type="number" name="beamwidth_manual_downspacecraft" id="beamwidth_manual_downspacecraft" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dalam derajat" required>
+                                <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
+                                <div class="input-with-unit-wrapper">
+                                    <input type="number" name="beamwidth_manual_downspacecraft" id="beamwidth_manual_downspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
+                                    <span class="unit-text">°</span>
+                                </div>
                             </div>
-                       
                         </div>
                     </div>
 
@@ -295,8 +519,18 @@
                         Hitung & Simpan Parameter Antena
                     </button>
                 </form>
+                <div class="flex justify-between mt-6">
+                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                        <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
+                    </a>
+
+                    {{-- Uncomment this if you have a next page
+                    <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                        Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    --}}
+                </div>
             </div>
-        </div>
         </div>
     </div>
 
@@ -306,98 +540,20 @@
             <span class="close-popup-btn" onclick="closeWavelengthPopup()">&times;</span>
             <h3 id="wavelength-popup-title">Detail Perhitungan Panjang Gelombang</h3>
             <div id="wavelength-popup-content-body">
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    λ = c / f<br>
-                    Dimana:<br>
-                    λ = Panjang gelombang (meter)<br>
-                    c = Kecepatan cahaya (~299.8 m/s)<br>
-                    f = Frekuensi (Hz)
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        λ = c / f<br>
+                        Dimana:<br>
+                        λ = Panjang gelombang (meter)<br>
+                        c = Kecepatan cahaya (~299.8 m/s)<br>
+                        f = Frekuensi (Hz)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
                 </div>
-                <div class="input-values">
-                    <strong>Nilai Input:</strong><br>
-                    <span id="freq-input-display">Frekuensi = Belum diisi MHz</span>
-                </div>
-                <div class="result-values">
-                    <strong>Hasil Perhitungan:</strong><br>
-                    <span id="wavelength-result-display">Panjang Gelombang (λ) = Belum dihitung meter</span>
-                </div>
-                <p><strong>Penjelasan:</strong><br>
-                Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang. Semakin tinggi frekuensi, semakin pendek panjang gelombangnya.</p>
-            </div>
         </div>
     </div>
-
-    <style>
-        .popup-window { 
-            display: none; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            background-color: rgba(0,0,0,0.7); 
-            z-index: 1000; 
-            justify-content: center; 
-            align-items: center; 
-        }
-        .popup-content { 
-            position: relative; 
-            background-color: white; 
-            padding: 20px 30px 30px 30px; 
-            border-radius: 8px; 
-            box-shadow: 0 0 20px rgba(0,0,0,0.3); 
-            width: 80%; 
-            max-width: 600px; 
-            max-height: 80vh; 
-            overflow-y: auto; 
-        }
-        .close-popup-btn { 
-            position: absolute; 
-            top: 10px; 
-            right: 15px; 
-            font-size: 24px; 
-            font-weight: bold; 
-            color: #555; 
-            cursor: pointer; 
-        }
-        .close-popup-btn:hover { 
-            color: #000; 
-        }
-        .formula { 
-            background-color: #f5f5f5; 
-            padding: 10px 15px; 
-            border-radius: 5px; 
-            border-left: 4px solid #4CAF50; 
-            margin: 15px 0; 
-            font-family: 'Cambria Math', 'Times New Roman', serif; 
-            overflow-wrap: break-word; 
-        }
-        .popup-content h3 { 
-            margin-top: 0; 
-            color: #2c3e50; 
-            border-bottom: 1px solid #eee; 
-            padding-bottom: 10px; 
-        }
-        .popup-content p { 
-            margin: 8px 0; 
-            line-height: 1.5; 
-        }
-        .input-values { 
-            background-color: #e3f2fd; 
-            padding: 10px 15px; 
-            border-radius: 5px; 
-            border-left: 4px solid #2196F3; 
-            margin: 15px 0; 
-        }
-        .result-values { 
-            background-color: #e8f5e8; 
-            padding: 10px 15px; 
-            border-radius: 5px; 
-            border-left: 4px solid #4CAF50; 
-            margin: 15px 0; 
-        }
-    </style>
 
     <script>
         // Fungsi untuk menghitung panjang gelombang
@@ -415,17 +571,10 @@
             }
         }
 
-        // Fungsi untuk menampilkan detail perhitungan panjang gelombang
+        // The showWavelengthDetail function is modified to only show formula and explanation
         function showWavelengthDetail(linkDirection) {
-            const freqField = document.getElementById(`frequency_${linkDirection}grounds`);
-            const wavelengthField = document.getElementById(`wavelength_${linkDirection}grounds`);
-            
-            const frequencyVal = freqField?.value || 'Belum diisi';
-            const wavelengthVal = wavelengthField?.value || 'Belum dihitung';
-            
-            document.getElementById('freq-input-display').textContent = `Frekuensi = ${frequencyVal} MHz`;
-            document.getElementById('wavelength-result-display').textContent = `Panjang Gelombang (λ) = ${wavelengthVal} meter`;
-            
+            // No need to get frequency or wavelength values to display in the popup body
+            // as per the new requirement, only formula and explanation are static.
             document.getElementById('wavelengthPopup').style.display = 'flex';
         }
 
@@ -463,8 +612,8 @@
                     lossAmount = 'sekitar 3 dB';
                     mismatchType = 'Linear vs Circular Mismatch';
                 } else {
-                     lossAmount = 'tidak terdefinisi (kemungkinan tidak ada masalah jika salah satu tidak dipilih)';
-                     mismatchType = 'Kombinasi Tidak Umum';
+                    lossAmount = 'tidak terdefinisi (kemungkinan tidak ada masalah jika salah satu tidak dipilih)';
+                    mismatchType = 'Kombinasi Tidak Umum';
                 }
                 warningText.innerHTML = `<strong>${mismatchType}:</strong> Polarisasi Stasiun Bumi (${groundsPolarization}) dan Wahana Antariksa (${spacecraftPolarization}) tidak cocok. Ini dapat mengakibatkan kehilangan daya sinyal sebesar ${lossAmount}.`;
                 warningDiv.style.display = 'block';
@@ -653,4 +802,4 @@
             }
         });
     </script>
-    </x-layout>
+</x-layout>

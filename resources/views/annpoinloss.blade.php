@@ -56,22 +56,23 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="approxannpoinloss_upgrounds_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
-                            <input type="text" name="approxannpoinloss_upgrounds_poin" id="approxannpoinloss_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
-                            <button type="button" onclick="showPointingLossDetail('upgrounds')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
+                            <label for="annrolloff_upgrounds_poin" class="block font-medium mb-1 text-gray-700">Antenna Roll-Off (°):</label>
+                            <input type="text" name="annrolloff_upgrounds_poin" id="annrolloff_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
+                            <button type="button" onclick="showRollOffDetail('upgrounds')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
                         </div>
 
                         <div class="mb-4">
-                            <label for="annrolloff_upgrounds_poin" class="block font-medium mb-1 text-gray-700">Antenna Roll-Off (dB):</label>
-                            <input type="text" name="annrolloff_upgrounds_poin" id="annrolloff_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
-                            <button type="button" onclick="showRollOffDetail('upgrounds')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
+                            <label for="approxannpoinloss_upgrounds_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
+                            <input type="text" name="approxannpoinloss_upgrounds_poin" id="approxannpoinloss_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
+                            <button type="button" onclick="showPointingLossDetail('upgrounds')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
                         </div>
                     </div>
 
                     <div class="mb-8">
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700 text-lg">Wahana Antariksa (Uplink):</label>
+                            <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Uplink):</label>
                         </div>
+
                         <div class="mb-6">
                             <label for="jenis_polarizationspacecraft_up_poin" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
                             <select name="jenis_polarizationspacecraft_up_poin" id="jenis_polarizationspacecraft_up_poin" onchange="handlePolarizationChange('spacecraft', 'up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
@@ -80,6 +81,7 @@
                                 <option value="Linear">Linear</option>
                             </select>
                         </div>
+
                         <div class="mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
                             <input type="number" name="gain_upspacecraft_poin" id="gain_upspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain antena dari perhitungan sebelumnya" required>
@@ -96,15 +98,14 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="approxannpoinloss_upspacecraft_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
-                            <input type="text" name="approxannpoinloss_upspacecraft_poin" id="approxannpoinloss_upspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
-                            <button type="button" onclick="showPointingLossDetail('upspacecraft')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
+                            <label class="block font-medium mb-1 text-gray-700">Calculation Formulas (dB):</label>
+                            <input type="number" name="calculation_formulas_upspacecraft_poin" id="calculation_formulas_upspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan nilai pointing loss manual" required>
                         </div>
 
                         <div class="mb-4">
-                            <label for="calculation_formulas_upspacecraft_poin" class="block font-medium mb-1 text-gray-700">Calculation Formulas:</label>
-                            <input type="text" name="calculation_formulas_upspacecraft_poin" id="calculation_formulas_upspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;" placeholder="Rumus perhitungan akan ditampilkan di sini">
-                            <button type="button" onclick="showCalculationFormulasDetail('upspacecraft')" class="text-blue-500 mt-2">Lihat Detail</button>
+                            <label for="approxannpoinloss_upspacecraft_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
+                            <input type="text" name="approxannpoinloss_upspacecraft_poin" id="approxannpoinloss_upspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
+                            <button type="button" onclick="showPointingLossDetail('upspacecraft')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
                         </div>
                     </div>
 
@@ -125,11 +126,50 @@
                             </div>
                         </div>
                     </div>
-                </form>
-            </div>
 
             <h2 class="text-2xl font-bold mb-6 text-center text-black-600">Downlink Antenna Sistem</h2>
-            <div class="bg-white shadow-lg rounded-lg p-6 mb-8">
+                <div class="mb-8">
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Downlink):</label>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="jenis_polarizationspacecraft_down_poin" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
+                        <select name="jenis_polarizationspacecraft_down_poin" id="jenis_polarizationspacecraft_down_poin" onchange="handlePolarizationChange('spacecraft', 'down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
+                            <option value="RHCP">RHCP</option>
+                            <option value="LHCP">LHCP</option>
+                            <option value="Linear">Linear</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
+                        <input type="number" name="gain_downspacecraft_poin" id="gain_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain antena dari perhitungan sebelumnya" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
+                        <input type="number" name="beamwidth_downspacecraft_poin" id="beamwidth_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dari perhitungan sebelumnya" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700">Angle between S/C antenna symmetry axis and vector from S/C to gnd. station (θ3) (°):</label>
+                        <input type="number" name="downspacecraft_θ3_poin" id="downspacecraft_θ3_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan sudut dalam derajat" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700">Calculation Formulas (dB):</label>
+                        <input type="number" name="calculation_formulas_downspacecraft_poin" id="calculation_formulas_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan nilai pointing loss manual" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="approxannpoinloss_downspacecraft_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
+                        <input type="text" name="approxannpoinloss_downspacecraft_poin" id="approxannpoinloss_downspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
+                        <button type="button" onclick="showPointingLossDetail('downspacecraft')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
+                    </div>
+                </div>
+
+                <!-- GROUND STATION (DOWNLINK) - MUNCUL KEDUA -->
                 <div class="mb-8">
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Downlink):</label>
@@ -166,62 +206,20 @@
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Angle between S/C antenna symmetry axis and vector from S/C to gnd. station (θ3) (°):</label>
-                        <input type="number" name="upgrounds_θ3_poin" id="upgrounds_θ3_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan sudut dalam derajat" required>
+                        <label class="block font-medium mb-1 text-gray-700">Estimated Pointing Error (θ4) (°):</label>
+                        <input type="number" name="upgrounds_θ4_poin" id="upgrounds_θ4_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan estimasi kesalahan pointing dalam derajat" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="annrolloff_downgrounds_poin" class="block font-medium mb-1 text-gray-700">Antenna Roll-Off (°):</label>
+                        <input type="text" name="annrolloff_downgrounds_poin" id="annrolloff_downgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
+                        <button type="button" onclick="showRollOffDetail('downgrounds')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
                     </div>
 
                     <div class="mb-4">
                         <label for="approxannpoinloss_downgrounds_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
                         <input type="text" name="approxannpoinloss_downgrounds_poin" id="approxannpoinloss_downgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
                         <button type="button" onclick="showPointingLossDetail('downgrounds')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="annrolloff_downgrounds_poin" class="block font-medium mb-1 text-gray-700">Antenna Roll-Off (dB):</label>
-                        <input type="text" name="annrolloff_downgrounds_poin" id="annrolloff_downgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
-                        <button type="button" onclick="showRollOffDetail('downgrounds')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700 text-lg">Wahana Antariksa (Downlink):</label>
-                    </div>
-
-                    <div class="mb-6">
-                        <label for="jenis_polarizationspacecraft_down_poin" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
-                        <select name="jenis_polarizationspacecraft_down_poin" id="jenis_polarizationspacecraft_down_poin" onchange="handlePolarizationChange('spacecraft', 'down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
-                            <option value="RHCP">RHCP</option>
-                            <option value="LHCP">LHCP</option>
-                            <option value="Linear">Linear</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
-                        <input type="number" name="gain_downspacecraft_poin" id="gain_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain antena dari perhitungan sebelumnya" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
-                        <input type="number" name="beamwidth_downspacecraft_poin" id="beamwidth_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dari perhitungan sebelumnya" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Estimated Pointing Error (θ4) (°):</label>
-                        <input type="number" name="downspacecraft_θ4_poin" id="downspacecraft_θ4_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan estimasi kesalahan pointing dalam derajat" required>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="approxannpoinloss_downspacecraft_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
-                        <input type="text" name="approxannpoinloss_downspacecraft_poin" id="approxannpoinloss_downspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;">
-                        <button type="button" onclick="showPointingLossDetail('downspacecraft')" class="text-blue-500 mt-2">Lihat Detail Perhitungan</button>
-                    </div>
-
-                    <div class="mb-4">
-                        <label for="calculation_formulas_downspacecraft_poin" class="block font-medium mb-1 text-gray-700">Calculation Formulas:</label>
-                        <input type="text" name="calculation_formulas_downspacecraft_poin" id="calculation_formulas_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly style="background-color: #e6f4e1; color:rgb(0, 0, 0); border-color: #81c784;" placeholder="Rumus perhitungan akan ditampilkan di sini">
-                        <button type="button" onclick="showCalculationFormulasDetail('downspacecraft')" class="text-blue-500 mt-2">Lihat Detail</button>
                     </div>
                 </div>
 
@@ -246,10 +244,22 @@
                 <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-full transition duration-150 ease-in-out">
                     Hitung & Simpan Parameter Antenna Pointing Loss
                 </button>
-            </div>
+                </form>
+                <div class="flex justify-between mt-6">
+                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                        <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
+                    </a>
+
+                    {{-- Uncomment this if you have a next page
+                    <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                        Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                    </a>
+                    --}}
+                </div>
         </div>
     </div>
 
+    <!-- Popup for wavelength detail -->
     <div id="wavelengthPopup" class="popup-window">
         <div class="popup-content">
             <span class="close-popup-btn" onclick="closeWavelengthPopup()">&times;</span>
@@ -263,20 +273,13 @@
                     c = Kecepatan cahaya (~299.8 m/s)<br>
                     f = Frekuensi (Hz)
                 </div>
-                <div class="input-values">
-                    <strong>Nilai Input:</strong><br>
-                    <span id="freq-input-display">Frekuensi = Belum diisi MHz</span>
-                </div>
-                <div class="result-values">
-                    <strong>Hasil Perhitungan:</strong><br>
-                    <span id="wavelength-result-display">Panjang Gelombang (λ) = Belum dihitung meter</span>
-                </div>
                 <p><strong>Penjelasan:</strong><br>
                 Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
             </div>
         </div>
     </div>
 
+    <!-- Popup for antenna roll-off detail -->
     <div id="rollOffPopup" class="popup-window">
         <div class="popup-content">
             <span class="close-popup-btn" onclick="closeRollOffPopup()">&times;</span>
@@ -284,26 +287,19 @@
             <div id="roll-off-popup-content-body">
                 <div class="formula">
                     <strong>Rumus Perhitungan:</strong><br>
-                    Roll-Off = -25log(θ/θ3dB)<br>
+                    Roll-Off = 2 × (Estimated Pointing Error × (79.76 / Beamwidth))<br>
                     Dimana:<br>
-                    θ = Sudut off-axis (derajat)<br>
-                    θ3dB = Half-power beamwidth (derajat)<br>
-                    Roll-Off = Antenna roll-off loss (dB)
-                </div>
-                <div class="input-values">
-                    <strong>Nilai Input:</strong><br>
-                    <span id="roll-off-angle-display">Sudut = Belum diisi °</span><br>
-                    <span id="roll-off-beamwidth-display">Beamwidth = Belum diisi °</span>
-                </div>
-                <div class="result-values">
-                    <strong>Hasil Perhitungan:</strong><br>
-                    <span id="roll-off-result-display">Antenna Roll-Off = Belum dihitung dB</span>
+                    Estimated Pointing Error = Kesalahan pointing (derajat)<br>
+                    Beamwidth = Half-power beamwidth (derajat)<br>
+                    Roll-Off = Antenna roll-off (derajat)
                 </div>
                 <p><strong>Penjelasan:</strong><br>
-                Antenna roll-off menggambarkan penurunan gain antena ketika sinyal datang dari arah yang tidak tepat pada axis utama antena. Berbeda dengan pointing loss, roll-off lebih menggambarkan karakteristik pola radiasi antena.</p>
+                Antenna roll-off menggambarkan sudut off-axis yang dihitung berdasarkan kesalahan pointing dan karakteristik beamwidth antena. Parameter ini digunakan untuk menghitung pointing loss yang lebih akurat.</p>
             </div>
         </div>
     </div>
+
+    <!-- Popup for pointing loss detail -->
     <div id="pointingLossPopup" class="popup-window">
         <div class="popup-content">
             <span class="close-popup-btn" onclick="closePointingLossPopup()">&times;</span>
@@ -317,17 +313,8 @@
                     θ3dB = Half-power beamwidth (derajat)<br>
                     Loss = Antenna pointing loss (dB)
                 </div>
-                <div class="input-values">
-                    <strong>Nilai Input:</strong><br>
-                    <span id="pointing-error-display">Pointing Error = Belum diisi °</span><br>
-                    <span id="beamwidth-display">Beamwidth = Belum diisi °</span>
-                </div>
-                <div class="result-values">
-                    <strong>Hasil Perhitungan:</strong><br>
-                    <span id="pointing-loss-result-display">Antenna Pointing Loss = Belum dihitung dB</span>
-                </div>
                 <p><strong>Penjelasan:</strong><br>
-                Antenna pointing loss terjadi ketika antena tidak diarahkan tepat ke target. Semakin besar sudut kesalahan pointing dibandingkan dengan beamwidth antena, semakin besar loss yang terjadi.</p>
+                Antenna pointing loss terjadi ketika antena tidak diarahkan tepat ke target. Untuk Ground Station menggunakan rumus kompleks berdasarkan roll-off, sedangkan untuk Spacecraft menggunakan nilai manual dari Calculation Formulas.</p>
             </div>
         </div>
     </div>
@@ -412,50 +399,19 @@
 
             const frequency = parseFloat(freqField.value);
             if (!isNaN(frequency) && frequency > 0) {
-                const wavelength = 299.8 / frequency; // c = 299.8 m/s (kecepatan cahaya disesuaikan untuk f dalam MHz)
+                const wavelength = 299.8 / frequency; // c = 299.8 Mm/s (kecepatan cahaya disesuaikan untuk f dalam MHz)
                 wavelengthField.value = wavelength.toFixed(6);
             } else {
                 wavelengthField.value = '';
             }
         }
 
-        // Fungsi untuk menghitung antenna pointing loss
-        function calculatePointingLoss(section) {
-            let pointingErrorField, beamwidthField, lossField;
-            
-            if (section === 'upgrounds') {
-                pointingErrorField = document.getElementById('estimedpointingerror_upgrounds_θ1_poin');
-                beamwidthField = document.getElementById('beamwidth_upgrounds_poin');
-                lossField = document.getElementById('approxannpoinloss_upgrounds_poin');
-            } else if (section === 'upspacecraft') {
-                pointingErrorField = document.getElementById('upspacecraft_θ2_poin');
-                beamwidthField = document.getElementById('beamwidth_upspacecraft_poin');
-                lossField = document.getElementById('approxannpoinloss_upspacecraft_poin');
-            } else if (section === 'downgrounds') {
-                pointingErrorField = document.getElementById('upgrounds_θ3_poin');
-                beamwidthField = document.getElementById('beamwidth_downgrounds_poin');
-                lossField = document.getElementById('approxannpoinloss_downgrounds_poin');
-            } else if (section === 'downspacecraft') {
-                pointingErrorField = document.getElementById('downspacecraft_θ4_poin');
-                beamwidthField = document.getElementById('beamwidth_downspacecraft_poin');
-                lossField = document.getElementById('approxannpoinloss_downspacecraft_poin');
-            }
-
-            if (!pointingErrorField || !beamwidthField || !lossField) return;
-
-            const pointingError = parseFloat(pointingErrorField.value);
-            const beamwidth = parseFloat(beamwidthField.value);
-
-            if (!isNaN(pointingError) && !isNaN(beamwidth) && beamwidth > 0) {
-                // Formula: Loss = -12 * (θ / θ3dB)²
-                const loss = -12 * Math.pow(pointingError / beamwidth, 2);
-                lossField.value = loss.toFixed(3);
-            } else {
-                lossField.value = '';
-            }
+        // Fungsi untuk menampilkan detail wavelength
+        function showWavelengthDetail(linkDirection) {
+            document.getElementById('wavelengthPopup').style.display = 'flex';
         }
 
-        // Fungsi untuk menghitung antenna roll-off
+        // Fungsi untuk menghitung antenna roll-off dengan rumus baru
         function calculateRollOff(section) {
             let angleField, beamwidthField, rollOffField;
             
@@ -471,91 +427,126 @@
 
             if (!angleField || !beamwidthField || !rollOffField) return;
 
-            const angle = parseFloat(angleField.value);
+            const estimatedPointingError = parseFloat(angleField.value);
             const beamwidth = parseFloat(beamwidthField.value);
 
-            if (!isNaN(angle) && !isNaN(beamwidth) && beamwidth > 0) {
-                // Formula: Roll-Off = -25 * log10(θ / θ3dB)
-                const rollOff = -25 * Math.log10(angle / beamwidth);
-                rollOffField.value = rollOff.toFixed(3);
+            if (!isNaN(estimatedPointingError) && !isNaN(beamwidth) && beamwidth > 0) {
+                // Rumus baru: Roll-Off = 2 * (Estimated Pointing Error * (79.76 / beamwidth))
+                const rollOff = 2 * (estimatedPointingError * (79.76 / beamwidth));
+                rollOffField.value = rollOff.toFixed(6);
             } else {
                 rollOffField.value = '';
             }
         }
 
-        // Fungsi untuk menampilkan detail calculation formulas
-        function showCalculationFormulasDetail(section) {
-            // Placeholder function - akan diimplementasikan nanti
-            alert(`Detail calculation formulas untuk ${section} akan ditampilkan di sini`);
-        }
-        function showRollOffDetail(section) {
-            let angleField, beamwidthField, rollOffField;
-            
-            if (section === 'upgrounds') {
-                angleField = document.getElementById('estimedpointingerror_upgrounds_θ1_poin');
-                beamwidthField = document.getElementById('beamwidth_upgrounds_poin');
-                rollOffField = document.getElementById('annrolloff_upgrounds_poin');
-            } else if (section === 'downgrounds') {
-                angleField = document.getElementById('upgrounds_θ3_poin');
-                beamwidthField = document.getElementById('beamwidth_downgrounds_poin');
-                rollOffField = document.getElementById('annrolloff_downgrounds_poin');
-            }
-            
-            const angleVal = angleField?.value || 'Belum diisi';
-            const beamwidthVal = beamwidthField?.value || 'Belum diisi';
-            const rollOffVal = rollOffField?.value || 'Belum dihitung';
-            
-            document.getElementById('roll-off-angle-display').textContent = `Sudut = ${angleVal} °`;
-            document.getElementById('roll-off-beamwidth-display').textContent = `Beamwidth = ${beamwidthVal} °`;
-            document.getElementById('roll-off-result-display').textContent = `Antenna Roll-Off = ${rollOffVal} dB`;
-            
-            document.getElementById('rollOffPopup').style.display = 'flex';
-        }
-
-        // Fungsi untuk menutup popup roll-off
-        function closeRollOffPopup() {
-            document.getElementById('rollOffPopup').style.display = 'none';
-        }
-        function showPointingLossDetail(section) {
-            let pointingErrorField, beamwidthField, lossField;
+        // Fungsi untuk menghitung antenna pointing loss dengan rumus baru
+        function calculatePointingLoss(section) {
+            let pointingErrorField, beamwidthField, lossField, rollOffField, calculationFormulasField;
             
             if (section === 'upgrounds') {
                 pointingErrorField = document.getElementById('estimedpointingerror_upgrounds_θ1_poin');
                 beamwidthField = document.getElementById('beamwidth_upgrounds_poin');
                 lossField = document.getElementById('approxannpoinloss_upgrounds_poin');
+                rollOffField = document.getElementById('annrolloff_upgrounds_poin');
             } else if (section === 'upspacecraft') {
-                pointingErrorField = document.getElementById('upspacecraft_θ2_poin');
-                beamwidthField = document.getElementById('beamwidth_upspacecraft_poin');
+                calculationFormulasField = document.getElementById('calculation_formulas_upspacecraft_poin');
                 lossField = document.getElementById('approxannpoinloss_upspacecraft_poin');
             } else if (section === 'downgrounds') {
                 pointingErrorField = document.getElementById('upgrounds_θ3_poin');
                 beamwidthField = document.getElementById('beamwidth_downgrounds_poin');
                 lossField = document.getElementById('approxannpoinloss_downgrounds_poin');
+                rollOffField = document.getElementById('annrolloff_downgrounds_poin');
             } else if (section === 'downspacecraft') {
-                pointingErrorField = document.getElementById('downspacecraft_θ4_poin');
-                beamwidthField = document.getElementById('beamwidth_downspacecraft_poin');
+                calculationFormulasField = document.getElementById('calculation_formulas_downspacecraft_poin');
                 lossField = document.getElementById('approxannpoinloss_downspacecraft_poin');
             }
+
+            if (!lossField) return;
+
+            // Untuk Ground Station (upgrounds dan downgrounds)
+            if (section === 'upgrounds' || section === 'downgrounds') {
+                if (!rollOffField) return;
+                
+                const rollOffValue = parseFloat(rollOffField.value);
+                
+                if (!isNaN(rollOffValue) && rollOffValue !== 0) {
+                    // Rumus baru untuk Ground Station: 
+                    // Loss = -10 * LOG10(3282.81 * ((SIN(RADIANS(rollOff))^2 / (rollOff^2))))
+                    const rollOffRadians = rollOffValue * (Math.PI / 180); // Convert to radians
+                    const sinRollOff = Math.sin(rollOffRadians);
+                    const numerator = sinRollOff * sinRollOff;
+                    const denominator = rollOffValue * rollOffValue;
+                    
+                    if (denominator !== 0) {
+                        const fraction = numerator / denominator;
+                        const loss = -10 * Math.log10(3282.81 * fraction);
+                        lossField.value = loss.toFixed(6);
+                    } else {
+                        lossField.value = '';
+                    }
+                } else {
+                    lossField.value = '';
+                }
+            }
+            // Untuk Spacecraft (upspacecraft dan downspacecraft)
+            else if (section === 'upspacecraft' || section === 'downspacecraft') {
+                if (!calculationFormulasField) return;
+                
+                const calculationValue = parseFloat(calculationFormulasField.value);
+                
+                if (!isNaN(calculationValue)) {
+                    // Untuk Spacecraft, nilai loss langsung diambil dari Calculation Formulas
+                    lossField.value = calculationValue.toFixed(6);
+                } else {
+                    lossField.value = '';
+                }
+            }
+        }
+
+        // Fungsi untuk menampilkan detail roll-off dengan rumus yang diperbarui
+        function showRollOffDetail(section) {
+            document.getElementById('rollOffPopup').style.display = 'flex';
+        }
+
+        // Fungsi untuk menampilkan detail pointing loss dengan rumus yang diperbarui
+        function showPointingLossDetail(section) {
+            // Update formula display berdasarkan section
+            let formulaHTML = '';
             
-            const pointingErrorVal = pointingErrorField?.value || 'Belum diisi';
-            const beamwidthVal = beamwidthField?.value || 'Belum diisi';
-            const lossVal = lossField?.value || 'Belum dihitung';
+            if (section === 'upgrounds' || section === 'downgrounds') {
+                formulaHTML = `
+                    <strong>Rumus Perhitungan (Ground Station):</strong><br>
+                    Loss = -10 × LOG₁₀(3282.81 × ((SIN(RADIANS(Roll-Off))² / (Roll-Off²))))<br>
+                    Dimana:<br>
+                    Roll-Off = Antenna roll-off (derajat)<br>
+                    Loss = Antenna pointing loss (dB)
+                `;
+            } else {
+                formulaHTML = `
+                    <strong>Rumus Perhitungan (Spacecraft):</strong><br>
+                    Loss = Calculation Formulas<br>
+                    Dimana:<br>
+                    Calculation Formulas = Nilai yang diinput manual (dB)<br>
+                    Loss = Antenna pointing loss (dB)
+                `;
+            }
             
-            document.getElementById('pointing-error-display').textContent = `Pointing Error = ${pointingErrorVal} °`;
-            document.getElementById('beamwidth-display').textContent = `Beamwidth = ${beamwidthVal} °`;
-            document.getElementById('pointing-loss-result-display').textContent = `Antenna Pointing Loss = ${lossVal} dB`;
+            document.querySelector('#pointing-loss-popup-content-body .formula').innerHTML = formulaHTML;
             
             document.getElementById('pointingLossPopup').style.display = 'flex';
         }
 
-        // Fungsi untuk menutup popup panjang gelombang
+        // Fungsi untuk menutup popup
         function closeWavelengthPopup() {
             document.getElementById('wavelengthPopup').style.display = 'none';
         }
 
-        // Fungsi untuk menutup popup pointing loss
         function closePointingLossPopup() {
             document.getElementById('pointingLossPopup').style.display = 'none';
+        }
+
+        function closeRollOffPopup() {
+            document.getElementById('rollOffPopup').style.display = 'none';
         }
 
         // Fungsi untuk handle perubahan polarisasi
@@ -587,103 +578,98 @@
                     lossAmount = 'sekitar 3 dB';
                     mismatchType = 'Linear vs Circular Mismatch';
                 } else {
-                    lossAmount = 'tidak terdefinisi (kemungkinan tidak ada masalah jika salah satu tidak dipilih)';
-                    mismatchType = 'Kombinasi Tidak Umum';
+                     lossAmount = 'tidak terdefinisi (kemungkinan tidak ada masalah jika salah satu tidak dipilih)';
+                     mismatchType = 'Kombinasi Tidak Umum';
                 }
-                warningText.innerHTML = `<strong>${mismatchType}:</strong> Polarisasi Stasiun Bumi (${groundsPolarization}) dan Wahana Antariksa (${spacecraftPolarization}) tidak cocok. Ini dapat mengakibatkan kehilangan daya sinyal sebesar ${lossAmount}.`;
+                warningText.innerHTML = `<strong>${mismatchType}:</strong> Polarisasi Stasiun Bumi (${groundsPolarization}) dan Spacecraft (${spacecraftPolarization}) tidak cocok. Ini dapat mengakibatkan kehilangan daya sinyal sebesar ${lossAmount}.`;
                 warningDiv.style.display = 'block';
             } else {
                 warningDiv.style.display = 'none';
             }
         }
 
-        // Setup event listeners
+        // Setup event listeners yang diperbarui
+        function setupEventListeners() {
+            ['up', 'down'].forEach(ld => {
+                // Input frekuensi memicu kalkulasi panjang gelombang
+                const freqField = document.getElementById(`frequency_${ld}grounds_poin`);
+                if (freqField) {
+                    freqField.addEventListener('input', () => calculateWavelength(ld));
+                }
+
+                // Selector Polarisasi
+                const polarizationGrounds = document.getElementById(`jenis_polarizationgrounds_${ld}_poin`);
+                if(polarizationGrounds) {
+                    polarizationGrounds.addEventListener('change', () => handlePolarizationChange('grounds', ld));
+                }
+
+                const polarizationSpacecraft = document.getElementById(`jenis_polarizationspacecraft_${ld}_poin`);
+                if(polarizationSpacecraft) {
+                    polarizationSpacecraft.addEventListener('change', () => handlePolarizationChange('spacecraft', ld));
+                }
+
+                // Event listeners untuk perhitungan
+                if (ld === 'up') {
+                    // Ground station uplink
+                    const pointingErrorGrounds = document.getElementById('estimedpointingerror_upgrounds_θ1_poin');
+                    const beamwidthGrounds = document.getElementById('beamwidth_upgrounds_poin');
+                    if (pointingErrorGrounds) {
+                        pointingErrorGrounds.addEventListener('input', () => {
+                            calculateRollOff('upgrounds');
+                            // Delay sedikit untuk memastikan roll-off sudah dihitung
+                            setTimeout(() => calculatePointingLoss('upgrounds'), 10);
+                        });
+                    }
+                    if (beamwidthGrounds) {
+                        beamwidthGrounds.addEventListener('input', () => {
+                            calculateRollOff('upgrounds');
+                            // Delay sedikit untuk memastikan roll-off sudah dihitung
+                            setTimeout(() => calculatePointingLoss('upgrounds'), 10);
+                        });
+                    }
+
+                    // Spacecraft uplink
+                    const calculationFormulasSpacecraft = document.getElementById('calculation_formulas_upspacecraft_poin');
+                    if (calculationFormulasSpacecraft) {
+                        calculationFormulasSpacecraft.addEventListener('input', () => calculatePointingLoss('upspacecraft'));
+                    }
+                } else {
+                    // Ground station downlink
+                    const pointingErrorGrounds = document.getElementById('upgrounds_θ3_poin');
+                    const beamwidthGrounds = document.getElementById('beamwidth_downgrounds_poin');
+                    if (pointingErrorGrounds) {
+                        pointingErrorGrounds.addEventListener('input', () => {
+                            calculateRollOff('downgrounds');
+                            // Delay sedikit untuk memastikan roll-off sudah dihitung
+                            setTimeout(() => calculatePointingLoss('downgrounds'), 10);
+                        });
+                    }
+                    if (beamwidthGrounds) {
+                        beamwidthGrounds.addEventListener('input', () => {
+                            calculateRollOff('downgrounds');
+                            // Delay sedikit untuk memastikan roll-off sudah dihitung
+                            setTimeout(() => calculatePointingLoss('downgrounds'), 10);
+                        });
+                    }
+
+                    // Spacecraft downlink
+                    const calculationFormulasSpacecraft = document.getElementById('calculation_formulas_downspacecraft_poin');
+                    if (calculationFormulasSpacecraft) {
+                        calculationFormulasSpacecraft.addEventListener('input', () => calculatePointingLoss('downspacecraft'));
+                    }
+                }
+            });
+        }
+
+        // Validasi form saat submit
         document.addEventListener('DOMContentLoaded', function() {
+            // Setup event listeners
+            setupEventListeners();
+            
             // Initial setup
             ['up', 'down'].forEach(ld => {
                 checkPolarizationMismatch(ld);
             });
-
-            // Input frekuensi memicu kalkulasi panjang gelombang
-            const freqUpgrounds = document.getElementById('frequency_upgrounds_poin');
-            if (freqUpgrounds) {
-                freqUpgrounds.addEventListener('input', () => calculateWavelength('up'));
-            }
-            const freqDowngrounds = document.getElementById('frequency_downgrounds_poin');
-            if (freqDowngrounds) {
-                freqDowngrounds.addEventListener('input', () => calculateWavelength('down'));
-            }
-
-            // Polarization change listeners
-            const polarizationGroundsUp = document.getElementById('jenis_polarizationgrounds_up_poin');
-            if (polarizationGroundsUp) {
-                polarizationGroundsUp.addEventListener('change', () => handlePolarizationChange('grounds', 'up'));
-            }
-            const polarizationSpacecraftUp = document.getElementById('jenis_polarizationspacecraft_up_poin');
-            if (polarizationSpacecraftUp) {
-                polarizationSpacecraftUp.addEventListener('change', () => handlePolarizationChange('spacecraft', 'up'));
-            }
-            const polarizationGroundsDown = document.getElementById('jenis_polarizationgrounds_down_poin');
-            if (polarizationGroundsDown) {
-                polarizationGroundsDown.addEventListener('change', () => handlePolarizationChange('grounds', 'down'));
-            }
-            const polarizationSpacecraftDown = document.getElementById('jenis_polarizationspacecraft_down_poin');
-            if (polarizationSpacecraftDown) {
-                polarizationSpacecraftDown.addEventListener('change', () => handlePolarizationChange('spacecraft', 'down'));
-            }
-
-            // Event listeners for pointing loss and roll-off calculations (Uplink Ground Station)
-            const estimedpointingerrorUpgrounds = document.getElementById('estimedpointingerror_upgrounds_θ1_poin');
-            const beamwidthUpgrounds = document.getElementById('beamwidth_upgrounds_poin');
-            if (estimedpointingerrorUpgrounds) {
-                estimedpointingerrorUpgrounds.addEventListener('input', () => {
-                    calculatePointingLoss('upgrounds');
-                    calculateRollOff('upgrounds'); // Recalculate roll-off when pointing error changes
-                });
-            }
-            if (beamwidthUpgrounds) {
-                beamwidthUpgrounds.addEventListener('input', () => {
-                    calculatePointingLoss('upgrounds');
-                    calculateRollOff('upgrounds'); // Recalculate both when beamwidth changes
-                });
-            }
-
-            // Event listeners for pointing loss (Uplink Spacecraft)
-            const upspacecraftTheta2 = document.getElementById('upspacecraft_θ2_poin');
-            const beamwidthUpspacecraft = document.getElementById('beamwidth_upspacecraft_poin');
-            if (upspacecraftTheta2) {
-                upspacecraftTheta2.addEventListener('input', () => calculatePointingLoss('upspacecraft'));
-            }
-            if (beamwidthUpspacecraft) {
-                beamwidthUpspacecraft.addEventListener('input', () => calculatePointingLoss('upspacecraft'));
-            }
-
-            // Event listeners for pointing loss and roll-off calculations (Downlink Ground Station)
-            const upgroundsTheta3 = document.getElementById('upgrounds_θ3_poin'); // This ID seems misnamed, it should probably be `estimedpointingerror_downgrounds_θ3_poin`
-            const beamwidthDowngrounds = document.getElementById('beamwidth_downgrounds_poin');
-            if (upgroundsTheta3) {
-                upgroundsTheta3.addEventListener('input', () => {
-                    calculatePointingLoss('downgrounds');
-                    calculateRollOff('downgrounds'); // Recalculate roll-off when pointing error changes
-                });
-            }
-            if (beamwidthDowngrounds) {
-                beamwidthDowngrounds.addEventListener('input', () => {
-                    calculatePointingLoss('downgrounds');
-                    calculateRollOff('downgrounds'); // Recalculate both when beamwidth changes
-                });
-            }
-
-            // Event listeners for pointing loss (Downlink Spacecraft)
-            const downspacecraftTheta4 = document.getElementById('downspacecraft_θ4_poin');
-            const beamwidthDownspacecraft = document.getElementById('beamwidth_downspacecraft_poin');
-            if (downspacecraftTheta4) {
-                downspacecraftTheta4.addEventListener('input', () => calculatePointingLoss('downspacecraft'));
-            }
-            if (beamwidthDownspacecraft) {
-                beamwidthDownspacecraft.addEventListener('input', () => calculatePointingLoss('downspacecraft'));
-            }
-
 
             // Form validation
             document.getElementById('antennaForm_poin').addEventListener('submit', function(e) {
@@ -696,13 +682,15 @@
                     'gain_upspacecraft_poin',
                     'beamwidth_upspacecraft_poin',
                     'upspacecraft_θ2_poin',
+                    'calculation_formulas_upspacecraft_poin',
                     'frequency_downgrounds_poin',
                     'gain_downgrounds_poin',
                     'beamwidth_downgrounds_poin',
                     'upgrounds_θ3_poin',
                     'gain_downspacecraft_poin',
                     'beamwidth_downspacecraft_poin',
-                    'downspacecraft_θ4_poin'
+                    'downspacecraft_θ4_poin',
+                    'calculation_formulas_downspacecraft_poin'
                 ];
 
                 requiredFields.forEach(fieldId => {

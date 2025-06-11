@@ -114,12 +114,12 @@ public function showAnnpolaloss($id)
     ]);
 }
 
-public function showAtmosIonos($id)
+public function showAttmosIonos($id)
 {
     $data = Data::findOrFail($id);
     
-    return view('atnmosionos', [
-        'title'=> 'Lets Calculate Antenagain!',
+    return view('attmosionos', [
+        'title'=> 'Lets Calculate Antenna Ionos!',
         'data' => $data,
         'dataId' => $id,
         'userId' => $data->user_id
@@ -656,6 +656,14 @@ public function showAtmosIonos($id)
 
         $data = Data::findOrFail($id);
         return redirect()->route('annpolaloss.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+    }
+
+    //AttmosIonos
+    public function store_attmosionos(Request $request, $id)
+    {
+
+        $data = Data::findOrFail($id);
+        return redirect()->route('attmosionos.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
 

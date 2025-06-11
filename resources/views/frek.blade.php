@@ -5,16 +5,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     
     <style>
-        /* Custom styles for animations and appearance from calc.blade.php */
-        .input-unit {
+        /* Hapus atau nonaktifkan .input-unit jika tidak lagi digunakan di dalam input */
+        /* .input-unit {
             position: absolute;
             right: 12px;
             top: 50%;
             transform: translateY(-50%);
-            color: #6B7280; /* gray-500 */
-            font-size: 0.875rem; /* text-sm */
-            pointer-events: none; /* Make sure it doesn't block input clicks */
-        }
+            color: #6B7280;
+            font-size: 0.875rem;
+            pointer-events: none;
+            line-height: 1;
+        } */
 
         /* Styling for readonly inputs from calc.blade.php */
         input[readonly] {
@@ -47,7 +48,6 @@
         }
 
         /* Popup Styles (Copied from transmitter.blade.php for consistency) */
-        /* These styles are already in your original frekuensi.blade.php, ensuring consistency */
         .popup-window {
             display: none;
             position: fixed;
@@ -122,7 +122,30 @@
         .input-group > div:last-child {
             margin-bottom: 0; /* No margin after the last one in the group */
         }
+        
+        /* Ensured consistent input height */
+        input[type="number"],
+        input[type="text"] {
+            height: 48px; /* Tailwind's p-3 usually results in this height */
+            /* Hapus pr-16 dari kelas input di HTML, dan gunakan padding-right standar */
+            padding-right: 0.75rem; /* p-3 default */
+        }
 
+        /* Gaya untuk pembungkus input dan unit */
+        .input-with-unit-wrapper {
+            display: flex; /* Menggunakan flexbox untuk mensejajarkan input dan unit */
+            align-items: center; /* Pusatkan vertikal */
+            gap: 0.5rem; /* Jarak antara input dan unit */
+        }
+
+        /* Gaya untuk unit teks di luar input */
+        .unit-text {
+            color: #4B5563; /* gray-700 */
+            font-size: 0.875rem; /* text-sm */
+            font-weight: 500; /* Medium font weight */
+            min-width: 40px; /* Memberikan lebar minimum agar tidak terlalu mepet jika teks unit pendek */
+            text-align: left; /* Biarkan teks unit rata kiri */
+        }
     </style>
 
     <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
@@ -140,21 +163,21 @@
 
             {{-- Uplink Frekuensi --}}
             <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
-                <h2 class="text-lg font-semibold mb-3 text-gray-800">Uplink Frekuensi</h2>
+                <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink Frekuensi</h2>
 
                 <div class="input-group">
                     <div class="relative">
                         <label for="frekuensi" class="block font-medium mb-2 text-gray-700">Frekuensi:</label>
-                        <div class="flex items-center">
-                            <input type="number" step="0.001" name="frekuensi" id="frekuensi" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi">
-                            <span id="frekuensi_satuan_display" class="input-unit">MHz</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="number" step="0.001" name="frekuensi" id="frekuensi" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi" oninput="hitungPerhitungan()">
+                            <span class="unit-text">MHz</span> {{-- Unit di luar input --}}
                         </div>
                     </div>
                     <div class="relative">
                         <label for="panjang_gelombang" class="block font-medium mb-2 text-gray-700">Panjang Gelombang (λ):</label>
-                        <div class="flex items-center">
-                            <input type="text" name="panjang_gelombang" id="panjang_gelombang" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16">
-                            <span class="input-unit">Meter</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="text" name="panjang_gelombang" id="panjang_gelombang" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <span class="unit-text">Meter</span> {{-- Unit di luar input --}}
                         </div>
                         <button type="button" id="popup_lambda_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
                             Lihat Detail <i class="fas fa-info-circle ml-1"></i>
@@ -163,14 +186,16 @@
                     {{-- DISPLAY Slant Range dari halaman Orbit (Opsional) --}}
                     <div class="relative">
                         <label for="display_slant_range_uplink" class="block font-medium mb-2 text-gray-700">Slant Range Uplink (dari Orbit):</label>
-                        <input type="text" id="display_slant_range_uplink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pr-16">
-                        <span class="input-unit">km</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="text" id="display_slant_range_uplink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm">
+                            <span class="unit-text">km</span> {{-- Unit di luar input --}}
+                        </div>
                     </div>
                     <div class="relative">
                         <label for="path_loss" class="block font-medium mb-2 text-gray-700">Path Loss:</label>
-                        <div class="flex items-center">
-                            <input type="text" name="path_loss" id="path_loss" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16">
-                            <span class="input-unit">dB</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="text" name="path_loss" id="path_loss" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <span class="unit-text">dB</span> {{-- Unit di luar input --}}
                         </div>
                     <button type="button" id="popup_pathloss_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
                         Lihat Detail <i class="fas fa-info-circle ml-1"></i>
@@ -181,21 +206,21 @@
 
             {{-- Downlink Frekuensi --}}
             <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
-                <h2 class="text-lg font-semibold mb-3 text-gray-800">Downlink Frekuensi</h2>
+                <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink Frekuensi</h2>
 
                 <div class="input-group">
                     <div class="relative">
                         <label for="frekuensi_downlink" class="block font-medium mb-2 text-gray-700">Frekuensi:</label>
-                        <div class="flex items-center">
-                            <input type="number" step="0.001" name="frekuensi_downlink" id="frekuensi_downlink" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi">
-                            <span id="frekuensi_downlink_satuan_display" class="input-unit">MHz</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="number" step="0.001" name="frekuensi_downlink" id="frekuensi_downlink" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi" oninput="hitungPerhitungan()">
+                            <span class="unit-text">MHz</span> {{-- Unit di luar input --}}
                         </div>
                     </div>
                     <div class="relative">
                         <label for="panjang_gelombang_downlink" class="block font-medium mb-2 text-gray-700">Panjang Gelombang (λ):</label>
-                        <div class="flex items-center">
-                            <input type="text" name="panjang_gelombang_downlink" id="panjang_gelombang_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16">
-                            <span class="input-unit">Meter</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="text" name="panjang_gelombang_downlink" id="panjang_gelombang_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <span class="unit-text">Meter</span> {{-- Unit di luar input --}}
                         </div>
                         <button type="button" id="popup_lambda_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
                             Lihat Detail <i class="fas fa-info-circle ml-1"></i>
@@ -204,14 +229,16 @@
                     {{-- DISPLAY Slant Range dari halaman Orbit (Opsional) --}}
                     <div class="relative">
                         <label for="display_slant_range_downlink" class="block font-medium mb-2 text-gray-700">Slant Range Downlink (dari Orbit):</label>
-                        <input type="text" id="display_slant_range_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pr-16">
-                        <span class="input-unit">km</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="text" id="display_slant_range_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm">
+                            <span class="unit-text">km</span> {{-- Unit di luar input --}}
+                        </div>
                     </div>
                     <div class="relative">
                         <label for="path_loss_downlink" class="block font-medium mb-2 text-gray-700">Path Loss:</label>
-                        <div class="flex items-center">
-                            <input type="text" name="path_loss_downlink" id="path_loss_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none pr-16">
-                            <span class="input-unit">dB</span>
+                        <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
+                            <input type="text" name="path_loss_downlink" id="path_loss_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <span class="unit-text">dB</span> {{-- Unit di luar input --}}
                         </div>
                     <button type="button" id="popup_pathloss_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
                         Lihat Detail <i class="fas fa-info-circle ml-1"></i>
@@ -242,10 +269,19 @@
         <div id="popup_lambda_up" class="popup-window">
             <div class="popup-content">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Rumus Panjang Gelombang (Uplink)</h3>
-                <p class="formula">λ = c / f</p>
-                <p>c (Kecepatan Cahaya) = 299.8 (dalam km/s, atau 299,800,000 m/s untuk frekuensi dalam Hz)<br>f (Frekuensi) = <span id="frekuensi_up_text"></span> MHz<br>λ = <span id="hasil_lambda_up"></span> meter</p>
-                <p><strong>Penjelasan:</strong> Panjang gelombang (λ) adalah jarak spasial satu siklus gelombang. Hubungannya dengan frekuensi (f) dan kecepatan cahaya (c) adalah $\lambda = c / f$. Dalam perhitungan ini, kecepatan cahaya disesuaikan untuk frekuensi dalam MHz, sehingga hasilnya dalam meter.</p>
+                <h3>Detail Perhitungan Panjang Gelombang</h3>
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        λ = c / f<br>
+                        Dimana:<br>
+                        λ = Panjang gelombang (meter)<br>
+                        c = Kecepatan cahaya (~299.8 m/s)<br>
+                        f = Frekuensi (Hz)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
+                </div>
             </div>
         </div>
 
@@ -253,12 +289,19 @@
         <div id="popup_pathloss_up" class="popup-window">
             <div class="popup-content">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Rumus Path Loss (Uplink)</h3>
-                <p class="formula">L = 20 log₁₀(d) + 20 log₁₀(f) + 92.45</p>
-                <p>Atau dalam bentuk yang digunakan di sini:</p>
-                <p class="formula">L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)</p>
-                <p>Slant Range = <span id="slant_range_up_text"></span> km<br>Panjang Gelombang = <span id="panjang_gelombang_up_text2"></span> meter<br>L = <span id="hasil_pathloss_up"></span> dB</p>
-                <p><strong>Penjelasan:</strong> Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
+                <h3>Detail Perhitungan Path Loss</h3>
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)<br>
+                        Dimana:<br>
+                        L = Path Loss (dB)<br>
+                        Slant Range = Jarak miring antara Tx dan Rx (meter)<br>
+                        Panjang Gelombang = λ (meter)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
+                </div>
             </div>
         </div>
 
@@ -266,10 +309,19 @@
         <div id="popup_lambda_down" class="popup-window">
             <div class="popup-content">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Rumus Panjang Gelombang (Downlink)</h3>
-                <p class="formula">λ = c / f</p>
-                <p>c (Kecepatan Cahaya) = 299.8<br>f (Frekuensi) = <span id="frekuensi_down_text"></span> MHz<br>λ = <span id="hasil_lambda_down"></span> meter</p>
-                <p><strong>Penjelasan:</strong> Panjang gelombang (λ) adalah jarak spasial satu siklus gelombang. Hubungannya dengan frekuensi (f) dan kecepatan cahaya (c) adalah $\lambda = c / f$. Dalam perhitungan ini, kecepatan cahaya disesuaikan untuk frekuensi dalam MHz, sehingga hasilnya dalam meter.</p>
+                <h3>Detail Perhitungan Panjang Gelombang</h3>
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        λ = c / f<br>
+                        Dimana:<br>
+                        λ = Panjang gelombang (meter)<br>
+                        c = Kecepatan cahaya (~299.8 m/s)<br>
+                        f = Frekuensi (Hz)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
+                </div>
             </div>
         </div>
 
@@ -277,12 +329,19 @@
         <div id="popup_pathloss_down" class="popup-window">
             <div class="popup-content">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Rumus Path Loss (Downlink)</h3>
-                <p class="formula">L = 20 log₁₀(d) + 20 log₁₀(f) + 92.45</p>
-                <p>Atau dalam bentuk yang digunakan di sini:</p>
-                <p class="formula">L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)</p>
-                <p>Slant Range = <span id="slant_range_down_text"></span> km<br>Panjang Gelombang = <span id="panjang_gelombang_down_text2"></span> meter<br>L = <span id="hasil_pathloss_down"></span> dB</p>
-                <p><strong>Penjelasan:</strong> Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
+                <h3>Detail Perhitungan Path Loss</h3>
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)<br>
+                        Dimana:<br>
+                        L = Path Loss (dB)<br>
+                        Slant Range = Jarak miring antara Tx dan Rx (meter)<br>
+                        Panjang Gelombang = λ (meter)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
+                </div>
             </div>
         </div>
 
@@ -309,49 +368,38 @@
                 currentSlantRangeDownlink = parseFloat(localStorage.getItem('slantRangeGEODownlink')) || 0;
             }
 
-            // Tampilkan nilai slant range yang diambil dari localStorage ke input display (OPSIONAL)
+            // Tampilkan nilai slant range yang diambil dari localStorage ke input display
             if (document.getElementById('display_slant_range_uplink')) {
-                document.getElementById('display_slant_range_uplink').value = currentSlantRangeUplink > 0 ? currentSlantRangeUplink.toFixed(2) : '';
+                document.getElementById('display_slant_range_uplink').value = currentSlantRangeUplink > 0 ? currentSlantRangeUplink.toFixed(3) : '';
             }
             if (document.getElementById('display_slant_range_downlink')) {
-                document.getElementById('display_slant_range_downlink').value = currentSlantRangeDownlink > 0 ? currentSlantRangeDownlink.toFixed(2) : '';
+                document.getElementById('display_slant_range_downlink').value = currentSlantRangeDownlink > 0 ? currentSlantRangeDownlink.toFixed(3) : '';
             }
             // --- AKHIR PENGAMBILAN DARI LOCAL STORAGE ---
 
 
-            // Reset hasil perhitungan jika frekuensi kosong atau NaN, ATAU SLANT RANGE TIDAK ADA/INVALID
-            if (isNaN(frekuensi) || frekuensi === '' || isNaN(currentSlantRangeUplink) || currentSlantRangeUplink <= 0) {
+            // Perhitungan untuk uplink
+            if (!isNaN(frekuensi) && frekuensi > 0 && currentSlantRangeUplink > 0) {
+                const panjangGelombang = c_effective / frekuensi;
+                document.getElementById('panjang_gelombang').value = panjangGelombang.toFixed(5); // 5 desimal
+                
+                const pathLoss = 22 + 20 * Math.log10((currentSlantRangeUplink * 1000) / panjangGelombang);
+                document.getElementById('path_loss').value = pathLoss.toFixed(5); // 5 desimal
+            } else {
                 document.getElementById('panjang_gelombang').value = '';
                 document.getElementById('path_loss').value = '';
             }
 
-            // Reset hasil perhitungan jika frekuensi downlink kosong atau NaN, ATAU SLANT RANGE TIDAK ADA/INVALID
-            if (isNaN(frekuensi_downlink) || frekuensi_downlink === '' || isNaN(currentSlantRangeDownlink) || currentSlantRangeDownlink <= 0) {
+            // Perhitungan untuk downlink
+            if (!isNaN(frekuensi_downlink) && frekuensi_downlink > 0 && currentSlantRangeDownlink > 0) {
+                const panjangGelombangDownlink = c_effective / frekuensi_downlink;
+                document.getElementById('panjang_gelombang_downlink').value = panjangGelombangDownlink.toFixed(5); // 5 desimal
+
+                const pathLossDownlink = 22 + 20 * Math.log10((currentSlantRangeDownlink * 1000) / panjangGelombangDownlink);
+                document.getElementById('path_loss_downlink').value = pathLossDownlink.toFixed(5); // 5 desimal
+            } else {
                 document.getElementById('panjang_gelombang_downlink').value = '';
                 document.getElementById('path_loss_downlink').value = '';
-            }
-
-
-            // Perhitungan untuk uplink
-            if (frekuensi > 0 && currentSlantRangeUplink > 0) { // Pastikan frekuensi > 0 untuk menghindari NaN
-                // RUMUS PANJANG GELOMBANG BARU: c_effective / frekuensi (dalam MHz)
-                const panjangGelombang = c_effective / frekuensi;
-                document.getElementById('panjang_gelombang').value = panjangGelombang.toFixed(3); // Menampilkan 3 desimal
-
-                // Hitung Path Loss menggunakan rumus baru dan slant range dari local storage
-                const pathLoss = 22 + 20 * Math.log10((currentSlantRangeUplink * 1000) / panjangGelombang);
-                document.getElementById('path_loss').value = pathLoss.toFixed(3);
-            }
-
-            // Perhitungan untuk downlink
-            if (frekuensi_downlink > 0 && currentSlantRangeDownlink > 0) { // Pastikan frekuensi > 0 untuk menghindari NaN
-                // RUMUS PANJANG GELOMBANG BARU: c_effective / frekuensi (dalam MHz)
-                const panjangGelombangDownlink = c_effective / frekuensi_downlink;
-                document.getElementById('panjang_gelombang_downlink').value = panjangGelombangDownlink.toFixed(3); // Menampilkan 3 desimal
-
-                // Hitung Path Loss menggunakan rumus baru dan slant range dari local storage
-                const pathLossDownlink = 22 + 20 * Math.log10((currentSlantRangeDownlink * 1000) / panjangGelombangDownlink);
-                document.getElementById('path_loss_downlink').value = pathLossDownlink.toFixed(3);
             }
         }
 
@@ -359,112 +407,34 @@
         document.getElementById('frekuensi').addEventListener('input', hitungPerhitungan);
         document.getElementById('frekuensi_downlink').addEventListener('input', hitungPerhitungan);
 
-        // Panggil hitungPerhitungan saat halaman dimuat untuk memuat nilai dari local storage
+        // Panggil hitungPerhitungan saat halaman dimuat
         document.addEventListener('DOMContentLoaded', hitungPerhitungan);
 
-        // --- Logika Popups (sudah disesuaikan untuk membaca Slant Range dari local storage) ---
-        // Helper to update popup content (rumus dan nilai)
-        function updatePopupContent(popupId, formulaText, contentHtml) {
-            const popup = document.getElementById(popupId);
-            if (!popup) return;
-            
-            const formulaElement = popup.querySelector('.formula');
-            const existingContentPs = popup.querySelectorAll('.popup-content > p:not(.formula)'); 
-
-            existingContentPs.forEach(p => p.remove());
-
-            if (formulaElement) formulaElement.innerHTML = formulaText;
-
-            const newContentP = document.createElement('p');
-            newContentP.innerHTML = contentHtml;
-            if (formulaElement) {
-                formulaElement.parentNode.insertBefore(newContentP, formulaElement.nextSibling);
-            } else {
-                popup.querySelector('.popup-content').appendChild(newContentP);
-            }
+        // --- Logika Popups ---
+        // Fungsi umum untuk membuka pop-up
+        function openPopup(popupId) {
+            document.getElementById(popupId).style.display = "flex";
         }
 
+        // Event listener untuk tombol "Lihat Detail" Panjang Gelombang Uplink
         document.getElementById('popup_lambda_up_btn').onclick = () => {
-            const f = parseFloat(document.getElementById('frekuensi').value) || 0;
-            const c_effective_popup = 299.8;
-            let lambda = 0;
-            if (f > 0) {
-                lambda = c_effective_popup / f;
-            }
-            // Update popup content using the helper
-            updatePopupContent('popup_lambda_up',
-                `λ = c / f`,
-                `c (Kecepatan Cahaya) = ${c_effective_popup} (dalam km/s, atau 299,800,000 m/s untuk frekuensi dalam Hz)<br>f (Frekuensi) = ${f.toFixed(3)} MHz<br>λ = ${lambda.toFixed(3)} meter`
-            );
             openPopup('popup_lambda_up');
         };
 
+        // Event listener untuk tombol "Lihat Detail" Path Loss Uplink
         document.getElementById('popup_pathloss_up_btn').onclick = () => {
-            const lastSelectedOrbit = localStorage.getItem('lastSelectedOrbit');
-            let slantRangeForPopup = 0;
-            if (lastSelectedOrbit === 'LEO' || lastSelectedOrbit === 'MEO') {
-                slantRangeForPopup = parseFloat(localStorage.getItem('slantRangeLEOMEO')) || 0;
-            } else if (lastSelectedOrbit === 'GEO') {
-                slantRangeForPopup = parseFloat(localStorage.getItem('slantRangeGEOUplink')) || 0;
-            }
-
-            const panjangGelombang = parseFloat(document.getElementById('panjang_gelombang').value) || 0;
-
-            let loss = 0;
-            if (panjangGelombang !== 0 && slantRangeForPopup > 0) {
-                loss = 22 + 20 * Math.log10((slantRangeForPopup * 1000) / panjangGelombang);
-            }
-            // Update popup content using the helper
-            updatePopupContent('popup_pathloss_up',
-                `L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)`,
-                `Slant Range = ${slantRangeForPopup.toFixed(2)} km<br>Panjang Gelombang = ${panjangGelombang.toFixed(3)} meter<br>L = ${loss.toFixed(3)} dB`
-            );
             openPopup('popup_pathloss_up');
         };
 
+        // Event listener untuk tombol "Lihat Detail" Panjang Gelombang Downlink
         document.getElementById('popup_lambda_down_btn').onclick = () => {
-            const f = parseFloat(document.getElementById('frekuensi_downlink').value) || 0;
-            const c_effective_popup = 299.8;
-            let lambda = 0;
-            if (f > 0) {
-                lambda = c_effective_popup / f;
-            }
-            // Update popup content using the helper
-            updatePopupContent('popup_lambda_down',
-                `λ = c / f`,
-                `c (Kecepatan Cahaya) = ${c_effective_popup}<br>f (Frekuensi) = ${f.toFixed(3)} MHz<br>λ = ${lambda.toFixed(3)} meter`
-            );
             openPopup('popup_lambda_down');
         };
 
+        // Event listener untuk tombol "Lihat Detail" Path Loss Downlink
         document.getElementById('popup_pathloss_down_btn').onclick = () => {
-            const lastSelectedOrbit = localStorage.getItem('lastSelectedOrbit');
-            let slantRangeForPopup = 0;
-            if (lastSelectedOrbit === 'LEO' || lastSelectedOrbit === 'MEO') {
-                slantRangeForPopup = parseFloat(localStorage.getItem('slantRangeLEOMEO')) || 0;
-            } else if (lastSelectedOrbit === 'GEO') {
-                slantRangeForPopup = parseFloat(localStorage.getItem('slantRangeGEODownlink')) || 0;
-            }
-
-            const panjangGelombang = parseFloat(document.getElementById('panjang_gelombang_downlink').value) || 0;
-
-            let loss = 0;
-            if (panjangGelombang !== 0 && slantRangeForPopup > 0) {
-                loss = 22 + 20 * Math.log10((slantRangeForPopup * 1000) / panjangGelombang);
-            }
-            // Update popup content using the helper
-            updatePopupContent('popup_pathloss_down',
-                `L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)`,
-                `Slant Range = ${slantRangeForPopup.toFixed(2)} km<br>Panjang Gelombang = ${panjangGelombang.toFixed(3)} meter<br>L = ${loss.toFixed(3)} dB`
-            );
             openPopup('popup_pathloss_down');
         };
-
-
-        // Fungsi untuk buka popup (tetap sama)
-        function openPopup(id) {
-            document.getElementById(id).style.display = "flex";
-        }
 
         // Fungsi tutup semua popup (tetap sama)
         document.querySelectorAll('.close-popup-btn').forEach(btn => {

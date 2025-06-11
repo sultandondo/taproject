@@ -831,12 +831,12 @@
 
 
                     // Show GEO Earth Station Parameters
-                    geoEarthStationLabel.style.display = 'block';
-                    latitudeField.style.display = 'block';
-                    longitudeField.style.display = 'block';
-                    spclongField.style.display = 'block';
-                    azimuthField.style.display = 'block';
-                    sudutpusatbumiField.style.display = 'block';
+                    geoEarthStationLabel.style.display = 'none';
+                    latitudeField.style.display = 'none';
+                    longitudeField.style.display = 'none';
+                    spclongField.style.display = 'none';
+                    azimuthField.style.display = 'none';
+                    sudutpusatbumiField.style.display = 'none';
 
                     // Show Uplink and Downlink sections
                     uplinkLabel.style.display = 'block';

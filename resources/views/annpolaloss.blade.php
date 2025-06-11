@@ -162,6 +162,18 @@
             <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-full transition duration-150 ease-in-out">
                     Hitung & Simpan Parameter Antenna Polarization Loss
                 </button>
+            </form>
+            <div class="flex justify-between mt-6">
+                <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
+                </a>
+
+                {{-- Uncomment this if you have a next page
+                <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                    Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                --}}
+            </div>
         </div>
     </div>  
 
