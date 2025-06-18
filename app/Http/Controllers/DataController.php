@@ -19,7 +19,7 @@ class DataController extends Controller
 {
     // dd($id);
     if ($id == 0) {
-        return view('calc', ['title'=> 'Lets Calculate Orbit!', 'dataId' => $id,]);
+        return view('calc', ['title'=> 'Lets Calculate Orbit!', 'dataId' => $id]);
     } else {
         $data = Data::findOrFail($id);
         
@@ -126,6 +126,17 @@ public function showAttmosIonos($id)
     ]);
 }
 
+public function showUpDownLinkBudgetATN($id)
+{
+    $data = Data::findOrFail($id);
+    
+    return view('updownlinkbudgetatn', [
+        'title'=> 'Lets Uplink & Downlink Budget!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
     // Menampilkan form untuk membuat data baru
     public function create()
     {
@@ -173,6 +184,7 @@ public function showAttmosIonos($id)
 
             // validasi kolom lainnya sesuai kebutuhan
         ]);
+         $submitAction = $request->input('action');
 
         // Data::create($request->all());
         if ($id == 0) {
@@ -209,12 +221,25 @@ public function showAttmosIonos($id)
                 
                 // Field lainnya
             ]);
+           
 
-            return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+            if ($submitAction === 'normal_submit') {
+                // Logika untuk submit normal
+                return redirect()->route('calcazimuth.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+            } elseif ($submitAction === 'next') {
+                // Logika untuk submit dengan variabel tambahan
+                return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+            }
         } else {
             $data = Data::findOrFail($id);
             $data->update(array_merge($data->toArray(), $validated));
-            return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+            if ($submitAction === 'normal_submit') {
+                // Logika untuk submit normal
+                return redirect()->route('calcazimuth.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+            } elseif ($submitAction === 'next') {
+                // Logika untuk submit dengan variabel tambahan
+                return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+            }
         }
     }
 
@@ -471,7 +496,7 @@ public function showAttmosIonos($id)
         return redirect()->route('antennagain.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
-     //Menyimpan data Frekuensi
+     //Menyimpan data Calc Azimuth
         public function store_calcazimuth(Request $request)
     {
     
@@ -524,7 +549,8 @@ public function showAttmosIonos($id)
 
         // Data::create($request->all());
         
-        $data = Data::create([
+        $data = Data::findOrFail($id);
+        $data->update([
             'user_id' => $request->user_id,
             'latitude_up' => $request->input('latitude_up'),
             'innhem_up' => $request->input('innhem_up'),
@@ -574,7 +600,7 @@ public function showAttmosIonos($id)
     }
 
     //Menyimpan data Antenna Polarization Loss
-        public function store_annpolaloss(Request $request)
+        public function store_annpolaloss(Request $request, $id)
     {
     
         // dd($request->all());
@@ -609,7 +635,8 @@ public function showAttmosIonos($id)
 
         // Data::create($request->all());
         
-        $data = Data::create([
+        $data = Data::findOrFail($id);
+        $data->update([
             'user_id' => $request->user_id,
             'axtxantenna_up' => $request->input('axtxantenna_up'),
             'axialratio1_up' => $request->input('axialratio1_up'),
@@ -639,31 +666,308 @@ public function showAttmosIonos($id)
             // Field lainnya
         ]);
 
-        return redirect()->route('annpolaloss.show')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('attmosionos.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     //GainAntenna
       public function store_antennagain(Request $request, $id)
     {
+         // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'jenis_polarizationgrounds_up'=> 'nullable|string',
+            'jenis_antenagrounds_up'=> 'nullable|string',
+            'frequency_upgrounds'=> 'nullable|numeric',
+            'wavelength_upgrounds'=> 'nullable|numeric',
+            'gain_manual_upgrounds'=> 'nullable|numeric',
+            'beamwidth_manual_upgrounds'=> 'nullable|numeric',
 
+            'jenis_polarizationspacecraft_up'=> 'nullable|string',
+            'jenis_antenaspacecraft_up'=> 'nullable|string',
+            'gain_manual_upspacecraft'=> 'nullable|numeric',
+            'beamwidth_manual_upspacecraft'=> 'nullable|numeric',
+
+            'jenis_polarizationgrounds_down'=> 'nullable|string',
+            'jenis_antenagrounds_down'=> 'nullable|string',
+            'frequency_downgrounds'=> 'nullable|numeric',
+            'wavelength_downgrounds'=> 'nullable|numeric',
+            'gain_manual_downgrounds'=> 'nullable|numeric',
+            'beamwidth_manual_downgrounds'=> 'nullable|numeric',
+
+            'jenis_polarizationspacecraft_down'=> 'nullable|string',
+            'jenis_antenaspacecraft_down'=> 'nullable|string',
+            'gain_manual_downspacecraft'=> 'nullable|numeric',
+            'beamwidth_manual_downspacecraft'=> 'nullable|numeric',
+          
+            
+        // validasi kolom lainnya sesuai kebutuhan
+        ]);
+
+        // Data::create($request->all());
         $data = Data::findOrFail($id);
+        $data->update([
+            'user_id' => $request->user_id,
+            'jenis_polarizationgrounds_up' => $request->input('jenis_polarizationgrounds_up'),
+            'jenis_antenagrounds_up' => $request->input('jenis_antenagrounds_up'),
+            'frequency_upgrounds' => $request->input('frequency_upgrounds'),
+            'wavelength_upgrounds' => $request->input('wavelength_upgrounds'),
+            'gain_manual_upgrounds' => $request->input('gain_manual_upgrounds'),
+            'beamwidth_manual_upgrounds' => $request->input('beamwidth_manual_upgrounds'),
+
+            'jenis_polarizationspacecraft_up' => $request->input('jenis_polarizationspacecraft_up'),
+            'jenis_antenaspacecraft_up' => $request->input('jenis_antenaspacecraft_up'),
+            'gain_manual_upspacecraft' => $request->input('gain_manual_upspacecraft'),
+            'beamwidth_manual_upspacecraft' => $request->input('beamwidth_manual_upspacecraft'),
+
+            'jenis_polarizationgrounds_down' => $request->input('jenis_polarizationgrounds_down'),
+            'jenis_antenagrounds_down' => $request->input('jenis_antenagrounds_down'),
+            'frequency_downgrounds' => $request->input('frequency_downgrounds'),
+            'wavelength_downgrounds' => $request->input('wavelength_downgrounds'),
+            'gain_manual_downgrounds' => $request->input('gain_manual_downgrounds'),
+            'beamwidth_manual_downgrounds' => $request->input('beamwidth_manual_downgrounds'),
+
+            'jenis_polarizationspacecraft_down' => $request->input('jenis_polarizationspacecraft_down'),
+            'jenis_antenaspacecraft_down' => $request->input('jenis_antenaspacecraft_down'),
+            'gain_manual_downspacecraft' => $request->input('gain_manual_downspacecraft'),
+            'beamwidth_manual_downspacecraft' => $request->input('beamwidth_manual_downspacecraft'),
+             // Field lainnya
+        ]);
+
         return redirect()->route('annpoinloss.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     //Antenna Pointing Loss
     public function store_annpoinloss(Request $request, $id)
     {
+        // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'jenis_polarizationgrounds_up_poin'=> 'nullable|string',
+            'frequency_upgrounds_poin'=> 'nullable|numeric',
+            'wavelength_upgrounds_poin'=> 'nullable|numeric',
+            'gain_upgrounds_poin'=> 'nullable|numeric',
+            'beamwidth_upgrounds_poin'=> 'nullable|numeric',
+            'estimedpointingerror_upgrounds_θ1_poin'=> 'nullable|numeric',
+            'annrolloff_upgrounds_poin'=> 'nullable|numeric',
+            'approxannpoinloss_upgrounds_poin'=> 'nullable|numeric',
+            'jenis_polarizationspacecraft_up_poin'=> 'nullable|string',
+            'gain_upspacecraft_poin'=> 'nullable|numeric',
+            'beamwidth_upspacecraft_poin'=> 'nullable|numeric',
+            'upspacecraft_θ2_poin'=> 'nullable|numeric',
+            'calculation_formulas_upspacecraft_poin'=> 'nullable|numeric',
+            'approxannpoinloss_upspacecraft_poin'=> 'nullable|numeric',
+            'jenis_polarizationspacecraft_down_poin'=> 'nullable|string',
+            'gain_downspacecraft_poin'=> 'nullable|numeric',
+            'beamwidth_downspacecraft_poin'=> 'nullable|numeric',
+            'downspacecraft_θ3_poin'=> 'nullable|numeric',
+            'calculation_formulas_downspacecraft_poin'=> 'nullable|numeric',
+            'approxannpoinloss_downspacecraft_poin'=> 'nullable|numeric',
+            'jenis_polarizationgrounds_down_poin'=> 'nullable|string',
+            'frequency_downgrounds_poin'=> 'nullable|numeric',
+            'wavelength_downgrounds_poin'=> 'nullable|numeric',
+            'gain_downgrounds_poin'=> 'nullable|numeric',
+            'beamwidth_downgrounds_poin'=> 'nullable|numeric',
+            'upgrounds_θ4_poin'=> 'nullable|numeric',
+            'annrolloff_downgrounds_poin'=> 'nullable|numeric',
+            'approxannpoinloss_downgrounds_poin'=> 'nullable|numeric',
+           
+
+             // validasi kolom lainnya sesuai kebutuhan
+        ]);
+
+        // Data::create($request->all());
 
         $data = Data::findOrFail($id);
+        $data->update([
+            'user_id' => $request->user_id,
+            'jenis_polarizationgrounds_up_poin' => $request->input('jenis_polarizationgrounds_up_poin'),
+            'frequency_upgrounds_poin' => $request->input('frequency_upgrounds_poin'),
+            'wavelength_upgrounds_poin' => $request->input('wavelength_upgrounds_poin'),
+            'gain_upgrounds_poin' => $request->input('gain_upgrounds_poin'),
+            'beamwidth_upgrounds_poin' => $request->input('beamwidth_upgrounds_poin'),
+            'estimedpointingerror_upgrounds_θ1_poin' => $request->input('estimedpointingerror_upgrounds_θ1_poin'),
+            'annrolloff_upgrounds_poin' => $request->input('annrolloff_upgrounds_poin'),
+            'approxannpoinloss_upgrounds_poin' => $request->input('approxannpoinloss_upgrounds_poin'),
+            'jenis_polarizationspacecraft_up_poin' => $request->input('jenis_polarizationspacecraft_up_poin'),
+            'gain_upspacecraft_poin' => $request->input('gain_upspacecraft_poin'),
+            'beamwidth_upspacecraft_poin' => $request->input('beamwidth_upspacecraft_poin'),
+            'upspacecraft_θ2_poin' => $request->input('upspacecraft_θ2_poin'),
+            'calculation_formulas_upspacecraft_poin' => $request->input('calculation_formulas_upspacecraft_poin'),
+            'approxannpoinloss_upspacecraft_poin' => $request->input('approxannpoinloss_upspacecraft_poin'),
+            'jenis_polarizationspacecraft_down_poin' => $request->input('jenis_polarizationspacecraft_down_poin'),
+            'gain_downspacecraft_poin' => $request->input('gain_downspacecraft_poin'),
+            'beamwidth_downspacecraft_poin' => $request->input('beamwidth_downspacecraft_poin'),
+            'downspacecraft_θ3_poin' => $request->input('downspacecraft_θ3_poin'),
+            'calculation_formulas_downspacecraft_poin' => $request->input('calculation_formulas_downspacecraft_poin'),
+            'approxannpoinloss_downspacecraft_poin' => $request->input('approxannpoinloss_downspacecraft_poin'),
+            'jenis_polarizationgrounds_down_poin' => $request->input('jenis_polarizationgrounds_down_poin'),
+            'frequency_downgrounds_poin' => $request->input('frequency_downgrounds_poin'),
+            'wavelength_downgrounds_poin' => $request->input('wavelength_downgrounds_poin'),
+            'gain_downgrounds_poin' => $request->input('gain_downgrounds_poin'),
+            'beamwidth_downgrounds_poin' => $request->input('beamwidth_downgrounds_poin'),
+            'upgrounds_θ4_poin' => $request->input('upgrounds_θ4_poin'),
+            'annrolloff_downgrounds_poin' => $request->input('annrolloff_downgrounds_poin'),
+            'approxannpoinloss_downgrounds_poin' => $request->input('approxannpoinloss_downgrounds_poin'),
+            
+            // Field lainnya
+        ]);
         return redirect()->route('annpolaloss.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
+    
 
     //AttmosIonos
     public function store_attmosionos(Request $request, $id)
     {
+        // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'min_elevation_angle'=> 'nullable|numeric',
+            'loss_determined_atmospheric'=> 'nullable|numeric',
+            'uplink_loss_determined_display'=> 'nullable|numeric',
+            'uplink_frequency'=> 'nullable|numeric',
+            'uplink_loss_ionosphere'=> 'nullable|numeric',
+            'downlink_loss_determined_display'=> 'nullable|numeric',
+            'downlink_frequency'=> 'nullable|numeric',
+            'downlink_loss_ionosphere'=> 'nullable|numeric',
+          
+            // validasi kolom lainnya sesuai kebutuhan
+        ]);
 
+        // Data::create($request->all());
         $data = Data::findOrFail($id);
+         $data->update([
+            'user_id' => $request->user_id,
+            'min_elevation_angle' => $request->input('min_elevation_angle'),
+            'loss_determined_atmospheric' => $request->input('loss_determined_atmospheric'),
+            'uplink_loss_determined_display' => $request->input('uplink_loss_determined_display'),
+            'uplink_frequency' => $request->input('uplink_frequency'),
+            'uplink_loss_ionosphere' => $request->input('uplink_loss_ionosphere'),
+            'downlink_loss_determined_display' => $request->input('downlink_loss_determined_display'),
+            'downlink_frequency' => $request->input('downlink_frequency'),
+            'downlink_loss_ionosphere' => $request->input('downlink_loss_ionosphere'),
+            // Field lainnya
+        ]);
+
         return redirect()->route('attmosionos.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+    }
+
+    //Uplink Budget & Downlink Budget
+    public function store_updownlinkbudgetatn(Request $request, $id)
+    {
+        // dd($request->all());
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'tx_powerwatts_up'=> 'nullable|numeric',
+            'tx_powerdbw_up'=> 'nullable|numeric',
+            'tx_powerdbm_up'=> 'nullable|numeric',
+            'trlinelosses_up'=> 'nullable|numeric',
+            'antennaagain_up'=> 'nullable|numeric',
+            'eirp_up'=> 'nullable|numeric',
+
+            'pointinglosses_up'=> 'nullable|numeric',
+            'polarizationlosses_up'=> 'nullable|numeric',
+            'pathlosss_up'=> 'nullable|numeric',
+            'atmosphericlosses_up'=> 'nullable|numeric',
+            'ionosphericlosses_up'=> 'nullable|numeric',
+            'rainlosses_up'=> 'nullable|numeric',
+            'signallevel_up'=> 'nullable|numeric',
+
+            'scpointingloss_up'=> 'nullable|numeric',
+            'scantennagain_up'=> 'nullable|numeric',
+            'sclinelosses_up'=> 'nullable|numeric',
+            'scnoisetemp_up'=> 'nullable|numeric',
+            'scgtratio_up'=> 'nullable|numeric',
+            'scsignalpower_up'=> 'nullable|numeric',
+            'scbandwidth_up'=> 'nullable|numeric',
+            'scnoisepower_up'=> 'nullable|numeric',
+            'snrratio_up'=> 'nullable|numeric',
+            'requiredsnr_up'=> 'nullable|numeric',
+            'linkmargin_up'=> 'nullable|numeric',
+
+            'sc_powerwatts_down'=> 'nullable|numeric',
+            'sc_powerdbw_down'=> 'nullable|numeric',
+            'sc_powerdbm_down'=> 'nullable|numeric', 
+            'sclinelosses_down'=> 'nullable|numeric', 
+            'scantennaagain_down'=> 'nullable|numeric', 
+            'sceirp_down'=> 'nullable|numeric', 
+
+            'scpointinglosses_down'=> 'nullable|numeric', 
+            'polarizationlosses_down'=> 'nullable|numeric', 
+            'pathlosss_down'=> 'nullable|numeric', 
+            'atmosphericlosses_down'=> 'nullable|numeric', 
+            'ionosphericlosses_down'=> 'nullable|numeric', 
+            'rainlosses_down'=> 'nullable|numeric', 
+            'signallevel_down'=> 'nullable|numeric', 
+
+            'gspointingloss_down'=> 'nullable|numeric', 
+            'gsantennagain_down'=> 'nullable|numeric', 
+            'gslinelosses_down'=> 'nullable|numeric', 
+            'gsnoisetemp_down'=> 'nullable|numeric', 
+            'gsgtratio_down'=> 'nullable|numeric', 
+            'gssignalpower_down'=> 'nullable|numeric', 
+            'gsbandwidth_down'=> 'nullable|numeric', 
+            'gsnoisepower_down'=> 'nullable|numeric', 
+            'snrratio_down'=> 'nullable|numeric', 
+            'requiredsnr_down'=> 'nullable|numeric', 
+            'linkmargin_down'=> 'nullable|numeric', 
+            // validasi kolom lainnya sesuai kebutuhan
+        ]);
+
+        // Data::create($request->all());
+        $data = Data::findOrFail($id);
+         $data->update([
+            'user_id' => $request->user_id,
+            'tx_powerwatts_up' => $request->input('tx_powerwatts_up'),
+            'tx_powerdbw_up' => $request->input('tx_powerdbw_up'),
+            'tx_powerdbm_up' => $request->input('tx_powerdbm_up'),
+            'trlinelosses_up' => $request->input('trlinelosses_up'),
+            'antennaagain_up' => $request->input('antennaagain_up'),
+            'eirp_up' => $request->input('eirp_up'),
+            'pointinglosses_up' => $request->input('pointinglosses_up'),
+            'polarizationlosses_up' => $request->input('polarizationlosses_up'),
+            'pathlosss_up' => $request->input('pathlosss_up'),
+            'atmosphericlosses_up' => $request->input('atmosphericlosses_up'),
+            'ionosphericlosses_up' => $request->input('ionosphericlosses_up'),
+            'rainlosses_up' => $request->input('rainlosses_up'),
+            'signallevel_up' => $request->input('signallevel_up'),
+            'scpointingloss_up' => $request->input('scpointingloss_up'),
+            'scantennagain_up' => $request->input('scantennagain_up'),
+            'sclinelosses_up' => $request->input('sclinelosses_up'),
+            'scnoisetemp_up' => $request->input('scnoisetemp_up'),
+            'scgtratio_up' => $request->input('scgtratio_up'),
+            'scsignalpower_up' => $request->input('scsignalpower_up'),
+            'scbandwidth_up' => $request->input('scbandwidth_up'),
+            'scnoisepower_up' => $request->input('scnoisepower_up'),
+            'snrratio_up' => $request->input('snrratio_up'),
+            'requiredsnr_up' => $request->input('requiredsnr_up'),
+            'linkmargin_up' => $request->input('linkmargin_up'),
+            'sc_powerwatts_down' => $request->input('sc_powerwatts_down'),
+            'sc_powerdbw_down' => $request->input('sc_powerdbw_down'),
+            'sc_powerdbm_down' => $request->input('sc_powerdbm_down'),
+            'sclinelosses_down' => $request->input('sclinelosses_down'),
+            'scantennaagain_down' => $request->input('scantennaagain_down'),
+            'sceirp_down' => $request->input('sceirp_down'),
+            'scpointinglosses_down' => $request->input('scpointinglosses_down'),
+            'polarizationlosses_down' => $request->input('polarizationlosses_down'),
+            'pathlosss_down' => $request->input('pathlosss_down'),
+            'atmosphericlosses_down' => $request->input('atmosphericlosses_down'),
+            'ionosphericlosses_down' => $request->input('ionosphericlosses_down'),
+            'rainlosses_down' => $request->input('rainlosses_down'),
+            'signallevel_down' => $request->input('signallevel_down'),
+            'gspointingloss_down' => $request->input('gspointingloss_down'),
+            'gsantennagain_down' => $request->input('gsantennagain_down'),
+            'gslinelosses_down' => $request->input('gslinelosses_down'),
+            'gsnoisetemp_down' => $request->input('gsnoisetemp_down'),
+            'gsgtratio_down' => $request->input('gsgtratio_down'),
+            'gssignalpower_down' => $request->input('gssignalpower_down'),
+            'gsbandwidth_down' => $request->input('gsbandwidth_down'),
+            'gsnoisepower_down' => $request->input('gsnoisepower_down'),
+            'snrratio_down' => $request->input('snrratio_down'),
+            'requiredsnr_down' => $request->input('requiredsnr_down'),
+            'linkmargin_down' => $request->input('linkmargin_down'),
+            // Field lainnya
+        ]);
+        return redirect()->route('updownlinkbudgetatn.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
 

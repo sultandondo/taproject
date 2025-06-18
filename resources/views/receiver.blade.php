@@ -211,7 +211,7 @@
 
                 <form method="POST" action="{{ route('receiver.store', $dataId)}}">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="1">
 
                     <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Uplink</h2>
                     <div class="relative mb-6">
@@ -609,12 +609,12 @@
                         </div>
 
                         <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                            <i class="fas fa-save mr-2"></i> Hitung & Simpan
-                        </button>
+                        <i class="fas fa-save mr-2"></i> Hitung & Simpan Parameter Receiver
+                    </button>
                     </div>
                 </form>
                 <div class="flex flex-col sm:flex-row justify-between mt-6 space-y-4 sm:space-y-0">
-                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <a href="/transmitter/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                         <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                     </a>
 

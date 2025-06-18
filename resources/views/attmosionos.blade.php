@@ -109,7 +109,7 @@
 
                 <form method="POST" action="{{ route('attmosionos.store', ['id' => $dataId]) }}" class="space-y-6">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="1">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="relative">
@@ -271,12 +271,12 @@
                         <i class="fas fa-calculator mr-2"></i> Hitung & Simpan Parameter Atmospheric Losses
                     </button>
             <div class="flex justify-between mt-6">
-                <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
-                    <i class="fas fa-arrow-left mr-2"></i> Previous Page
+                <a href="/annpolaloss/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                 </a>
                 {{-- If you have a next page, uncomment and adjust the link below --}}
                 {{-- <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
-                    Next Page <i class="fas fa-arrow-right ml-2"></i>
+                    Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
                 </a> --}}
             </div>
         </div>

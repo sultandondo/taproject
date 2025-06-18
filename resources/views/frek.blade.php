@@ -159,7 +159,7 @@
 
             <form method="POST" action="{{ route('frek.store', $dataId )}}">
             @csrf
-            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="user_id" value="1">
 
             {{-- Uplink Frekuensi --}}
             <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
@@ -248,8 +248,8 @@
             </div>
 
             <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                <i class="fas fa-save mr-2"></i> Hitung & Simpan
-            </button>
+                        <i class="fas fa-save mr-2"></i> Hitung & Simpan Parameter Frekuensi
+                    </button>
             </form>
             <div class="flex justify-between mt-6">
                 <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">

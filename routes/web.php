@@ -79,9 +79,13 @@ Route::post('/annpolaloss/{id}', [DataController::class, 'store_Annpolaloss'])->
 Route::get('/attmosionos/{id}', [DataController::class, 'showAttmosIonos'])->name('attmosionos.show');
 Route::post('/attmosionos/{id}', [DataController::class, 'store_attmosionos'])->name('attmosionos.store'); // Menangani form dengan POST
 
+Route::get('/updownlinkbudgetatn/{id}', [DataController::class, 'showUpDownLinkBudgetATN'])->name('updownlinkbudgetatn.show');
+Route::post('/updownlinkbudgetatn/{id}', [DataController::class, 'store_updownlinkbudgetatn'])->name('updownlinkbudgetatn.store'); // Menangani form dengan POST
+
 Route::get('/updownlinkbudgetatn', function () {
     return view('updownlinkbudgetatn', ['title'=> 'Lets Calculation Uplink & Downlink Budget Antenna!']);
 });
+
 
 Route::get('/about', function () {
     return view('about', ['title' => 'About Us']);

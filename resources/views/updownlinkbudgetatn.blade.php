@@ -3,8 +3,11 @@
     
     <!-- Uplink Section -->
     <div class="container mx-auto px-4 py-8">
+        
         <h1 class="text-3xl font-bold mb-8 text-center text-gray-800">Uplink</h1>
         
+    <form method="POST" action="{{ route('updownlinkbudgetatn.store', ['id' => $dataId]) }}" id="updownlinkbudgetatn">
+            @csrf
         <!-- Ground Station Section -->
         <div class="bg-white shadow-lg rounded-lg p-6 mb-6">
             <h2 class="text-xl font-bold mb-4 text-white bg-blue-500 p-2 rounded">Ground Station</h2>

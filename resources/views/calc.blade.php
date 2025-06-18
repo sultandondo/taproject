@@ -173,7 +173,7 @@
 
             <form method="POST" action="{{ route('data.store', ['id' => $dataId]) }}" class="space-y-6">
                 @csrf
-                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="user_id" value="1">
 
                 <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm">
                     <label for="jenis_orbit" class="block font-bold mb-2 text-blue-800 text-lg">
@@ -477,8 +477,11 @@
 
                 </div>
 
-                <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <button type="submit" name="action" value="next" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                     <i class="fas fa-save mr-2"></i> Hitung & Simpan
+                </button>
+                <button type="submit" name="action" value="normal_submit" id="azimuth_button" class="bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-4" style="display: none;">
+                    <i class="fas fa-compass mr-2"></i> Hitung & Simpan lalu melihat hasil kalkulasi azimuth
                 </button>
             </form>
         </div>
@@ -697,6 +700,7 @@
         function handleOrbitChange() {
             const orbit = document.getElementById('jenis_orbit').value;
             const orbitFieldsContainer = document.getElementById('orbitFields');
+            
 
             // Get all individual field divs by their IDs
             const apogeeField = document.getElementById('apogee_field');
@@ -730,6 +734,9 @@
             const downlinkLabel = document.getElementById('downlinkLabel');
             const downlinkInputs = document.querySelectorAll('#downlinkgeo_down_label, #userlat_down_field, #userlong_down_field, #spaceslot_down_field, #slantrangetouser_down_field, #userelevationangel_down_field, #userazimuthangle_down_field, #earthcentralangle_down_field');
             
+
+            //Tombol untuk button azimuth
+            const azimuthButton = document.getElementById('azimuth_button');
             // Reset all input values
             resetForm();
 
@@ -787,6 +794,7 @@
                     smageoField.style.display = 'none'; // HIDE Semi Major Axis GEO
                     geostanField.style.display = 'none'; // HIDE Geostationary Altitude
                     reeGeoField.style.display = 'none'; // HIDE Radius Bumi GEO (only show Re LEO/MEO)
+                    azimuthButton.style.display = 'none'; //Hide azimuth button
 
 
                     // Attach event listeners for LEO/MEO specific calculations
@@ -806,6 +814,7 @@
                     reeGeoField.style.display = 'block'; // Re for GEO
                     smageoField.style.display = 'block'; // SMA for GEO (now uniquely here)
                     geostanField.style.display = 'block'; // Show Geostationary Altitude
+                    azimuthButton.style.display = 'block';
                     
                     // Set GEO specific values and make readonly
                     document.getElementById('inklinasi').value = 0;
@@ -844,8 +853,11 @@
                     downlinkLabel.style.display = 'block';
                     downlinkInputs.forEach(input => input.style.display = 'block');
                 }
+                 
+            
             } else {
                 orbitFieldsContainer.style.display = 'none';
+                azimuthButton.style.display = 'none';
             }
         }
 

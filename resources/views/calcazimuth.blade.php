@@ -134,12 +134,12 @@
                     <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink</h2>
                     <form method="POST" action="{{ route('calcazimuth.store') }}">
                         @csrf
-                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                        <input type="hidden" name="user_id" value="1">
 
                         <div class="input-group">
                             <div class="relative">
                                 <label for="latitude_up" class="block font-medium text-gray-700 mb-2">Latitude:</label>
-                                <input type="number" id="latitude_up" name="latitude_up" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Latitude" step="any" value="{{ $data->userlat_up ?? '' }}">
+                                <input type="number" id="latitude_up" name="latitude_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlat_up ?? '' }}" step="any" value="">
                             </div>
 
                             <div class="relative">
@@ -156,7 +156,7 @@
 
                             <div class="relative">
                                 <label for="longitude_up" class="block font-medium text-gray-700 mb-2">Δ Longitude:</label>
-                                <input type="number" id="longitude_up" name="longitude_up" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Longitude" step="any" value="{{ $data->userlong_up - $data->spaceslot_up ?? '' }}">
+                                <input type="number" id="longitude_up" name="longitude_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlong_up - $data->spaceslot_up ?? '' }}" step="any" value="{{ $data->userlong_up - $data->spaceslot_up ?? '' }}">
                             </div>
 
                             <div class="relative">
@@ -269,7 +269,7 @@
                         <div class="input-group">
                             <div class="relative">
                                 <label for="latitude_down" class="block font-medium text-gray-700 mb-2">Latitude:</label>
-                                <input type="number" id="latitude_down" name="latitude_down" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Latitude" step="any">
+                                <input type="number" id="latitude_down" name="latitude_down" class="w-full p-3  border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlat_down ?? '' }}" step="any">
                             </div>
 
                             <div class="relative">
@@ -286,7 +286,7 @@
 
                             <div class="relative">
                                 <label for="longitude_down" class="block font-medium text-gray-700 mb-2">Δ Longitude:</label>
-                                <input type="number" id="longitude_down" name="longitude_down" class="w-full p-3 border border-gray-300 rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Longitude" step="any">
+                                <input type="number" id="longitude_down" name="longitude_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlong_down - $data->spaceslot_down ?? '' }}" step="any">
                             </div>
 
                             <div class="relative">
@@ -395,9 +395,9 @@
                     <i class="fas fa-save mr-2"></i> Hitung & Simpan
                 </button>
                 <div class="flex justify-between mt-6">
-                    <a href="/previous-page-url" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
-                        <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
-                    </a>
+                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
+                </a>
 
                     {{-- Uncomment this if you have a next page
                     <a href="/next-page-url" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">

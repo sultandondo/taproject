@@ -186,10 +186,13 @@
 
                 <form method="POST" action="{{ route('transmitter.store', $dataId)}}">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="1">
 
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
                         <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink</h2>
+                        <div class="w-50 h-50 mx-auto">
+                            <img src="{{ asset('img/uptransmitter.png') }}" alt="Blok Diagram Uplink" class="w-full h-full object-cover">
+                        </div>
                         <div class="input-group flex flex-col md:flex-row md:space-x-6"> <div class="relative w-full md:w-1/3"> <label for="watt_up" class="block font-medium mb-2 text-gray-700">Transmitter Power (Watt):</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" id="watt_up" name="watt_up"
@@ -369,6 +372,9 @@
 
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
                         <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink</h2>
+                        <div class="w-50 h-50 mx-auto">
+                            <img src="{{ asset('img/downtransmitter.png') }}" alt="Blok Diagram Uplink" class="w-full h-full object-cover">
+                        </div>
                         <div class="input-group flex flex-col md:flex-row md:space-x-6"> <div class="relative w-full md:w-1/3"> <label for="watt_down" class="block font-medium mb-2 text-gray-700">Transmitter Power (Watt):</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" id="watt_down" name="watt_down"
@@ -548,17 +554,17 @@
                     </div>
 
                     <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <i class="fas fa-save mr-2"></i> Hitung Simpan
+                        <i class="fas fa-save mr-2"></i> Hitung & Simpan Parameter Transmitter
                     </button>
                 </form>
 
                 <div class="flex justify-between mt-6">
-                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
-                        <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
-                    </a>
+                    <a href="/frek/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
+                </a>
 
                     {{-- Uncomment this if you have a next page
-                    <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                    <a href="/next-page/{{$daId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
                         Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                     --}}

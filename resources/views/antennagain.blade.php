@@ -218,7 +218,7 @@
             <div class="bg-blue-50 shadow-lg rounded-lg p-6 mb-8 border border-blue-200">
                 <form method="POST" action="{{ route('antennagain.store', ['id' => $dataId]) }}" id="antennaForm">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="1">
 
                     <div class="mb-8">
                         <div class="mb-4">
@@ -515,12 +515,12 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg w-full transition duration-150 ease-in-out">
-                        Hitung & Simpan Parameter Antena
+                    <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                        <i class="fas fa-save mr-2"></i> Hitung & Simpan Parameter Antenna Gain
                     </button>
                 </form>
                 <div class="flex justify-between mt-6">
-                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <a href="/receiver/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                         <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                     </a>
 
