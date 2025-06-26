@@ -137,6 +137,19 @@ public function showUpDownLinkBudgetATN($id)
         'userId' => $data->user_id
     ]);
 }
+
+public function showSimulationHardwareForm($id)
+{
+    $data = Data::findOrFail($id);
+    
+    return view('simulationhardware', [
+        'title'=> 'Lets Simulation Hardware!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
     // Menampilkan form untuk membuat data baru
     public function create()
     {
@@ -848,7 +861,7 @@ public function showUpDownLinkBudgetATN($id)
             // Field lainnya
         ]);
 
-        return redirect()->route('attmosionos.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('updownlinkbudgetatn.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     //Uplink Budget & Downlink Budget

@@ -49,30 +49,62 @@
             align-items: center;
         }
         .popup-content {
-            position: relative;
+            position: relative; /* Ini penting agar absolute positioning tombol X bekerja relatif terhadapnya */
             background-color: white;
-            padding: 20px 30px 30px;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             width: 80%;
             max-width: 600px;
-            max-height: 80vh;
-            overflow-y: auto;
+            max-height: 80vh; /* Tinggi maksimum popup, sisanya akan menggulir */
+            display: flex; /* Gunakan flexbox untuk layout header dan body */
+            flex-direction: column; /* Susun header dan body secara vertikal */
             animation: fadeInScale 0.3s ease-out;
         }
+        
+        /* Gaya untuk header popup yang tidak akan menggulir */
+        .popup-header {
+            padding: 20px 30px 10px; /* Padding untuk header */
+            border-bottom: 1px solid #eee; /* Garis bawah pada header */
+            position: relative; /* Penting untuk posisi absolut tombol X */
+            flex-shrink: 0; /* Pastikan header tidak menyusut */
+        }
+
+        .popup-header h3 {
+            margin-top: 0; /* Hapus margin top yang mungkin mengganggu */
+            color: #2c3e50;
+            padding-bottom: 0; /* Hapus padding-bottom default dari h3 di sini */
+        }
+
+        /* Gaya untuk tombol tutup (X) */
         .close-popup-btn {
-            position: absolute;
-            top: 10px;
-            right: 15px;
+            position: absolute; /* Tetap absolute relatif terhadap popup-header */
+            top: 15px;   /* Sesuaikan posisi vertikal dari atas popup-header */
+            right: 15px;  /* Sesuaikan posisi horizontal dari kanan popup-header */
             font-size: 24px;
             font-weight: bold;
             color: #555;
             cursor: pointer;
             transition: color 0.2s ease;
+            z-index: 1001; /* Pastikan tombol di atas konten popup */
+            background-color: white; /* Memberikan latar belakang */
+            border-radius: 50%; /* Membuat tombol lingkaran */
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Memberikan sedikit bayangan */
         }
 
         .close-popup-btn:hover {
             color: #000;
+        }
+
+        /* Gaya untuk body popup yang akan menggulir */
+        .popup-body {
+            padding: 20px 30px 30px; /* Padding untuk konten body */
+            overflow-y: auto; /* Ini yang memungkinkan konten body discroll */
+            flex-grow: 1; /* Biarkan body mengisi sisa ruang yang tersedia */
         }
 
         .formula {
@@ -82,13 +114,6 @@
             border-left: 4px solid #4CAF50;
             margin: 15px 0;
             font-family: 'Cambria Math', 'Times New Roman', serif;
-        }
-
-        .popup-content h3 {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
         }
 
         .popup-content p {
@@ -151,14 +176,14 @@
 
         /* For screens smaller than 'md' (768px) */
         @media (max-width: 767px) {
-            .px-4.sm\\:px-6.lg\\:px-8 { /* Adjust overall padding for smaller screens */
+            .px-4.sm\:px-6.lg\:px-8 { /* Adjust overall padding for smaller screens */
                 padding-left: 1rem;
                 padding-right: 1rem;
             }
             .max-w-3xl { /* Limit max-width to be more flexible */
                 max-width: 100%;
             }
-            .text-3xl.sm\\:text-4xl { /* Adjust heading size */
+            .text-3xl.sm\:text-4xl { /* Adjust heading size */
                 font-size: 2rem; /* text-2xl */
             }
             .text-lg { /* Adjust paragraph size */
@@ -172,27 +197,82 @@
                 width: 100% !important;
             }
         }
+
+        /* Styling for the new transmitter explanation popup content */
+        .transmitter-explanation {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #4A5568;
+        }
+        .transmitter-explanation .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .transmitter-explanation .section:last-child {
+            border-bottom: none;
+        }
+        .transmitter-explanation .section-title {
+            color: #2C5282;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            border-left: 5px solid #4299E1;
+            padding-left: 1rem;
+        }
+        .transmitter-explanation .section-content {
+            text-align: justify;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+        /* No .formula specific styles here for .transmitter-explanation because formulas are removed */
+        .transmitter-explanation .param-title {
+            color: #2D3748;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.5rem 0;
+        }
+        .transmitter-explanation .param-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+        .transmitter-explanation .param-list li {
+            margin-bottom: 0.4rem;
+            line-height: 1.6;
+        }
     </style>
 
     <div class="container mx-auto px-4 py-8">
         <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
             <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl transform transition-all duration-300 hover:shadow-3xl border-t-8 border-blue-600">
                 <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
-                    <i class="fas fa-satellite-dish mr-2 text-blue-600"></i> Perhitungan Parameter Transmitter
+                    <i class="text-blue-600"></i> Perhitungan Parameter Transmitter
                 </h1>
                 <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
                     Masukkan parameter Transmitter untuk uplink dan downlink.
                 </p>
 
+                {{-- "Apa itu Perhitungan Transmitter?" button --}}
+                <div class="mb-6 text-right animate__animated animate__fadeInUp">
+                    <button type="button" id="info_transmitter_general_btn" class="text-blue-600 hover:text-blue-800 text-sm font-semibold transition-colors duration-200">
+                        Apa itu Perhitungan Transmitter? <i class="fas fa-info-circle ml-1"></i>
+                    </button>
+                </div>
+
                 <form method="POST" action="{{ route('transmitter.store', $dataId)}}">
                     @csrf
-                    <input type="hidden" name="user_id" value="1">
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
                         <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink</h2>
-                        <div class="w-50 h-50 mx-auto">
-                            <img src="{{ asset('img/uptransmitter.png') }}" alt="Blok Diagram Uplink" class="w-full h-full object-cover">
+                        <div class="relative mb-6">
+                            <div class="w-50 h-50 mx-auto">
+                                <img src="{{ asset('img/uptransmitter.png') }}" alt="Blok Diagram Uplink" class="w-full h-full object-cover">
+                            </div>
                         </div>
+
                         <div class="input-group flex flex-col md:flex-row md:space-x-6"> <div class="relative w-full md:w-1/3"> <label for="watt_up" class="block font-medium mb-2 text-gray-700">Transmitter Power (Watt):</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" id="watt_up" name="watt_up"
@@ -253,7 +333,8 @@
                             </div>
                         </div>
 
-                        <div class="relative w-full md:w-1/3"> <label for="totlength_up" class="block font-medium mb-2 text-gray-700">Total Line Length (Line A+B+C):</label>
+                        <div class="relative mt-4">
+                            <label for="totlength_up" class="block font-medium mb-2 text-gray-700">Total Line Length (Line A+B+C):</label>
                             <div class="input-with-unit-wrapper">
                                 <input type="text" id="totlength_up" name="totlength_up"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
@@ -372,8 +453,10 @@
 
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
                         <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink</h2>
-                        <div class="w-50 h-50 mx-auto">
-                            <img src="{{ asset('img/downtransmitter.png') }}" alt="Blok Diagram Uplink" class="w-full h-full object-cover">
+                        <div class="relative mb-6">
+                            <div class="w-50 h-50 mx-auto">
+                                <img src="{{ asset('img/downtransmitter.png') }}" alt="Blok Diagram Downlink" class="w-full h-full object-cover">
+                            </div>
                         </div>
                         <div class="input-group flex flex-col md:flex-row md:space-x-6"> <div class="relative w-full md:w-1/3"> <label for="watt_down" class="block font-medium mb-2 text-gray-700">Transmitter Power (Watt):</label>
                                 <div class="input-with-unit-wrapper">
@@ -435,7 +518,8 @@
                             </div>
                         </div>
 
-                        <div class="relative w-full md:w-1/3"> <label for="totlength_down" class="block font-medium mb-2 text-gray-700">Total Line Length (Line A+B+C):</label>
+                        <div class="relative mt-4"> 
+                            <label for="totlength_down" class="block font-medium mb-2 text-gray-700">Total Line Length (Line A+B+C):</label>
                             <div class="input-with-unit-wrapper">
                                 <input type="text" id="totlength_down" name="totlength_down"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
@@ -554,17 +638,17 @@
                     </div>
 
                     <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <i class="fas fa-save mr-2"></i> Hitung & Simpan Parameter Transmitter
+                        <i class=""></i> Hitung & Simpan
                     </button>
                 </form>
 
                 <div class="flex justify-between mt-6">
-                    <a href="/frek/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
-                    <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
-                </a>
+                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                        <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
+                    </a>
 
                     {{-- Uncomment this if you have a next page
-                    <a href="/next-page/{{$daId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                    <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
                         Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
                     </a>
                     --}}
@@ -573,256 +657,381 @@
         </div>
     </div>
 
+    {{-- New Popup for general Transmitter explanation (NO FORMULAS HERE) --}}
+    <div id="popup_transmitter_general" class="popup-window">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Tentang Perhitungan Parameter Transmitter</h3>
+            </div>
+            <div class="popup-body">
+                <div class="transmitter-explanation">
+                    <div class="section">
+                        <h4 class="section-title">Transmitter Power (Daya Transmitter)</h4>
+                        <p class="section-content">
+                            Ini adalah daya awal sinyal yang dihasilkan oleh pemancar, diukur dalam Watt (W), dBW, atau dBm. Ini adalah titik awal yang krusial dalam analisis Link Budget.
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Cable or Waveguide ("Line") Losses</h4>
+                        <p class="section-content">
+                            Ini adalah kehilangan daya yang terjadi saat sinyal melewati kabel atau <strong>waveguide</strong> dari pemancar ke antena. Ini mencakup:
+                            <ul class="param-list">
+                                <li><strong>Line A, B, C Length:</strong> Panjang masing-masing segmen kabel.</li>
+                                <li><strong>Total Line Length:</strong> Total panjang semua segmen kabel.</li>
+                                <li><strong>Cable/Waveguide Type:</strong> Jenis kabel atau <strong>waveguide</strong> yang digunakan.</li>
+                                <li><strong>Cable/Waveguide Loss (dB/m):</strong> Kehilangan daya per meter untuk jenis kabel/<strong>waveguide</strong> yang spesifik.</li>
+                                <li><strong>Total Cable Loss:</strong> Total kehilangan daya di seluruh panjang kabel.</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Other Components in Line</h4>
+                        <p class="section-content">
+                            Selain kabel, ada komponen lain yang juga menyebabkan kehilangan daya sinyal:
+                            <ul class="param-list">
+                                <li><strong>Number of In-Line Connectors:</strong> Jumlah konektor yang terpasang di jalur transmisi.</li>
+                                <li><strong>Total Connector Loss:</strong> Total kehilangan daya yang disebabkan oleh semua konektor.</li>
+                                <li><strong>Filter Insertion Losses:</strong> Kehilangan daya akibat penggunaan filter pada jalur sinyal.</li>
+                                <li><strong>Device Loss (dB):</strong> Kehilangan daya yang disebabkan oleh perangkat lain yang terhubung di jalur sinyal.</li>
+                            </ul>
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Antenna Mismatch Losses (Kehilangan Ketidaksesuaian Antena)</h4>
+                        <p class="section-content">
+                            Kehilangan daya ini terjadi ketika ada ketidakcocokan impedansi antara jalur transmisi dan antena, menyebabkan sebagian sinyal tidak dipancarkan secara efisien.
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Total Line Losses (Total Kehilangan Jalur)</h4>
+                        <p class="section-content">
+                            Ini adalah total semua kehilangan daya yang terjadi di sepanjang seluruh jalur transmisi, dari output transmitter hingga input antena.
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Total Power Delivered to Antenna (Daya Total yang Disalurkan ke Antena)</h4>
+                        <p class="section-content">
+                            Ini adalah daya sinyal akhir yang benar-benar berhasil mencapai antena, setelah dikurangi semua kehilangan di sepanjang jalur transmisi. Daya ini kemudian akan dipancarkan oleh antena.
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Uplink dan Downlink</h4>
+                        <p class="section-content">
+                            Semua parameter di atas dihitung secara terpisah untuk jalur <strong>Uplink</strong> (dari stasiun bumi ke satelit) dan <strong>Downlink</strong> (dari satelit ke stasiun bumi), karena karakteristik transmisi dan komponennya bisa berbeda untuk masing-masing arah.
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Catatan Penggunaan</h4>
+                        <p class="section-content">
+                            Untuk melihat rumus dan penjelasan detail dari setiap perhitungan spesifik, silakan klik tombol "Lihat Detail" yang tersedia di samping setiap kolom hasil.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {{-- Popups untuk detail perhitungan --}}
     <div id="dbw_up_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Transmitter Power (dBW)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    dBW = 10 × log₁₀(Watt)<br>
-                    Dimana:<br>
-                    dBW = Daya dalam desibel-watt<br>
-                    Watt = Daya dalam watt
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Transmitter Power (dBW)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$P_{dBW} = 10 \times \log_{10}(\text{Watt})$$
+                        Dimana:<br>
+                        $P_{dBW}$ = Daya dalam desibel-watt<br>
+                        Watt = Daya dalam watt
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    dBW adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 watt. Ini sering digunakan dalam telekomunikasi untuk menyatakan daya transmit. Setiap kenaikan 3 dBW berarti daya berlipat ganda, dan setiap kenaikan 10 dBW berarti daya berlipat 10 kali.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                dBW adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 watt. Ini sering digunakan dalam telekomunikasi untuk menyatakan daya transmit. Setiap kenaikan 3 dBW berarti daya berlipat ganda, dan setiap kenaikan 10 dBW berarti daya berlipat 10 kali.</p>
             </div>
         </div>
     </div>
 
     <div id="dbm_up_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Transmitter Power (dBm)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    dBm = dBW + 30<br>
-                    Atau<br>
-                    dBm = 10 × log₁₀(mW)<br>
-                    Dimana:<br>
-                    dBm = Daya dalam desibel-milliwatt<br>
-                    dBW = Daya dalam desibel-watt<br>
-                    mW = Daya dalam milliwatt
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Transmitter Power (dBm)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$P_{dBm} = P_{dBW} + 30$$
+                        Atau<br>
+                        $$P_{dBm} = 10 \times \log_{10}(\text{mW})$$
+                        Dimana:<br>
+                        $P_{dBm}$ = Daya dalam desibel-milliwatt<br>
+                        $P_{dBW}$ = Daya dalam desibel-watt<br>
+                        mW = Daya dalam milliwatt
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    dBm adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 milliwatt (mW). Ini umumnya digunakan untuk mengukur daya sinyal dalam komunikasi nirkabel dan serat optik. Konversi dari dBW ke dBm adalah menambahkan 30 karena 1 Watt = 1000 mW, dan $10 \log_{10}(1000) = 30$.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                dBm adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 milliwatt (mW). Ini umumnya digunakan untuk mengukur daya sinyal dalam komunikasi nirkabel dan serat optik. Konversi dari dBW ke dBm adalah menambahkan 30 karena 1 Watt = 1000 mW, dan 10 log₁₀(1000) = 30.</p>
             </div>
         </div>
     </div>
 
     <div id="totlength_up_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Line Length</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Length = Line A Length + Line B Length + Line C Length<br>
-                    Dimana:<br>
-                    Line A, B, C Length = Panjang masing-masing segmen kabel/waveguide (meter)
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Line Length</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$\text{Total Length} = \text{Line A Length} + \text{Line B Length} + \text{Line C Length}$$
+                        Dimana:<br>
+                        Line A, B, C Length = Panjang masing-masing segmen kabel/waveguide (meter)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Total panjang line (kabel atau waveguide) adalah jumlah dari panjang setiap segmen yang digunakan untuk menghubungkan transmitter ke antena. Semakin panjang line, semakin besar potensi kehilangan sinyal (loss) yang terjadi.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Total panjang line (kabel atau waveguide) adalah jumlah dari panjang setiap segmen yang digunakan untuk menghubungkan transmitter ke antena. Semakin panjang line, semakin besar potensi kehilangan sinyal (loss) yang terjadi.</p>
             </div>
         </div>
     </div>
 
     <div id="totalloss_up_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Cable Loss (dB)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Cable Loss = Cable/Waveguide Loss (dB/m) × Total Line Length (m)<br>
-                    Dimana:<br>
-                    Cable/Waveguide Loss = Kehilangan daya per meter (dB/m)<br>
-                    Total Line Length = Total panjang kabel/waveguide (meter)
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Cable Loss (dB)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$\text{Total Cable Loss} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Total Line Length (m)}$$
+                        Dimana:<br>
+                        Cable/Waveguide Loss = Kehilangan daya per meter (dB/m)<br>
+                        Total Line Length = Total panjang kabel/waveguide (meter)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Kehilangan daya pada kabel atau waveguide terjadi karena resistansi material dan efek dielektrik. Nilai ini biasanya diberikan dalam dB per meter. Total kehilangan adalah hasil kali kehilangan per meter dengan total panjang kabel.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Kehilangan daya pada kabel atau waveguide terjadi karena resistansi material dan efek dielektrik. Nilai ini biasanya diberikan dalam dB per meter. Total kehilangan adalah hasil kali kehilangan per meter dengan total panjang kabel.</p>
             </div>
         </div>
     </div>
 
     <div id="totconnect_up_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Connector Loss (dB)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Connector Loss = Number of In-Line Connectors × 0.05 dB<br>
-                    Dimana:<br>
-                    Number of In-Line Connectors = Jumlah konektor yang digunakan<br>
-                    0.05 dB = Estimasi kehilangan daya per konektor
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Connector Loss (dB)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$\text{Total Connector Loss} = \text{Number of In-Line Connectors} \times 0.05 \text{ dB}$$
+                        Dimana:<br>
+                        Number of In-Line Connectors = Jumlah konektor yang digunakan<br>
+                        0.05 dB = Estimasi kehilangan daya per konektor
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Setiap konektor yang dipasang pada jalur transmisi akan menyebabkan sedikit kehilangan daya sinyal. Nilai 0.05 dB per konektor adalah estimasi umum, meskipun nilai sebenarnya bisa bervariasi tergantung jenis dan kualitas konektor.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Setiap konektor yang dipasang pada jalur transmisi akan menyebabkan sedikit kehilangan daya sinyal. Nilai 0.05 dB per konektor adalah estimasi umum, meskipun nilai sebenarnya bisa bervariasi tergantung jenis dan kualitas konektor.</p>
             </div>
         </div>
     </div>
 
     <div id="totlinelosses_up_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Line Losses (dB)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Line Losses = Total Cable Loss + Total Connector Loss + Filter Insertion Losses + Other In Line Losses + Antenna Mismatch Losses<br>
-                    Dimana:<br>
-                    Masing-masing komponen adalah nilai kehilangan daya dalam desibel (dB).
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Line Losses (dB)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$L_{total\_line} = L_{cable} + L_{connector} + L_{filter} + L_{device} + L_{mismatch}$$
+                        Dimana:<br>
+                        Masing-masing komponen adalah nilai kehilangan daya dalam desibel (dB).
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Total kehilangan pada jalur transmisi (line losses) adalah jumlah dari semua kehilangan daya yang terjadi antara output transmitter dan input antena. Ini mencakup kehilangan pada kabel, konektor, filter, perangkat lain, dan ketidaksesuaian impedansi antena.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Total kehilangan pada jalur transmisi (line losses) adalah jumlah dari semua kehilangan daya yang terjadi antara output transmitter dan input antena. Ini mencakup kehilangan pada kabel, konektor, filter, perangkat lain, dan ketidaksesuaian impedansi antena.</p>
             </div>
         </div>
     </div>
 
     <div id="totpowerdeliv_up_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Power Deliver to Antenna (dBW)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Power Delivered = Transmitter Power (dBW) - Total Line Losses (dB)<br>
-                    Dimana:<br>
-                    Transmitter Power (dBW) = Daya keluaran transmitter dalam dBW<br>
-                    Total Line Losses (dB) = Total kehilangan daya pada jalur transmisi dalam dB
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Power Deliver to Antenna (dBW)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$P_{delivered} = P_{transmitter\_dBW} - L_{total\_line}$$
+                        Dimana:<br>
+                        $P_{transmitter\_dBW}$ = Daya keluaran transmitter dalam dBW<br>
+                        $L_{total\_line}$ = Total kehilangan daya pada jalur transmisi dalam dB
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Daya yang benar-benar sampai ke antena (sebelum dipancarkan) adalah daya output transmitter dikurangi semua kehilangan yang terjadi sepanjang jalur transmisi (kabel, konektor, filter, dll.). Nilai ini penting untuk menghitung Effective Isotropic Radiated Power (EIRP).</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Daya yang benar-benar sampai ke antena (sebelum dipancarkan) adalah daya output transmitter dikurangi semua kehilangan yang terjadi sepanjang jalur transmisi (kabel, konektor, filter, dll.). Nilai ini penting untuk menghitung Effective Isotropic Radiated Power (EIRP).</p>
             </div>
         </div>
     </div>
 
     <div id="dbw_down_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Transmitter Power (dBW)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    dBW = 10 × log₁₀(Watt)<br>
-                    Dimana:<br>
-                    dBW = Daya dalam desibel-watt<br>
-                    Watt = Daya dalam watt
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Transmitter Power (dBW)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$P_{dBW} = 10 \times \log_{10}(\text{Watt})$$
+                        Dimana:<br>
+                        $P_{dBW}$ = Daya dalam desibel-watt<br>
+                        Watt = Daya dalam watt
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    dBW adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 watt. Ini sering digunakan dalam telekomunikasi untuk menyatakan daya transmit. Setiap kenaikan 3 dBW berarti daya berlipat ganda, dan setiap kenaikan 10 dBW berarti daya berlipat 10 kali.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                dBW adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 watt. Ini sering digunakan dalam telekomunikasi untuk menyatakan daya transmit. Setiap kenaikan 3 dBW berarti daya berlipat ganda, dan setiap kenaikan 10 dBW berarti daya berlipat 10 kali.</p>
             </div>
         </div>
     </div>
 
     <div id="dbm_down_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Transmitter Power (dBm)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    dBm = dBW + 30<br>
-                    Atau<br>
-                    dBm = 10 × log₁₀(mW)<br>
-                    Dimana:<br>
-                    dBm = Daya dalam desibel-milliwatt<br>
-                    dBW = Daya dalam desibel-watt<br>
-                    mW = Daya dalam milliwatt
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Transmitter Power (dBm)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$P_{dBm} = P_{dBW} + 30$$
+                        Atau<br>
+                        $$P_{dBm} = 10 \times \log_{10}(\text{mW})$$
+                        Dimana:<br>
+                        $P_{dBm}$ = Daya dalam desibel-milliwatt<br>
+                        $P_{dBW}$ = Daya dalam desibel-watt<br>
+                        mW = Daya dalam milliwatt
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    dBm adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 milliwatt (mW). Ini umumnya digunakan untuk mengukur daya sinyal dalam komunikasi nirkabel dan serat optik. Konversi dari dBW ke dBm adalah menambahkan 30 karena 1 Watt = 1000 mW, dan $10 \log_{10}(1000) = 30$.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                dBm adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 milliwatt (mW). Ini umumnya digunakan untuk mengukur daya sinyal dalam komunikasi nirkabel dan serat optik. Konversi dari dBW ke dBm adalah menambahkan 30 karena 1 Watt = 1000 mW, dan 10 log₁₀(1000) = 30.</p>
             </div>
         </div>
     </div>
 
     <div id="totlength_down_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Line Length</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Length = Line A Length + Line B Length + Line C Length<br>
-                    Dimana:<br>
-                    Line A, B, C Length = Panjang masing-masing segmen kabel/waveguide (meter)
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Line Length</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$\text{Total Length} = \text{Line A Length} + \text{Line B Length} + \text{Line C Length}$$
+                        Dimana:<br>
+                        Line A, B, C Length = Panjang masing-masing segmen kabel/waveguide (meter)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Total panjang line (kabel atau waveguide) adalah jumlah dari panjang setiap segmen yang digunakan untuk menghubungkan transmitter ke antena. Semakin panjang line, semakin besar potensi kehilangan sinyal (loss) yang terjadi.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Total panjang line (kabel atau waveguide) adalah jumlah dari panjang setiap segmen yang digunakan untuk menghubungkan transmitter ke antena. Semakin panjang line, semakin besar potensi kehilangan sinyal (loss) yang terjadi.</p>
             </div>
         </div>
     </div>
 
     <div id="totalloss_down_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Cable Loss (dB)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Cable Loss = Cable/Waveguide Loss (dB/m) × Total Line Length (m)<br>
-                    Dimana:<br>
-                    Cable/Waveguide Loss = Kehilangan daya per meter (dB/m)<br>
-                    Total Line Length = Total panjang kabel/waveguide (meter)
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Cable Loss (dB)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$\text{Total Cable Loss} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Total Line Length (m)}$$
+                        Dimana:<br>
+                        Cable/Waveguide Loss = Kehilangan daya per meter (dB/m)<br>
+                        Total Line Length = Total panjang kabel/waveguide (meter)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Kehilangan daya pada kabel atau waveguide terjadi karena resistansi material dan efek dielektrik. Nilai ini biasanya diberikan dalam dB per meter. Total kehilangan adalah hasil kali kehilangan per meter dengan total panjang kabel.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Kehilangan daya pada kabel atau waveguide terjadi karena resistansi material dan efek dielektrik. Nilai ini biasanya diberikan dalam dB per meter. Total kehilangan adalah hasil kali kehilangan per meter dengan total panjang kabel.</p>
             </div>
         </div>
     </div>
 
     <div id="totconnect_down_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Connector Loss (dB)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Connector Loss = Number of In-Line Connectors × 0.05 dB<br>
-                    Dimana:<br>
-                    Number of In-Line Connectors = Jumlah konektor yang digunakan<br>
-                    0.05 dB = Estimasi kehilangan daya per konektor
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Connector Loss (dB)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$\text{Total Connector Loss} = \text{Number of In-Line Connectors} \times 0.05 \text{ dB}$$
+                        Dimana:<br>
+                        Number of In-Line Connectors = Jumlah konektor yang digunakan<br>
+                        0.05 dB = Estimasi kehilangan daya per konektor
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Setiap konektor yang dipasang pada jalur transmisi akan menyebabkan sedikit kehilangan daya sinyal. Nilai 0.05 dB per konektor adalah estimasi umum, meskipun nilai sebenarnya bisa bervariasi tergantung jenis dan kualitas konektor.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Setiap konektor yang dipasang pada jalur transmisi akan menyebabkan sedikit kehilangan daya sinyal. Nilai 0.05 dB per konektor adalah estimasi umum, meskipun nilai sebenarnya bisa bervariasi tergantung jenis dan kualitas konektor.</p>
             </div>
         </div>
     </div>
 
     <div id="totlinelosses_down_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total Line Losses (dB)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Line Losses = Total Cable Loss + Total Connector Loss + Filter Insertion Losses + Other In Line Losses + Antenna Mismatch Losses<br>
-                    Dimana:<br>
-                    Masing-masing komponen adalah nilai kehilangan daya dalam desibel (dB).
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Line Losses (dB)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$L_{total\_line} = L_{cable} + L_{connector} + L_{filter} + L_{device} + L_{mismatch}$$
+                        Dimana:<br>
+                        Masing-masing komponen adalah nilai kehilangan daya dalam desibel (dB).
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Total kehilangan pada jalur transmisi (line losses) adalah jumlah dari semua kehilangan daya yang terjadi antara output transmitter dan input antena. Ini mencakup kehilangan pada kabel, konektor, filter, perangkat lain, dan ketidaksesuaian impedansi antena.</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Total kehilangan pada jalur transmisi (line losses) adalah jumlah dari semua kehilangan daya yang terjadi antara output transmitter dan input antena. Ini mencakup kehilangan pada kabel, konektor, filter, perangkat lain, dan ketidaksesuaian impedansi antena.</p>
             </div>
         </div>
     </div>
 
     <div id="totrfpowerdeliv_down_popup" class="popup-window">
         <div class="popup-content">
-            <span class="close-popup-btn">&times;</span>
-            <h3>Detail Total RF Power Deliver to Antenna (dBW)</h3>
-            <div>
-                <div class="formula">
-                    <strong>Rumus Perhitungan:</strong><br>
-                    Total Power Delivered = Transmitter Power (dBW) - Total Line Losses (dB)<br>
-                    Dimana:<br>
-                    Transmitter Power (dBW) = Daya keluaran transmitter dalam dBW<br>
-                    Total Line Losses (dB) = Total kehilangan daya pada jalur transmisi dalam dB
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total RF Power Deliver to Antenna (dBW)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $$P_{delivered} = P_{transmitter\_dBW} - L_{total\_line}$$
+                        Dimana:<br>
+                        $P_{transmitter\_dBW}$ = Daya keluaran transmitter dalam dBW<br>
+                        $L_{total\_line}$ = Total kehilangan daya pada jalur transmisi dalam dB
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    Daya yang benar-benar sampai ke antena (sebelum dipancarkan) adalah daya output transmitter dikurangi semua kehilangan yang terjadi sepanjang jalur transmisi (kabel, konektor, filter, dll.). Nilai ini penting untuk menghitung Effective Isotropic Radiated Power (EIRP).</p>
                 </div>
-                <p><strong>Penjelasan:</strong><br>
-                Daya yang benar-benar sampai ke antena (sebelum dipancarkan) adalah daya output transmitter dikurangi semua kehilangan yang terjadi sepanjang jalur transmisi (kabel, konektor, filter, dll.). Nilai ini penting untuk menghitung Effective Isotropic Radiated Power (EIRP).</p>
             </div>
         </div>
     </div>
@@ -966,6 +1175,11 @@
             calculateTotalLossDown();
             calculateTotalConnectorDown();
             calculateTotalLineLossesDown();
+            
+            // Re-render MathJax on load for all popups
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise();
+            }
         });
 
         // Add event listeners for all input fields that affect the calculations
@@ -993,10 +1207,22 @@
         // POP UP Logic
         // Fungsi umum untuk membuka pop-up
         function openPopup(popupId) {
+            // Tutup semua popup lain yang mungkin terbuka, untuk memastikan hanya satu popup yang terlihat
+            document.querySelectorAll('.popup-window').forEach(p => p.style.display = 'none'); 
+            
             document.getElementById(popupId).style.display = "flex";
+            // Penting: Setelah membuka, jika MathJax dimuat, render ulang rumus matematika
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise();
+            }
         }
 
-        // Event Listeners for all "Lihat Detail" buttons (Uplink)
+        // Event listener untuk tombol "Apa itu Perhitungan Transmitter?"
+        document.getElementById('info_transmitter_general_btn').onclick = () => {
+            openPopup('popup_transmitter_general');
+        };
+
+        // Event Listeners untuk semua tombol "Lihat Detail" (Uplink)
         document.getElementById('dbw_up_popup_btn').onclick = () => {
             openPopup('dbw_up_popup');
         };
@@ -1019,7 +1245,7 @@
             openPopup('totpowerdeliv_up_popup');
         };
 
-        // Event Listeners for all "Lihat Detail" buttons (Downlink)
+        // Event Listeners untuk semua tombol "Lihat Detail" (Downlink)
         document.getElementById('dbw_down_popup_btn').onclick = () => {
             openPopup('dbw_down_popup');
         };
@@ -1042,11 +1268,33 @@
             openPopup('totrfpowerdeliv_down_popup');
         };
 
-        // Fungsi tutup semua popup
+        // Fungsi untuk menutup semua popup
         document.querySelectorAll('.close-popup-btn').forEach(btn => {
             btn.onclick = () => {
                 document.querySelectorAll('.popup-window').forEach(p => p.style.display = 'none');
             };
         });
     </script>
+
+    {{-- Script for MathJax --}}
+    <script>
+        // Konfigurasi MathJax (sesuaikan jika perlu)
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']], // Untuk rumus inline seperti $x^2$
+                displayMath: [['$$', '$$'], ['\\[', '\\]']], // Untuk rumus blok seperti $$E=mc^2$$
+                processEscapes: true, // Memungkinkan \$ untuk menampilkan tanda dolar literal
+                tags: "ams" // Untuk penomoran persamaan (opsional)
+            },
+            options: {
+                ignoreHtmlClass: "tex2jax_ignore", // Kelas yang diabaikan untuk pemrosesan matematika
+                processHtmlClass: "tex2jax_process" // Kelas yang secara spesifik diproses untuk matematika
+            },
+            loader: {
+                load: ['[tex]/ams'] // Memuat ekstensi AMS math
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 </x-layout>

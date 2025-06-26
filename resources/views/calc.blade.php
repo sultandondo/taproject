@@ -1375,79 +1375,192 @@ document.querySelector('form').addEventListener('submit', function(e) {
 
         // --- Popup Button Click Handlers ---
 
-        //Penjelasan Perhitungan Orbit Popup (Updated)
-        document.getElementById('info_perbit_btn').onclick = () => {
-            const popup = document.getElementById('popup_perbit');
-            if (!popup) return;
+        // GANTI BAGIAN INI di dalam script tag (sekitar baris yang ada //Penjelasan Perhitungan Orbit Popup (Updated))
 
-            // The contentHtml already clears previous content inside updatePopupContent
-            const contentHtml = `
-            <p>Aplikasi ini dirancang untuk membantu Anda menghitung parameter kunci yang terkait dengan berbagai jenis orbit satelit, memberikan pemahaman yang lebih dalam tentang karakteristik setiap orbit.</p>
+//Penjelasan Perhitungan Orbit Popup (Updated & Fixed)
+document.getElementById('info_perbit_btn').onclick = () => {
+    const popup = document.getElementById('popup_perbit');
+    if (!popup) return;
 
+    const contentHtml = `
+        <div class="orbit-explanation">
+            <!-- Pengertian Umum Orbit -->
+            <div class="section">
+                <h3 class="section-title">Pengertian Orbit Satelit</h3>
+                <p class="section-content">
+                    Orbit adalah lintasan yang dilalui satelit mengelilingi Bumi. Berdasarkan ketinggiannya, orbit satelit dibagi menjadi tiga kategori utama: 
+                    <strong>Low Earth Orbit (LEO)</strong>, <strong>Medium Earth Orbit (MEO)</strong>, dan <strong>Geosynchronous Earth Orbit (GEO)</strong>. 
+                    Setiap jenis orbit memiliki karakteristik dan parameter perhitungan yang berbeda sesuai dengan aplikasi dan kebutuhan misinya.
+                </p>
+            </div>
+
+            <!-- LEO Section -->
+            <div class="section">
+                <h3 class="section-title">Low Earth Orbit (LEO)</h3>
+                <div class="orbit-definition">
+                    <p><strong>Definisi:</strong> Orbit rendah Bumi dengan ketinggian antara 160 km hingga 2.000 km di atas permukaan Bumi.</p>
+                    <p><strong>Aplikasi:</strong> Pencitraan satelit, observasi Bumi, konstelasi internet, dan stasiun luar angkasa.</p>
+                </div>
+                
+                <h4 class="param-title">Parameter LEO:</h4>
+                <ul class="param-list">
+                    <li><strong>Ketinggian (h):</strong> Jarak satelit dari permukaan Bumi (160-2.000 km)</li>
+                    <li><strong>Apogee (ra):</strong> Titik terjauh satelit dari pusat Bumi dalam orbit elips</li>
+                    <li><strong>Perigee (rp):</strong> Titik terdekat satelit dari pusat Bumi dalam orbit elips</li>
+                    <li><strong>Eccentricity (e):</strong> Ukuran kelonjongan orbit (0 = lingkaran, 0 < e < 1 = elips)</li>
+                    <li><strong>Sudut Inklinasi (i):</strong> Kemiringan bidang orbit terhadap ekuator Bumi</li>
+                    <li><strong>Sudut Elevasi (E):</strong> Sudut vertikal dari stasiun Bumi ke satelit</li>
+                    <li><strong>Slant Range (d):</strong> Jarak langsung dari stasiun Bumi ke satelit</li>
+                    <li><strong>Mean Orbit Altitude (havg):</strong> Ketinggian rata-rata satelit dari permukaan Bumi</li>
+                </ul>
+            </div>
+
+            <!-- MEO Section -->
+            <div class="section">
+                <h3 class="section-title">Medium Earth Orbit (MEO)</h3>
+                <div class="orbit-definition">
+                    <p><strong>Definisi:</strong> Orbit menengah Bumi dengan ketinggian antara 2.000 km hingga 35.786 km di atas permukaan Bumi.</p>
+                    <p><strong>Aplikasi:</strong> Sistem navigasi global (GPS, GLONASS, Galileo), dan beberapa layanan komunikasi.</p>
+                </div>
+                
+                <h4 class="param-title">Parameter MEO:</h4>
+                <ul class="param-list">
+                    <li><strong>Ketinggian (h):</strong> Jarak satelit dari permukaan Bumi (2.000-35.786 km)</li>
+                    <li><strong>Apogee (ra):</strong> Titik terjauh satelit dari pusat Bumi dalam orbit elips</li>
+                    <li><strong>Perigee (rp):</strong> Titik terdekat satelit dari pusat Bumi dalam orbit elips</li>
+                    <li><strong>Eccentricity (e):</strong> Ukuran kelonjongan orbit</li>
+                    <li><strong>Sudut Inklinasi (i):</strong> Kemiringan bidang orbit terhadap ekuator Bumi</li>
+                    <li><strong>Argument of Perigee (ω):</strong> Orientasi orbit dalam bidangnya</li>
+                    <li><strong>Right Ascension (Ω):</strong> Orientasi bidang orbit di ruang angkasa</li>
+                    <li><strong>Mean Anomaly (M):</strong> Posisi sudut satelit pada waktu tertentu</li>
+                    <li><strong>Sudut Elevasi (E):</strong> Sudut vertikal dari stasiun Bumi ke satelit</li>
+                    <li><strong>Slant Range (d):</strong> Jarak langsung dari stasiun Bumi ke satelit</li>
+                </ul>
+            </div>
+
+            <!-- GEO Section -->
+            <div class="section">
+                <h3 class="section-title">Geosynchronous Earth Orbit (GEO)</h3>
+                <div class="orbit-definition">
+                    <p><strong>Definisi:</strong> Orbit geostasioner pada ketinggian 35.786 km di atas ekuator Bumi. Satelit tampak diam relatif terhadap satu titik di permukaan Bumi.</p>
+                    <p><strong>Aplikasi:</strong> Siaran televisi, komunikasi satelit, dan layanan internet satelit.</p>
+                </div>
+                
+                <h4 class="param-title">Parameter GEO:</h4>
+                <ul class="param-list">
+                    <li><strong>Semi Major Axis (a_GEO):</strong> Jarak rata-rata dari pusat Bumi ke satelit (~42.164 km)</li>
+                    <li><strong>Geostationary Altitude (h_GEO):</strong> Ketinggian nominal satelit GEO (~35.786 km)</li>
+                    <li><strong>Latitude Stasiun Bumi (φ_L):</strong> Garis lintang geografis stasiun Bumi</li>
+                    <li><strong>Longitude Stasiun Bumi (λ_L):</strong> Garis bujur geografis stasiun Bumi</li>
+                    <li><strong>Spacecraft Longitude (λ_s):</strong> Garis bujur satelit GEO di atas ekuator</li>
+                    <li><strong>Sudut Azimuth (SAS):</strong> Arah horizontal antena dari stasiun Bumi ke satelit</li>
+                    <li><strong>Sudut Pusat Bumi (Sα):</strong> Sudut di pusat Bumi antara stasiun dan proyeksi satelit</li>
+                    <li><strong>Sudut Elevasi:</strong> Sudut vertikal dari stasiun Bumi ke satelit</li>
+                    <li><strong>Slant Range:</strong> Jarak langsung dari stasiun Bumi ke satelit</li>
+                </ul>
+                
+                <div class="subsection">
+                    <h5 class="subsection-title">Parameter Uplink/Downlink:</h5>
+                    <ul class="param-list">
+                        <li><strong>Uplink Parameters:</strong> Slant Range, Elevation Angle, Azimuth Angle, Earth Central Angle (pengguna → satelit)</li>
+                        <li><strong>Downlink Parameters:</strong> Slant Range, Elevation Angle, Azimuth Angle, Earth Central Angle (satelit → pengguna)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Catatan Penggunaan -->
+            <div class="section">
+                <h3 class="section-title">Catatan Penggunaan</h3>
+                <p class="section-content">
+                    Aplikasi ini akan secara otomatis menampilkan parameter input dan hasil perhitungan yang relevan 
+                    berdasarkan jenis orbit yang Anda pilih. Konstanta yang digunakan: <strong>Radius Bumi (Re) = 6.378 km</strong>.
+                </p>
+            </div>
+        </div>
+
+        <style>
+            .orbit-explanation {
+                font-family: Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+            }
             
-            <ul class="list-disc ml-5 mb-4">
-                <li><strong>Low Earth Orbit (LEO):</strong> Orbit rendah Bumi, dengan ketinggian antara 160 km hingga 2.000 km di atas permukaan Bumi. Umumnya digunakan untuk pencitraan, observasi Bumi, dan konstelasi internet.</li>
-                <li><strong>Medium Earth Orbit (MEO):</strong> Orbit menengah Bumi, dengan ketinggian antara 2.000 km hingga 35.786 km. Sering digunakan untuk sistem navigasi global (seperti GPS) dan beberapa layanan komunikasi.</li>
-                <li><strong>Geosynchronous Earth Orbit (GEO):</strong> Orbit geostasioner, pada ketinggian 35.786 km di atas ekuator Bumi. Satelit di orbit ini tampak diam relatif terhadap satu titik di permukaan Bumi, ideal untuk siaran televisi dan komunikasi satelit.</li>
-            </ul>
-
-            <h4>Parameter Umum Orbit (Relevan untuk LEO, MEO, dan GEO):</h4>
-            <p>Parameter ini mendefinisikan bentuk, ukuran, dan orientasi orbit:</p>
-            <ul class="list-disc ml-5 mb-4">
-                <li><strong>Ketinggian (h):</strong> Jarak satelit dari permukaan Bumi (dalam km).</li>
-                <li><strong>Apogee (ra):</strong> Titik terjauh satelit dari pusat Bumi dalam orbit elips (dalam km).</li>
-                <li><strong>Perigee (rp):</strong> Titik terdekat satelit dari pusat Bumi dalam orbit elips (dalam km).</li>
-                <li><strong>Eccentricity (e):</strong> Ukuran "kelonjongan" orbit. Nilai e=0 untuk orbit lingkaran sempurna, dan 0 < e < 1 untuk orbit elips.</li>
-                <li><strong>Argument of Perigee (omega):</strong> Orientasi orbit di bidangnya, diukur dari Node Menaik (Ascending Node) ke perigee (dalam derajat).</li>
-                <li><strong>Right Ascension of the Ascending Node (R.A.A.N atau Omega):</strong> Orientasi bidang orbit di ruang angkasa, diukur dari arah titik Aries ke Node Menaik (dalam derajat).</li>
-                <li><strong>Mean Anomaly (M):</strong> Posisi sudut satelit pada waktu tertentu dalam orbit (dalam derajat).</li>
-                <li><strong>Sudut Inklinasi (i):</strong> Kemiringan bidang orbit relatif terhadap bidang ekuator Bumi (dalam derajat). Untuk orbit GEO idealnya i=0 derajat.</li>
-                <li><strong>Mean Orbit Altitude (havg):</strong> Ketinggian rata-rata satelit dari permukaan Bumi, dihitung dari apogee dan perigee (dalam km).</li>
-                <li><strong>Mean Orbit Radius (ravg):</strong> Jarak rata-rata satelit dari pusat Bumi, dihitung dari Mean Orbit Altitude ditambahkan Radius Bumi (dalam km).</li>
-                <li><strong>Radius Bumi (Re):</strong> Radius standar Bumi yang digunakan sebagai referensi (konstanta, Re = 6378 km).</li>
-            </ul>
-
-            <h4>Parameter Tambahan Khusus untuk LEO dan MEO:</h4>
-            <p>Untuk orbit LEO dan MEO, parameter berikut sering digunakan untuk analisis ground station:</p>
-            <ul class="list-disc ml-5 mb-4">
-                <li><strong>Sudut Elevasi (E):</strong> Sudut vertikal dari garis horizontal di stasiun Bumi ke arah satelit (dalam derajat). Ini adalah input untuk perhitungan Slant Range.</li>
-                <li><strong>Slant Range (d):</strong> Jarak langsung (garis pandang) dari stasiun Bumi ke satelit (dalam km).</li>
-            </ul>
-
-            <h4>Parameter Tambahan Khusus untuk GEO:</h4>
-            <p>Untuk orbit GEO yang unik (tetap di atas satu titik ekuator), perhitungan mencakup detail posisi stasiun Bumi dan perhitungan terkait komunikasi uplink/downlink:</p>
-            <ul class="list-disc ml-5 mb-4">
-                <li><strong>Semi Major Axis GEO (a_GEO):</strong> Jarak rata-rata dari pusat Bumi ke satelit pada orbit GEO. Ini adalah nilai konstan (~42164.156 km).</li>
-                <li><strong>Geostationary Altitude (h_GEO):</strong> Ketinggian nominal satelit GEO dari permukaan Bumi. Ini adalah nilai konstan (~35786 km).</li>
-                <li><strong>Latitude Stasiun Bumi (Phi_L):</strong> Garis lintang geografis stasiun Bumi (dalam derajat).</li>
-                <li><strong>Longitude Stasiun Bumi (Lambda_L):</strong> Garis bujur geografis stasiun Bumi (dalam derajat).</li>
-                <li><strong>Spacecraft Slot (Longitude) (Lambda_s):</strong> Garis bujur tempat satelit GEO berada di atas ekuator (dalam derajat).</li>
-                <li><strong>Sudut Azimuth (SAS):</strong> Arah horizontal antena dari stasiun Bumi ke satelit, diukur searah jarum jam dari utara (dalam derajat).</li>
-                <li><strong>Sudut Pusat Bumi (Salpha):</strong> Sudut di pusat Bumi antara stasiun Bumi dan proyeksi satelit di ekuator (dalam derajat). Ini adalah parameter kunci untuk perhitungan jarak dan sudut di GEO.</li>
-                <li><strong>Uplink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari pengguna ke satelit.</li>
-                <li><strong>Downlink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari satelit ke pengguna.</li>
-            </ul>
-            <p>Aplikasi ini akan secara otomatis menampilkan atau menyembunyikan parameter input dan hasil perhitungan yang relevan berdasarkan jenis orbit yang Anda pilih, untuk memastikan fokus pada data yang diperlukan.</p>
-           
-            <h4>Parameter Tambahan Khusus untuk GEO:</h4>
-            <p>Untuk orbit GEO yang unik (tetap di atas satu titik ekuator), perhitungan mencakup detail posisi stasiun Bumi dan perhitungan terkait komunikasi uplink/downlink:</p>
-            <ul class="list-disc ml-5 mb-4">
-                <li><strong>Semi Major Axis GEO (a_GEO):</strong> Jarak rata-rata dari pusat Bumi ke satelit pada orbit GEO. Ini adalah nilai konstan (~42164.156 km).</li>
-                <li><strong>Geostationary Altitude (h_GEO):</strong> Ketinggian nominal satelit GEO dari permukaan Bumi. Ini adalah nilai konstan (~35786 km).</li>
-                <li><strong>Latitude Stasiun Bumi (Phi_L):</strong> Garis lintang geografis stasiun Bumi (dalam derajat).</li>
-                <li><strong>Longitude Stasiun Bumi (Lambda_L):</strong> Garis bujur geografis stasiun Bumi (dalam derajat).</li>
-                <li><strong>Spacecraft Slot (Longitude) (Lambda_s):</strong> Garis bujur tempat satelit GEO berada di atas ekuator (dalam derajat).</li>
-                <li><strong>Sudut Azimuth (SAS):</strong> Arah horizontal antena dari stasiun Bumi ke satelit, diukur searah jarum jam dari utara (dalam derajat).</li>
-                <li><strong>Sudut Pusat Bumi (Salpha):</strong> Sudut di pusat Bumi antara stasiun Bumi dan proyeksi satelit di ekuator (dalam derajat). Ini adalah parameter kunci untuk perhitungan jarak dan sudut di GEO.</li>
-                <li><strong>Uplink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari pengguna ke satelit.</li>
-                <li><strong>Downlink Parameters:</strong> Meliputi Slant Range ke User, User Elevation Angle, User Azimuth Angle, dan Earth Central Angle untuk jalur transmisi dari satelit ke pengguna.</li>
-            </ul>
+            .section {
+                margin-bottom: 25px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #e0e0e0;
+            }
             
-            `;
+            .section:last-child {
+                border-bottom: none;
+            }
             
-            updatePopupContent('popup_perbit', `Perhitungan parameter orbit ini mencakup berbagai jenis orbit satelit dan parameter terkaitnya.`, contentHtml);
-            openPopup('popup_perbit');
-        };
+            .section-title {
+                color: #2c3e50;
+                font-size: 18px;
+                font-weight: bold;
+                margin-bottom: 10px;
+                border-left: 4px solid #3498db;
+                padding-left: 10px;
+            }
+            
+            .orbit-definition {
+                background-color: #f8f9fa;
+                padding: 12px;
+                border-radius: 6px;
+                margin-bottom: 15px;
+            }
+            
+            .orbit-definition p {
+                margin: 5px 0;
+            }
+            
+            .param-title {
+                color: #34495e;
+                font-size: 14px;
+                font-weight: bold;
+                margin: 15px 0 8px 0;
+            }
+            
+            .param-list {
+                list-style-type: disc;
+                margin-left: 20px;
+                margin-bottom: 10px;
+            }
+            
+            .param-list li {
+                margin-bottom: 6px;
+                line-height: 1.4;
+            }
+            
+            .subsection {
+                margin-top: 15px;
+                padding: 10px;
+                background-color: #f1f3f4;
+                border-radius: 4px;
+            }
+            
+            .subsection-title {
+                color: #2c3e50;
+                font-size: 13px;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+            
+            .section-content {
+                text-align: justify;
+                margin-bottom: 10px;
+            }
+            
+            strong {
+                color: #2c3e50;
+            }
+        </style>
+    `;
+    
+    updatePopupContent('popup_perbit', 'Penjelasan Perhitungan Orbit Satelit', contentHtml);
+    openPopup('popup_perbit');
+};
 
         // Eccentricity Popup
         document.getElementById('popup_eccentricity_btn').onclick = () => {

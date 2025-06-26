@@ -40,28 +40,57 @@
         .popup-content {
             position: relative;
             background-color: white;
-            padding: 20px 30px 30px;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             width: 80%;
             max-width: 600px;
             max-height: 80vh;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             animation: fadeInScale 0.3s ease-out;
         }
+
+        .popup-header {
+            padding: 20px 30px 10px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .popup-header h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            padding-bottom: 0;
+        }
+
         .close-popup-btn {
             position: absolute;
-            top: 10px;
+            top: 15px;
             right: 15px;
             font-size: 24px;
             font-weight: bold;
             color: #555;
             cursor: pointer;
             transition: color 0.2s ease;
+            z-index: 1001;
+            background-color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .close-popup-btn:hover {
             color: #000;
+        }
+
+        .popup-body {
+            padding: 20px 30px 30px;
+            overflow-y: auto;
+            flex-grow: 1;
         }
 
         .code-block {
@@ -76,11 +105,13 @@
             font-weight: 500;
         }
 
-        .popup-content h3 {
-            margin-top: 0;
-            color: #2c3e50;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+        .formula {
+            background-color: #f5f5f5;
+            padding: 10px 15px;
+            border-radius: 5px;
+            border-left: 4px solid #4CAF50;
+            margin: 15px 0;
+            font-family: 'Cambria Math', 'Times New Roman', serif;
         }
 
         .popup-content p {
@@ -135,22 +166,73 @@
             padding-bottom: 0.5rem;
             border-bottom: 1px solid #E5E7EB; /* gray-200 */
         }
+
+        /* Styling for the new polarization explanation popup content */
+        .polarization-explanation {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #4A5568;
+        }
+        .polarization-explanation .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .polarization-explanation .section:last-child {
+            border-bottom: none;
+        }
+        .polarization-explanation .section-title {
+            color: #2C5282;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            border-left: 5px solid #4299E1;
+            padding-left: 1rem;
+        }
+        .polarization-explanation .section-content {
+            text-align: justify;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+        .polarization-explanation .param-title {
+            color: #2D3748;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.5rem 0;
+        }
+        .polarization-explanation .param-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+        .polarization-explanation .param-list li {
+            margin-bottom: 0.4rem;
+            line-height: 1.6;
+        }
     </style>
 
     <div class="container mx-auto px-4 py-8">
         <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
             <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl border-t-8 border-blue-600 transform transition-all duration-300 hover:shadow-3xl">
                 <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
-                    <i class="fas fa-satellite-dish mr-2 text-blue-600"></i> Perhitungan Parameter
-                    <p class="mr- text-blue-600"></p> Antenna Polarization Loss
+                    <i class="text-blue-600"></i> Perhitungan Parameter
+                    <p class="text-blue-600"></p> Antenna Polarization Loss
                 </h1>
                 <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
-                    Masukkan nilai-nilai untuk menghitung Polarization Loss dan Cross Polarization Coupling/Isolation.
+                    Masukkan nilai-nilai untuk menghitung Polarization Loss.
                 </p>
-                <form method="POST" action="{{ route('annpolaloss.store', ['id' => $dataId]) }}" id="">
-                
+
+                {{-- "Apa itu Perhitungan Antenna Polarization Loss?" button --}}
+                <div class="mb-6 text-right animate__animated animate__fadeInUp">
+                    <button type="button" id="info_polarization_general_btn" class="text-blue-600 hover:text-blue-800 text-sm font-semibold transition-colors duration-200">
+                        Apa itu Perhitungan Antenna Polarization Loss? <i class="fas fa-info-circle ml-1"></i>
+                    </button>
+                </div>
+
+                <form method="POST" action="{{ route('annpolaloss.store', ['id' => $dataId]) }}" id="antennaForm_poin">
                     @csrf
-                    <input type="hidden" name="user_id" value="1">
+                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
 
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
                         <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink Parameters</h2>
@@ -399,11 +481,11 @@
                     </div>
 
                     <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <i class="fas fa-save mr-2"></i> Hitung & Simpan
+                        <i class=""></i> Hitung & Simpan
                     </button>
                 </form>
                 <div class="flex justify-between mt-6">
-                    <a href="/annpoinloss/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                         <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                     </a>
 
@@ -418,10 +500,77 @@
 
         <div id="popupWindow" class="popup-window">
             <div class="popup-content">
-                <span class="close-popup-btn">&times;</span>
-                <h3 id="popupTitle">Detail Perhitungan</h3>
-                <div id="popupContent">
+                <div class="popup-header">
+                    <span class="close-popup-btn">&times;</span>
+                    <h3 id="popupTitle">Detail Perhitungan</h3>
+                </div>
+                <div class="popup-body">
+                    <div id="popupContent">
                     </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- New Popup for general Polarization Loss explanation (NO FORMULAS HERE) --}}
+        <div id="popup_polarization_general" class="popup-window">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <span class="close-popup-btn">&times;</span>
+                    <h3>Tentang Perhitungan Antenna Polarization Loss</h3>
+                </div>
+                <div class="popup-body">
+                    <div class="polarization-explanation">
+                        <div class="section">
+                            <h4 class="section-title">Apa itu Polarisasi Antena?</h4>
+                            <p class="section-content">
+                                Polarisasi antena mengacu pada orientasi medan listrik gelombang radio yang dipancarkan atau diterima oleh antena. Ada tiga jenis polarisasi utama: linear (horizontal atau vertikal), sirkular (kiri atau kanan), dan elips. Untuk komunikasi yang efisien, antena pengirim dan penerima harus memiliki polarisasi yang cocok.
+                            </p>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Apa itu Polarization Loss?</h4>
+                            <p class="section-content">
+                                <strong>Polarization Loss (Kerugian Polarisasi)</strong> terjadi ketika polarisasi antena pengirim tidak sepenuhnya cocok dengan polarisasi antena penerima. Ini menyebabkan sebagian daya sinyal yang dipancarkan tidak dapat ditangkap secara efektif oleh antena penerima, sehingga mengurangi kekuatan sinyal yang diterima. Semakin besar ketidakcocokan polarisasi, semakin besar kerugian polarisasi.
+                            </p>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Parameter dalam Perhitungan Polarization Loss:</h4>
+                            <ul class="param-list">
+                                <li><strong>Axial Ratio (Rasio Aksial) Tx/Rx Antenna:</strong> Mengukur seberapa dekat polarisasi antena ke polarisasi sirkular (Axial Ratio = 1) atau linear (Axial Ratio >> 1). Semakin mendekati 1, semakin baik untuk komunikasi sirkular.</li>
+                                <li><strong>Polarization Angle (&theta;) between antennas:</strong> Sudut antara orientasi polarisasi antena pengirim dan penerima. Sudut 0° berarti polarisasi cocok sempurna, sementara 90° berarti polarisasi sepenuhnya silang (cross-polarized), menghasilkan kerugian maksimum untuk co-polarization.</li>
+                                <li><strong>Polarization Loss (Linear):</strong> Nilai linear yang menunjukkan fraksi daya yang diterima dalam polarisasi yang cocok. Nilai 1 berarti tidak ada kerugian, sedangkan 0 berarti kerugian total.</li>
+                                <li><strong>Hasil Polarization Loss (dB):</strong> Konversi nilai linear Polarization Loss ke dalam satuan desibel (dB). Ini akan selalu menjadi nilai negatif atau nol, menunjukkan kerugian.</li>
+                            </ul>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Cross Polarization Coupling/Isolation:</h4>
+                            <p class="section-content">
+                                Ini mengacu pada seberapa baik sistem dapat menekan atau mengisolasi sinyal yang tidak diinginkan dengan polarisasi yang berlawanan (cross-polarization) dari sinyal yang diinginkan (co-polarization).
+                            </p>
+                            <ul class="param-list">
+                                <li><strong>Cross Pol. Power Fraction:</strong> Fraksi daya sinyal yang ditransfer ke polarisasi yang berlawanan.</li>
+                                <li><strong>Cross Pol. Power Fraction (dB):</strong> Nilai Cross Pol. Power Fraction dalam desibel. Biasanya nilai negatif.</li>
+                                <li><strong>Cross Polarization Isolation (XPI):</strong> Mengukur seberapa terisolasi polarisasi yang diinginkan dari polarisasi yang tidak diinginkan. Nilai XPI yang tinggi (positif, misal >20 dB) menunjukkan isolasi yang baik, yang penting untuk mencegah interferensi antara saluran yang menggunakan polarisasi berbeda pada frekuensi yang sama.</li>
+                            </ul>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Uplink dan Downlink</h4>
+                            <p class="section-content">
+                                Semua perhitungan ini diterapkan baik untuk jalur <strong>Uplink</strong> (transmisi dari stasiun bumi ke satelit) maupun <strong>Downlink</strong> (transmisi dari satelit ke stasiun bumi), karena setiap jalur memiliki karakteristik antena dan orientasi polarisasi yang unik.
+                            </p>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Catatan Penggunaan</h4>
+                            <p class="section-content">
+                                Untuk melihat rumus dan penjelasan detail dari setiap perhitungan spesifik, silakan klik tombol "Lihat Detail" yang tersedia di samping setiap kolom hasil.
+                            </p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -589,6 +738,9 @@
             document.getElementById('popupTitle').textContent = title;
             document.getElementById('popupContent').innerHTML = content;
             document.getElementById('popupWindow').style.display = 'flex';
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise(); // Render MathJax content in the popup
+            }
         }
 
         function hidePopup() {
@@ -599,7 +751,7 @@
         const detailContent = {
             axialratio1_up: function() {
                 return `
-                    <div class="code-block">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
+                    <div class="formula">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Axial ratio adalah perbandingan antara komponen major dan minor dari polarisasi elips. Nilai ini dihitung dari nilai axial ratio dalam dB, menggunakan rumus konversi.</p>
@@ -609,7 +761,7 @@
             },
             axialratio2_up: function() {
                 return `
-                    <div class="code-block">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
+                    <div class="formula">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Axial ratio adalah perbandingan antara komponen major dan minor dari polarisasi elips. Nilai ini dihitung dari nilai axial ratio dalam dB, menggunakan rumus konversi.</p>
@@ -619,7 +771,7 @@
             },
             radians_up: function() {
                 return `
-                    <div class="code-block">Radians = Degrees &times; (&pi; / 180)</div>
+                    <div class="formula">$$ \\text{Radians} = \\text{Degrees} \\times (\\frac{\\pi}{180}) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Konversi sudut polarisasi dari derajat ke radian untuk digunakan dalam perhitungan matematis. Konversi ini menggunakan rumus:</p>
@@ -629,21 +781,21 @@
             },
             polarizationloss_up: function() {
                 return `
-                    <div class="code-block">PL = 0.5 &times; (1 + [(1-r&#178;₁)(1-r&#178;₂)cos(2&theta;) + 4r₁r₂] / [(1+r&#178;₁)(1+r&#178;₂)])</div>
+                    <div class="formula">$$ PL = 0.5 \\times \\left(1 + \\frac{(1-r_1^2)(1-r_2^2)\\cos(2\\theta) + 4r_1r_2}{(1+r_1^2)(1+r_2^2)}\\right) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Polarization Loss menunjukkan seberapa baik dua antena dengan polarisasi berbeda dapat berkomunikasi. Nilai ini dihitung menggunakan rumus:</p>
                         <p>di mana:</p>
-                        <p>r₁ = Axial Ratio antena #1</p>
-                        <p>r₂ = Axial Ratio antena #2</p>
-                        <p>&theta; = Sudut polarisasi (dalam radian)</p>
+                        <p>$r_1$ = Axial Ratio antena #1</p>
+                        <p>$r_2$ = Axial Ratio antena #2</p>
+                        <p>$\\theta$ = Sudut polarisasi (dalam radian)</p>
                         <p>Nilai ini berkisar antara 0 dan 1, di mana 1 menunjukkan tidak ada kerugian polarisasi dan 0 menunjukkan kerugian polarisasi total.</p>
                     </div>
                 `;
             },
             hasilpolarizationloss_up: function() {
                 return `
-                    <div class="code-block">PL (dB) = -10 &times; log₁₀(PL)</div>
+                    <div class="formula">$$ PL (dB) = -10 \\times \\log_{10}(PL) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Konversi polarization loss dari nilai linear ke desibel (dB) untuk memudahkan perbandingan dan analisis. Konversi menggunakan rumus:</p>
@@ -653,7 +805,7 @@
             },
             crosspolpowerfraction_up: function() {
                 return `
-                    <div class="code-block">Cross Pol. Power Fraction = 1 - Polarization Loss</div>
+                    <div class="formula">Cross Pol. Power Fraction = 1 - Polarization Loss</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Cross Polarization Power Fraction adalah fraksi daya yang ditransfer ke polarisasi yang berlawanan. Ini dihitung sebagai:</p>
@@ -663,7 +815,7 @@
             },
             dbcrosspolpowerfraction_up: function() {
                 return `
-                    <div class="code-block">Cross Pol. Power Fraction (dB) = 10 &times; log₁₀(Cross Pol. Power Fraction)</div>
+                    <div class="formula">$$ \\text{Cross Pol. Power Fraction (dB)} = 10 \\times \\log_{10}(\\text{Cross Pol. Power Fraction}) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Konversi Cross Polarization Power Fraction dari nilai linear ke desibel (dB). Konversi menggunakan rumus:</p>
@@ -673,7 +825,7 @@
             },
             crosspolarizationisolation_up: function() {
                 return `
-                    <div class="code-block">XPI (dB) = Polarization Loss (dB) - Cross Pol. Power Fraction (dB)</div>
+                    <div class="formula">$$ XPI (dB) = \\text{Polarization Loss (dB)} - \\text{Cross Pol. Power Fraction (dB)} $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Cross Polarization Isolation mengukur seberapa baik sebuah sistem dapat memisahkan sinyal dengan polarisasi yang berbeda. Ini dihitung sebagai:</p>
@@ -685,7 +837,7 @@
             // Downlink Details
             axialratio1_down: function() {
                 return `
-                    <div class="code-block">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
+                    <div class="formula">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Axial ratio adalah perbandingan antara komponen major dan minor dari polarisasi elips. Nilai ini dihitung dari nilai axial ratio dalam dB, menggunakan rumus konversi.</p>
@@ -695,7 +847,7 @@
             },
             axialratio2_down: function() {
                 return `
-                    <div class="code-block">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
+                    <div class="formula">Axial Ratio = 10<sup>(Axial Ratio in dB / 20)</sup></div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Axial ratio adalah perbandingan antara komponen major dan minor dari polarisasi elips. Nilai ini dihitung dari nilai axial ratio dalam dB, menggunakan rumus konversi.</p>
@@ -705,7 +857,7 @@
             },
             radians_down: function() {
                 return `
-                    <div class="code-block">Radians = Degrees &times; (&pi; / 180)</div>
+                    <div class="formula">$$ \\text{Radians} = \\text{Degrees} \\times (\\frac{\\pi}{180}) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Konversi sudut polarisasi dari derajat ke radian untuk digunakan dalam perhitungan matematis. Konversi ini menggunakan rumus:</p>
@@ -715,21 +867,21 @@
             },
             polarizationloss_down: function() {
                 return `
-                    <div class="code-block">PL = 0.5 &times; (1 + [(1-r&#178;₁)(1-r&#178;₂)cos(2&theta;) + 4r₁r₂] / [(1+r&#178;₁)(1+r&#178;₂)])</div>
+                    <div class="formula">$$ PL = 0.5 \\times \\left(1 + \\frac{(1-r_1^2)(1-r_2^2)\\cos(2\\theta) + 4r_1r_2}{(1+r_1^2)(1+r_2^2)}\\right) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Polarization Loss menunjukkan seberapa baik dua antena dengan polarisasi berbeda dapat berkomunikasi. Nilai ini dihitung menggunakan rumus:</p>
                         <p>di mana:</p>
-                        <p>r₁ = Axial Ratio antena #1</p>
-                        <p>r₂ = Axial Ratio antena #2</p>
-                        <p>&theta; = Sudut polarisasi (dalam radian)</p>
+                        <p>$r_1$ = Axial Ratio antena #1</p>
+                        <p>$r_2$ = Axial Ratio antena #2</p>
+                        <p>$\\theta$ = Sudut polarisasi (dalam radian)</p>
                         <p>Nilai ini berkisar antara 0 dan 1, di mana 1 menunjukkan tidak ada kerugian polarisasi dan 0 menunjukkan kerugian polarisasi total.</p>
                     </div>
                 `;
             },
             hasilpolarizationloss_down: function() {
                 return `
-                    <div class="code-block">PL (dB) = -10 &times; log₁₀(PL)</div>
+                    <div class="formula">$$ PL (dB) = -10 \\times \\log_{10}(PL) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Konversi polarization loss dari nilai linear ke desibel (dB) untuk memudahkan perbandingan dan analisis. Konversi menggunakan rumus:</p>
@@ -739,7 +891,7 @@
             },
             crosspolpowerfraction_down: function() {
                 return `
-                    <div class="code-block">Cross Pol. Power Fraction = 1 - Polarization Loss</div>
+                    <div class="formula">Cross Pol. Power Fraction = 1 - Polarization Loss</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Cross Polarization Power Fraction adalah fraksi daya yang ditransfer ke polarisasi yang berlawanan. Ini dihitung sebagai:</p>
@@ -749,7 +901,7 @@
             },
             dbcrosspolpowerfraction_down: function() {
                 return `
-                    <div class="code-block">Cross Pol. Power Fraction (dB) = 10 &times; log₁₀(Cross Pol. Power Fraction)</div>
+                    <div class="formula">$$ \\text{Cross Pol. Power Fraction (dB)} = 10 \\times \\log_{10}(\\text{Cross Pol. Power Fraction}) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Konversi Cross Polarization Power Fraction dari nilai linear ke desibel (dB). Konversi menggunakan rumus:</p>
@@ -759,7 +911,7 @@
             },
             crosspolarizationisolation_down: function() {
                 return `
-                    <div class="code-block">XPI (dB) = Polarization Loss (dB) - Cross Pol. Power Fraction (dB)</div>
+                    <div class="formula">$$ XPI (dB) = \\text{Polarization Loss (dB)} - \\text{Cross Pol. Power Fraction (dB)} $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
                         <p>Cross Polarization Isolation mengukur seberapa baik sebuah sistem dapat memisahkan sinyal dengan polarisasi yang berbeda. Ini dihitung sebagai:</p>
@@ -805,7 +957,7 @@
         });
 
         // Add click event for close button
-        document.querySelector('.close-popup-btn').addEventListener('click', hidePopup);
+        document.querySelector('#popupWindow .close-popup-btn').addEventListener('click', hidePopup);
 
         // Close popup if user clicks outside of popup content
         document.getElementById('popupWindow').addEventListener('click', function(event) {
@@ -814,11 +966,65 @@
             }
         });
 
+        // --- New Logic for "Apa itu Perhitungan Antenna Polarization Loss?" button ---
+        // Function to open the general polarization popup
+        function openGeneralPolarizationPopup() {
+            // Close any other open popups first
+            document.querySelectorAll('.popup-window').forEach(p => p.style.display = 'none');
+
+            const generalPopup = document.getElementById('popup_polarization_general');
+            generalPopup.style.display = 'flex';
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise(); // Render MathJax content if present (though this one has no formulas)
+            }
+        }
+
+        // Event listener for the new general information button
+        document.getElementById('info_polarization_general_btn').addEventListener('click', openGeneralPolarizationPopup);
+
+        // Close button for the general polarization popup
+        document.querySelector('#popup_polarization_general .close-popup-btn').addEventListener('click', () => {
+            document.getElementById('popup_polarization_general').style.display = 'none';
+        });
+
+        // Close general polarization popup if user clicks outside of content
+        document.getElementById('popup_polarization_general').addEventListener('click', function(event) {
+            if (event.target === this) {
+                this.style.display = 'none';
+            }
+        });
+        // End New Logic
+
         // Initial state on page load: clear all outputs
         document.addEventListener('DOMContentLoaded', () => {
             // These calls will now properly clear inputs if no value is present
             calculateUplink();
             calculateDownlink();
+
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise(); // Render MathJax on initial load for all formulas
+            }
         });
     </script>
+
+    {{-- Script for MathJax --}}
+    <script>
+        // Konfigurasi MathJax (sesuaikan jika perlu)
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']], // Untuk rumus inline seperti $x^2$
+                displayMath: [['$$', '$$'], ['\\[', '\\]']], // Untuk rumus blok seperti $$E=mc^2$$
+                processEscapes: true, // Memungkinkan \$ untuk menampilkan tanda dolar literal
+                tags: "ams" // Untuk penomoran persamaan (opsional)
+            },
+            options: {
+                ignoreHtmlClass: "tex2jax_ignore", // Kelas yang diabaikan untuk pemrosesan matematika
+                processHtmlClass: "tex2jax_process" // Kelas yang secara spesifik diproses untuk matematika
+            },
+            loader: {
+                load: ['[tex]/ams'] // Memuat ekstensi AMS math
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </x-layout>

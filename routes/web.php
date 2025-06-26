@@ -86,6 +86,9 @@ Route::get('/updownlinkbudgetatn', function () {
     return view('updownlinkbudgetatn', ['title'=> 'Lets Calculation Uplink & Downlink Budget Antenna!']);
 });
 
+Route::get('/simulationhardware/{id}', [DataController::class, 'showSimulationHardwareForm'])->name('simulationhardware.show');
+Route::post('/simulationhardware/{id}', [DataController::class, 'store_simulationhardware'])->name('simulationhardware.store'); // Menangani form dengan POST
+
 
 Route::get('/about', function () {
     return view('about', ['title' => 'About Us']);
