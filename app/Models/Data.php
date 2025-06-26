@@ -105,7 +105,7 @@ class Data extends Model
         'lother_uprec',
         'connect_uprec',
         'totconnect_uprec',
-        'antenna to lna_uprec',
+        'antenna_to_lna_uprec',
         'tranlincoe_uprec',
         'antemper_uprec',
         'spactemp_uprec',

@@ -107,7 +107,7 @@ return new class extends Migration
             $table->double('lother_uprec')->nullable();
             $table->double('connect_uprec')->nullable();
             $table->double('totconnect_uprec')->nullable();
-            $table->double('antenna to lna_uprec')->nullable();
+            $table->double('antenna_to_lna_uprec')->nullable();
             $table->double('tranlincoe_uprec')->nullable();
             $table->double('antemper_uprec')->nullable();
             $table->double('spactemp_uprec')->nullable();

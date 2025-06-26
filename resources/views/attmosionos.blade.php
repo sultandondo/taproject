@@ -341,7 +341,7 @@
                                         class="w-full bg-blue-100 border border-blue-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 p-2"
                                         value=""
                                         oninput="updateUplinkIonosphericLoss()"
-                                        placeholder="Loss"
+                                        placeholder="Input Nilai Loss"
                                     >
                                     <span class="input-unit right-3">dB</span>
                                 </div>
@@ -406,7 +406,7 @@
                                         class="w-full bg-blue-100 border border-blue-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 p-2"
                                         value=""
                                         oninput="updateDownlinkIonosphericLoss()"
-                                        placeholder="Loss"
+                                        placeholder="Input Nilai Loss"
                                     >
                                     <span class="input-unit right-3">dB</span>
                                 </div>

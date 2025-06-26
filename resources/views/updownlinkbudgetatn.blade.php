@@ -410,7 +410,8 @@
                                 <div>
                                     <label class="block font-medium text-gray-700">Ionospheric Losses:</label>
                                     <div class="input-with-unit-wrapper">
-                                        <input type="number" step="any" id="ionosphericlosses_up" name="ionosphericlosses_up" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->uplink_loss_determined_display ?? '' }}" step="any" value="{{ $data->uplink_loss_determined_display ?? '' }}" readonly>
+                                        <input type="number" step="any" id="ionosphericlosses_up" name="ionosphericlosses_up" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" 
+                                        placeholder="{{ $data->uplink_loss_ionosphere ?? '' }}" step="any" value="{{ $data->uplink_loss_ionosphere ?? '' }}" readonly>
                                         <span class="unit-text">dB</span>
                                     </div>
                                 </div>
@@ -421,7 +422,8 @@
                                 <div>
                                     <label class="block font-medium text-gray-700">Rain Losses:</label>
                                     <div class="input-with-unit-wrapper">
-                                        <input type="number" step="any" id="rainlosses_up" name="rainlosses_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Enter rain losses">
+                                        <input type="number" step="any" id="rainlosses_up" name="rainlosses_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" 
+                                        placeholder="Enter rain losses">
                                         <span class="unit-text">dB</span>
                                     </div>
                                 </div>
@@ -453,7 +455,8 @@
                                 <div>
                                     <label class="block font-medium text-gray-700">Spacecraft Antenna Pointing Loss:</label>
                                     <div class="input-with-unit-wrapper">
-                                        <input type="number" step="any" id="scpointingloss_up" name="scpointingloss_up" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->approxannpoinloss_upspacecraft_poin ?? '' }}" step="any" value="{{ $data->approxannpoinloss_upspacecraft_poin ?? '' }}" readonly>
+                                        <input type="number" step="any" id="scpointingloss_up" name="scpointingloss_up" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" 
+                                        placeholder="{{ $data->approxannpoinloss_upspacecraft_poin ?? '' }}" step="any" value="{{ $data->approxannpoinloss_upspacecraft_poin ?? '' }}" readonly>
                                         <span class="unit-text">dB</span>
                                     </div>
                                 </div>
@@ -475,7 +478,8 @@
                                 <div>
                                     <label class="block font-medium text-gray-700">Spacecraft Total Transmission Line Losses:</label>
                                     <div class="input-with-unit-wrapper">
-                                        <input type="number" step="any" id="sclinelosses_up" name="sclinelosses_up" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->antenna_to_lna_uprec ?? '' }}" step="any" value="{{ $data->antenna_to_lna_uprec ?? '' }}" readonly>
+                                        <input type="number" step="any" id="sclinelosses_up" name="sclinelosses_up" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" 
+                                        placeholder="{{ $data->antenna_to_lna_uprec ?? '' }}" step="any" value="{{ $data->antenna_to_lna_uprec ?? '' }}" readonly>
                                         <span class="unit-text">dB</span>
                                     </div>
                                 </div>
@@ -736,7 +740,7 @@
                                 <div>
                                     <label class="block font-medium text-gray-700">Ionospheric Losses:</label>
                                     <div class="input-with-unit-wrapper">
-                                        <input type="number" step="any" id="ionosphericlosses_down" name="ionosphericlosses_down" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->downlink_loss_determined_display ?? '' }}" step="any" value="{{ $data->downlink_loss_determined_display ?? '' }}" readonly>
+                                        <input type="number" step="any" id="ionosphericlosses_down" name="ionosphericlosses_down" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->downlink_loss_ionosphere ?? '' }}" step="any" value="{{ $data->downlink_loss_ionosphere ?? '' }}" readonly>
                                         <span class="unit-text">dB</span>
                                     </div>
                                 </div>
@@ -920,11 +924,11 @@
                 </div>
 
                 <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                    <i class="fas fa-save mr-2"></i> Hitung & Simpan
+                    <i class=""></i> Hitung & Simpan
                 </button>
             </form>
             <div class="flex justify-between mt-6">
-                <a href="/attmosionos/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                     <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                 </a>
 
