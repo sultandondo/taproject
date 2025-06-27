@@ -267,6 +267,7 @@
             <form method="POST" action="{{ route('updownlinkbudgetatn.store', ['id' => $dataId]) }}" id="updownlinkbudgetatn">
                 @csrf
 
+                <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
                 <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
                     <h2 class="text-xl font-bold mb-4 text-gray-800 text-center">Uplink</h2>
                     
@@ -923,9 +924,31 @@
                     </div>
                 </div>
 
-                <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <button id="submitBtn" type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                     <i class=""></i> Hitung & Simpan
                 </button>
+                @guest
+                <script>
+                document.getElementById('submitBtn').addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const form = document.getElementById('updownlinkbudgetatn');
+                    const formData = new FormData(form);
+                    const jsonData = {};
+
+                    formData.forEach((value, key) => {
+                        jsonData[key] = value;
+                    });
+
+                    // Simpan data sementara
+                    localStorage.setItem('pendingFormData', JSON.stringify(jsonData));
+
+                    // Tampilkan popup login
+                    document.getElementById('loginModal').classList.remove('hidden');
+                });
+                </script>
+                @endguest
+
             </form>
             <div class="flex justify-between mt-6">
                 <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
@@ -943,6 +966,62 @@
         {{-- Popups Definitions --}}
         
         {{-- General Explanation Popup for Uplink & Downlink Budget --}}
+        <!-- Login Modal -->
+        <div id="loginModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg w-full max-w-md p-6 relative shadow-lg">
+                <!-- Tombol close -->
+                <button onclick="closeLoginModal()" class="absolute top-2 right-3 text-gray-500 hover:text-red-500 text-2xl">&times;</button>
+
+                <!-- Login Form -->
+                <div id="loginForm">
+                    <h2 class="text-2xl font-bold mb-4 text-center">Login</h2>
+                    <form id="ajaxLoginForm" class="space-y-4">
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" name="email" required class="w-full border px-4 py-2 rounded focus:ring focus:ring-blue-300">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" name="password" required class="w-full border px-4 py-2 rounded focus:ring focus:ring-blue-300">
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold">Login</button>
+                        <p class="text-sm text-center mt-3">
+                            Belum punya akun? <button type="button" onclick="showRegister()" class="text-blue-600 hover:underline">Daftar</button>
+                        </p>
+                    </form>
+                </div>
+
+                <!-- Register Form -->
+                <div id="registerForm" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4 text-center">Daftar</h2>
+                    <form method="POST" action="{{ route('register') }}" class="space-y-4">
+                        @csrf
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
+                            <input type="text" name="name" required class="w-full border px-4 py-2 rounded focus:ring focus:ring-purple-300">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" name="email" required class="w-full border px-4 py-2 rounded focus:ring focus:ring-purple-300">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <input type="password" name="password" required class="w-full border px-4 py-2 rounded focus:ring focus:ring-purple-300">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
+                            <input type="password" name="password_confirmation" required class="w-full border px-4 py-2 rounded focus:ring focus:ring-purple-300">
+                        </div>
+                        <button type="submit" class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 rounded font-semibold">Daftar</button>
+                        <p class="text-sm text-center mt-3">
+                            Sudah punya akun? <button type="button" onclick="showLogin()" class="text-blue-600 hover:underline">Login</button>
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+
         <div id="popup_budget_general" class="popup-window">
             <div class="popup-content">
                 <div class="popup-header">
@@ -1518,6 +1597,87 @@
     </div>
 
     <script>
+        function openLoginModal() {
+            document.getElementById('loginModal').classList.remove('hidden');
+            showLogin();
+        }
+
+        function closeLoginModal() {
+            document.getElementById('loginModal').classList.add('hidden');
+        }
+
+        function showLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+        }
+
+        function showRegister() {
+            document.getElementById('registerForm').classList.remove('hidden');
+            document.getElementById('loginForm').classList.add('hidden');
+        }
+
+        // LOGIN AJAX
+        const loginForm = document.getElementById('ajaxLoginForm');
+        if (loginForm) {
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+
+                const formData = new FormData(loginForm);
+                const token = formData.get('_token');
+
+                try {
+                    const res = await fetch("{{ route('login') }}", {
+                        method: "POST",
+                        headers: {
+                            'X-CSRF-TOKEN': token,
+                            'Accept': 'application/json'
+                        },
+                        body: formData
+                    });
+
+                    if (res.ok) {
+                        closeLoginModal();
+                        submitPendingForm();
+                    } else {
+                        alert("Login gagal. Pastikan email dan password benar.");
+                    }
+                } catch (error) {
+                    console.error(error);
+                    alert("Terjadi kesalahan saat login.");
+                }
+            });
+        }
+
+        // SUBMIT OTOMATIS SETELAH LOGIN
+        async function submitPendingForm() {
+            const stored = localStorage.getItem('pendingFormData');
+            if (!stored) return;
+
+            const data = JSON.parse(stored);
+            const token = document.querySelector('input[name="_token"]').value;
+
+            try {
+                const res = await fetch("{{ route('updownlinkbudgetatn.store', ['id' => $dataId]) }}", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "X-CSRF-TOKEN": token,
+                        "Accept": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                if (res.ok) {
+                    localStorage.removeItem('pendingFormData');
+                    window.location.href = "{{ route('history') }}";
+                } else {
+                    alert("Gagal menyimpan data");
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
         // Konstanta Boltzmann
         const K = 1.38e-23; // J/K
         const K_DBW = -228.6; // dBW/K/Hz (10 * log10(1.38e-23))

@@ -9,6 +9,7 @@ Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.
 Route::get('/', [AuthController::class, 'showLogin'])->name('masuk');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('cred');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::get('/home', [AuthController::class, 'dashboard'])->name('home');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
@@ -17,11 +18,18 @@ Route::get('/about', function () {
     return view('about', ['title' => 'About Us']);
 });
 
+Route::get('/animasi', function () {
+    return view('animasi');
+});
+Route::get('/animasi/{id}', [DataController::class, 'showAnimasiPage'])->name('animasi.show');
+
 Route::get('/contact', function () {
     return view('contact', ['title' => 'Contact Us!']);
 });
 
-Route::get('/history', [DataController::class, 'show'])->name('history');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/history', [DataController::class, 'show'])->name('history');
+});
 
 // Route::get('/calc', function () {
 //     return view('calc', ['title'=> 'Lets Calculate Orbit!']);

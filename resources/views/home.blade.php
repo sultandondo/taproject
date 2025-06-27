@@ -92,9 +92,17 @@
                         <p class="text-gray-600 mb-6 leading-relaxed">
                             Akses dan analisis data perhitungan sebelumnya untuk mendukung riset dan dokumentasi.
                         </p>
-                        <a href="{{ route('history') }}" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold transition transform hover:scale-105 flex items-center justify-center">
-        Lihat Riwayat
+                        <!-- <a href="{{ route('history') }}" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold transition transform hover:scale-105 flex items-center justify-center">
+        Lihat Riwayat -->
                         </a>
+                        @auth
+                            <a href="{{ route('history') }}" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold transition transform hover:scale-105 flex items-center justify-center">Lihat Riwayat</a>
+                        @else
+                            <button onclick="openAuthModal()" class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold transition transform hover:scale-105 flex items-center justify-center">
+                                Lihat Riwayat
+                            </button>
+                        @endauth
+
                     </div>
 
                     <!-- Feature 3: Contact Form -->
@@ -241,6 +249,56 @@
                 
                 lastScrollY = window.scrollY;
             });
+
+            function openAuthModal() {
+                document.getElementById('authModal').classList.remove('hidden');
+                showLogin();
+            }
+
+            function closeAuthModal() {
+                document.getElementById('authModal').classList.add('hidden');
+            }
+
+            function showLogin() {
+                document.getElementById('loginForm').classList.remove('hidden');
+                document.getElementById('registerForm').classList.add('hidden');
+            }
+
+            function showRegister() {
+                document.getElementById('registerForm').classList.remove('hidden');
+                document.getElementById('loginForm').classList.add('hidden');
+            }
         </script>
+        <!-- Modal Login/Register -->
+        <div id="authModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-xl shadow-xl w-full max-w-md p-6 relative">
+                <button onclick="closeAuthModal()" class="absolute top-3 right-3 text-gray-500 hover:text-red-500 text-xl">&times;</button>
+                
+                <div id="loginForm">
+                    <h2 class="text-2xl font-bold mb-4">Login</h2>
+                    <form method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <input type="email" name="email" placeholder="Email" required class="w-full mb-4 p-3 border rounded">
+                        <input type="password" name="password" placeholder="Password" required class="w-full mb-4 p-3 border rounded">
+                        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700">Login</button>
+                    </form>
+                    <p class="text-sm mt-4 text-gray-600">Belum punya akun? <button onclick="showRegister()" class="text-blue-600 hover:underline">Daftar</button></p>
+                </div>
+
+                <div id="registerForm" class="hidden">
+                    <h2 class="text-2xl font-bold mb-4">Daftar</h2>
+                    <form method="POST" action="{{ route('register') }}">
+                        @csrf
+                        <input type="text" name="name" placeholder="Nama" required class="w-full mb-4 p-3 border rounded">
+                        <input type="email" name="email" placeholder="Email" required class="w-full mb-4 p-3 border rounded">
+                        <input type="password" name="password" placeholder="Password" required class="w-full mb-4 p-3 border rounded">
+                        <input type="password" name="password_confirmation" placeholder="Konfirmasi Password" required class="w-full mb-4 p-3 border rounded">
+                        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded hover:bg-green-700">Daftar</button>
+                    </form>
+                    <p class="text-sm mt-4 text-gray-600">Sudah punya akun? <button onclick="showLogin()" class="text-blue-600 hover:underline">Login</button></p>
+                </div>
+            </div>
+        </div>
+
     </body>
 </x-layout>

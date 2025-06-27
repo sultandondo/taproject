@@ -337,7 +337,7 @@
 
                 <form method="POST" action="{{ route('receiver.store', $dataId)}}">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
 
                     <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
                         <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Uplink</h2>

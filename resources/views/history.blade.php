@@ -6,6 +6,7 @@
             <table class="zebra-striped min-w-full table-auto border-collapse shadow-md rounded-lg bg-gray-100">
                 <thead class="bg-gray-200 text-gray-700">
                     <tr>
+                        <th class="px-4 py-3 border text-left text-sm font-semibold">Visual</th>
                         <th class="px-4 py-3 border text-left text-sm font-semibold">Jenis Orbit</th>
                         <th class="px-4 py-3 border text-left text-sm font-semibold">Inklinasi</th>
                         <th class="px-4 py-3 border text-left text-sm font-semibold">User Latitude Uplink</th>
@@ -36,6 +37,11 @@
                 <tbody class="bg-white text-gray-700">
                     @foreach($data as $item)
                         <tr class="hover:bg-gray-50">
+                            <td class="px-4 py-3 border text-sm">
+                                <a href="{{ route('animasi.show', ['id' => $item->id]) }}"  target="_blank" class="inline-block bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold px-3 py-1 rounded-full shadow">
+                                    Animasi
+                                </a>
+                            </td>
                             <td class="px-4 py-3 border text-sm">{{ $item->jenis_orbit }}</td>
                             <td class="px-4 py-3 border text-sm">{{ $item->inklinasi }}</td>
                             <td class="px-4 py-3 border text-sm">{{ $item->userlat_up }}</td>

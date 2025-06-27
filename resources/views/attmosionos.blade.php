@@ -254,7 +254,7 @@
 
                 <form method="POST" action="{{ route('attmosionos.store', ['id' => $dataId]) }}" class="space-y-6">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="relative">
