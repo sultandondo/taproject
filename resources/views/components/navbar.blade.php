@@ -7,6 +7,14 @@
                 <a href="{{ route('calc.show', ['id' => 0]) }}" class="nav-link text-white hover:text-blue-400 font-medium px-3 py-2">Calculate</a>
                 <a href="{{ route('about.us') }}" class="nav-link text-white hover:text-blue-400 font-medium px-3 py-2">About Us</a>
                 <a href="#contact" class="nav-link text-white hover:text-blue-400 font-medium px-3 py-2">Contact</a>
+                @if (Auth::check())
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button type="submit" class="text-white hover:text-red-400 font-medium px-3 py-2">
+                            Logout
+                        </button>
+                    </form>
+                @endif
             </div>
             
             <!-- Logo (Center/Right Side) -->

@@ -286,7 +286,7 @@
             <div class="bg-blue-50 shadow-lg rounded-lg p-6 mb-8 border border-blue-200">
                 <form method="POST" action="{{ route('antennagain.store', ['id' => $dataId]) }}" id="antennaForm">
                     @csrf
-                    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                    <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
 
                     <div class="mb-8">
                         <div class="mb-4">

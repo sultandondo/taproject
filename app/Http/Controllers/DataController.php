@@ -4,15 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\Data;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class DataController extends Controller
 {
     // Menampilkan daftar data
     public function show()
 {
-    $data = Data::with('user')->get();
-    //$title = 'History Page'; // Set the title or dynamic value here
-    return view('history', compact('data'));
+    $userId = Auth::id();
+
+    // Ambil data hanya milik user tersebut
+    $data = Data::where('user_id', $userId)->get();
+
+    return view('history', ['data' => $data]);
 }
 
     public function showCalcForm($id)
@@ -147,6 +152,25 @@ public function showSimulationHardwareForm($id)
         'data' => $data,
         'dataId' => $id,
         'userId' => $data->user_id
+    ]);
+}
+
+public function showAnimasiPage($id)
+{
+    $data = Data::findOrFail($id); // asumsikan model Data kamu punya kolom seperti apogee, perigee, dsb
+    // dd($data);
+
+    return view('animasi', [
+        'orbitParams' => [
+            'type' => $data->jenis_orbit,
+            'apogee' => $data->apogee,
+            'perigee' => $data->perigee,
+            'inclination' => $data->inklinasi,
+            'argPerigee' => 0,
+            'raan' => $data->raan,
+            'trueAnomaly' => 120,
+            'beamwidth' => 20,
+        ]
     ]);
 }
 
@@ -929,7 +953,7 @@ public function showSimulationHardwareForm($id)
         // Data::create($request->all());
         $data = Data::findOrFail($id);
          $data->update([
-            'user_id' => $request->user_id,
+            'user_id' => auth()->id(),
             'tx_powerwatts_up' => $request->input('tx_powerwatts_up'),
             'tx_powerdbw_up' => $request->input('tx_powerdbw_up'),
             'tx_powerdbm_up' => $request->input('tx_powerdbm_up'),
@@ -980,7 +1004,7 @@ public function showSimulationHardwareForm($id)
             'linkmargin_down' => $request->input('linkmargin_down'),
             // Field lainnya
         ]);
-        return redirect()->route('updownlinkbudgetatn.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('history')->with('success', 'Data berhasil ditambahkan');
     }
 
 

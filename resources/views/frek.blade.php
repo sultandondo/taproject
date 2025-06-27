@@ -159,7 +159,7 @@
 
             <form method="POST" action="{{ route('frek.store', $dataId )}}">
             @csrf
-            <input type="hidden" name="user_id" value="1">
+            <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
 
             {{-- Uplink Frekuensi --}}
             <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">

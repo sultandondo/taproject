@@ -133,22 +133,22 @@
         }
 
         /* Styling untuk pesan error */
-.error-message {
-    color: #dc2626;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
-    display: none;
-}
+        .error-message {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+            display: none;
+        }
 
-.input-error {
-    border-color: #dc2626 !important;
-    box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
-}
+        .input-error {
+            border-color: #dc2626 !important;
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1) !important;
+        }
 
-.input-valid {
-    border-color: #16a34a !important;
-    box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1) !important;
-}
+        .input-valid {
+            border-color: #16a34a !important;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1) !important;
+        }
     </style>
 
     <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
