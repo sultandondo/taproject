@@ -6,7 +6,7 @@ use App\Http\Controllers\DataController;
 use App\Http\Controllers\ContactController;
 Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
 
-Route::get('/', [AuthController::class, 'showLogin'])->name('masuk');
+Route::get('/', [AuthController::class, 'dashboard'])->name('masuk');
 Route::get('/login', [AuthController::class, 'showLogin'])->name('cred');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
@@ -94,6 +94,9 @@ Route::get('/updownlinkbudgetatn', function () {
     return view('updownlinkbudgetatn', ['title'=> 'Lets Calculation Uplink & Downlink Budget Antenna!']);
 });
 
+Route::get('/systemsummary/{id}', [DataController::class, 'showSystemSummary'])->name('systemsummary.show');
+Route::post('/systemsummary/{id}', [DataController::class, 'store_systemsummary'])->name('systemsummary.store'); // Menangani form dengan POST
+
 Route::get('/simulationhardware/{id}', [DataController::class, 'showSimulationHardwareForm'])->name('simulationhardware.show');
 Route::post('/simulationhardware/{id}', [DataController::class, 'store_simulationhardware'])->name('simulationhardware.store'); // Menangani form dengan POST
 
@@ -101,7 +104,5 @@ Route::post('/simulationhardware/{id}', [DataController::class, 'store_simulatio
 Route::get('/about', function () {
     return view('about', ['title' => 'About Us']);
 })->name('about.us'); // <--- Add this line!
-
-Route::get('/home', [AuthController::class, 'dashboard'])->name('home');
 
 ;

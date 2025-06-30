@@ -143,6 +143,18 @@ public function showUpDownLinkBudgetATN($id)
     ]);
 }
 
+public function showSystemSummary($id)
+{
+    $data = Data::findOrFail($id);
+
+    return view('systemsummary', [
+        'title'=> 'Lets See the System Summary!',
+        'data' => $data,
+        'dataId' => $id,
+        'userId' => $data->user_id
+    ]);
+}
+
 public function showSimulationHardwareForm($id)
 {
     $data = Data::findOrFail($id);
