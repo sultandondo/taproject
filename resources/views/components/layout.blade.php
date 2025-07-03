@@ -104,20 +104,20 @@
     </style>
 
 </head>
-<body class="h-full">
-<div class="min-h-full">
+<body class="flex flex-col min-h-screen">
 
-<x-navbar></x-navbar>
-  
-<x-header></x-header>
 
-    <main>
-      <div>
+    <x-navbar></x-navbar>
+      
+    <x-header></x-header>
+
+    <main class="flex-grow">
+      <div >
         {{ $slot }}
       </div>
     </main>
     <section id="contact">
-    <footer class="bg-gray-900 text-white py-6">
+    <footer class="bg-gray-800 text-white py-6 mt-auto">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
                 <!-- Brand -->
@@ -131,20 +131,6 @@
                     <p class="text-gray-400 max-w-md mb-6">
                         Platform ini dikembangkan untuk mempermudah perhitungan parameter link budget satelit.
                     </p>
-                    <div class="flex space-x-4">
-                        <a href="https://www.instagram.com/your_instagram_profile" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://twitter.com/your_twitter_profile" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://www.facebook.com/your_facebook_profile" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/in/your_linkedin_profile" target="_blank" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-blue-600 transition">
-                            <i class="fab fa-linkedin-in"></i>
-                        </a>
-                    </div>
                 </div>
 
                 <!-- Quick Links -->

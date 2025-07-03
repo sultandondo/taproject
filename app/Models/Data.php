@@ -43,6 +43,7 @@ class Data extends Model
         'altitude',
         'radius',
         'slant_range',
+        'mean_anomaly',
         
     //Untuk Frek
         'frekuensi_satuan',

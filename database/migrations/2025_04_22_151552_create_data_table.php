@@ -44,6 +44,7 @@ return new class extends Migration
             $table->double('altitude')->nullable();
             $table->double('radius')->nullable();
             $table->double('slant_range')->nullable();
+            $table->double('mean_anomaly')->nullable();
 
             // Database Frekuensi
             $table->string('frekuensi_satuan')->nullable();

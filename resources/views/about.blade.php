@@ -324,11 +324,8 @@
                     </div>
 
                     <h3 class="text-2xl font-bold mb-2">Muhammad Luthfi</h3>
-                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block mb-3">
-                        <p class="font-semibold text-sm">Alat Simulasi</p>
-                    </div>
                     <p class="text-white/90 mb-2">1101210305</p>
-                    <p class="text-white/80 text-sm mb-6">Specialist dalam pengembangan tools simulasi orbit satelit</p>
+                    <p class="text-white/80 text-sm mb-6">Team Development Calculation Website</p>
 
                     <a href="mailto:muhluthfii@student.telkomuniversity.ac.id"
                         class="btn-contact inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
@@ -346,11 +343,8 @@
                     </div>
 
                     <h3 class="text-2xl font-bold mb-2">Iyan Cahyana</h3>
-                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block mb-3">
-                        <p class="font-semibold text-sm">Web Development</p>
-                    </div>
                     <p class="text-white/90 mb-2">1101213082</p>
-                    <p class="text-white/80 text-sm mb-6">Frontend developer dengan fokus pada user experience</p>
+                    <p class="text-white/80 text-sm mb-6">Team Development Calculation Website</p>
 
                     <a href="mailto:iyanchyna24@email.com"
                         class="btn-contact inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
@@ -368,11 +362,8 @@
                     </div>
 
                     <h3 class="text-2xl font-bold mb-2">Muhammad Sultan Pasha Dondo</h3>
-                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block mb-3">
-                        <p class="font-semibold text-sm">Web Development</p>
-                    </div>
                     <p class="text-white/90 mb-2">1101213142</p>
-                    <p class="text-white/80 text-sm mb-6">Backend developer dengan expertise dalam database management</p>
+                    <p class="text-white/80 text-sm mb-6">Team Development Calculation Website</p>
 
                     <a href="mailto:muhsultanpasha@email.com"
                         class="btn-contact inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
@@ -390,11 +381,8 @@
                     </div>
 
                     <h3 class="text-2xl font-bold mb-2">Maharddhika Paramananda</h3>
-                    <div class="bg-white/20 backdrop-blur-sm rounded-full px-3 py-1 inline-block mb-3">
-                        <p class="font-semibold text-sm">Animasi</p>
-                    </div>
                     <p class="text-white/90 mb-2">1101213174</p>
-                    <p class="text-white/80 text-sm mb-6">Motion graphics designer untuk visualisasi data satelit</p>
+                    <p class="text-white/80 text-sm mb-6">Team Development Calculation Website</p>
 
                     <a href="mailto:paramananda@student.telkomuniversity.ac.id"
                         class="btn-contact inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
@@ -419,7 +407,7 @@
                     <div class="space-y-6">
                         <div class="flex items-start space-x-4">
                             <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                <i class="fas fa-target text-white text-sm"></i>
+                                <i class="fas fa-targettext-white text-sm"></i>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900 mb-2">Misi</h4>
@@ -429,7 +417,7 @@
 
                         <div class="flex items-start space-x-4">
                             <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                                <i class="fas fa-eye text-white text-sm"></i>
+                                <i class=""></i>
                             </div>
                             <div>
                                 <h4 class="font-semibold text-gray-900 mb-2">Visi</h4>

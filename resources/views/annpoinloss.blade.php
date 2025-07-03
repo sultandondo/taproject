@@ -247,7 +247,7 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_upgrounds_poin" id="gain_upgrounds_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain antena dari perhitungan sebelumnya" required>
+                            <input type="number" name="gain_upgrounds_poin" id="gain_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_upgrounds ?? '' }}" value="{{ $data->gain_manual_upgrounds ?? '' }}" readonly>
                             <span class="unit-text">dBiC</span>
                         </div>
                     </div>
@@ -255,7 +255,7 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_upgrounds_poin" id="beamwidth_upgrounds_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dari perhitungan sebelumnya" required>
+                            <input type="number" name="beamwidth_upgrounds_poin" id="beamwidth_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_upgrounds ?? '' }}" value="{{ $data->beamwidth_manual_upgrounds ?? '' }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -303,7 +303,7 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBi):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_upspacecraft_poin" id="gain_upspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain antena dari perhitungan sebelumnya" required>
+                            <input type="number" name="gain_upspacecraft_poin" id="gain_upspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_upspacecraft ?? '' }}" value="{{ $data->gain_manual_upspacecraft ?? '' }}" readonly>
                             <span class="unit-text">dBi</span>
                         </div>
                     </div>
@@ -311,7 +311,7 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_upspacecraft_poin" id="beamwidth_upspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dari perhitungan sebelumnya" required>
+                            <input type="number" name="beamwidth_upspacecraft_poin" id="beamwidth_upspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_upspacecraft ?? '' }}" value="{{ $data->beamwidth_manual_upspacecraft ?? '' }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -381,15 +381,16 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_downspacecraft_poin" id="gain_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain antena dari perhitungan sebelumnya" required>
+                            <input type="number" name="gain_downspacecraft_poin" id="gain_downspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_downspacecraft ?? '' }}" value="{{ $data->gain_manual_downspacecraft ?? '' }}" readonly>
                             <span class="unit-text">dBiC</span>
                         </div>
                     </div>
+                  
 
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_downspacecraft_poin" id="beamwidth_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dari perhitungan sebelumnya" required>
+                            <input type="number" name="beamwidth_downspacecraft_poin" id="beamwidth_downspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_downspacecraft ?? '' }}" value="{{ $data->beamwidth_manual_downspacecraft ?? '' }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -453,7 +454,7 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_downgrounds_poin" id="gain_downgrounds_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan gain antena dari perhitungan sebelumnya" required>
+                            <input type="number" name="gain_downgrounds_poin" id="gain_downgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_downgrounds ?? '' }}" step="any" value="{{ $data->gain_manual_downgrounds ?? '' }}" readonly>
                             <span class="unit-text">dBiC</span>
                         </div>
                     </div>
@@ -461,7 +462,7 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_downgrounds_poin" id="beamwidth_downgrounds_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan beamwidth dari perhitungan sebelumnya" required>
+                            <input type="number" name="beamwidth_downgrounds_poin" id="beamwidth_downgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_downgrounds ?? '' }}" value="{{ $data->beamwidth_manual_downgrounds ?? '' }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -774,14 +775,14 @@
                     const rollOffRadians = rollOffValue * (Math.PI / 180); // Convert to radians
                     const sinRollOff = Math.sin(rollOffRadians);
                     const numerator = sinRollOff * sinRollOff;
-                    const denominator = rollOffRadians * rollOffRadians; // Use radians here
+                    const denominator = rollOffValue * rollOffValue; // Use radians here
                     
                     if (denominator !== 0) {
                         const fraction = numerator / denominator;
                         // Pastikan argumen log10 tidak nol atau negatif
                         if (3282.81 * fraction > 0) {
                             const loss = -10 * Math.log10(3282.81 * fraction);
-                            lossField.value = loss.toFixed(6);
+                            lossField.value = loss.toFixed(2);
                         } else {
                             lossField.value = 'Infinity'; // Atau pesan error lainnya
                         }

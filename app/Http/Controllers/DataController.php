@@ -178,10 +178,11 @@ public function showAnimasiPage($id)
             'apogee' => $data->apogee,
             'perigee' => $data->perigee,
             'inclination' => $data->inklinasi,
-            'argPerigee' => 0,
+            'argPerigee' => $data->argumenop,
             'raan' => $data->raan,
-            'trueAnomaly' => 120,
-            'beamwidth' => 20,
+            'spaceslot_up' => $data->spaceslot_up,
+            'trueAnomaly' =>$data->mean_anomaly,
+            'beamwidth' => $data->beamwidth_manual_downspacecraft,
         ]
     ]);
 }
@@ -228,6 +229,7 @@ public function showAnimasiPage($id)
             'altitude' => 'nullable|numeric',
             'radius' => 'nullable|numeric',
             'slant_range' => 'nullable|numeric',
+            'mean_anomaly' => 'nullable|numeric',
     
             
 
@@ -267,6 +269,7 @@ public function showAnimasiPage($id)
                 'altitude' => $request->input('altitude'),
                 'radius' => $request->input('radius'),
                 'slant_range' => $request->input('slant_range'),
+                'mean_anomaly' => $request->input('mean_anomaly'),
                 
                 // Field lainnya
             ]);
@@ -546,7 +549,7 @@ public function showAnimasiPage($id)
     }
 
      //Menyimpan data Calc Azimuth
-        public function store_calcazimuth(Request $request)
+        public function store_calcazimuth(Request $request, $id)
     {
     
         // dd($request->all());
@@ -645,7 +648,7 @@ public function showAnimasiPage($id)
             // Field lainnya
         ]);
 
-        return redirect()->route('calcazimuth.show')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     //Menyimpan data Antenna Polarization Loss
@@ -961,11 +964,11 @@ public function showAnimasiPage($id)
             'linkmargin_down'=> 'nullable|numeric', 
             // validasi kolom lainnya sesuai kebutuhan
         ]);
-
+        
         // Data::create($request->all());
         $data = Data::findOrFail($id);
          $data->update([
-            'user_id' => auth()->id(),
+            'user_id' => $request->user_id,
             'tx_powerwatts_up' => $request->input('tx_powerwatts_up'),
             'tx_powerdbw_up' => $request->input('tx_powerdbw_up'),
             'tx_powerdbm_up' => $request->input('tx_powerdbm_up'),
@@ -1016,7 +1019,7 @@ public function showAnimasiPage($id)
             'linkmargin_down' => $request->input('linkmargin_down'),
             // Field lainnya
         ]);
-        return redirect()->route('history')->with('success', 'Data berhasil ditambahkan');
+        return redirect()->route('systemsummary.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
 

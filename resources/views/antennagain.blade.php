@@ -304,7 +304,7 @@
 
                         <div class="mb-4">
                             <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Yagi">Yagi Antenna</option>
                                 <option value="Helix">Helix Antenna</option>
@@ -373,12 +373,11 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="jenis_antenaspacecraft_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenaspacecraft_up" id="jenis_antenaspacecraft_up" onchange="handleAntennaChangeSpacecraft('up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
+                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
-                                <option value="Monopole">Monopole Antenna</option>
-                                <option value="Dipole">Dipole Antenna</option>
-                                <option value="Patch">Patch Antenna</option>
+                                <option value="Yagi">Yagi Antenna</option>
+                                <option value="Helix">Helix Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
                             </select>
                         </div>
@@ -452,8 +451,8 @@
                         </div>
 
                         <div class="mb-4">
-                            <label for="jenis_antenagrounds_down" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_down" id="jenis_antenagrounds_down" onchange="handleAntennaChangeGrounds('down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
+                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
                                 <option value="Yagi">Yagi Antenna</option>
                                 <option value="Helix">Helix Antenna</option>
@@ -523,12 +522,11 @@
                             </select>
                         </div>
                         <div class="mb-4">
-                            <label for="jenis_antenaspacecraft_down" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenaspacecraft_down" id="jenis_antenaspacecraft_down" onchange="handleAntennaChangeSpacecraft('down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
+                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                                 <option value="">-- Pilih Jenis Antena --</option>
-                                <option value="Monopole">Monopole Antenna</option>
-                                <option value="Dipole">Dipole Antenna</option>
-                                <option value="Patch">Patch Antenna</option>
+                                <option value="Yagi">Yagi Antenna</option>
+                                <option value="Helix">Helix Antenna</option>
                                 <option value="Parabolic">Parabolic Reflector</option>
                             </select>
                         </div>

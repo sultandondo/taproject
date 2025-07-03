@@ -18,9 +18,7 @@ Route::get('/about', function () {
     return view('about', ['title' => 'About Us']);
 });
 
-Route::get('/animasi', function () {
-    return view('animasi');
-});
+
 Route::get('/animasi/{id}', [DataController::class, 'showAnimasiPage'])->name('animasi.show');
 
 Route::get('/contact', function () {
@@ -90,9 +88,6 @@ Route::post('/attmosionos/{id}', [DataController::class, 'store_attmosionos'])->
 Route::get('/updownlinkbudgetatn/{id}', [DataController::class, 'showUpDownLinkBudgetATN'])->name('updownlinkbudgetatn.show');
 Route::post('/updownlinkbudgetatn/{id}', [DataController::class, 'store_updownlinkbudgetatn'])->name('updownlinkbudgetatn.store'); // Menangani form dengan POST
 
-Route::get('/updownlinkbudgetatn', function () {
-    return view('updownlinkbudgetatn', ['title'=> 'Lets Calculation Uplink & Downlink Budget Antenna!']);
-});
 
 Route::get('/systemsummary/{id}', [DataController::class, 'showSystemSummary'])->name('systemsummary.show');
 Route::post('/systemsummary/{id}', [DataController::class, 'store_systemsummary'])->name('systemsummary.store'); // Menangani form dengan POST

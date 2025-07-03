@@ -63,29 +63,61 @@
         .popup-content {
             position: relative;
             background-color: white;
-            padding: 20px 30px 30px;
             border-radius: 8px; /* Adjusted to match your calc.blade.php popups */
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); /* Adjusted */
             width: 80%;
             max-width: 600px;
             max-height: 80vh;
-            overflow-y: auto;
+            display: flex; /* Use flexbox for header and body layout */
+            flex-direction: column; /* Stack header and body vertically */
             /* Animation from calc.blade.php for consistency */
             animation: fadeInScale 0.3s ease-out;
         }
+
+        /* Styles for popup header that won't scroll */
+        .popup-header {
+            padding: 20px 30px 10px; /* Padding for header */
+            border-bottom: 1px solid #eee; /* Bottom border for header */
+            position: relative; /* Important for absolute positioning of close button */
+            flex-shrink: 0; /* Ensure header doesn't shrink */
+        }
+
+        .popup-header h3 {
+            margin-top: 0; /* Remove top margin that might interfere */
+            color: #2c3e50;
+            padding-bottom: 0; /* Remove default h3 padding-bottom here */
+        }
+
+        /* Styles for close button (X) */
         .close-popup-btn {
             position: absolute;
-            top: 10px; /* Adjusted */
-            right: 15px; /* Adjusted */
-            font-size: 24px; /* Adjusted */
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
             font-weight: bold;
-            color: #555; /* Adjusted */
+            color: #555;
             cursor: pointer;
-            transition: color 0.2s ease; /* Added for consistency */
+            transition: color 0.2s ease;
+            z-index: 1001; /* Ensure button is above popup content */
+            background-color: white; /* Give a background */
+            border-radius: 50%; /* Make button circular */
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Add a slight shadow */
         }
 
         .close-popup-btn:hover {
-            color: #000; /* Adjusted */
+            color: #000;
+        }
+
+        /* Styles for popup body that will scroll */
+        .popup-body {
+            padding: 20px 30px 30px; /* Padding for body content */
+            overflow-y: auto; /* This enables scrolling for body content */
+            flex-grow: 1; /* Allow body to fill available space */
         }
 
         .formula {
@@ -146,16 +178,68 @@
             min-width: 40px; /* Memberikan lebar minimum agar tidak terlalu mepet jika teks unit pendek */
             text-align: left; /* Biarkan teks unit rata kiri */
         }
+
+        /* Styling for the new frequency explanation popup content */
+        .frequency-explanation {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.8;
+            color: #4A5568;
+        }
+        .frequency-explanation .section {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #E2E8F0;
+        }
+        .frequency-explanation .section:last-child {
+            border-bottom: none;
+        }
+        .frequency-explanation .section-title {
+            color: #2C5282;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            border-left: 5px solid #4299E1;
+            padding-left: 1rem;
+        }
+        .frequency-explanation .section-content {
+            text-align: justify;
+            margin-bottom: 0.75rem;
+            font-size: 1rem;
+        }
+        /* No .formula specific styles here for .frequency-explanation because formulas are removed */
+        .frequency-explanation .param-title {
+            color: #2D3748;
+            font-size: 1rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.5rem 0;
+        }
+        .frequency-explanation .param-list {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+        }
+        .frequency-explanation .param-list li {
+            margin-bottom: 0.4rem;
+            line-height: 1.6;
+        }
     </style>
 
     <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
         <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl border-t-8 border-blue-600 transform transition-all duration-300 hover:shadow-3xl">
             <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
-                <i class="fas fa-wave-square mr-2 text-blue-600"></i> Perhitungan Frekuensi
+                <i class="text-blue-600"></i> Perhitungan Frekuensi
             </h1>
             <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
                 Masukkan nilai frekuensi dan parameter lainnya untuk mendapatkan hasil perhitungan panjang gelombang dan path loss.
             </p>
+
+            {{-- "Apa itu Perhitungan Frekuensi?" button --}}
+            <div class="mb-6 text-right animate__animated animate__fadeInUp">
+                <button type="button" id="info_frequency_general_btn" class="text-blue-600 hover:text-blue-800 text-sm font-semibold transition-colors duration-200">
+                    Apa itu Perhitungan Frekuensi? <i class="fas fa-info-circle ml-1"></i>
+                </button>
+            </div>
 
             <form method="POST" action="{{ route('frek.store', $dataId )}}">
             @csrf
@@ -248,7 +332,7 @@
             </div>
 
             <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <i class="fas fa-save mr-2"></i> Hitung & Simpan Parameter Frekuensi
+                        <i class=""></i> Hitung & Simpan
                     </button>
             </form>
             <div class="flex justify-between mt-6">
@@ -264,23 +348,80 @@
             </div>
         </div>
 
+        {{-- New Popup for general Frequency explanation (NO FORMULAS HERE) --}}
+        <div id="popup_frequency_general" class="popup-window">
+            <div class="popup-content">
+                <div class="popup-header">
+                    <span class="close-popup-btn">&times;</span> <h3>Tentang Perhitungan Frekuensi</h3>
+                </div>
+                <div class="popup-body">
+                    <div class="frequency-explanation">
+                        <div class="section">
+                            <h4 class="section-title">Frekuensi</h4>
+                            <p class="section-content">
+                                <strong>Frekuensi</strong> adalah jumlah siklus gelombang per detik, diukur dalam Hertz (Hz). Dalam komunikasi satelit, frekuensi adalah parameter fundamental yang menentukan bagaimana sinyal merambat dan berinteraksi dengan lingkungan. Frekuensi yang berbeda digunakan untuk <strong>uplink</strong> (dari bumi ke satelit) dan <strong>downlink</strong> (dari satelit ke bumi) untuk menghindari interferensi.
+                            </p>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Panjang Gelombang (λ)</h4>
+                            <p class="section-content">
+                                <strong>Panjang gelombang</strong> adalah jarak fisik yang ditempuh oleh satu siklus lengkap gelombang. Ini berbanding terbalik dengan frekuensi; semakin tinggi frekuensi, semakin pendek panjang gelombang. Panjang gelombang sangat penting dalam desain antena, karena ukuran antena sering kali merupakan kelipatan dari panjang gelombang sinyal yang dirancang untuk dipancarkan atau diterima.
+                            </p>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Slant Range</h4>
+                            <p class="section-content">
+                                <strong>Slant range</strong> adalah jarak garis lurus dari stasiun bumi ke satelit. Jarak ini bervariasi tergantung pada ketinggian orbit satelit dan elevasi antena stasiun bumi. Semakin jauh jaraknya, semakin besar redaman sinyal yang akan terjadi. Nilai slant range biasanya dihitung di halaman Orbit.
+                            </p>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Path Loss (Kehilangan Jalur)</h4>
+                            <p class="section-content">
+                                <strong>Path loss</strong> adalah pengurangan kekuatan sinyal (daya) yang terjadi saat gelombang elektromagnetik merambat dari pemancar ke penerima. Ini adalah faktor kunci dalam perencanaan tautan komunikasi karena menunjukkan seberapa banyak daya sinyal yang akan hilang akibat penyebaran di ruang bebas, penyerapan atmosfer, dan efek lainnya.
+                            </p>
+                        </div>
+
+                        <div class="section">
+                            <h4 class="section-title">Uplink dan Downlink</h4>
+                            <p class="section-content">
+                                Dalam komunikasi satelit, parameter frekuensi, panjang gelombang, dan path loss dihitung terpisah untuk jalur <strong>Uplink</strong> (dari stasiun bumi ke satelit) dan <strong>Downlink</strong> (dari satelit ke bumi). Hal ini karena frekuensi yang digunakan dan kondisi propagasi dapat berbeda secara signifikan untuk setiap arah.
+                            </p>
+                        </div>
+                        
+                        <div class="section">
+                            <h4 class="section-title">Catatan Penggunaan</h4>
+                            <p class="section-content">
+                                Untuk melihat rumus dan penjelasan detail dari setiap perhitungan spesifik, silakan klik tombol "Lihat Detail" yang tersedia di samping setiap kolom hasil.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         {{-- Popup Panjang Gelombang Uplink --}}
         <div id="popup_lambda_up" class="popup-window">
             <div class="popup-content">
-                <span class="close-popup-btn">&times;</span>
-                <h3>Detail Perhitungan Panjang Gelombang</h3>
-                <div>
-                    <div class="formula">
-                        <strong>Rumus Perhitungan:</strong><br>
-                        λ = c / f<br>
-                        Dimana:<br>
-                        λ = Panjang gelombang (meter)<br>
-                        c = Kecepatan cahaya (~299.8 m/s)<br>
-                        f = Frekuensi (Hz)
+                <div class="popup-header">
+                    <span class="close-popup-btn">&times;</span>
+                    <h3>Detail Perhitungan Panjang Gelombang</h3>
+                </div>
+                <div class="popup-body">
+                    <div>
+                        <div class="formula">
+                            <strong>Rumus Perhitungan:</strong><br>
+                            $$\lambda = \frac{c}{f}$$
+                            Dimana:<br>
+                            $\lambda$ = Panjang gelombang (meter)<br>
+                            $c$ = Kecepatan cahaya (~299.8 m/s)<br>
+                            $f$ = Frekuensi (Hz)
+                        </div>
+                        <p><strong>Penjelasan:</strong><br>
+                        Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
                     </div>
-                    <p><strong>Penjelasan:</strong><br>
-                    Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
                 </div>
             </div>
         </div>
@@ -288,19 +429,23 @@
         {{-- Popup Path Loss Uplink --}}
         <div id="popup_pathloss_up" class="popup-window">
             <div class="popup-content">
-                <span class="close-popup-btn">&times;</span>
-                <h3>Detail Perhitungan Path Loss</h3>
-                <div>
-                    <div class="formula">
-                        <strong>Rumus Perhitungan:</strong><br>
-                        L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)<br>
-                        Dimana:<br>
-                        L = Path Loss (dB)<br>
-                        Slant Range = Jarak miring antara Tx dan Rx (meter)<br>
-                        Panjang Gelombang = λ (meter)
+                <div class="popup-header">
+                    <span class="close-popup-btn">&times;</span>
+                    <h3>Detail Perhitungan Path Loss</h3>
+                </div>
+                <div class="popup-body">
+                    <div>
+                        <div class="formula">
+                            <strong>Rumus Perhitungan:</strong><br>
+                            $$L = 22 + 20 \log_{10}\left(\frac{\text{Slant Range} \times 1000}{\text{Panjang Gelombang}}\right)$$
+                            Dimana:<br>
+                            $L$ = Path Loss (dB)<br>
+                            Slant Range = Jarak miring antara Tx dan Rx (kilometer, dikonversi ke meter)<br>
+                            Panjang Gelombang = $\lambda$ (meter)
+                        </div>
+                        <p><strong>Penjelasan:</strong><br>
+                        Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
                     </div>
-                    <p><strong>Penjelasan:</strong><br>
-                    Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
                 </div>
             </div>
         </div>
@@ -308,19 +453,23 @@
         {{-- Popup Panjang Gelombang Downlink --}}
         <div id="popup_lambda_down" class="popup-window">
             <div class="popup-content">
-                <span class="close-popup-btn">&times;</span>
-                <h3>Detail Perhitungan Panjang Gelombang</h3>
-                <div>
-                    <div class="formula">
-                        <strong>Rumus Perhitungan:</strong><br>
-                        λ = c / f<br>
-                        Dimana:<br>
-                        λ = Panjang gelombang (meter)<br>
-                        c = Kecepatan cahaya (~299.8 m/s)<br>
-                        f = Frekuensi (Hz)
+                <div class="popup-header">
+                    <span class="close-popup-btn">&times;</span>
+                    <h3>Detail Perhitungan Panjang Gelombang</h3>
+                </div>
+                <div class="popup-body">
+                    <div>
+                        <div class="formula">
+                            <strong>Rumus Perhitungan:</strong><br>
+                            $$\lambda = \frac{c}{f}$$
+                            Dimana:<br>
+                            $\lambda$ = Panjang gelombang (meter)<br>
+                            $c$ = Kecepatan cahaya (~299.8 m/s)<br>
+                            $f$ = Frekuensi (Hz)
+                        </div>
+                        <p><strong>Penjelasan:</strong><br>
+                        Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
                     </div>
-                    <p><strong>Penjelasan:</strong><br>
-                    Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
                 </div>
             </div>
         </div>
@@ -328,19 +477,23 @@
         {{-- Popup Path Loss Downlink --}}
         <div id="popup_pathloss_down" class="popup-window">
             <div class="popup-content">
-                <span class="close-popup-btn">&times;</span>
-                <h3>Detail Perhitungan Path Loss</h3>
-                <div>
-                    <div class="formula">
-                        <strong>Rumus Perhitungan:</strong><br>
-                        L = 22 + 20 log₁₀((Slant Range * 1000) / Panjang Gelombang)<br>
-                        Dimana:<br>
-                        L = Path Loss (dB)<br>
-                        Slant Range = Jarak miring antara Tx dan Rx (meter)<br>
-                        Panjang Gelombang = λ (meter)
+                <div class="popup-header">
+                    <span class="close-popup-btn">&times;</span>
+                    <h3>Detail Perhitungan Path Loss</h3>
+                </div>
+                <div class="popup-body">
+                    <div>
+                        <div class="formula">
+                            <strong>Rumus Perhitungan:</strong><br>
+                            $$L = 22 + 20 \log_{10}\left(\frac{\text{Slant Range} \times 1000}{\text{Panjang Gelombang}}\right)$$
+                            Dimana:<br>
+                            $L$ = Path Loss (dB)<br>
+                            Slant Range = Jarak miring antara Tx dan Rx (kilometer, dikonversi ke meter)<br>
+                            Panjang Gelombang = $\lambda$ (meter)
+                        </div>
+                        <p><strong>Penjelasan:</strong><br>
+                        Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
                     </div>
-                    <p><strong>Penjelasan:</strong><br>
-                    Path loss (kehilangan jalur) adalah pengurangan kerapatan daya gelombang elektromagnetik saat merambat melalui ruang. Ini adalah faktor kunci dalam desain tautan komunikasi satelit, menunjukkan seberapa banyak daya sinyal yang hilang sebelum mencapai penerima. Rumus yang digunakan adalah variasi dari rumus Free-Space Path Loss (FSPL) yang memperhitungkan jarak (Slant Range) dan panjang gelombang sinyal.</p>
                 </div>
             </div>
         </div>
@@ -413,8 +566,20 @@
         // --- Logika Popups ---
         // Fungsi umum untuk membuka pop-up
         function openPopup(popupId) {
+            // Tutup semua popup lain yang mungkin terbuka, untuk memastikan hanya satu popup yang terlihat
+            document.querySelectorAll('.popup-window').forEach(p => p.style.display = 'none'); 
+            
             document.getElementById(popupId).style.display = "flex";
+            // Penting: Setelah membuka, jika MathJax dimuat, render ulang rumus matematika
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise();
+            }
         }
+
+        // Event listener for the new "Apa itu Perhitungan Frekuensi?" button
+        document.getElementById('info_frequency_general_btn').onclick = () => {
+            openPopup('popup_frequency_general');
+        };
 
         // Event listener untuk tombol "Lihat Detail" Panjang Gelombang Uplink
         document.getElementById('popup_lambda_up_btn').onclick = () => {
@@ -443,4 +608,25 @@
             };
         });
     </script>
+
+    {{-- Script for MathJax --}}
+    <script>
+        // Konfigurasi MathJax (sesuaikan jika perlu)
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']], // Untuk rumus inline seperti $x^2$
+                displayMath: [['$$', '$$'], ['\\[', '\\]']], // Untuk rumus blok seperti $$E=mc^2$$
+                processEscapes: true, // Memungkinkan \$ untuk menampilkan tanda dolar literal
+                tags: "ams" // Untuk penomoran persamaan (opsional)
+            },
+            options: {
+                ignoreHtmlClass: "tex2jax_ignore", // Kelas yang diabaikan untuk pemrosesan matematika
+                processHtmlClass: "tex2jax_process" // Kelas yang secara spesifik diproses untuk matematika
+            },
+            loader: {
+                load: ['[tex]/ams'] // Memuat ekstensi AMS math
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </x-layout>

@@ -123,287 +123,287 @@
         <div class="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
             <div class="bg-white p-8 rounded-xl shadow-2xl w-full max-w-3xl border-t-8 border-blue-600 transform transition-all duration-300 hover:shadow-3xl">
                 <h1 class="text-3xl sm:text-4xl font-extrabold mb-4 text-center text-gray-800 animate__animated animate__fadeInDown">
-                    <i class="fas fa-satellite-dish mr-2 text-blue-600"></i> Kalkulator Azimuth
+                    <i class="text-blue-600"></i> Kalkulator Azimuth
                 </h1>
                 <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
                     Hitung Azimuth untuk arah antena satelit Anda.
                 </p>
-
-                {{-- Uplink Section --}}
-                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink</h2>
-                    <form method="POST" action="{{ route('calcazimuth.store') }}" id="uplinkForm">
-                        @csrf
-                        <input type="hidden" name="user_id" value="1">
-
+                
+                <form method="POST" action="{{ route('calcazimuth.store', ['id' => $dataId]) }}" id="uplinkForm">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
+                    {{-- Uplink Section --}}
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
+                        <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink</h2>
                         <div class="input-group">
                             <div class="relative">
                                 <label for="latitude_up" class="block font-medium text-gray-700 mb-2">Latitude:</label>
                                 <input type="number" id="latitude_up" name="latitude_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlat_up ?? '' }}" step="any" value="{{ $data->userlat_up ?? '' }}">
+                                </div>
+
+                                <div class="relative">
+                                    <label for="innhem_up" class="block font-medium text-gray-700 mb-2">In N. Hem?:</label>
+                                    <input type="number" id="innhem_up" name="innhem_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <button type="button" id="innhem_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
+
+                                <div class="relative">
+                                    <label for="innhem2_up" class="block font-medium text-gray-700 mb-2">NOT In N. Hem?:</label>
+                                    <input type="number" id="innhem2_up" name="innhem2_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <button type="button" id="innhem2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
+
+                                <div class="relative">
+                                    <label for="longitude_up" class="block font-medium text-gray-700 mb-2">Δ Longitude:</label>
+                                    <input type="number" id="longitude_up" name="longitude_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlong_up - $data->spaceslot_up ?? '' }}" step="any" value="{{ $data->userlong_up - $data->spaceslot_up ?? '' }}">
+                                </div>
+
+                                <div class="relative">
+                                    <label for="eastofsat_up" class="block font-medium text-gray-700 mb-2">East of Sat:</label>
+                                    <input type="nummber" id="eastofsat_up" name="eastofsat_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <button type="button" id="eastofsat_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
+
+                                <div class="relative">
+                                    <label for="eastofsat2_up" class="block font-medium text-gray-700 mb-2">NOT East of Sat:</label>
+                                    <input type="number" id="eastofsat2_up" name="eastofsat2_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <button type="button" id="eastofsat2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
                             </div>
 
-                            <div class="relative">
-                                <label for="innhem_up" class="block font-medium text-gray-700 mb-2">In N. Hem?:</label>
-                                <input type="text" id="innhem_up" name="innhem_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="innhem_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                            <div class="mt-8">
+                                <div class="overflow-x-auto">
+                                    <table class="w-full bg-yellow-50 rounded-lg shadow-inner">
+                                        <thead>
+                                            <tr>
+                                                <th class="p-3 text-left text-gray-700 font-medium bg-blue-200 rounded-tl-lg"></th>
+                                                <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Sat. in Quad?</th>
+                                                <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Quad. Result:</th>
+                                                <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200 rounded-tr-lg">Quad. Angle Range:</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr class="border-b border-gray-200">
+                                                <td class="p-3 font-medium text-gray-700">Quad NE</td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="sat_in_quad_up" name="sat_in_quad_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
+                                                    <button type="button" id="sat_in_quad_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_result_up" name="quad_result_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                    <button type="button" id="quad_result_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_angle_range_up" name="quad_angle_range_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="0° to 90°" readonly>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-b border-gray-200">
+                                                <td class="p-3 font-medium text-gray-700">Quad SE</td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="sat_in_quad_value_up" name="sat_in_quad_value_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="1" readonly>
+                                                    <button type="button" id="sat_in_quad_value_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_result_value_up" name="quad_result_value_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                    <button type="button" id="quad_result_value_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_angle_range_value_up" name="quad_angle_range_value_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="90° to 180°" readonly>
+                                                </td>
+                                            </tr>
+                                            <tr class="border-b border-gray-200">
+                                                <td class="p-3 font-medium text-gray-700">Quad SW</td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="sat_in_quad_value2_up" name="sat_in_quad_value2_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
+                                                    <button type="button" id="sat_in_quad_value2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_result_value2_up" name="quad_result_value2_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                    <button type="button" id="quad_result_value2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_angle_range_value2_up" name="quad_angle_range_value2_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="180° to 270°" readonly>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="p-3 font-medium text-gray-700">Quad NW</td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="sat_in_quad_value3_up" name="sat_in_quad_value3_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
+                                                    <button type="button" id="sat_in_quad_value3_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_result_value3_up" name="quad_result_value3_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                    <button type="button" id="quad_result_value3_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                </td>
+                                                <td class="p-3 text-center">
+                                                    <input type="number" id="quad_angle_range_value3_up" name="quad_angle_range_value3_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="270° to 360°" readonly>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
 
-                            <div class="relative">
-                                <label for="innhem2_up" class="block font-medium text-gray-700 mb-2">NOT In N. Hem?:</label>
-                                <input type="text" id="innhem2_up" name="innhem2_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="innhem2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
+                            <div class="input-group">
+                                <div class="relative mt-8">
+                                    <label for="azimuthcalc_up" class="block font-medium text-gray-700 mb-2">AzimuthCalc:</label>
+                                    <input type="number" id="azimuthcalc_up" name="azimuthcalc_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <button type="button" id="azimuthcalc_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
 
-                            <div class="relative">
-                                <label for="longitude_up" class="block font-medium text-gray-700 mb-2">Δ Longitude:</label>
-                                <input type="number" id="longitude_up" name="longitude_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlong_up - $data->spaceslot_up ?? '' }}" step="any" value="{{ $data->userlong_up - $data->spaceslot_up ?? '' }}">
-                            </div>
-
-                            <div class="relative">
-                                <label for="eastofsat_up" class="block font-medium text-gray-700 mb-2">East of Sat:</label>
-                                <input type="text" id="eastofsat_up" name="eastofsat_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="eastofsat_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-
-                            <div class="relative">
-                                <label for="eastofsat2_up" class="block font-medium text-gray-700 mb-2">NOT East of Sat:</label>
-                                <input type="text" id="eastofsat2_up" name="eastofsat2_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="eastofsat2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                <div class="relative">
+                                    <label for="azimuthresult_up" class="block font-medium text-gray-700 mb-2">Azimuth Result:</label>
+                                    <input type="number" id="azimuthresult_up" name="azimuthresult_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <button type="button" id="azimuthresult_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="mt-8">
-                            <div class="overflow-x-auto">
-                                <table class="w-full bg-yellow-50 rounded-lg shadow-inner">
-                                    <thead>
-                                        <tr>
-                                            <th class="p-3 text-left text-gray-700 font-medium bg-blue-200 rounded-tl-lg"></th>
-                                            <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Sat. in Quad?</th>
-                                            <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Quad. Result:</th>
-                                            <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200 rounded-tr-lg">Quad. Angle Range:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="border-b border-gray-200">
-                                            <td class="p-3 font-medium text-gray-700">Quad NE</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_up" name="sat_in_quad_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
-                                                <button type="button" id="sat_in_quad_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_up" name="quad_result_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_up" name="quad_angle_range_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="0° to 90°" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200">
-                                            <td class="p-3 font-medium text-gray-700">Quad SE</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_value_up" name="sat_in_quad_value_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="1" readonly>
-                                                <button type="button" id="sat_in_quad_value_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_value_up" name="quad_result_value_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_value_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_value_up" name="quad_angle_range_value_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="90° to 180°" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200">
-                                            <td class="p-3 font-medium text-gray-700">Quad SW</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_value2_up" name="sat_in_quad_value2_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
-                                                <button type="button" id="sat_in_quad_value2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_value2_up" name="quad_result_value2_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_value2_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_value2_up" name="quad_angle_range_value2_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="180° to 270°" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="p-3 font-medium text-gray-700">Quad NW</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_value3_up" name="sat_in_quad_value3_up" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
-                                                <button type="button" id="sat_in_quad_value3_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_value3_up" name="quad_result_value3_up" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_value3_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_value3_up" name="quad_angle_range_value3_up" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="270° to 360°" readonly>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
+                    {{-- Downlink Section --}}
+                    <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm">
+                        <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink</h2>
+
+                                <div class="input-group">
+                                    <div class="relative">
+                                        <label for="latitude_down" class="block font-medium text-gray-700 mb-2">Latitude:</label>
+                                        <input type="number" id="latitude_down" name="latitude_down" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlat_down ?? '' }}" step="any" value="{{ $data->userlat_down ?? '' }}">
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="innhem_down" class="block font-medium text-gray-700 mb-2">In N. Hem?:</label>
+                                        <input type="number" id="innhem_down" name="innhem_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                        <button type="button" id="innhem_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="innhem2_down" class="block font-medium text-gray-700 mb-2">NOT In N. Hem?:</label>
+                                        <input type="number" id="innhem2_down" name="innhem2_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                        <button type="button" id="innhem2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="longitude_down" class="block font-medium text-gray-700 mb-2">Δ Longitude:</label>
+                                        <input type="number" id="longitude_down" name="longitude_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlong_down - $data->spaceslot_down ?? '' }}" step="any" value="{{ $data->userlong_down - $data->spaceslot_down ?? '' }}">
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="eastofsat_down" class="block font-medium text-gray-700 mb-2">East of Sat:</label>
+                                        <input type="number" id="eastofsat_down" name="eastofsat_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                        <button type="button" id="eastofsat_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="eastofsat2_down" class="block font-medium text-gray-700 mb-2">NOT East of Sat:</label>
+                                        <input type="number" id="eastofsat2_down" name="eastofsat2_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                        <button type="button" id="eastofsat2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                    </div>
+                                </div>
+
+                                <div class="mt-8">
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full bg-yellow-50 rounded-lg shadow-inner">
+                                            <thead>
+                                                <tr>
+                                                    <th class="p-3 text-left text-gray-700 font-medium bg-blue-200 rounded-tl-lg"></th>
+                                                    <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Sat. in Quad?</th>
+                                                    <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Quad. Result:</th>
+                                                    <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200 rounded-tr-lg">Quad. Angle Range:</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr class="border-b border-gray-200">
+                                                    <td class="p-3 font-medium text-gray-700">Quad NE</td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="sat_in_quad_down" name="sat_in_quad_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
+                                                        <button type="button" id="sat_in_quad_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_result_down" name="quad_result_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                        <button type="button" id="quad_result_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_angle_range_down" name="quad_angle_range_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="0° to 90°" readonly>
+                                                    </td>
+                                                </tr>
+                                                <tr class="border-b border-gray-200">
+                                                    <td class="p-3 font-medium text-gray-700">Quad SE</td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="sat_in_quad_value_down" name="sat_in_quad_value_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="1" readonly>
+                                                        <button type="button" id="sat_in_quad_value_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_result_value_down" name="quad_result_value_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                        <button type="button" id="quad_result_value_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_angle_range_value_down" name="quad_angle_range_value_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="90° to 180°" readonly>
+                                                    </td>
+                                                </tr>
+                                                <tr class="border-b border-gray-200">
+                                                    <td class="p-3 font-medium text-gray-700">Quad SW</td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="sat_in_quad_value2_down" name="sat_in_quad_value2_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
+                                                        <button type="button" id="sat_in_quad_value2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_result_value2_down" name="quad_result_value2_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                        <button type="button" id="quad_result_value2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_angle_range_value2_down" name="quad_angle_range_value2_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="180° to 270°" readonly>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="p-3 font-medium text-gray-700">Quad NW</td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="sat_in_quad_value3_down" name="sat_in_quad_value3_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
+                                                        <button type="button" id="sat_in_quad_value3_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_result_value3_down" name="quad_result_value3_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
+                                                        <button type="button" id="quad_result_value3_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <input type="number" id="quad_angle_range_value3_down" name="quad_angle_range_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="270° to 360°" readonly>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="input-group">
+                                    <div class="relative mt-8">
+                                        <label for="azimuthcalc_down" class="block font-medium text-gray-700 mb-2">AzimuthCalc:</label>
+                                        <input type="number" id="azimuthcalc_down" name="azimuthcalc_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                        <button type="button" id="azimuthcalc_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                    </div>
+
+                                    <div class="relative">
+                                        <label for="azimuthresult_down" class="block font-medium text-gray-700 mb-2">Azimuth Result:</label>
+                                        <input type="number" id="azimuthresult_down" name="azimuthresult_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                        <button type="button" id="azimuthresult_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                    </div>
+                                </div>
+                            
                         </div>
 
-                        <div class="input-group">
-                            <div class="relative mt-8">
-                                <label for="azimuthcalc_up" class="block font-medium text-gray-700 mb-2">AzimuthCalc:</label>
-                                <input type="text" id="azimuthcalc_up" name="azimuthcalc_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="azimuthcalc_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-
-                            <div class="relative">
-                                <label for="azimuthresult_up" class="block font-medium text-gray-700 mb-2">Azimuth Result:</label>
-                                <input type="text" id="azimuthresult_up" name="azimuthresult_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="azimuthresult_up_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-                        </div>
+                        <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                                <i class=""></i> Hitung & Simpan
+                        </button>
                     </form>
-                </div>
-
-                {{-- Downlink Section --}}
-                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink</h2>
-                    <form method="GET" action="">
-
-                        <div class="input-group">
-                            <div class="relative">
-                                <label for="latitude_down" class="block font-medium text-gray-700 mb-2">Latitude:</label>
-                                <input type="number" id="latitude_down" name="latitude_down" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlat_down ?? '' }}" step="any" value="{{ $data->userlat_down ?? '' }}">
-                            </div>
-
-                            <div class="relative">
-                                <label for="innhem_down" class="block font-medium text-gray-700 mb-2">In N. Hem?:</label>
-                                <input type="text" id="innhem_down" name="innhem_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="innhem_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-
-                            <div class="relative">
-                                <label for="innhem2_down" class="block font-medium text-gray-700 mb-2">NOT In N. Hem?:</label>
-                                <input type="text" id="innhem2_down" name="innhem2_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="innhem2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-
-                            <div class="relative">
-                                <label for="longitude_down" class="block font-medium text-gray-700 mb-2">Δ Longitude:</label>
-                                <input type="number" id="longitude_down" name="longitude_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->userlong_down - $data->spaceslot_down ?? '' }}" step="any" value="{{ $data->userlong_down - $data->spaceslot_down ?? '' }}">
-                            </div>
-
-                            <div class="relative">
-                                <label for="eastofsat_down" class="block font-medium text-gray-700 mb-2">East of Sat:</label>
-                                <input type="text" id="eastofsat_down" name="eastofsat_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="eastofsat_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-
-                            <div class="relative">
-                                <label for="eastofsat2_down" class="block font-medium text-gray-700 mb-2">NOT East of Sat:</label>
-                                <input type="text" id="eastofsat2_down" name="eastofsat2_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="eastofsat2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="mt-8">
-                            <div class="overflow-x-auto">
-                                <table class="w-full bg-yellow-50 rounded-lg shadow-inner">
-                                    <thead>
-                                        <tr>
-                                            <th class="p-3 text-left text-gray-700 font-medium bg-blue-200 rounded-tl-lg"></th>
-                                            <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Sat. in Quad?</th>
-                                            <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200">Quad. Result:</th>
-                                            <th class="p-3 text-center text-gray-700 font-medium underline bg-blue-200 rounded-tr-lg">Quad. Angle Range:</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr class="border-b border-gray-200">
-                                            <td class="p-3 font-medium text-gray-700">Quad NE</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_down" name="sat_in_quad_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
-                                                <button type="button" id="sat_in_quad_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_down" name="quad_result_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_down" name="quad_angle_range_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="0° to 90°" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200">
-                                            <td class="p-3 font-medium text-gray-700">Quad SE</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_value_down" name="sat_in_quad_value_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="1" readonly>
-                                                <button type="button" id="sat_in_quad_value_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_value_down" name="quad_result_value_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_value_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_value_down" name="quad_angle_range_value_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="90° to 180°" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr class="border-b border-gray-200">
-                                            <td class="p-3 font-medium text-gray-700">Quad SW</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_value2_down" name="sat_in_quad_value2_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
-                                                <button type="button" id="sat_in_quad_value2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_value2_down" name="quad_result_value2_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_value2_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_value2_down" name="quad_angle_range_value2_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="180° to 270°" readonly>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="p-3 font-medium text-gray-700">Quad NW</td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="sat_in_quad_value3_down" name="sat_in_quad_value3_down" class="w-20 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0" readonly>
-                                                <button type="button" id="sat_in_quad_value3_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_result_value3_down" name="quad_result_value3_down" class="w-28 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" placeholder="0.000 °" readonly>
-                                                <button type="button" id="quad_result_value3_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                                            </td>
-                                            <td class="p-3 text-center">
-                                                <input type="text" id="quad_angle_range_value3_down" name="quad_angle_range_down" class="w-32 p-2 text-center border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed mx-auto block" value="270° to 360°" readonly>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="input-group">
-                            <div class="relative mt-8">
-                                <label for="azimuthcalc_down" class="block font-medium text-gray-700 mb-2">AzimuthCalc:</label>
-                                <input type="text" id="azimuthcalc_down" name="azimuthcalc_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="azimuthcalc_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-
-                            <div class="relative">
-                                <label for="azimuthresult_down" class="block font-medium text-gray-700 mb-2">Azimuth Result:</label>
-                                <input type="text" id="azimuthresult_down" name="azimuthresult_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
-                                <button type="button" id="azimuthresult_down_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-
-                <button type="submit" form="uplinkForm" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-6">
-                    <i class="fas fa-save mr-2"></i> Hitung & Simpan
-                </button>
-                <div class="flex justify-between mt-6">
-                    <a href="/frek/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                
+            <div class="flex justify-between mt-6">
+                <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                     <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                 </a>
 
-                    {{-- Uncomment this if you have a next page
-                    <a href="/next-page-url" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
-                        Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
-                    </a>
-                    --}}
+                {{-- Uncomment this if you have a next page
+                <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
+                    Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                --}}
+
                 </div>
             </div>
         </div>

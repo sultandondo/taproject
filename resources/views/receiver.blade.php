@@ -353,7 +353,7 @@
                                 <input type="text" name="cabletype_uprec" id="cabletype_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Tipe Kabel/Waveguide">
                             </div>
                             <div class="relative">
-                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss per meter:</label>
+                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss/meter:</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="any" name="typecable" id="typecable" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                     <span class="unit-text">dB/m</span>
@@ -438,7 +438,7 @@
                         </div>
 
                         <div class="relative mb-4">
-                            <label for="totconnect_uprec" class="block font-medium text-gray-700 mb-1">Total Penurunan Daya (Connector):</label>
+                            <label for="totconnect_uprec" class="block font-medium text-gray-700 mb-1">Total of Power Loss (Connector):</label>
                             <div class="input-with-unit-wrapper">
                                 <input type="text" id="totconnect_uprec" name="totconnect_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"readonly>
                                 <span class="unit-text">dB</span>
@@ -538,7 +538,7 @@
                                 <input type="text" name="cabletype_downrec" id="cabletype_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Tipe Kabel/Waveguide">
                             </div>
                             <div class="relative">
-                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss per meter:</label>
+                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss/meter:</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="any" name="typecable_downrec" id="typecable_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                     <span class="unit-text">dB/m</span>
@@ -619,7 +619,7 @@
                         </div>
 
                         <div class="relative mb-4">
-                            <label for="totconnect_downrec" class="block font-medium text-gray-700 mb-1">Total Penurunan Daya (Connector):</label>
+                            <label for="totconnect_downrec" class="block font-medium text-gray-700 mb-1">Total of Power Loss (Connector):</label>
                             <div class="input-with-unit-wrapper">
                                 <input type="text" id="totconnect_downrec" name="totconnect_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"readonly>
                                 <span class="unit-text">dB</span>
@@ -700,10 +700,10 @@
                         </div>
 
                         <div class="relative mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide D Loss per meter:</label>
+                            <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide D Loss/meter:</label>
                             <div class="input-with-unit-wrapper">
                                 <input type="number" step="any" name="dloss_per_meter_downrec" id="dloss_per_meter_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai" oninput="calculateDLossDownlink()">
-                                <span class="unit-text">°K/m</span>
+                                <span class="unit-text">dB/m</span>
                             </div>
                         </div>
 
@@ -830,7 +830,7 @@
         <div class="popup-content">
             <div class="popup-header">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Detail Total Penurunan Daya (Connector)</h3>
+                <h3>Detail Total of Power Loss (Connector)</h3>
             </div>
             <div class="popup-body">
                 <div class="formula-definition-box">
@@ -1036,7 +1036,7 @@
         <div class="popup-content">
             <div class="popup-header">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Detail Total Penurunan Daya (Connector)</h3>
+                <h3>Detail Total of Power Loss (Connector)</h3>
             </div>
             <div class="popup-body">
                 <div class="formula-definition-box">
@@ -1224,7 +1224,7 @@
                                 <li><strong>Bandpass Filter Insertion Loss (LBPF):</strong> Kehilangan daya akibat penggunaan filter bandpass yang selektif.</li>
                                 <li><strong>Insertion Loss of Other In-Line Devices (Lother):</strong> Kehilangan daya yang disebabkan oleh perangkat lain yang terhubung di jalur sinyal (misalnya, isolator, coupler).</li>
                                 <li><strong>Number of In-Line Connectors:</strong> Jumlah konektor yang terpasang di jalur transmisi.</li>
-                                <li><strong>Total Penurunan Daya (Connector):</strong> Total kehilangan daya yang disebabkan oleh semua konektor.</li>
+                                <li><strong>Total of Power Loss (Connector):</strong> Total kehilangan daya yang disebabkan oleh semua konektor.</li>
                             </ul>
                         </p>
                     </div>

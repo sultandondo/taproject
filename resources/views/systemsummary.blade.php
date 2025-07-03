@@ -326,9 +326,17 @@
                                     <div class="relative">
                                         <label for="uplink_frequency">Frequency:</label>
                                         <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.01" name="uplink_frequency" value="{{ number_format($data->frekuensi ?? 0, 2, '.', '') }}" class="sn-value-input" readonly>
-                                            </div>
+                                        <div class="sn-value-box">
+                                            <input 
+                                                type="number" 
+                                                name="uplink_frequency" 
+                                                class="sn-value-input" 
+                                                placeholder="{{ $data->frekuensi ?? '' }}" 
+                                                step="any" 
+                                                value="{{ $data->frekuensi ?? '' }}" 
+                                                readonly
+                                            >
+                                        </div>
                                             <span class="outside-unit-text">MHz</span>
                                         </div>
                                         <button type="button" id="freq_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -337,13 +345,22 @@
                                 </div>
                                 <div class="sn-link-margin-container"> {{-- Main container for S/N and Link Margin side-by-side --}}
                                     <div class="sn-link-margin-item">
-                                        <label for="uplink_sn_value">S/N Method:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_sn_value" id="uplink_sn_value" class="sn-value-input" value="{{ number_format($data->snrratio_up ?? 0, 1, '.', '') }}" readonly>
-                                            </div>
-                                            <span class="outside-unit-text">dB</span>
+                                       <label for="uplink_sn_value">S/N Method:</label>
+                                    <div class="green-input-with-unit">
+                                        <div class="sn-value-box">
+                                            <input 
+                                                type="number" 
+                                                name="uplink_sn_value" 
+                                                id="snrratio_up" 
+                                                class="sn-value-input" 
+                                                placeholder="{{ $data->snrratio_up ?? '' }}" 
+                                                step="any" 
+                                                value="{{ $data->snrratio_up ?? '' }}" 
+                                                readonly
+                                            >
                                         </div>
+                                        <span class="outside-unit-text">dB</span>
+                                    </div>
                                         <div class="detail-status-row">
                                             <button type="button" id="sn_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                         </div>
@@ -352,7 +369,15 @@
                                         <label for="uplink_sn_link_margin">Link Margin:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_sn_link_margin" id="uplink_sn_link_margin" class="sn-value-input" value="{{ number_format($data->linkmargin_up ?? 0, 1, '.', '') }}" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_sn_link_margin"
+                                                    id="linkmargin_up"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->linkmargin_up ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->linkmargin_up ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -366,43 +391,76 @@
                                     <div class="relative">
                                         <label for="uplink_brbpf">BRbpf (Used Only in S/N Calc.):</label>
                                         <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="1" name="uplink_brbpf" value="{{ number_format($data->scbandwidth_up ?? 0, 0, '.', '') }}" class="sn-value-input" readonly>
-                                            </div>
-                                            <span class="outside-unit-text">Hz</span>
+                                        <div class="sn-value-box">
+                                            <input
+                                                type="number"
+                                                name="uplink_brbpf"
+                                                id="scbandwidth_up"
+                                                class="sn-value-input"
+                                                placeholder="{{ $data->scbandwidth_up ?? '' }}"
+                                                step="any"
+                                                value="{{ $data->scbandwidth_up ?? '' }}"
+                                                readonly>
                                         </div>
+                                        <span class="outside-unit-text">Hz</span>
+                                    </div>
                                         <button type="button" id="brbpf_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_g_t">G/T:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_g_t" value="{{ number_format($data->scgtratio_up ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
-                                            </div>
-                                            <span class="outside-unit-text">dB/K</span>
+                                    <div class="green-input-with-unit">
+                                        <div class="sn-value-box">
+                                            <input
+                                                type="number"
+                                                name="uplink_g_t"
+                                                id="scgtratio_up"
+                                                class="sn-value-input"
+                                                placeholder="{{ $data->scgtratio_up ?? '' }}"
+                                                step="any"
+                                                value="{{ $data->scgtratio_up ?? '' }}"
+                                                readonly>
                                         </div>
+                                        <span class="outside-unit-text">dB/K</span>
+                                    </div>
                                         <button type="button" id="gt_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_tsys">Tsys:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_tsys" value="{{ number_format($data->scnoisetemp_up ?? 0, 0, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_tsys"
+                                                        id="ts_uprec"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->ts_uprec ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->ts_uprec ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">K</span>
                                             </div>
-                                            <span class="outside-unit-text">K</span>
-                                        </div>
                                         <button type="button" id="tsys_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_t2nd_amp">T2nd Amp:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="1" name="uplink_t2nd_amp" value="{{ number_format($data->two_nd_stage_temp_uprec ?? 0, 0, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_t2nd_amp"
+                                                    id="2ndstagetemp_uprec"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->two_nd_stage_temp_uprec ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->two_nd_stage_temp_uprec ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">K</span>
                                         </div>
+
                                         <button type="button" id="t2nd_amp_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
@@ -411,20 +469,36 @@
                                         <label for="uplink_glna">GLNA:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_glna" value="{{ number_format($data->lnagain_uprec ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_glna"
+                                                    id="lnagain_uprec"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->lnagain_uprec ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->lnagain_uprec ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
                                         <button type="button" id="glna_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
-                                        <label for="uplink_tlna">TLNA:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="1" name="uplink_tlna" value="{{ number_format($data->tlna_uprec ?? 0, 0, '.', '') }}" class="sn-value-input" readonly>
+                                       <label for="uplink_tlna">TLNA:</label>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_tlna"
+                                                        id="tlna_uprec"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->tlna_uprec ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->tlna_uprec ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">K</span>
                                             </div>
-                                            <span class="outside-unit-text">K</span>
-                                        </div>
                                         <button type="button" id="tlna_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
@@ -433,7 +507,15 @@
                                         <label for="uplink_ltotal_line">Ltotal line:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_ltotal_line" value="{{ number_format($data->antenna_to_lna_uprec ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_ltotal_line"
+                                                    id="antenna_to_lna_uprec"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->antenna_to_lna_uprec ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->antenna_to_lna_uprec ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -441,31 +523,55 @@
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_la">Line A (LA):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_la" value="{{ number_format($data->la_uprec ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_la"
+                                                        id="la_uprec"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->la_uprec ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->la_uprec ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="la_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_lrbpf">LRbpf:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_lrbpf" value="{{ number_format($data->lbpf_uprec ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_lrbpf"
+                                                        id="lbpf_uprec"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->lbpf_uprec ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->lbpf_uprec ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="lrbpf_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_lb">Line B (LB):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_lb" value="{{ number_format($data->lb_uprec ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_lb"
+                                                    id="lb_uprec"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->lb_uprec ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->lb_uprec ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -477,7 +583,15 @@
                                         <label for="uplink_ltother">LTother:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_ltother" value="{{ number_format($data->lother_uprec ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_ltother"
+                                                    id="ltother_uprec"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->lother_uprec ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->lother_uprec ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -485,94 +599,162 @@
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_lc">Line C (LC):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_lc" value="{{ number_format($data->lc_uprec ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_lc"
+                                                        id="lc_uprec"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->lc_uprec ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->lc_uprec ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="lc_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                                {{-- REMOVED: Other In-Line Device Type field (Uplink) --}}
 
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_receive_antenna_gr">Receive Antenna GR:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_receive_antenna_gr" value="{{ number_format($data->scantennagain_up ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_receive_antenna_gr"
+                                                        id="scantennagain_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->scantennagain_up ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->scantennagain_up ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="rx_ant_gr_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_receive_antenna_polarization">Receive Antenna Polarization:</label>
-                                        <div class="sn-value-box"> {{-- Added sn-value-box --}}
-                                            <input type="text" name="uplink_receive_antenna_polarization" value="{{ $data->jenis_polarizationgrounds_up ?? '' }}" class="sn-value-input" readonly>
-                                        </div>
+                                            <div class="sn-value-box">
+                                                <input
+                                                    type="text"
+                                                    name="uplink_receive_antenna_polarization"
+                                                    id="jenis_polarizationgrounds_up"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->jenis_polarizationgrounds_up ?? '' }}"
+                                                    value="{{ $data->jenis_polarizationgrounds_up ?? '' }}"
+                                                    readonly>
+                                            </div>
                                         <button type="button" id="rx_ant_polar_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_lp">Lp:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_lp" value="{{ number_format($data->pathlosss_up ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_lp"
+                                                        id="pathlosss_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->pathlosss_up ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->pathlosss_up ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="lp_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_total_link_losses">Total Link Losses:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_total_link_losses"
-                                                     value="{{ number_format( ($data->gspointingloss_up ?? 0) + ($data->polarizationlosses_up ?? 0) + ($data->pathlosss_up ?? 0) + ($data->atmosphericlosses_up ?? 0) + ($data->ionosphericlosses_up ?? 0) + ($data->rainlosses_up ?? 0) + ($data->scpointingloss_up ?? 0), 3, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_total_link_losses"
+                                                        id="total_link_losses_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ ($data->gspointingloss_up ?? 0) + ($data->polarizationlosses_up ?? 0) + ($data->pathlosss_up ?? 0) + ($data->atmosphericlosses_up ?? 0) + ($data->ionosphericlosses_up ?? 0) + ($data->rainlosses_up ?? 0) + ($data->scpointingloss_up ?? 0) }}"
+                                                        step="any"
+                                                        value="{{ ($data->gspointingloss_up ?? 0) + ($data->polarizationlosses_up ?? 0) + ($data->pathlosss_up ?? 0) + ($data->atmosphericlosses_up ?? 0) + ($data->ionosphericlosses_up ?? 0) + ($data->rainlosses_up ?? 0) + ($data->scpointingloss_up ?? 0) }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="total_link_losses_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_eirpgs">EIRPgs:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_eirpgs" value="{{ number_format($data->eirp_up ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_eirpgs"
+                                                        id="eirp_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->eirp_up ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->eirp_up ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="eirpgs_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_gt_tx_antenna">GT (Transmit Antenna):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_gt_tx_antenna" value="{{ number_format($data->antennaagain_up ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_gt_tx_antenna"
+                                                        id="antennaagain_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->antennaagain_up ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->antennaagain_up ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="gt_tx_antenna_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_tx_antenna_polarization">Transmit Antenna Polarization:</label>
-                                        <div class="sn-value-box"> {{-- Added sn-value-box --}}
-                                            <input type="text" name="uplink_tx_antenna_polarization" value="{{ $data->jenis_polarizationgrounds_up ?? '' }}" class="sn-value-input" readonly>
-                                        </div>
+                                            <div class="sn-value-box">
+                                                <input
+                                                    type="text"
+                                                    name="uplink_tx_antenna_polarization"
+                                                    id="jenis_polarizationgrounds_up"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->jenis_polarizationgrounds_up ?? '' }}"
+                                                    value="{{ $data->jenis_polarizationgrounds_up ?? '' }}"
+                                                    readonly>
+                                            </div>
                                         <button type="button" id="tx_ant_polar_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_tx_ltotal_line">Transmit Antenna Ltotal line:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_tx_ltotal_line" value="{{ number_format($data->totlinelosses_up ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_tx_ltotal_line"
+                                                    id="totlinelosses_up"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->totlinelosses_up ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->totlinelosses_up ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -582,35 +764,58 @@
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_tx_lc">Line C (TX):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.01" name="uplink_tx_lc" value="{{ number_format(($data->guideloss_up ?? 0) * ($data->clength_up ?? 0), 2, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_tx_lc"
+                                                        id="calculated_lc_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ ($data->guideloss_up ?? 0) * ($data->clength_up ?? 0) }}"
+                                                        step="any"
+                                                        value="{{ ($data->guideloss_up ?? 0) * ($data->clength_up ?? 0) }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="tx_lc_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_tx_ltother">LTother (TX):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_tx_ltother" value="{{ number_format($data->devicee_up ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="uplink_tx_ltother"
+                                                    id="devicee_up"
+                                                    class="sn-value-input"
+                                                    placeholder="{{ number_format($data->devicee_up ?? '' ) }}"
+                                                    step= "any"
+                                                    value="{{ $data->devicee_up ?? '' }}"
+                                                    readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
                                         <button type="button" id="tx_ltother_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                                {{-- New: Other In-Line Losses --}}
+                        
                                 <div class="form-row">
                                     <div class="relative">
-                                        <label for="uplink_other_losses">Other In-Line Losses (dB):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_other_losses" id="uplink_other_losses" value="{{ number_format(($data->atn_up ?? 0) + ($data->filter_up ?? 0) + (($data->connect_up ?? 0) * 0.05), 1, '.', '') }}" class="sn-value-input" readonly>
+                                        <label for="uplink_device_name">Device Name:</label>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_device_name"
+                                                        id="device_up_name"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ ($data->device_up_name ?? '') }}"
+                                                        step="any"
+                                                        value="{{ ($data->device_up_name ?? '') }}"
+                                                        readonly>
+                                                </div>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="other_losses_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div></div> {{-- Empty div for alignment --}}
@@ -618,51 +823,86 @@
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_tx_lb">Line B (TX):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="uplink_tx_lb" value="{{ number_format(($data->guideloss_up ?? 0) * ($data->blength_up ?? 0), 3, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_tx_lb"
+                                                        id="calculated_lb_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ ($data->guideloss_up ?? 0) * ($data->blength_up ?? 0) }}"
+                                                        step="any"
+                                                        value="{{ ($data->guideloss_up ?? 0) * ($data->blength_up ?? 0) }}"
+                                                        readonly
+                                                    >
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="tx_lb_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_ltbpf">LTbpf:</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_ltbpf" value="{{ number_format($data->filter_up ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_ltbpf"
+                                                        id="filter_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->filter_up ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->filter_up ?? '' }}"
+                                                        readonly>
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="ltbpf_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_tx_la">Line A (TX):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.01" name="uplink_tx_la" value="{{ number_format(($data->guideloss_up ?? 0) * ($data->alength_up ?? 0), 2, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_tx_la"
+                                                        id="calculated_la_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ ($data->guideloss_up ?? 0) * ($data->alength_up ?? 0) }}"
+                                                        step="any"
+                                                        value="{{ ($data->guideloss_up ?? 0) * ($data->alength_up ?? 0) }}"
+                                                        readonly
+                                                    >
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="tx_la_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_ptx">PTx (Transmit Power):</label>
-                                        <div class="green-input-with-unit">
-                                            <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="uplink_ptx" value="{{ number_format($data->watt_up ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                            <div class="green-input-with-unit">
+                                                <div class="sn-value-box">
+                                                    <input
+                                                        type="number"
+                                                        name="uplink_ptx"
+                                                        id="ptx_up"
+                                                        class="sn-value-input"
+                                                        placeholder="{{ $data->watt_up ?? '' }}"
+                                                        step="any"
+                                                        value="{{ $data->watt_up ?? '' }}"
+                                                        readonly
+                                                    >
+                                                </div>
+                                                <span class="outside-unit-text">dB</span>
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
-                                        </div>
                                         <button type="button" id="ptx_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="section-heading">
+                       <div class="section-heading">
                             DOWNLINK SYSTEM
                         </div>
                         <div class="content-block">
@@ -670,14 +910,21 @@
                                 <img src="{{ asset('img/downlinksummary.png') }}" alt="Blok Diagram Downlink">
                             </div>
                             <div class="form-container">
-                                {{-- START REORDERED DOWNLINK FIELDS --}}
-
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="downlink_frequency">Frequency:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.01" name="downlink_frequency" id="frekuensi_downlink" value="{{ number_format($data->frekuensi_downlink ?? 0, 2, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_frequency"
+                                                    id="frekuensi_downlink" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->frekuensi_downlink ?? '' }}"
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->frekuensi_downlink ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">MHz</span>
                                         </div>
@@ -688,20 +935,36 @@
 
                                 <div class="form-row">
                                     <div class="relative">
-                                        <label for="downlink_htx">ηTx (hTx) (%):</label>
-                                        <div class="input-with-unit-wrapper">
-                                            <input type="number" step="0.1" name="downlink_htx" value="{{ number_format($data->effi_down ?? 0, 1, '.', '') }}" readonly>
-                                            <span class="unit-text">%</span>
-                                        </div>
+                                       <label for="downlink_htx">ηTx (%):</label>
+                                            <div class="input-with-unit-wrapper">
+                                                <input
+                                                    type="number"
+                                                    name="downlink_htx"
+                                                    id="effi_down"
+                                                    class="w-full p-3 border border-gray-300 rounded-lg bg-white shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                                    placeholder="{{ $data->effi_down ?? '' }}"
+                                                    step="any"
+                                                    value="{{ $data->effi_down ?? '' }}">
+                                                <span class="unit-text">%</span>
+                                            </div>
                                         <button type="button" id="htx_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="downlink_tx_dc_pwr">Tx DC Pwr:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_tx_dc_pwr" id="downlink_tx_dc_pwr" class="sn-value-input" value="{{ number_format(($data->watt_down + $data->filter_down) ?? 0, 1, '.', '') }}" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_tx_dc_pwr"
+                                                    id="tx_dc_pwr_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
+                                            <span class="outside-unit-text">watts</span>
                                         </div>
                                         <button type="button" id="tx_dc_pwr_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
@@ -712,9 +975,18 @@
                                         <label for="downlink_tx_dissipation">Tx Dissipation:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_tx_dissipation" id="downlink_tx_dissipation" class="sn-value-input" value="{{ number_format(($data->watt_down + $data->filter_down) - $data->watt_down ?? 0, 1, '.', '') }}" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_tx_dissipation"
+                                                    id="tx_dissipation_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) - ($data->watt_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) - ($data->watt_down ?? 0) }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
-                                            <span class="outside-unit-text">dB</span>
+                                            <span class="outside-unit-text">watts</span>
                                         </div>
                                         <button type="button" id="tx_dissipation_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
@@ -722,7 +994,16 @@
                                         <label for="downlink_ptx">PTx:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_ptx" value="{{ number_format($data->watt_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_ptx"
+                                                    id="watt_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->watt_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->watt_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -735,7 +1016,16 @@
                                         <label for="downlink_la">Line A (LA):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.0001" name="downlink_la" value="{{ number_format($data->la_downrec ?? 0, 4, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_la"
+                                                    id="la_downrec" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->la_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->la_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -745,20 +1035,38 @@
                                         <label for="downlink_ltxbpf">LTXbpf:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_ltxbpf" value="{{ number_format($data->filter_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_ltxbpf"
+                                                    id="filter_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->filter_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->filter_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
                                         <button type="button" id="ltxbpf_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="downlink_lb">Line B (LB):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.0001" name="downlink_lb" value="{{ number_format($data->lb_downrec ?? 0, 4, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_lb"
+                                                    id="lb_downrec" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->lb_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->lb_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -768,20 +1076,37 @@
                                         <label for="downlink_ltother">LTother:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_ltother" value="{{ number_format($data->devicee_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_ltother"
+                                                    id="devicee_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->devicee_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->devicee_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
                                         <button type="button" id="ltother_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                                
+
                                 {{-- New: Device Name and Device Loss --}}
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="downlink_device_name">Device Name:</label>
                                         <div class="sn-value-box"> {{-- Added sn-value-box --}}
-                                            <input type="text" name="downlink_device_name" id="downlink_device_name" value="{{ $data->device_down_name ?? '' }}" class="sn-value-input" readonly>
+                                            <input
+                                                type="text"
+                                                name="downlink_device_name"
+                                                id="device_down_name" {{-- ID added --}}
+                                                class="sn-value-input"
+                                                placeholder="{{ $data->device_down_name ?? '' }}" {{-- Placeholder added --}}
+                                                value="{{ $data->device_down_name ?? '' }}"
+                                                readonly
+                                            >
                                         </div>
                                         <button type="button" id="device_name_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
@@ -789,20 +1114,38 @@
                                         <label for="downlink_device_loss">Device Loss (dB):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_device_loss" id="downlink_device_loss" value="{{ number_format($data->devicee_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_device_loss"
+                                                    id="device_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->devicee_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->devicee_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
                                         <button type="button" id="device_loss_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="downlink_lc">Line C (LC):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_lc" value="{{ number_format($data->lc_downrec ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_lc"
+                                                    id="lc_downrec" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->lc_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->lc_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -812,7 +1155,16 @@
                                         <label for="downlink_ltotal_line">Ltotal line:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_ltotal_line" value="{{ number_format($data->antenna_to_lna_downrec ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_ltotal_line"
+                                                    id="antenna_to_lna_downrec" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->antenna_to_lna_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->antenna_to_lna_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -825,7 +1177,16 @@
                                         <label for="downlink_tx_antenna_gt">GT (Transmit Antenna):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_tx_antenna_gt" value="{{ number_format($data->scantennagain_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_tx_antenna_gt"
+                                                    id="scantennagain_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->scantennagain_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->scantennagain_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -834,18 +1195,35 @@
                                     <div class="relative">
                                         <label for="downlink_tx_antenna_polarization">Transmit Antenna Polarization:</label>
                                         <div class="sn-value-box"> {{-- Added sn-value-box --}}
-                                            <input type="text" name="downlink_tx_antenna_polarization" value="{{ $data->jenis_polarizationspacecraft_down ?? '' }}" class="sn-value-input" readonly>
+                                            <input
+                                                type="text"
+                                                name="downlink_tx_antenna_polarization"
+                                                id="jenis_polarizationspacecraft_down" {{-- ID added --}}
+                                                class="sn-value-input"
+                                                placeholder="{{ $data->jenis_polarizationspacecraft_down ?? '' }}" {{-- Placeholder added --}}
+                                                value="{{ $data->jenis_polarizationspacecraft_down ?? '' }}"
+                                                readonly
+                                            >
                                         </div>
                                         <button type="button" id="tx_ant_polar_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="downlink_eirpsc">EIRPS/C:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_eirpsc" value="{{ number_format($data->sceirp_down ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_eirpsc"
+                                                    id="sceirp_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->sceirp_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->sceirp_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -855,8 +1233,16 @@
                                         <label for="downlink_total_link_losses">Total Link Losses:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_total_link_losses"
-                                                     value="{{ number_format( ($data->gspointingloss_down ?? 0) + ($data->polarizationlosses_down ?? 0) + ($data->pathlosss_down ?? 0) + ($data->atmosphericlosses_down ?? 0) + ($data->ionosphericlosses_down ?? 0) + ($data->rainlosses_down ?? 0) + ($data->scpointingloss_down ?? 0), 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_total_link_losses"
+                                                    id="total_link_losses_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ ($data->gspointingloss_down ?? 0) + ($data->polarizationlosses_down ?? 0) + ($data->pathlosss_down ?? 0) + ($data->atmosphericlosses_down ?? 0) + ($data->ionosphericlosses_down ?? 0) + ($data->rainlosses_down ?? 0) + ($data->scpointingloss_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ ($data->gspointingloss_down ?? 0) + ($data->polarizationlosses_down ?? 0) + ($data->pathlosss_down ?? 0) + ($data->atmosphericlosses_down ?? 0) + ($data->ionosphericlosses_down ?? 0) + ($data->rainlosses_down ?? 0) + ($data->scpointingloss_down ?? 0) }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -869,7 +1255,16 @@
                                         <label for="downlink_lp">LP:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_lp" value="{{ number_format($data->pathlosss_down ?? 0, 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_lp"
+                                                    id="pathlosss_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->pathlosss_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->pathlosss_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -879,7 +1274,16 @@
                                         <label for="downlink_gr">GR:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_gr" value="{{ number_format($data->scantennaagain_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_gr"
+                                                    id="scantennaagain_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->scantennaagain_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->scantennaagain_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -891,7 +1295,15 @@
                                     <div class="relative">
                                         <label for="downlink_rx_antenna_polarization">Receive Antenna Polarization:</label>
                                         <div class="sn-value-box"> {{-- Added sn-value-box --}}
-                                            <input type="text" name="downlink_rx_antenna_polarization" value="{{ $data->jenis_polarizationgrounds_down ?? '' }}" class="sn-value-input" readonly>
+                                            <input
+                                                type="text"
+                                                name="downlink_rx_antenna_polarization"
+                                                id="jenis_polarizationgrounds_down" {{-- ID added --}}
+                                                class="sn-value-input"
+                                                placeholder="{{ $data->jenis_polarizationgrounds_down ?? '' }}" {{-- Placeholder added --}}
+                                                value="{{ $data->jenis_polarizationgrounds_down ?? '' }}"
+                                                readonly
+                                            >
                                         </div>
                                         <button type="button" id="rx_ant_polar_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
@@ -899,20 +1311,38 @@
                                         <label for="downlink_rx_lc">Line C (RX):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.0001" name="downlink_rx_lc" value="{{ number_format(($data->guideloss_down ?? 0) * ($data->clength_down ?? 0), 4, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_rx_lc"
+                                                    id="calculated_rx_lc_down" {{-- ID added, since it's a calculated field --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ ($data->guideloss_down ?? 0) * ($data->clength_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ ($data->guideloss_down ?? 0) * ($data->clength_down ?? 0) }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
                                         <button type="button" id="rx_lc_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="downlink_lrother">LRother:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_lrother" value="{{ number_format($data->lrother_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_lrother"
+                                                    id="lrother_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->lrother_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->lrother_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -922,7 +1352,16 @@
                                         <label for="downlink_rx_lb">Line B (RX):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.0001" name="downlink_rx_lb" value="{{ number_format(($data->blength_down ?? 0) * ($data->guideloss_down ?? 0), 4, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_rx_lb"
+                                                    id="calculated_rx_lb_down" {{-- ID added, since it's a calculated field --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ ($data->blength_down ?? 0) * ($data->guideloss_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ ($data->blength_down ?? 0) * ($data->guideloss_down ?? 0) }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -937,7 +1376,16 @@
                                         <label for="downlink_lrbpf">LRbpf:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_lrbpf" value="{{ number_format($data->filter_down ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_lrbpf"
+                                                    id="filter_down_rec" {{-- ID added (to avoid clash with uplink filter_up) --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->filter_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->filter_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -947,7 +1395,16 @@
                                         <label for="downlink_rx_la">Line A (RX):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_rx_la" value="{{ number_format(($data->guideloss_down ?? 0) * ($data->alength_down ?? 0), 3, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_rx_la"
+                                                    id="calculated_rx_la_down" {{-- ID added, since it's a calculated field --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ ($data->guideloss_down ?? 0) * ($data->alength_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ ($data->guideloss_down ?? 0) * ($data->alength_down ?? 0) }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -960,7 +1417,16 @@
                                         <label for="downlink_ltotal">Ltotal:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.0001" name="downlink_ltotal" value="{{ number_format($data->ltotal_down ?? 0, 4, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_ltotal"
+                                                    id="ltotal_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->ltotal_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->ltotal_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -970,7 +1436,16 @@
                                         <label for="downlink_tlna">TLNA:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="1" name="downlink_tlna" value="{{ number_format($data->tlna_downrec ?? 0, 0, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_tlna"
+                                                    id="tlna_downrec" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->tlna_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->tlna_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">K</span>
                                         </div>
@@ -983,7 +1458,16 @@
                                         <label for="downlink_glna">GLNA:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.1" name="downlink_glna" value="{{ number_format($data->lnagain_downrec ?? 0, 1, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_glna"
+                                                    id="lnagain_downrec" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->lnagain_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->lnagain_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -993,7 +1477,16 @@
                                         <label for="downlink_t2nd_amp">T2nd amp:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="1" name="downlink_t2nd_amp" value="{{ number_format($data->tcomrcvr_downrec ?? 0, 0, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_t2nd_amp"
+                                                    id="tcomrcvr_downrec" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->tcomrcvr_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->tcomrcvr_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">K</span>
                                         </div>
@@ -1006,7 +1499,16 @@
                                         <label for="downlink_brbpf">BRbpf (Used only in S/N Calc.):</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="1" name="downlink_brbpf" value="{{ number_format($data->gsbandwidth_down ?? 0, 0, '.', '') }}" class="sn-value-input" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_brbpf"
+                                                    id="gsbandwidth_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->gsbandwidth_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->gsbandwidth_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">Hz</span>
                                         </div>
@@ -1020,7 +1522,16 @@
                                         <label for="downlink_sn_value">S/N Method:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_sn_value" id="downlink_sn_value" class="sn-value-input" value="{{ number_format($data->snrratio_down ?? 0, 1, '.', '') }}" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_sn_value"
+                                                    id="snrratio_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->snrratio_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->snrratio_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -1032,7 +1543,16 @@
                                         <label for="downlink_sn_link_margin">Link Margin:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
-                                                <input type="number" step="0.001" name="downlink_sn_link_margin" id="downlink_sn_link_margin" class="sn-value-input" value="{{ number_format($data->linkmargin_down ?? 0, 1, '.', '') }}" readonly>
+                                                <input
+                                                    type="number"
+                                                    name="downlink_sn_link_margin"
+                                                    id="linkmargin_down" {{-- ID added --}}
+                                                    class="sn-value-input"
+                                                    placeholder="{{ $data->linkmargin_down ?? '' }}" {{-- Placeholder added --}}
+                                                    step="any" {{-- Step changed --}}
+                                                    value="{{ $data->linkmargin_down ?? '' }}" {{-- Value simplified --}}
+                                                    readonly
+                                                >
                                             </div>
                                             <span class="outside-unit-text">dB</span>
                                         </div>
@@ -1065,7 +1585,158 @@
             </div>
         </div>
     </div>
+{{-- pop up login --}}
 
+    {{-- Authentication Popups --}}
+    <div id="auth_popup" class="popup-window">
+        <div class="popup-content" style="max-width: 450px;">
+            <div class="popup-header">
+                <span class="close-popup-btn" id="close_auth_popup">&times;</span>
+                <h3 id="auth_popup_title">Login Diperlukan</h3>
+            </div>
+            <div class="popup-body">
+                {{-- Login Form --}}
+                <div id="login_form_container">
+                    <p class="text-gray-600 mb-4">Silakan login untuk melanjutkan ke visualisasi perhitungan.</p>
+                    
+                    <form id="login_form" method="POST" action="{{ route('login') }}">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="login_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="login_email" name="email" required 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="masukkan@email.com">
+                            <div id="login_email_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="login_password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <div class="relative">
+                                <input type="password" id="login_password" name="password" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
+                                    placeholder="Masukkan password">
+                                <button type="button" id="toggle_login_password" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <i class="fas fa-eye text-gray-400" id="login_eye_icon"></i>
+                                </button>
+                            </div>
+                            <div id="login_password_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between">
+                                <label class="flex items-center">
+                                    <input type="checkbox" name="remember" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                    <span class="ml-2 text-sm text-gray-600">Ingat saya</span>
+                                </label>
+                                <a href="#" id="forgot_password_link" class="text-sm text-blue-600 hover:text-blue-800">Lupa password?</a>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" id="login_submit_btn" 
+                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
+                            <span id="login_btn_text">Login</span>
+                            <i id="login_loading" class="fas fa-spinner fa-spin ml-2" style="display: none;"></i>
+                        </button>
+                        
+                        <div id="login_error_message" class="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded" style="display: none;">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            <span id="login_error_text"></span>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-600">
+                            Belum punya akun? 
+                            <button type="button" id="show_register_form" class="text-blue-600 hover:text-blue-800 font-medium">Daftar di sini</button>
+                        </p>
+                    </div>
+                </div>
+
+                {{-- Register Form --}}
+                <div id="register_form_container" style="display: none;">
+                    <p class="text-gray-600 mb-4">Buat akun baru untuk melanjutkan.</p>
+                    
+                    <form id="register_form" method="POST" action="{{ route('register') }}">
+                        @csrf
+                        <div class="mb-4">
+                            <label for="register_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
+                            <input type="text" id="register_name" name="name" required 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="Masukkan nama lengkap">
+                            <div id="register_name_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="register_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                            <input type="email" id="register_email" name="email" required 
+                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                placeholder="masukkan@email.com">
+                            <div id="register_email_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="register_password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                            <div class="relative">
+                                <input type="password" id="register_password" name="password" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
+                                    placeholder="Minimal 8 karakter">
+                                <button type="button" id="toggle_register_password" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <i class="fas fa-eye text-gray-400" id="register_eye_icon"></i>
+                                </button>
+                            </div>
+                            <div id="register_password_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label for="register_password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
+                            <div class="relative">
+                                <input type="password" id="register_password_confirmation" name="password_confirmation" required 
+                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
+                                    placeholder="Ulangi password">
+                                <button type="button" id="toggle_register_password_confirmation" class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                    <i class="fas fa-eye text-gray-400" id="register_confirm_eye_icon"></i>
+                                </button>
+                            </div>
+                            <div id="register_password_confirmation_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label class="flex items-start">
+                                <input type="checkbox" name="terms" id="terms_checkbox" required class="mt-1 rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                                <span class="ml-2 text-sm text-gray-600">
+                                    Saya setuju dengan <a href="#" class="text-blue-600 hover:text-blue-800">syarat dan ketentuan</a> yang berlaku
+                                </span>
+                            </label>
+                            <div id="register_terms_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
+                        </div>
+                        
+                        <button type="submit" id="register_submit_btn" 
+                                class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
+                            <span id="register_btn_text">Daftar</span>
+                            <i id="register_loading" class="fas fa-spinner fa-spin ml-2" style="display: none;"></i>
+                        </button>
+                        
+                        <div id="register_error_message" class="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded" style="display: none;">
+                            <i class="fas fa-exclamation-circle mr-2"></i>
+                            <span id="register_error_text"></span>
+                        </div>
+                        
+                        <div id="register_success_message" class="mt-3 p-3 bg-green-100 border border-green-400 text-green-700 rounded" style="display: none;">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span id="register_success_text">Pendaftaran berhasil! Silakan login dengan akun baru Anda.</span>
+                        </div>
+                    </form>
+                    
+                    <div class="mt-6 text-center">
+                        <p class="text-sm text-gray-600">
+                            Sudah punya akun? 
+                            <button type="button" id="show_login_form" class="text-blue-600 hover:text-blue-800 font-medium">Login di sini</button>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- Popup for general Summary explanation --}}
     <div id="popup_summary_general" class="popup-window">
         <div class="popup-content">

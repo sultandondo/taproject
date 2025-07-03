@@ -264,7 +264,7 @@
                 </button>
             </div>
 
-            <form method="POST" action="{{ route('updownlinkbudgetatn.store', ['id' => $dataId]) }}" id="updownlinkbudgetatn">
+            <form method="POST" action="{{ route('updownlinkbudgetatn.store', ['id' => $dataId]) }}" >
                 @csrf
 
                 <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
@@ -924,7 +924,7 @@
                     </div>
                 </div>
 
-                <button id="submitBtn" type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
                     <i class=""></i> Hitung & Simpan
                 </button>
                 @guest

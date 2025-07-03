@@ -43,7 +43,7 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            $request->session()->regenerate(); // prevent session fixation
+            // prevent session fixation
             return redirect()->intended('/history');
         }
 
