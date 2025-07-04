@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 
+
+
 class AuthController extends Controller
 {
     public function showLogin() {
@@ -19,37 +21,43 @@ class AuthController extends Controller
 
 
     public function register(Request $request) {
+        // dd($request->all());
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:1',
         ]);
 
         $user = User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
+            'name'     => $validated['name'],
+            'email'    => $validated['email'],
             'password' => Hash::make($validated['password']),
         ]);
 
         Auth::login($user);
-        $request->session()->regenerate();
 
-        return redirect()->intended('/history');
+        return redirect()->intended(url()->previous() ?? '/'); // Kembali ke halaman sebelumnya
     }
+
     public function login(Request $request) {
+        // Validasi input
         $credentials = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
+            'email' => ['required', 'email'],
+            'password' => ['required'],
         ]);
 
+        // Coba login
         if (Auth::attempt($credentials)) {
-            // prevent session fixation
-            return redirect()->intended('/history');
+            $request->session()->regenerate();
+
+            // Redirect ke halaman sebelumnya atau fallback
+            return redirect()->intended(url()->previous() ?? '/');
         }
 
+        // Jika gagal login, kembalikan dengan pesan error
         return back()->withErrors([
-            'email' => 'Login gagal. Cek kembali email dan password.',
-        ]);
+            'auth' => 'Email atau password salah.',
+        ])->withInput();
     }
 
     public function dashboard() {
@@ -62,6 +70,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('/home');
+        return redirect()->intended(url()->previous() ?? '/');
     }
 }

@@ -1585,158 +1585,86 @@
             </div>
         </div>
     </div>
-{{-- pop up login --}}
 
-    {{-- Authentication Popups --}}
-    <div id="auth_popup" class="popup-window">
-        <div class="popup-content" style="max-width: 450px;">
-            <div class="popup-header">
-                <span class="close-popup-btn" id="close_auth_popup">&times;</span>
-                <h3 id="auth_popup_title">Login Diperlukan</h3>
-            </div>
-            <div class="popup-body">
+    {{-- Modal Login/Register hanya muncul jika belum login --}}
+    @guest
+        <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg space-y-4">
+                
                 {{-- Login Form --}}
-                <div id="login_form_container">
-                    <p class="text-gray-600 mb-4">Silakan login untuk melanjutkan ke visualisasi perhitungan.</p>
-                    
-                    <form id="login_form" method="POST" action="{{ route('login') }}">
+                <div id="loginForm" class="{{ $errors->has('auth') ? '' : '' }}">
+                    <h2 class="text-xl font-bold text-center">Login</h2>
+
+                    {{-- Tampilkan error login jika ada --}}
+                    @if ($errors->has('auth'))
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded text-sm mb-2">
+                            {{ $errors->first('auth') }}
+                        </div>
+                    @endif
+
+                    <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        <div class="mb-4">
-                            <label for="login_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="login_email" name="email" required 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="masukkan@email.com">
-                            <div id="login_email_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="login_password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <div class="relative">
-                                <input type="password" id="login_password" name="password" required 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
-                                    placeholder="Masukkan password">
-                                <button type="button" id="toggle_login_password" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                    <i class="fas fa-eye text-gray-400" id="login_eye_icon"></i>
-                                </button>
-                            </div>
-                            <div id="login_password_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <div class="flex items-center justify-between">
-                                <label class="flex items-center">
-                                    <input type="checkbox" name="remember" class="rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                    <span class="ml-2 text-sm text-gray-600">Ingat saya</span>
-                                </label>
-                                <a href="#" id="forgot_password_link" class="text-sm text-blue-600 hover:text-blue-800">Lupa password?</a>
-                            </div>
-                        </div>
-                        
-                        <button type="submit" id="login_submit_btn" 
-                                class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200">
-                            <span id="login_btn_text">Login</span>
-                            <i id="login_loading" class="fas fa-spinner fa-spin ml-2" style="display: none;"></i>
-                        </button>
-                        
-                        <div id="login_error_message" class="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded" style="display: none;">
-                            <i class="fas fa-exclamation-circle mr-2"></i>
-                            <span id="login_error_text"></span>
-                        </div>
+                        <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded" value="{{ old('email') }}" required>
+                        <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 mt-4 rounded w-full">Login</button>
                     </form>
-                    
-                    <div class="mt-6 text-center">
-                        <p class="text-sm text-gray-600">
-                            Belum punya akun? 
-                            <button type="button" id="show_register_form" class="text-blue-600 hover:text-blue-800 font-medium">Daftar di sini</button>
-                        </p>
-                    </div>
+
+                    <p class="text-sm text-center mt-2">
+                        Belum punya akun?
+                        <button onclick="showRegisterForm()" class="text-blue-600 underline">Register di sini</button>
+                    </p>
                 </div>
 
                 {{-- Register Form --}}
-                <div id="register_form_container" style="display: none;">
-                    <p class="text-gray-600 mb-4">Buat akun baru untuk melanjutkan.</p>
-                    
-                    <form id="register_form" method="POST" action="{{ route('register') }}">
+                <div id="registerForm" class="hidden">
+                    <h2 class="text-xl font-bold text-center">Daftar Akun</h2>
+
+                    <form method="POST" action="{{ route('register') }}">
                         @csrf
-                        <div class="mb-4">
-                            <label for="register_name" class="block text-sm font-medium text-gray-700 mb-1">Nama Lengkap</label>
-                            <input type="text" id="register_name" name="name" required 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="Masukkan nama lengkap">
-                            <div id="register_name_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="register_email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                            <input type="email" id="register_email" name="email" required 
-                                class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                                placeholder="masukkan@email.com">
-                            <div id="register_email_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="register_password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
-                            <div class="relative">
-                                <input type="password" id="register_password" name="password" required 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
-                                    placeholder="Minimal 8 karakter">
-                                <button type="button" id="toggle_register_password" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                    <i class="fas fa-eye text-gray-400" id="register_eye_icon"></i>
-                                </button>
-                            </div>
-                            <div id="register_password_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label for="register_password_confirmation" class="block text-sm font-medium text-gray-700 mb-1">Konfirmasi Password</label>
-                            <div class="relative">
-                                <input type="password" id="register_password_confirmation" name="password_confirmation" required 
-                                    class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 pr-10"
-                                    placeholder="Ulangi password">
-                                <button type="button" id="toggle_register_password_confirmation" class="absolute inset-y-0 right-0 pr-3 flex items-center">
-                                    <i class="fas fa-eye text-gray-400" id="register_confirm_eye_icon"></i>
-                                </button>
-                            </div>
-                            <div id="register_password_confirmation_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
-                        </div>
-                        
-                        <div class="mb-4">
-                            <label class="flex items-start">
-                                <input type="checkbox" name="terms" id="terms_checkbox" required class="mt-1 rounded border-gray-300 text-blue-600 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                                <span class="ml-2 text-sm text-gray-600">
-                                    Saya setuju dengan <a href="#" class="text-blue-600 hover:text-blue-800">syarat dan ketentuan</a> yang berlaku
-                                </span>
-                            </label>
-                            <div id="register_terms_error" class="text-red-500 text-sm mt-1" style="display: none;"></div>
-                        </div>
-                        
-                        <button type="submit" id="register_submit_btn" 
-                                class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-colors duration-200">
-                            <span id="register_btn_text">Daftar</span>
-                            <i id="register_loading" class="fas fa-spinner fa-spin ml-2" style="display: none;"></i>
-                        </button>
-                        
-                        <div id="register_error_message" class="mt-3 p-3 bg-red-100 border border-red-400 text-red-700 rounded" style="display: none;">
-                            <i class="fas fa-exclamation-circle mr-2"></i>
-                            <span id="register_error_text"></span>
-                        </div>
-                        
-                        <div id="register_success_message" class="mt-3 p-3 bg-green-100 border border-green-400 text-green-700 rounded" style="display: none;">
-                            <i class="fas fa-check-circle mr-2"></i>
-                            <span id="register_success_text">Pendaftaran berhasil! Silakan login dengan akun baru Anda.</span>
-                        </div>
+                        <input name="name" type="text" placeholder="Nama" class="w-full p-2 border rounded" value="{{ old('name') }}" required>
+                        <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded mt-2" value="{{ old('email') }}" required>
+                        <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
+                        <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-4 rounded w-full">Register</button>
                     </form>
-                    
-                    <div class="mt-6 text-center">
-                        <p class="text-sm text-gray-600">
-                            Sudah punya akun? 
-                            <button type="button" id="show_login_form" class="text-blue-600 hover:text-blue-800 font-medium">Login di sini</button>
-                        </p>
-                    </div>
+
+                    <p class="text-sm text-center mt-2">
+                        Sudah punya akun?
+                        <button onclick="showLoginForm()" class="text-blue-600 underline">Kembali ke Login</button>
+                    </p>
+                </div>
+
+                {{-- Tanpa login --}}
+                <div class="text-center mt-4">
+                    <button onclick="document.getElementById('authModal').remove()" class="text-red-600 underline">
+                        Lanjut tanpa login
+                    </button>
+                    <p class="text-sm text-gray-600 mt-1">⚠️ Data yang Anda input tidak akan disimpan!</p>
                 </div>
             </div>
         </div>
-    </div>
+
+        {{-- JS Toggle --}}
+        <script>
+            function showRegisterForm() {
+                document.getElementById('loginForm').classList.add('hidden');
+                document.getElementById('registerForm').classList.remove('hidden');
+            }
+
+            function showLoginForm() {
+                document.getElementById('registerForm').classList.add('hidden');
+                document.getElementById('loginForm').classList.remove('hidden');
+            }
+
+            // Jika ada error login atau register, tampilkan modal secara otomatis
+            @if ($errors->has('auth') || $errors->has('register'))
+                window.addEventListener('DOMContentLoaded', () => {
+                    const modal = document.getElementById('authModal');
+                    if (modal) modal.classList.remove('hidden');
+                });
+            @endif
+        </script>
+    @endguest
+
     {{-- Popup for general Summary explanation --}}
     <div id="popup_summary_general" class="popup-window">
         <div class="popup-content">
