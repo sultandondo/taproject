@@ -454,7 +454,7 @@ public function showAnimasiPage($id)
             'tlna_uprec'=> 'nullable|numeric',
             'lnagain_uprec'=> 'nullable|numeric',
             'glna_uprec'=> 'nullable|numeric',
-            '2ndstagetemp_uprec'=> 'nullable|numeric',
+            'secondstagetemp_uprec'=> 'nullable|numeric',
             'ts_uprec'=> 'nullable|numeric',
 
             'cabletype_downrec'=> 'nullable|string',
@@ -512,7 +512,7 @@ public function showAnimasiPage($id)
             'tlna_uprec' => $request->input('tlna_uprec'),
             'lnagain_uprec' => $request->input('lnagain_uprec'),
             'glna_uprec' => $request->input('glna_uprec'),
-            '2ndstagetemp_uprec' => $request->input('2ndstagetemp_uprec'),
+            'secondstagetemp_uprec' => $request->input('secondstagetemp_uprec'),
             'ts_uprec' => $request->input('ts_uprec'),
 
             'cabletype_downrec' => $request->input('cabletype_downrec'),
@@ -533,7 +533,7 @@ public function showAnimasiPage($id)
             'spactemp_downrec' => $request->input('spactemp_downrec'),
             'tlna_downrec' => $request->input('tlna_downrec'),
             'lnagain_downrec' => $request->input('lnagain_downrec'),
-            'glna_uprec' => $request->input('glna_uprec'),
+            'glna_downrec' => $request->input('glna_downrec'),
             'dtype_downrec' => $request->input('dtype_downrec'),
             'dloss_length_downrec' => $request->input('dloss_length_downrec'),
             'dloss_per_meter_downrec' => $request->input('dloss_per_meter_downrec'),
@@ -561,18 +561,18 @@ public function showAnimasiPage($id)
             'longitude_up'=> 'nullable|numeric',
             'eastofsat_up'=> 'nullable|numeric',
             'eastofsat2_up'=> 'nullable|numeric',
-            'sat_in_quad_up'=> 'nullable|numeric',
+            'sat_in_quad_up'=> 'nullable|string',
             'quad_result_up'=> 'nullable|numeric',
-            'quad_angle_range_up'=> 'nullable|numeric',
+            'quad_angle_range_up'=> 'nullable|string',
             'sat_in_quad_value_up'=> 'nullable|numeric',
             'quad_result_value_up'=> 'nullable|numeric',
-            'quad_angle_range_value_up'=> 'nullable|numeric',
+            'quad_angle_range_value_up'=> 'nullable|string',
             'sat_in_quad_value2_up'=> 'nullable|numeric',
             'quad_result_value2_up'=> 'nullable|numeric',
-            'quad_angle_range_value2_up'=> 'nullable|numeric',
+            'quad_angle_range_value2_up'=> 'nullable|string',
             'sat_in_quad_value3_up'=> 'nullable|numeric',
             'quad_result_value3_up'=> 'nullable|numeric',
-            'quad_angle_range_value3_up'=> 'nullable|numeric',
+            'quad_angle_range_value3_up'=> 'nullable|string',
             'azimuthcalc_up'=> 'nullable|numeric',
             'azimuthresult_up'=> 'nullable|numeric',
 
@@ -584,21 +584,21 @@ public function showAnimasiPage($id)
             'eastofsat2_down'=> 'nullable|numeric',
             'sat_in_quad_down'=> 'nullable|numeric',
             'quad_result_down'=> 'nullable|numeric',
-            'quad_angle_range_down'=> 'nullable|numeric',
+            'quad_angle_range_down'=> 'nullable|string',
             'sat_in_quad_value_down'=> 'nullable|numeric',
             'quad_result_value_down'=> 'nullable|numeric',
-            'quad_angle_range_value_down'=> 'nullable|numeric',
+            'quad_angle_range_value_down'=> 'nullable|string',
             'sat_in_quad_value2_down'=> 'nullable|numeric',
             'quad_result_value2_down'=> 'nullable|numeric',
-            'quad_angle_range_value2_down'=> 'nullable|numeric',
+            'quad_angle_range_value2_down'=> 'nullable|string',
             'sat_in_quad_value3_down'=> 'nullable|numeric',
             'quad_result_value3_down'=> 'nullable|numeric',
-            'quad_angle_range_value3_down'=> 'nullable|numeric',
+            'quad_angle_range_value3_down'=> 'nullable|string',
             'azimuthcalc_down'=> 'nullable|numeric',
             'azimuthresult_down'=> 'nullable|numeric',
             // validasi kolom lainnya sesuai kebutuhan
         ]);
-
+        
         // Data::create($request->all());
         
         $data = Data::findOrFail($id);
@@ -648,7 +648,7 @@ public function showAnimasiPage($id)
             // Field lainnya
         ]);
 
-        return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
+       return redirect()->route('frek.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
 
     //Menyimpan data Antenna Polarization Loss
@@ -819,7 +819,7 @@ public function showAnimasiPage($id)
             'wavelength_downgrounds_poin'=> 'nullable|numeric',
             'gain_downgrounds_poin'=> 'nullable|numeric',
             'beamwidth_downgrounds_poin'=> 'nullable|numeric',
-            'upgrounds_θ4_poin'=> 'nullable|numeric',
+            'estimedpointingerror_downgrounds_θ4_poin'=> 'nullable|numeric',
             'annrolloff_downgrounds_poin'=> 'nullable|numeric',
             'approxannpoinloss_downgrounds_poin'=> 'nullable|numeric',
            
@@ -857,7 +857,7 @@ public function showAnimasiPage($id)
             'wavelength_downgrounds_poin' => $request->input('wavelength_downgrounds_poin'),
             'gain_downgrounds_poin' => $request->input('gain_downgrounds_poin'),
             'beamwidth_downgrounds_poin' => $request->input('beamwidth_downgrounds_poin'),
-            'upgrounds_θ4_poin' => $request->input('upgrounds_θ4_poin'),
+            'estimedpointingerror_downgrounds_θ4_poin' => $request->input('estimedpointingerror_downgrounds_θ4_poin'),
             'annrolloff_downgrounds_poin' => $request->input('annrolloff_downgrounds_poin'),
             'approxannpoinloss_downgrounds_poin' => $request->input('approxannpoinloss_downgrounds_poin'),
             
@@ -874,7 +874,8 @@ public function showAnimasiPage($id)
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'min_elevation_angle'=> 'nullable|numeric',
-            'loss_determined_atmospheric'=> 'nullable|numeric',
+            'uplink_loss_determined_atmospheric'=> 'nullable|numeric',
+            'downlink_loss_determined_atmospheric'=> 'nullable|numeric',
             'uplink_loss_determined_display'=> 'nullable|numeric',
             'uplink_frequency'=> 'nullable|numeric',
             'uplink_loss_ionosphere'=> 'nullable|numeric',
@@ -890,7 +891,8 @@ public function showAnimasiPage($id)
          $data->update([
             'user_id' => $request->user_id,
             'min_elevation_angle' => $request->input('min_elevation_angle'),
-            'loss_determined_atmospheric' => $request->input('loss_determined_atmospheric'),
+            'uplink_loss_determined_atmospheric' => $request->input('uplink_loss_determined_atmospheric'),
+            'downlink_loss_determined_atmospheric' => $request->input('downlink_loss_determined_atmospheric'),
             'uplink_loss_determined_display' => $request->input('uplink_loss_determined_display'),
             'uplink_frequency' => $request->input('uplink_frequency'),
             'uplink_loss_ionosphere' => $request->input('uplink_loss_ionosphere'),
@@ -1021,7 +1023,25 @@ public function showAnimasiPage($id)
         ]);
         return redirect()->route('systemsummary.show', ['id' => $data->id])->with('success', 'Data berhasil ditambahkan');
     }
+    public function store_systemsummary(Request $request, $id)
+    {
+        $userId = Auth::id();
+        $data = Data::findOrFail($id);
+        $data->update([
+            'user_id' => $userId
+        ]);
+        // Ambil data hanya milik user tersebut
+        $data = Data::where('user_id', $userId)->get();
 
+        return view('history', ['data' => $data]);
+    }
+
+    
+
+    public function store_simulationhardware(Request $request, $id)
+    {return view('home');
+    }
+    
 
     // Menampilkan form untuk mengedit data
     public function edit($id)

@@ -350,12 +350,12 @@
                             <label class="block font-medium mb-2 text-gray-700">Cable or Waveguide ("Line") Losses:</label>
                             <div class="mb-4">
                                 <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide Type:</label>
-                                <input type="text" name="cabletype_uprec" id="cabletype_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Tipe Kabel/Waveguide">
+                                <input type="text" value="{{ $data->cabletype_uprec ?? '' }}" name="cabletype_uprec" id="cabletype_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Tipe Kabel/Waveguide">
                             </div>
                             <div class="relative">
-                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss/meter:</label>
+                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss per meter:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="typecable" id="typecable" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                    <input type="number" step="any" value="{{ $data->typecable ?? '' }}" name="typecable" id="typecable" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                     <span class="unit-text">dB/m</span>
                                 </div>
                             </div>
@@ -365,7 +365,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="alength_uprec" class="block font-medium text-gray-700 mb-1">Line A Length:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" id="alength_uprec" name="alength_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai">
+                                    <input type="number" step="any" id="alength_uprec" value="{{ $data->alength_uprec ?? '' }}" name="alength_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai">
                                     <span class="unit-text">meter</span>
                                 </div>
                             </div>
@@ -373,7 +373,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="blength_uprec" class="block font-medium text-gray-700 mb-1">Line B Length:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" id="blength_uprec" name="blength_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai">
+                                    <input type="number" step="any" id="blength_uprec" value="{{ $data->blength_uprec ?? '' }}" name="blength_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai">
                                     <span class="unit-text">meter</span>
                                 </div>
                             </div>
@@ -381,7 +381,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="clength_uprec" class="block font-medium text-gray-700 mb-1">Line C Length:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" id="clength_uprec" name="clength_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai">
+                                    <input type="number" step="any" id="clength_uprec" value="{{ $data->clength_uprec ?? '' }}" name="clength_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai">
                                     <span class="unit-text">meter</span>
                                 </div>
                             </div>
@@ -391,7 +391,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="la_uprec" class="block font-medium text-gray-700 mb-1">LA:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="text" id="la_uprec" name="la_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LA" readonly>
+                                    <input type="text" id="la_uprec" value="{{ $data->la_uprec ?? '' }}" name="la_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LA" readonly>
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="la_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -400,7 +400,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="lb_uprec" class="block font-medium text-gray-700 mb-1">LB:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="text" id="lb_uprec" name="lb_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LB" readonly>
+                                    <input type="text" id="lb_uprec" value="{{ $data->lb_uprec ?? '' }}" name="lb_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LB" readonly>
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="lb_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -409,7 +409,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="lc_uprec" class="block font-medium text-gray-700 mb-1">LC:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="text" id="lc_uprec" name="lc_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LC" readonly>
+                                    <input type="text" id="lc_uprec" value="{{ $data->lc_uprec ?? '' }}" name="lc_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LC" readonly>
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="lc_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -419,7 +419,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Bandpass Filter Insertion Loss (LBPF):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="lbpf_uprec" id="lbpf_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->lbpf_uprec ?? '' }}" name="lbpf_uprec" id="lbpf_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai">
                                 <span class="unit-text">dB</span>
                             </div>
                         </div>
@@ -427,20 +427,20 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Insertion Loss of Other In-Line Devices (Lother):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="lother_uprec" id="lother_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->lother_uprec ?? '' }}" name="lother_uprec" id="lother_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai">
                                 <span class="unit-text">dB</span>
                             </div>
                         </div>
 
                         <div class="relative mb-4">
                             <label for="connect_uprec" class="block font-medium text-gray-700 mb-1">Number of In-Line Connectors:</label>
-                            <input type="number" step="any" id="connect_uprec" name="connect_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalConnector()">
+                            <input type="number" step="any" id="connect_uprec" value="{{ $data->connect_uprec ?? '' }}" name="connect_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalConnector()">
                         </div>
 
                         <div class="relative mb-4">
-                            <label for="totconnect_uprec" class="block font-medium text-gray-700 mb-1">Total of Power Loss (Connector):</label>
+                            <label for="totconnect_uprec" class="block font-medium text-gray-700 mb-1">Total In-Line Connector:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="text" id="totconnect_uprec" name="totconnect_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"readonly>
+                                <input type="text" id="totconnect_uprec" value="{{ $data->totconnect_uprec ?? '' }}" name="totconnect_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"readonly>
                                 <span class="unit-text">dB</span>
                             </div>
                             <button type="button" id="totconnect_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -449,7 +449,7 @@
                         <div class="mb-4 relative">
                             <label class="block font-medium mb-1 text-gray-700">Total In-Line Losses from Antenna to LNA:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="antenna_to_lna_uprec" id="antenna to lna_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="number" step="any" value="{{ $data->antenna_to_lna_uprec ?? '' }}" name="antenna_to_lna_uprec" id="antenna to lna_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text">dB</span>
                             </div>
                             <button type="button" id="antenna_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -458,7 +458,7 @@
                         <div class="mb-4 relative">
                             <label class="block font-medium mb-1 text-gray-700">Transmission Line Coefficient (α):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="tranlincoe_uprec" id="tranlincoe_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="number" step="any" value="{{ $data->tranlincoe_uprec ?? '' }}" name="tranlincoe_uprec" id="tranlincoe_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text"></span>
                             </div>
                             <button type="button" id="tranlincoe_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -467,7 +467,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Antenna or "Sky" Temperature: (Ta):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="antemper_uprec" id="antemper_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->antemper_uprec ?? '' }}" name="antemper_uprec" id="antemper_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -475,7 +475,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Spacecraft Temperature: (To):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="spactemp_uprec" id="spactemp_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->spactemp_uprec ?? '' }}" name="spactemp_uprec" id="spactemp_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -483,7 +483,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">LNA Temperature: (TLNA):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="tlna_uprec" id="tlna_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->tlna_uprec ?? '' }}" name="tlna_uprec" id="tlna_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -491,7 +491,7 @@
                         <div class="relative mb-4">
                             <label for="lnagain_uprec" class="block font-medium text-gray-700 mb-1">LNA Gain:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" id="lnagain_uprec" name="lnagain_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateGLNA()">
+                                <input type="number" step="any" id="lnagain_uprec" value="{{ $data->lnagain_uprec ?? '' }}" name="lnagain_uprec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateGLNA()">
                                 <span class="unit-text">dB</span>
                             </div>
                         </div>
@@ -499,16 +499,16 @@
                         <div class="relative mb-4">
                             <label for="glna_uprec" class="block font-medium text-gray-700 mb-1">GLNA:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="text" id="glna_uprec" name="glna_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="text" id="glna_uprec" value="{{ $data->glna_uprec ?? '' }}" name="glna_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text"></span>
                             </div>
                             <button type="button" id="glna_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                         </div>
 
-                        <div id="2ndstagetemp_uprec_container" class="relative mb-4">
+                        <div id="secondstagetemp_uprec_container" class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">2nd Stage Temperature (T2ndStage):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="2ndstagetemp_uprec" id="2ndstagetemp_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai">
+                                <input type="number" value="{{ $data->secondstagetemp_uprec ?? '' }}" name="secondstagetemp_uprec" id="secondstagetemp_uprec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -516,7 +516,7 @@
                         <div class="relative mb-4">
                             <label for="ts_uprec" class="block font-medium text-gray-700 mb-1">System Noise Temperature (Ts):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="text" id="ts_uprec" name="ts_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="text" id="ts_uprec" value="{{ $data->ts_uprec ?? '' }}" name="ts_uprec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text">K</span>
                             </div>
                             <button type="button" id="ts_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -535,12 +535,12 @@
                             <label class="block font-medium mb-2 text-gray-700">Cable or Waveguide ("Line") Losses:</label>
                             <div class="mb-4">
                                 <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide Type:</label>
-                                <input type="text" name="cabletype_downrec" id="cabletype_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Tipe Kabel/Waveguide">
+                                <input type="text" value="{{ $data->cabletype_downrec ?? '' }}" name="cabletype_downrec" id="cabletype_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Tipe Kabel/Waveguide">
                             </div>
                             <div class="relative">
-                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss/meter:</label>
+                                <label class="block font-medium mb-1 text-gray-700">Cable/Guide Loss per meter:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="typecable_downrec" id="typecable_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                    <input type="number" step="any" value="{{ $data->typecable_downrec ?? '' }}" name="typecable_downrec" id="typecable_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                     <span class="unit-text">dB/m</span>
                                 </div>
                             </div>
@@ -550,21 +550,21 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="alength_downrec" class="block font-medium text-gray-700 mb-1">Line A Length:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" id="alength_downrec" name="alength_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
+                                    <input type="number" step="any" id="alength_downrec" value="{{ $data->alength_downrec ?? '' }}" name="alength_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
                                     <span class="unit-text">meter</span>
                                 </div>
                             </div>
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="blength_downrec" class="block font-medium text-gray-700 mb-1">Line B Length:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" id="blength_downrec" name="blength_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
+                                    <input type="number" step="any" id="blength_downrec" value="{{ $data->blength_downrec ?? '' }}" name="blength_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
                                     <span class="unit-text">meter</span>
                                 </div>
                             </div>
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="clength_downrec" class="block font-medium text-gray-700 mb-1">Line C Length:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" id="clength_downrec" name="clength_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
+                                    <input type="number" step="any" id="clength_downrec" value="{{ $data->clength_downrec ?? '' }}" name="clength_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
                                     <span class="unit-text">meter</span>
                                 </div>
                             </div>
@@ -574,7 +574,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="la_downrec" class="block font-medium text-gray-700 mb-1">LA:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="text" id="la_downrec" name="la_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LA" readonly>
+                                    <input type="text" id="la_downrec" value="{{ $data->la_downrec ?? '' }}" name="la_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LA" readonly>
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="la_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -582,7 +582,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="lb_downrec" class="block font-medium text-gray-700 mb-1">LB:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="text" id="lb_downrec" name="lb_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LB" readonly>
+                                    <input type="text" id="lb_downrec" value="{{ $data->lb_downrec ?? '' }}" name="lb_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LB" readonly>
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="lb_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -590,7 +590,7 @@
                             <div class="w-full sm:w-1/3 relative">
                                 <label for="lc_downrec" class="block font-medium text-gray-700 mb-1">LC:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="text" id="lc_downrec" name="lc_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LC" readonly>
+                                    <input type="text" id="lc_downrec" value="{{ $data->lc_downrec ?? '' }}" name="lc_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="Hasil LC" readonly>
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="lc_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -600,7 +600,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Bandpass Filter Insertion Loss (LBPF):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="lbpf_downrec" id="lbpf_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
+                                <input type="number" step="any" value="{{ $data->lbpf_downrec ?? '' }}"name="lbpf_downrec" id="lbpf_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
                                 <span class="unit-text">dB</span>
                             </div>
                         </div>
@@ -608,20 +608,20 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Insertion Loss of Other In-Line Devices (Lother):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="lother_downrec" id="lother_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
+                                <input type="number" step="any" value="{{ $data->lother_downrec ?? '' }}" name="lother_downrec" id="lother_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan Nilai" oninput="calculateTotalLossDownlink()">
                                 <span class="unit-text">dB</span>
                             </div>
                         </div>
 
                         <div class="relative mb-4">
                             <label for="connect_downrec" class="block font-medium text-gray-700 mb-1">Number of In-Line Connectors:</label>
-                            <input type="number" step="any" id="connect_downrec" name="connect_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalConnectorDownlink()">
+                            <input type="number" step="any" id="connect_downrec" value="{{ $data->connect_downrec ?? '' }}" name="connect_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai" oninput="calculateTotalConnectorDownlink()">
                         </div>
 
                         <div class="relative mb-4">
-                            <label for="totconnect_downrec" class="block font-medium text-gray-700 mb-1">Total of Power Loss (Connector):</label>
+                            <label for="totconnect_downrec" class="block font-medium text-gray-700 mb-1">Total In-Line Connector:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="text" id="totconnect_downrec" name="totconnect_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"readonly>
+                                <input type="text" id="totconnect_downrec" value="{{ $data->totconnect_downrec ?? '' }}" name="totconnect_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"readonly>
                                 <span class="unit-text">dB</span>
                             </div>
                             <button type="button" id="totconnect_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -630,7 +630,7 @@
                         <div class="mb-4 relative">
                             <label class="block font-medium mb-1 text-gray-700">Total In-Line Losses from Antenna to LNA:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="antenna_to_lna_downrec" id="antenna_to_lna_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="number" step="any" value="{{ $data->antenna_to_lna_downrec ?? '' }}" name="antenna_to_lna_downrec" id="antenna_to_lna_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text">dB</span>
                             </div>
                             <button type="button" id="antenna_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -639,7 +639,7 @@
                         <div class="mb-4 relative">
                             <label class="block font-medium mb-1 text-gray-700">Transmission Line Coefficient (α):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="tranlincoe_downrec" id="tranlincoe_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="number" step="any" value="{{ $data->tranlincoe_downrec ?? '' }}" name="tranlincoe_downrec" id="tranlincoe_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text"></span>
                             </div>
                             <button type="button" id="tranlincoe_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -648,7 +648,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Antenna or "Sky" Temperature: (Ta):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="antemper_downrec" id="antemper_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->antemper_downrec ?? '' }}" name="antemper_downrec" id="antemper_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -656,7 +656,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Spacecraft Temperature: (To):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="spactemp_downrec" id="spactemp_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->spactemp_downrec ?? '' }}" name="spactemp_downrec" id="spactemp_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -664,7 +664,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">LNA Temperature: (TLNA):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="tlna_downrec" id="tlna_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->tlna_downrec ?? '' }}" name="tlna_downrec" id="tlna_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -672,7 +672,7 @@
                         <div class="relative mb-4">
                             <label for="lnagain_downrec" class="block font-medium text-gray-700 mb-1">LNA Gain:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" id="lnagain_downrec" name="lnagain_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai"oninput="calculateGLNADownlink()">
+                                <input type="number" step="any" id="lnagain_downrec" value="{{ $data->lnagain_downrec ?? '' }}" name="lnagain_downrec" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-400" placeholder="Masukkan Nilai"oninput="calculateGLNADownlink()">
                                 <span class="unit-text">dB</span>
                             </div>
                         </div>
@@ -680,7 +680,7 @@
                         <div class="relative mb-4">
                             <label for="glna_downrec" class="block font-medium text-gray-700 mb-1">GLNA:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="text" id="glna_downrec" name="glna_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="text" id="glna_downrec" value="{{ $data->glna_downrec ?? '' }}" name="glna_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text"></span>
                             </div>
                             <button type="button" id="glna_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -688,29 +688,29 @@
 
                         <div class="mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide D Type</label>
-                            <input type="text" step="any" name="dtype_downrec" id="dtype_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Jenis Kabel/Waveguide">
+                            <input type="text" step="any" value="{{ $data->dtype_downrec ?? '' }}" name="dtype_downrec" id="dtype_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Jenis Kabel/Waveguide">
                         </div>
 
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide D Length:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="dloss_length_downrec" id="dloss_length_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai" oninput="calculateDLossDownlink()">
+                                <input type="number" step="any" value="{{ $data->dloss_length_downrec ?? '' }}" name="dloss_length_downrec" id="dloss_length_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai" oninput="calculateDLossDownlink()">
                                 <span class="unit-text">m</span>
                             </div>
                         </div>
 
                         <div class="relative mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide D Loss/meter:</label>
+                            <label class="block font-medium mb-1 text-gray-700">Cable/Waveguide D Loss per meter:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="dloss_per_meter_downrec" id="dloss_per_meter_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai" oninput="calculateDLossDownlink()">
-                                <span class="unit-text">dB/m</span>
+                                <input type="number" step="any" value="{{ $data->dloss_per_meter_downrec ?? '' }}" name="dloss_per_meter_downrec" id="dloss_per_meter_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai" oninput="calculateDLossDownlink()">
+                                <span class="unit-text">°K/m</span>
                             </div>
                         </div>
 
                         <div class="mb-4 relative">
                             <label class="block font-medium mb-1 text-gray-700">Total Cable/Waveguide D Loss:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="dloss_result_downrec" id="dloss_result_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="number" value="{{ $data->dloss_result_downrec ?? '' }}" name="dloss_result_downrec" id="dloss_result_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text">dB</span>
                             </div>
                             <button type="button" id="dloss_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -719,7 +719,7 @@
                         <div class="relative mb-4">
                             <label class="block font-medium mb-1 text-gray-700">Communications Receiver Front End Temperature (TComRcvr):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" step="any" name="tcomrcvr_downrec" id="tcomrcvr_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
+                                <input type="number" step="any" value="{{ $data->tcomrcvr_downrec ?? '' }}" name="tcomrcvr_downrec" id="tcomrcvr_downrec" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Nilai">
                                 <span class="unit-text">K</span>
                             </div>
                         </div>
@@ -727,7 +727,7 @@
                         <div class="relative mb-4">
                             <label for="ts_downrec" class="block font-medium text-gray-700 mb-1">System Noise Temperature (Ts):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" id="ts_downrec" name="ts_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                <input type="number" id="ts_downrec" value="{{ $data->ts_downrec ?? '' }}" name="ts_downrec" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
                                 <span class="unit-text">K</span>
                             </div>
                             <button type="button" id="ts_downrec_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -830,7 +830,7 @@
         <div class="popup-content">
             <div class="popup-header">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Detail Total of Power Loss (Connector)</h3>
+                <h3>Detail Total In-Line Connector</h3>
             </div>
             <div class="popup-body">
                 <div class="formula-definition-box">
@@ -1036,7 +1036,7 @@
         <div class="popup-content">
             <div class="popup-header">
                 <span class="close-popup-btn">&times;</span>
-                <h3>Detail Total of Power Loss (Connector)</h3>
+                <h3>Detail Total In-Line Connector</h3>
             </div>
             <div class="popup-body">
                 <div class="formula-definition-box">
@@ -1224,7 +1224,7 @@
                                 <li><strong>Bandpass Filter Insertion Loss (LBPF):</strong> Kehilangan daya akibat penggunaan filter bandpass yang selektif.</li>
                                 <li><strong>Insertion Loss of Other In-Line Devices (Lother):</strong> Kehilangan daya yang disebabkan oleh perangkat lain yang terhubung di jalur sinyal (misalnya, isolator, coupler).</li>
                                 <li><strong>Number of In-Line Connectors:</strong> Jumlah konektor yang terpasang di jalur transmisi.</li>
-                                <li><strong>Total of Power Loss (Connector):</strong> Total kehilangan daya yang disebabkan oleh semua konektor.</li>
+                                <li><strong>Total In-Line Connector:</strong> Total kehilangan daya yang disebabkan oleh semua konektor.</li>
                             </ul>
                         </p>
                     </div>
@@ -1338,11 +1338,11 @@
             const totalLossDb = parseFloat(document.getElementById('antenna to lna_uprec').value) || 0;
             let coefficient = 0;
             if (totalLossDb !== 0) {
-                coefficient = Math.pow(10, -totalLossDb / 10);
+                coefficient = Math.pow(10, (-totalLossDb / 10));
             } else {
                 coefficient = 1.0000; // If no loss, coefficient is 1 (no attenuation)
             }
-            document.getElementById('tranlincoe_uprec').value = coefficient.toFixed(4);
+            document.getElementById('tranlincoe_uprec').value = coefficient.toFixed(3);
             calculateTs();
         }
 
@@ -1354,7 +1354,7 @@
             } else {
                 glna = 1.00; // Default if no LNA gain input
             }
-            document.getElementById('glna_uprec').value = glna.toFixed(2);
+            document.getElementById('glna_uprec').value = glna.toFixed(1);
             calculateTs();
         }
 
@@ -1363,7 +1363,7 @@
             const ta = parseFloat(document.getElementById('antemper_uprec').value) || 0;
             const to = parseFloat(document.getElementById('spactemp_uprec').value) || 0;
             const tlna = parseFloat(document.getElementById('tlna_uprec').value) || 0;
-            const t2nd = parseFloat(document.getElementById('2ndstagetemp_uprec').value) || 0;
+            const t2nd = parseFloat(document.getElementById('secondstagetemp_uprec').value) || 0;
             const glna = parseFloat(document.getElementById('glna_uprec').value) || 1;
 
             let ts = 0;
@@ -1375,7 +1375,7 @@
             } else {
                 ts = (ta * alpha) + (to * (1 - alpha)) + tlna;
             }
-            document.getElementById('ts_uprec').value = ts.toFixed(2);
+            document.getElementById('ts_uprec').value = ts.toFixed(1);
         }
 
         // Downlink calculations
@@ -1423,7 +1423,7 @@
             } else {
                 coefficient = 1.0000;
             }
-            document.getElementById('tranlincoe_downrec').value = coefficient.toFixed(4);
+            document.getElementById('tranlincoe_downrec').value = coefficient.toFixed(3);
             calculateTsDownlink();
         }
 
@@ -1444,7 +1444,7 @@
             const lossPerMeter = parseFloat(document.getElementById('dloss_per_meter_downrec').value) || 0;
 
             const totalLoss = length * lossPerMeter;
-            document.getElementById('dloss_result_downrec').value = totalLoss.toFixed(2);
+            document.getElementById('dloss_result_downrec').value = totalLoss.toFixed(1);
             calculateTsDownlink();
         }
 
@@ -1465,7 +1465,7 @@
             } else {
                 ts = (ta * alpha) + (to * (1 - alpha)) + tlna;
             }
-            document.getElementById('ts_downrec').value = ts.toFixed(2);
+            document.getElementById('ts_downrec').value = ts.toFixed(1);
         }
 
         // --- Event Listeners and Initialization ---
@@ -1486,7 +1486,7 @@
             const uplinkInputIds = [
                 "typecable", "alength_uprec", "blength_uprec", "clength_uprec",
                 "lbpf_uprec", "lother_uprec", "connect_uprec", "lnagain_uprec",
-                "antemper_uprec", "spactemp_uprec", "tlna_uprec", "2ndstagetemp_uprec"
+                "antemper_uprec", "spactemp_uprec", "tlna_uprec", "secondstagetemp_uprec"
             ];
             uplinkInputIds.forEach(id => {
                 const el = document.getElementById(id);

@@ -113,7 +113,7 @@ class Data extends Model
         'tlna_uprec',
         'lnagain_uprec',
         'glna_uprec',
-        '2ndstagetemp_uprec',
+        'secondstagetemp_uprec',
         'ts_uprec',
 
         'cabletype_downrec',
@@ -236,7 +236,7 @@ class Data extends Model
         'wavelength_downgrounds_poin',
         'gain_downgrounds_poin',
         'beamwidth_downgrounds_poin',
-        'upgrounds_θ4_poin',
+        'estimedpointingerror_downgrounds_θ4_poin',
         'annrolloff_downgrounds_poin',
         'approxannpoinloss_downgrounds_poin',
         
@@ -270,10 +270,12 @@ class Data extends Model
     //Untuk AttmosIonos
         'min_elevation_angle',
         'loss_determined_atmospheric',
+        'uplink_loss_determined_atmospheric',
         'uplink_loss_determined_display',
         'uplink_frequency',
         'uplink_loss_ionosphere',
         'downlink_loss_determined_display',
+        'downlink_loss_determined_atmospheric',
         'downlink_frequency',
         'downlink_loss_ionosphere',
 

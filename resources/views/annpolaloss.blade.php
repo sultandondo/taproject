@@ -119,7 +119,7 @@
             line-height: 1.5;
             color: #374151;
         }
-        /* Keyframes from calc.blade.php, needed if you want the animation */
+        /* Keyframes from calc.blade.php, needed if want the animation */
         @keyframes fadeInScale {
             from { opacity: 0; transform: scale(0.9); }
             to { opacity: 1; transform: scale(1); }
@@ -242,7 +242,8 @@
                             <div class="relative">
                                 <label for="axtxantenna_up" class="block font-medium mb-2 text-gray-700">Axial ratio of Tx Antenna (Ant. #1):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axtxantenna_up" id="axtxantenna_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai">
+                                    <input type="number" step="any" name="axtxantenna_up" id="axtxantenna_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai"
+                                        value="{{ old('axtxantenna_up', $data->axtxantenna_up ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                             </div>
@@ -250,7 +251,8 @@
                             <div class="relative">
                                 <label for="axialratio1_up" class="block font-medium mb-2 text-gray-700">Axial ratio (Ant. #1):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axialratio1_up" id="axialratio1_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="axialratio1_up" id="axialratio1_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('axialratio1_up', $data->axialratio1_up ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="axialratio1_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -261,7 +263,8 @@
                             <div class="relative">
                                 <label for="axrxantenna_up" class="block font-medium mb-2 text-gray-700">Axial ratio of Rx Antenna (Ant. #2):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axrxantenna_up" id="axrxantenna_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai">
+                                    <input type="number" step="any" name="axrxantenna_up" id="axrxantenna_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai"
+                                        value="{{ old('axrxantenna_up', $data->axrxantenna_up ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                             </div>
@@ -269,7 +272,8 @@
                             <div class="relative">
                                 <label for="axialratio2_up" class="block font-medium mb-2 text-gray-700">Axial ratio (Ant. #2):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axialratio2_up" id="axialratio2_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="axialratio2_up" id="axialratio2_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('axialratio2_up', $data->axialratio2_up ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="axialratio2_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -280,7 +284,8 @@
                             <div class="relative">
                                 <label for="degrees_up" class="block font-medium mb-2 text-gray-700">Polarization Angle &theta; between antennas:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="degrees_up" id="degrees_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai">
+                                    <input type="number" step="any" name="degrees_up" id="degrees_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai"
+                                        value="{{ old('degrees_up', $data->degrees_up ?? '') }}">
                                     <span class="unit-text">Degrees</span>
                                 </div>
                             </div>
@@ -288,7 +293,8 @@
                             <div class="relative">
                                 <label for="radians_up" class="block font-medium mb-2 text-gray-700">Polarization Angle &theta; between antennas:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="radians_up" id="radians_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="radians_up" id="radians_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('radians_up', $data->radians_up ?? '') }}">
                                     <span class="unit-text">Radians</span>
                                 </div>
                                 <button type="button" id="radians_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -299,7 +305,8 @@
                             <div class="relative">
                                 <label for="polarizationloss_up" class="block font-medium mb-2 text-gray-700">Polarization Loss:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="polarizationloss_up" id="polarizationloss_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="polarizationloss_up" id="polarizationloss_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('polarizationloss_up', $data->polarizationloss_up ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="polarizationloss_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -308,9 +315,10 @@
                             </div>
 
                             <div class="relative">
-                                <label for="hasilpolarizationloss_up" class="block font-medium mb-2 text-gray-700">Hasil Polarization Loss:</label>
+                                <label for="hasilpolarizationloss_up" class="block font-medium mb-2 text-gray-700">Polarization Loss Result:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="hasilpolarizationloss_up" id="hasilpolarizationloss_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="hasilpolarizationloss_up" id="hasilpolarizationloss_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('hasilpolarizationloss_up', $data->hasilpolarizationloss_up ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="hasilpolarizationloss_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -325,7 +333,8 @@
                             <div class="relative">
                                 <label for="crosspolpowerfraction_up" class="block font-medium mb-2 text-gray-700">Cross Pol. Power Fraction:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="crosspolpowerfraction_up" id="crosspolpowerfraction_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="crosspolpowerfraction_up" id="crosspolpowerfraction_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('crosspolpowerfraction_up', $data->crosspolpowerfraction_up ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="crosspolpowerfraction_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -336,7 +345,8 @@
                             <div class="relative">
                                 <label for="dbcrosspolpowerfraction_up" class="block font-medium mb-2 text-gray-700">Cross Pol. Power Fraction:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="dbcrosspolpowerfraction_up" id="dbcrosspolpowerfraction_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="dbcrosspolpowerfraction_up" id="dbcrosspolpowerfraction_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('dbcrosspolpowerfraction_up', $data->dbcrosspolpowerfraction_up ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="dbcrosspolpowerfraction_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -347,7 +357,8 @@
                             <div class="relative">
                                 <label for="crosspolarizationisolation_up" class="block font-medium mb-2 text-gray-700">Cross Polarization Isolation:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="crosspolarizationisolation_up" id="crosspolarizationisolation_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="crosspolarizationisolation_up" id="crosspolarizationisolation_up" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('crosspolarizationisolation_up', $data->crosspolarizationisolation_up ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="crosspolarizationisolation_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -365,7 +376,8 @@
                             <div class="relative">
                                 <label for="axtxantenna_down" class="block font-medium mb-2 text-gray-700">Axial ratio of Tx Antenna (Ant. #1):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axtxantenna_down" id="axtxantenna_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai">
+                                    <input type="number" step="any" name="axtxantenna_down" id="axtxantenna_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai"
+                                        value="{{ old('axtxantenna_down', $data->axtxantenna_down ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                             </div>
@@ -373,7 +385,8 @@
                             <div class="relative">
                                 <label for="axialratio1_down" class="block font-medium mb-2 text-gray-700">Axial ratio (Ant. #1):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axialratio1_down" id="axialratio1_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="axialratio1_down" id="axialratio1_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('axialratio1_down', $data->axialratio1_down ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="axialratio1_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -384,7 +397,8 @@
                             <div class="relative">
                                 <label for="axrxantenna_down" class="block font-medium mb-2 text-gray-700">Axial ratio of Rx Antenna (Ant. #2):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axrxantenna_down" id="axrxantenna_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai">
+                                    <input type="number" step="any" name="axrxantenna_down" id="axrxantenna_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai"
+                                        value="{{ old('axrxantenna_down', $data->axrxantenna_down ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                             </div>
@@ -392,7 +406,8 @@
                             <div class="relative">
                                 <label for="axialratio2_down" class="block font-medium mb-2 text-gray-700">Axial ratio (Ant. #2):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="axialratio2_down" id="axialratio2_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="axialratio2_down" id="axialratio2_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('axialratio2_down', $data->axialratio2_down ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="axialratio2_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -403,7 +418,8 @@
                             <div class="relative">
                                 <label for="degrees_down" class="block font-medium mb-2 text-gray-700">Polarization Angle &theta; between antennas:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="degrees_down" id="degrees_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai">
+                                    <input type="number" step="any" name="degrees_down" id="degrees_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" min="0" placeholder="Masukkan nilai"
+                                        value="{{ old('degrees_down', $data->degrees_down ?? '') }}">
                                     <span class="unit-text">Degrees</span>
                                 </div>
                             </div>
@@ -411,7 +427,8 @@
                             <div class="relative">
                                 <label for="radians_down" class="block font-medium mb-2 text-gray-700">Polarization Angle &theta; between antennas:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="radians_down" id="radians_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="radians_down" id="radians_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('radians_down', $data->radians_down ?? '') }}">
                                     <span class="unit-text">Radians</span>
                                 </div>
                                 <button type="button" id="radians_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -422,7 +439,8 @@
                             <div class="relative">
                                 <label for="polarizationloss_down" class="block font-medium mb-2 text-gray-700">Polarization Loss:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="polarizationloss_down" id="polarizationloss_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="polarizationloss_down" id="polarizationloss_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('polarizationloss_down', $data->polarizationloss_down ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="polarizationloss_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -431,9 +449,10 @@
                             </div>
 
                             <div class="relative">
-                                <label for="hasilpolarizationloss_down" class="block font-medium mb-2 text-gray-700">Hasil Polarization Loss:</label>
+                                <label for="hasilpolarizationloss_down" class="block font-medium mb-2 text-gray-700">Polarization Loss Result:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="hasilpolarizationloss_down" id="hasilpolarizationloss_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="hasilpolarizationloss_down" id="hasilpolarizationloss_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('hasilpolarizationloss_down', $data->hasilpolarizationloss_down ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="hasilpolarizationloss_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -448,7 +467,8 @@
                             <div class="relative">
                                 <label for="crosspolpowerfraction_down" class="block font-medium mb-2 text-gray-700">Cross Pol. Power Fraction:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="crosspolpowerfraction_down" id="crosspolpowerfraction_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="crosspolpowerfraction_down" id="crosspolpowerfraction_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('crosspolpowerfraction_down', $data->crosspolpowerfraction_down ?? '') }}">
                                     <span class="unit-text"></span>
                                 </div>
                                 <button type="button" id="crosspolpowerfraction_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -459,7 +479,8 @@
                             <div class="relative">
                                 <label for="dbcrosspolpowerfraction_down" class="block font-medium mb-2 text-gray-700">Cross Pol. Power Fraction:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="dbcrosspolpowerfraction_down" id="dbcrosspolpowerfraction_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="dbcrosspolpowerfraction_down" id="dbcrosspolpowerfraction_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('dbcrosspolpowerfraction_down', $data->dbcrosspolpowerfraction_down ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="dbcrosspolpowerfraction_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -470,7 +491,8 @@
                             <div class="relative">
                                 <label for="crosspolarizationisolation_down" class="block font-medium mb-2 text-gray-700">Cross Polarization Isolation:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" step="any" name="crosspolarizationisolation_down" id="crosspolarizationisolation_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly>
+                                    <input type="number" step="any" name="crosspolarizationisolation_down" id="crosspolarizationisolation_down" class="w-full p-3 border border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" readonly
+                                        value="{{ old('crosspolarizationisolation_down', $data->crosspolarizationisolation_down ?? '') }}">
                                     <span class="unit-text">dB</span>
                                 </div>
                                 <button type="button" id="crosspolarizationisolation_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -485,11 +507,11 @@
                     </button>
                 </form>
                 <div class="flex justify-between mt-6">
-                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <a href="/annpoinloss/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                         <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                     </a>
 
-                    {{-- Uncomment this if you have a next page
+                    {{--
                     <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
                         Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
                     </a>
@@ -602,7 +624,7 @@
             let axialratio1_up = null;
             if (axtxantenna_up !== null && axtxantenna_up >= 0) {
                 axialratio1_up = Math.pow(10, axtxantenna_up / 20);
-                axialratio1_up_el.value = axialratio1_up.toFixed(4);
+                axialratio1_up_el.value = axialratio1_up.toFixed(1);
             } else {
                 axialratio1_up_el.value = '';
             }
@@ -611,7 +633,7 @@
             let axialratio2_up = null;
             if (axrxantenna_up !== null && axrxantenna_up >= 0) {
                 axialratio2_up = Math.pow(10, axrxantenna_up / 20);
-                axialratio2_up_el.value = axialratio2_up.toFixed(4);
+                axialratio2_up_el.value = axialratio2_up.toFixed(1);
             } else {
                 axialratio2_up_el.value = '';
             }
@@ -620,7 +642,7 @@
             let radians_up = null;
             if (degrees_up !== null && degrees_up >= 0) {
                 radians_up = degrees_up * (Math.PI / 180);
-                radians_up_el.value = radians_up.toFixed(4);
+                radians_up_el.value = radians_up.toFixed(1);
             } else {
                 radians_up_el.value = '';
             }
@@ -633,19 +655,19 @@
 
                 polarizationloss_up = 0.5 * (1 + numerator / denominator);
                 polarizationloss_up = Math.min(Math.max(polarizationloss_up, 1e-12), 1); // clamp to avoid log of zero or negative
-                polarizationloss_up_el.value = polarizationloss_up.toFixed(6);
+                polarizationloss_up_el.value = polarizationloss_up.toFixed(1);
 
                 const hasilpolarizationloss_up = -10 * Math.log10(polarizationloss_up);
-                hasilpolarizationloss_up_el.value = hasilpolarizationloss_up.toFixed(4);
+                hasilpolarizationloss_up_el.value = hasilpolarizationloss_up.toFixed(2);
 
                 const crosspolpowerfraction_up = 1 - polarizationloss_up;
-                crosspolpowerfraction_up_el.value = crosspolpowerfraction_up.toFixed(6);
+                crosspolpowerfraction_up_el.value = crosspolpowerfraction_up.toFixed(2);
 
                 const dbcrosspolpowerfraction_up = 10 * Math.log10(crosspolpowerfraction_up > 0 ? crosspolpowerfraction_up : 1e-12);
-                dbcrosspolpowerfraction_up_el.value = dbcrosspolpowerfraction_up.toFixed(4);
+                dbcrosspolpowerfraction_up_el.value = dbcrosspolpowerfraction_up.toFixed(1);
 
                 const crosspolarizationisolation_up = hasilpolarizationloss_up - dbcrosspolpowerfraction_up;
-                crosspolarizationisolation_up_el.value = crosspolarizationisolation_up.toFixed(4);
+                crosspolarizationisolation_up_el.value = crosspolarizationisolation_up.toFixed(1);
 
             } else {
                 // Clear all dependent outputs if main polarization loss inputs are not ready
@@ -678,7 +700,7 @@
             let axialratio1_down = null;
             if (axtxantenna_down !== null && axtxantenna_down >= 0) {
                 axialratio1_down = Math.pow(10, axtxantenna_down / 20);
-                axialratio1_down_el.value = axialratio1_down.toFixed(4);
+                axialratio1_down_el.value = axialratio1_down.toFixed(1);
             } else {
                 axialratio1_down_el.value = '';
             }
@@ -687,7 +709,7 @@
             let axialratio2_down = null;
             if (axrxantenna_down !== null && axrxantenna_down >= 0) {
                 axialratio2_down = Math.pow(10, axrxantenna_down / 20);
-                axialratio2_down_el.value = axialratio2_down.toFixed(4);
+                axialratio2_down_el.value = axialratio2_down.toFixed(1);
             } else {
                 axialratio2_down_el.value = '';
             }
@@ -696,7 +718,7 @@
             let radians_down = null;
             if (degrees_down !== null && degrees_down >= 0) {
                 radians_down = degrees_down * (Math.PI / 180);
-                radians_down_el.value = radians_down.toFixed(4);
+                radians_down_el.value = radians_down.toFixed(1);
             } else {
                 radians_down_el.value = '';
             }
@@ -709,19 +731,19 @@
 
                 polarizationloss_down = 0.5 * (1 + numerator / denominator);
                 polarizationloss_down = Math.min(Math.max(polarizationloss_down, 1e-12), 1);
-                polarizationloss_down_el.value = polarizationloss_down.toFixed(6);
+                polarizationloss_down_el.value = polarizationloss_down.toFixed(1);
 
                 const hasilpolarizationloss_down = -10 * Math.log10(polarizationloss_down);
-                hasilpolarizationloss_down_el.value = hasilpolarizationloss_down.toFixed(4);
+                hasilpolarizationloss_down_el.value = hasilpolarizationloss_down.toFixed(2);
 
                 const crosspolpowerfraction_down = 1 - polarizationloss_down;
-                crosspolpowerfraction_down_el.value = crosspolpowerfraction_down.toFixed(6);
+                crosspolpowerfraction_down_el.value = crosspolpowerfraction_down.toFixed(2);
 
                 const dbcrosspolpowerfraction_down = 10 * Math.log10(crosspolpowerfraction_down > 0 ? crosspolpowerfraction_down : 1e-12);
-                dbcrosspolpowerfraction_down_el.value = dbcrosspolpowerfraction_down.toFixed(4);
+                dbcrosspolpowerfraction_down_el.value = dbcrosspolpowerfraction_down.toFixed(1);
 
                 const crosspolarizationisolation_down = hasilpolarizationloss_down - dbcrosspolpowerfraction_down;
-                crosspolarizationisolation_down_el.value = crosspolarizationisolation_down.toFixed(4);
+                crosspolarizationisolation_down_el.value = crosspolarizationisolation_down.toFixed(1);
 
             } else {
                 // Clear all dependent outputs if main polarization loss inputs are not ready
@@ -815,11 +837,10 @@
             },
             dbcrosspolpowerfraction_up: function() {
                 return `
-                    <div class="formula">$$ \\text{Cross Pol. Power Fraction (dB)} = 10 \\times \\log_{10}(\\text{Cross Pol. Power Fraction}) $$</div>
+                    <div class="formula">$$ \\text{Cross Pol. Power Fraction (dB)} = 10 \\times \\log_{10}(1 - \\text{Polarization Loss}) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
-                        <p>Konversi Cross Polarization Power Fraction dari nilai linear ke desibel (dB). Konversi menggunakan rumus:</p>
-                        <p>Nilai dalam dB biasanya negatif karena Cross Pol. Power Fraction biasanya kurang dari 1. Semakin rendah nilai dB-nya, semakin sedikit daya yang ditransfer ke polarisasi silang.</p>
+                        <p>Nilai dalam dB biasanya negatif karena Polarization Loss biasanya kurang dari 1, yang menunjukkan adanya kerugian. Semakin rendah nilai dB-nya (semakin negatif), semakin besar kerugian polarisasi.</p>
                     </div>
                 `;
             },
@@ -901,10 +922,9 @@
             },
             dbcrosspolpowerfraction_down: function() {
                 return `
-                    <div class="formula">$$ \\text{Cross Pol. Power Fraction (dB)} = 10 \\times \\log_{10}(\\text{Cross Pol. Power Fraction}) $$</div>
+                    <div class="formula">$$ \\text{Cross Pol. Power Fraction (dB)} = 10 \\times \\log_{10}(1 - \\text{Polarization Loss}) $$</div>
                     <div class="popup-section">
                         <div class="popup-section-title">Penjelasan:</div>
-                        <p>Konversi Cross Polarization Power Fraction dari nilai linear ke desibel (dB). Konversi menggunakan rumus:</p>
                         <p>Nilai dalam dB biasanya negatif karena Cross Pol. Power Fraction biasanya kurang dari 1. Semakin rendah nilai dB-nya, semakin sedikit daya yang ditransfer ke polarisasi silang.</p>
                     </div>
                 `;

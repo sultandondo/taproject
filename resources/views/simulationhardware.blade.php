@@ -248,6 +248,88 @@
             margin-bottom: 0.4rem;
             line-height: 1.6;
         }
+
+        /* Style untuk kolom uplink dan downlink */
+        .uplink-downlink-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .uplink-downlink-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .uplink-section {
+            background-color: #fef2f2; /* red-50 slightly modified */
+            border: 1px solid #fca5a5; /* red-300 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .downlink-section {
+            background-color: #f0f9ff; /* sky-50 */
+            border: 1px solid #7dd3fc; /* sky-300 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .uplink-section h4 {
+            color: #dc2626; /* red-600 */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .downlink-section h4 {
+            color: #0284c7; /* sky-600 */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        /* Style untuk frequency grid */
+        .frequency-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .frequency-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .frequency-uplink-section {
+            background-color: #fef2f2; /* red-50 slightly modified */
+            border: 1px solid #fca5a5; /* red-300 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .frequency-downlink-section {
+            background-color: #f0f9ff; /* sky-50 */
+            border: 1px solid #7dd3fc; /* sky-300 */
+            border-radius: 0.5rem;
+            padding: 1rem;
+        }
+
+        .frequency-uplink-section h4 {
+            color: #dc2626; /* red-600 */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
+
+        .frequency-downlink-section h4 {
+            color: #0284c7; /* sky-600 */
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            text-align: center;
+        }
     </style>
 
     <div class="container mx-auto px-4 py-8">
@@ -257,7 +339,7 @@
                     <i class="text-blue-600"></i> Simulasi Hardware
                 </h1>
                 <p class="text-center text-gray-600 mb-8 text-lg animate__animated animate__fadeInUp animate__delay-0.5s">
-                    Masukkan parameter untuk simulasi hardware (Input, Loss, dan Output).
+                    Masukkan parameter untuk simulasi hardware (Input, Loss, dan Output)
                 </p>
 
                 {{-- "Apa itu Simulasi Hardware?" button --}}
@@ -268,7 +350,7 @@
                 </div>
 
                 {{-- Pastikan $dataId dilewatkan dari controller, contoh: return view('simulationhardware', ['dataId' => $id]); --}}
-                <form method="POST" action="{{ route('simulationhardware.store', $dataId ?? 'default_id') }}">
+                <form method="POST" action="{{ route('arduino', $dataId) }}">
                     @csrf {{-- Tambahkan CSRF token untuk Laravel --}}
                     {{-- <input type="hidden" name="user_id" value="{{ auth()->user()->id ?? '' }}"> --}}
 
@@ -279,55 +361,75 @@
                                 </div>
                         </div>
 
-                        <div class="relative mb-4">
-                            <label for="frequency_tx" class="block font-medium mb-2 text-gray-700">Frekuensi (5-6000 MHz):</label>
-                            <div class="input-with-unit-wrapper">
-                                <input type="number" step="1" id="frequency_tx" name="frequency_tx"
-                                    class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                                    placeholder="Masukkan nilai Frekuensi" min="5" max="6000">
-                                <span class="unit-text">MHz</span>
+                        {{-- Frequency Grid - Uplink dan Downlink --}}
+                        <div class="frequency-grid mb-4">
+                            {{-- Frequency Uplink Section --}}
+                            <div class="frequency-uplink-section">
+                                <h4>Uplink Frequency</h4>
+                                <div class="relative">
+                                    <label for="frequency_tx_uplink" class="block font-medium mb-2 text-gray-700">Frequency:</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="number" step="1" id="frequency_tx_uplink" name="frequency_tx_uplink"
+                                            class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" value="{{ $data->frekuensi ?? '' }}" readonly>
+                                        <span class="unit-text">MHz</span>
+                                    </div>
+                                    <button type="button" id="frequency_tx_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
                             </div>
-                            <div id="frequency-warning" class="text-red-600 text-sm mt-1 hidden">
-                                <i class="fas fa-exclamation-triangle mr-1"></i> Nilai frekuensi harus antara 5 dan 6000 MHz.
+
+                            {{-- Frequency Downlink Section --}}
+                            <div class="frequency-downlink-section">
+                                <h4>Downlink Frequency</h4>
+                                <div class="relative">
+                                    <label for="frequency_tx_downlink" class="block font-medium mb-2 text-gray-700">Frequency:</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="number" step="1" id="frequency_tx_downlink" name="frequency_tx_downlink"
+                                            class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" value="{{ $data->frekuensi_downlink ?? '' }}" readonly>
+                                        <span class="unit-text">MHz</span>
+                                    </div>
+                                   <button type="button" id="frequency_tx_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>                                    
+                                </div>
                             </div>
                         </div>
 
-                        <div class="input-group flex flex-col md:flex-row md:space-x-6">
-                            <div class="relative w-full md:w-1/3">
-                                <label for="watt_tx" class="block font-medium mb-2 text-gray-700">Daya Input (Watt):</label>
-                                <div class="input-with-unit-wrapper">
-                                    <input type="number" step="0.001" id="watt_tx" name="watt_tx"
-                                        class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                                        placeholder="Masukkan nilai Watt" min="0" max="1">
-                                    <span class="unit-text">W</span>
-                                </div>
-                                <div id="watt-warning" class="text-red-600 text-sm mt-1 hidden">
-                                    <i class="fas fa-exclamation-triangle mr-1"></i> Daya input harus antara 0 dan 1 Watt.
+                        {{-- Input Power Grid - Uplink dan Downlink --}}
+                        <div class="frequency-grid mb-4">
+                            {{-- Input Power Uplink Section --}}
+                            <div class="frequency-uplink-section">
+                                <h4>Uplink Input Power</h4>
+                                <div class="relative">
+                                    <label for="dbm_tx_uplink" class="block font-medium mb-2 text-gray-700">Input Power (dBm):</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="number" step="0.001" id="dbm_tx_uplink" name="dbm_tx_uplink"
+                                            class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                            placeholder="Masukkan nilai" min="0" max="30">
+                                        <span class="unit-text">dBm</span>
+                                    </div>
+                                    <div id="dbm-uplink-warning" class="text-red-600 text-sm mt-1 hidden">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i> Daya input antara 0 - 30 dBm.
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="relative w-full md:w-1/3">
-                                <label for="dbw_tx" class="block font-medium mb-2 text-gray-700">Daya Input (dBW):</label>
-                                <div class="input-with-unit-wrapper">
-                                    <input type="text" id="dbw_tx" name="dbw_tx"
-                                        class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
-                                        placeholder="Hasil dBW" readonly>
-                                    <span class="unit-text">dBW</span>
+                            {{-- Input Power Downlink Section --}}
+                            <div class="frequency-downlink-section">
+                                <h4>Downlink Input Power</h4>
+                                <div class="relative">
+                                    <label for="dbm_tx_downlink" class="block font-medium mb-2 text-gray-700">Input Power (dBm):</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="number" step="0.001" id="dbm_tx_downlink" name="dbm_tx_downlink"
+                                            class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                            placeholder="Masukkan nilai" min="0" max="30">
+                                        <span class="unit-text">dBm</span>
+                                    </div>
+                                    <div id="dbm-downlink-warning" class="text-red-600 text-sm mt-1 hidden">
+                                        <i class="fas fa-exclamation-triangle mr-1"></i> Daya input antara 0 - 30 dBm.
+                                    </div>
                                 </div>
-                                <button type="button" id="dbw_tx_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
-                            </div>
-
-                            <div class="relative w-full md:w-1/3">
-                                <label for="dbm_tx" class="block font-medium mb-2 text-gray-700">Daya Input (dBm):</label>
-                                <div class="input-with-unit-wrapper">
-                                    <input type="text" id="dbm_tx" name="dbm_tx"
-                                        class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
-                                        placeholder="Hasil dBm" readonly>
-                                    <span class="unit-text">dBm</span>
-                                </div>
-                                <button type="button" id="dbm_tx_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                             </div>
                         </div>
+                        {{-- END Input Power Grid --}}
+
                     </div>
 
                     <div class="bg-red-50 p-6 rounded-lg border border-red-200 shadow-sm mb-6">
@@ -337,18 +439,35 @@
                                 </div>
                         </div>
 
-                        <div class="relative mt-4">
-                            <label for="total_loss" class="block font-medium mb-2 text-gray-700">Total Loss (Dari hitungan web) (dB):</label>
-                            <div class="input-with-unit-wrapper">
-                                <input type="number" step="0.001" name="total_loss" id="total_loss"
-                                    class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                                    placeholder="Masukkan nilai Total Loss" min="0" max="95.25">
-                                <span class="unit-text">dB</span>
+                        {{-- Uplink dan Downlink Total Loss --}}
+                        <div class="uplink-downlink-grid">
+                            {{-- Uplink Section --}}
+                            <div class="uplink-section">
+                                <h4>Uplink</h4>
+                                <div class="relative">
+                                    <label for="total_loss_uplink" class="block font-medium mb-2 text-gray-700">Total Loss (dB):</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="number" step="0.001" name="path_loss" id="total_loss_uplink"
+                                            class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" value="{{ $data->path_loss ?? '' }}" readonly>
+                                        <span class="unit-text">dB</span>
+                                    </div>
+                                    <button type="button" id="total_loss_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
                             </div>
-                            <div id="total-loss-warning" class="text-red-600 text-sm mt-1 hidden">
-                                <i class="fas fa-exclamation-triangle mr-1"></i> Total loss harus antara 0 dan 95.25 dB.
+
+                            {{-- Downlink Section --}}
+                            <div class="downlink-section">
+                                <h4>Downlink</h4>
+                                <div class="relative">
+                                    <label for="total_loss_downlink" class="block font-medium mb-2 text-gray-700">Total Loss (dB):</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="number" step="0.001" name="path_loss_downlink" id="total_loss_downlink"
+                                            class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" value="{{ $data->path_loss_downlink ?? '' }}" readonly>
+                                        <span class="unit-text">dB</span>
+                                    </div>
+                                    <button type="button" id="total_loss_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
                             </div>
-                            <button type="button" id="total_loss_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                         </div>
                     </div>
 
@@ -359,25 +478,47 @@
                                 </div>
                         </div>
 
-                        <div class="relative mt-4">
-                            <label for="received_power_rx" class="block font-medium mb-2 text-gray-700">Daya yang diterima (dBW):</label>
-                            <div class="input-with-unit-wrapper">
-                                <input type="text" name="received_power_rx" id="received_power_rx"
-                                    class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
-                                    placeholder="Hasil Daya yang Diterima" readonly>
-                                <span class="unit-text">dBW</span>
+                        {{-- Uplink dan Downlink Received Power --}}
+                        <div class="uplink-downlink-grid">
+                            {{-- Uplink Section --}}
+                            <div class="uplink-section">
+                                <h4>Uplink</h4>
+                                <div class="relative">
+                                    <label for="received_power_rx_uplink" class="block font-medium mb-2 text-gray-700">Power Receive (dBm):</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="text" name="received_power_rx_uplink" id="received_power_rx_uplink"
+                                            class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                            placeholder="Hasil Daya" readonly>
+                                        <span class="unit-text">dBm</span>
+                                    </div>
+                                    <button type="button" id="received_power_rx_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
                             </div>
-                            <button type="button" id="received_power_rx_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+
+                            {{-- Downlink Section --}}
+                            <div class="downlink-section">
+                                <h4>Downlink</h4>
+                                <div class="relative">
+                                    <label for="received_power_rx_downlink" class="block font-medium mb-2 text-gray-700">Power Receive (dBm):</label>
+                                    <div class="input-with-unit-wrapper">
+                                        <input type="text" name="received_power_rx_downlink" id="received_power_rx_downlink"
+                                            class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                            placeholder="Hasil Daya" readonly>
+                                        <span class="unit-text">dBm</span>
+                                    </div>
+                                    <button type="button" id="received_power_rx_downlink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <i class=""></i> Hitung & Simpan
+                        <i class=""></i> Kirim ke Arduino
                     </button>
                 </form>
 
                 <div class="flex justify-between mt-6">
-                    <a href="{{ route('history') }}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <a href="{{ route('home') }}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                         <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                     </a>
                     {{-- Anda bisa menambahkan link halaman selanjutnya di sini jika diperlukan --}}
@@ -403,8 +544,9 @@
                             Ini adalah bagian di mana Anda akan memasukkan parameter yang berkaitan dengan sumber sinyal atau pemancar. Ini termasuk frekuensi operasional dan daya input awal yang dihasilkan oleh pemancar.
                         </p>
                         <ul class="param-list">
-                            <li><strong>Frekuensi (5-6000 MHz):</strong> Rentang frekuensi sinyal yang akan disimulasikan.</li>
-                            <li><strong>Daya Input (Watt, dBW, dBm):</strong> Daya awal sinyal yang dihasilkan, dapat diukur dalam Watt, dBW (decibel-watt), atau dBm (decibel-milliwatt).</li>
+                            <li><strong>Frekuensi Uplink:</strong> Rentang frekuensi sinyal uplink yang akan disimulasikan.</li>
+                            <li><strong>Frekuensi Downlink:</strong> Rentang frekuensi sinyal downlink yang akan disimulasikan.</li>
+                            <li><strong>Daya Input (dBm):</strong> Daya awal sinyal yang dihasilkan, diukur dalam dBm (decibel-milliwatt). Ini adalah input utama untuk perhitungan daya yang diterima.</li>
                         </ul>
                     </div>
 
@@ -414,7 +556,8 @@
                             Bagian ini digunakan untuk memasukkan semua jenis kehilangan daya yang mungkin terjadi pada jalur transmisi. Ini adalah faktor-faktor yang akan mengurangi kekuatan sinyal dari pemancar hingga penerima.
                         </p>
                         <ul class="param-list">
-                            <li><strong>Total Loss (Dari hitungan web) (dB):</strong> Representasi total kehilangan daya yang dihitung dari berbagai faktor (seperti kehilangan jalur, kehilangan konektor, dll.) yang mungkin didapatkan dari perhitungan eksternal atau modul lain.</li>
+                            <li><strong>Total Loss Uplink (dB):</strong> Representasi total kehilangan daya pada jalur uplink (dari terminal ke satelit).</li>
+                            <li><strong>Total Loss Downlink (dB):</strong> Representasi total kehilangan daya pada jalur downlink (dari satelit ke terminal).</li>
                         </ul>
                     </div>
 
@@ -424,7 +567,8 @@
                             Ini adalah bagian output yang menunjukkan hasil simulasi, yaitu daya sinyal yang diterima setelah semua kehilangan diperhitungkan.
                         </p>
                         <ul class="param-list">
-                            <li><strong>Daya yang diterima (dBW):</strong> Daya sinyal akhir yang berhasil sampai ke penerima setelah melalui proses transmisi dan mengalami berbagai kehilangan.</li>
+                            <li><strong>Daya yang diterima Uplink (dBm):</strong> Daya sinyal akhir yang berhasil sampai ke penerima pada jalur uplink.</li>
+                            <li><strong>Daya yang diterima Downlink (dBm):</strong> Daya sinyal akhir yang berhasil sampai ke penerima pada jalur downlink.</li>
                         </ul>
                     </div>
 
@@ -440,22 +584,55 @@
     </div>
 
     {{-- Popups for calculation details --}}
-    <div id="dbw_tx_popup" class="popup-window">
+    {{-- dbw_tx_popup Dihapus --}}
+
+    {{-- Popup for Frequency Uplink --}}
+    <div id="frequency_tx_uplink_popup" class="popup-window">
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close-popup-btn">&times;</span> <h3>Detail Daya Input (dBW)</h3>
+                <span class="close-popup-btn">&times;</span> <h3>Detail Frekuensi Uplink</h3>
             </div>
             <div class="popup-body">
                 <div>
                     <div class="formula">
-                        <strong>Rumus Perhitungan:</strong><br>
-                        $$P_{dBW} = 10 \times \log_{10}(\text{Watt})$$
-                        Dimana:<br>
-                        $P_{dBW}$ = Daya dalam desibel-watt<br>
-                        Watt = Daya dalam watt
+                        <strong>Sumber Nilai:</strong><br>
+                        Nilai <strong>Frekuensi Uplink</strong> ($f_{uplink}$) diambil dari input "Frekuensi Uplink" pada halaman "Frekuensi".
+                        <br><br>
+                        <strong>Notasi Matematis:</strong><br>
+                        $f_{uplink} = \text{Frekuensi dalam MHz}$
+                        <br>
+                        <strong>Dimana:</strong><br>
+                        • $f_{uplink}$ = Frekuensi sinyal uplink dalam MHz<br>
+                        • MHz = Megahertz ($10^6$ Hz)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    dBW adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 watt. Ini sering digunakan dalam telekomunikasi untuk menyatakan daya transmit. Setiap kenaikan 3 dBW berarti daya berlipat ganda, dan setiap kenaikan 10 dBW berarti daya berlipat 10 kali.</p>
+                    <strong></strong>Frekuensi Uplink</strong> adalah frekuensi sinyal yang digunakan untuk transmisi dari stasiun bumi ke satelit. Ini adalah parameter dasar yang mempengaruhi perhitungan *path loss* dan desain antena.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{-- Popup for Frequency Downlink --}}
+    <div id="frequency_tx_downlink_popup" class="popup-window">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Frekuensi Downlink</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Sumber Nilai:</strong><br>
+                        Nilai <strong>Frekuensi Downlink</strong> ($f_{downlink}$) diambil dari input "Frekuensi Downlink" pada halaman "Frekuensi".
+                        <br><br>
+                        <strong>Notasi Matematis:</strong><br>
+                        $f_{downlink} = \text{Frekuensi dalam MHz}$
+                        <br>
+                        <strong>Dimana:</strong><br>
+                        • $f_{downlink}$ = Frekuensi sinyal downlink dalam MHz<br>
+                        • MHz = Megahertz ($10^6$ Hz)
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    <strong>Frekuensi Downlink</strong> adalah frekuensi sinyal yang digunakan untuk transmisi dari satelit ke stasiun bumi. Sama seperti uplink, ini adalah parameter dasar yang mempengaruhi perhitungan *path loss* dan desain antena.</p>
                 </div>
             </div>
         </div>
@@ -470,114 +647,142 @@
                 <div>
                     <div class="formula">
                         <strong>Rumus Perhitungan:</strong><br>
-                        $$P_{dBm} = P_{dBW} + 30$$
-                        Atau<br>
-                        $$P_{dBm} = 10 \times \log_{10}(\text{mW})$$
+                        $P_{dBm} \text{ (Input Langsung)}$
                         Dimana:<br>
-                        $P_{dBm}$ = Daya dalam desibel-milliwatt<br>
-                        $P_{dBW}$ = Daya dalam desibel-watt<br>
-                        mW = Daya dalam milliwatt
+                        $P_{dBm}$ = Daya dalam desibel-milliwatt yang dimasukkan
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    dBm adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 milliwatt (mW). Ini umumnya digunakan untuk mengukur daya sinyal dalam komunikasi nirkabel dan serat optik. Konversi dari dBW ke dBm adalah menambahkan 30 karena 1 Watt = 1000 mW, dan $10 \log_{10}(1000) = 30$.</p>
+                    <strong>dBm</strong>adalah satuan ukuran daya yang dinyatakan dalam desibel (dB) relatif terhadap 1 milliwatt (mW). Ini umumnya digunakan untuk mengukur daya sinyal dalam komunikasi nirkabel dan serat optik. Anda dapat memasukkan nilai dBm secara langsung.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="total_loss_popup" class="popup-window">
+    <div id="total_loss_uplink_popup" class="popup-window">
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close-popup-btn">&times;</span> <h3>Detail Total Loss (dB)</h3>
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Loss Uplink (dB)</h3>
             </div>
             <div class="popup-body">
                 <div>
                     <div class="formula">
-                        <strong>Rumus Konseptual:</strong><br>
-                        $$\text{Total Loss} = \text{Loss}_{FSL} + \text{Loss}_{Cable} + \text{Loss}_{Connector} + \text{Loss}_{Other} + ...$$
-                        Dimana:<br>
-                        $\text{Loss}_{FSL}$ = Free Space Loss (kehilangan ruang bebas)<br>
-                        $\text{Loss}_{Cable}$ = Kehilangan kabel/waveguide<br>
-                        $\text{Loss}_{Connector}$ = Kehilangan konektor<br>
-                        $\text{Loss}_{Other}$ = Kehilangan lain-lain (filter, perangkat, dll.)
+                        <strong>Sumber Nilai:</strong><br>
+                        Nilai <strong>Total Loss Uplink</strong> ($L_{total\_uplink}$) diambil dari perhitungan pada halaman "Frekuensi" yang mencakup Free Space Loss dan semua komponen kehilangan lainnya.
+                        <br>
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    Total Loss adalah akumulasi semua kehilangan daya sinyal yang terjadi selama transmisi dari pemancar ke penerima. Ini bisa termasuk Free Space Loss (FSL), kehilangan pada kabel atau waveguide, kehilangan pada konektor, dan kehilangan-kehilangan lain yang disebabkan oleh komponen-komponen pasif atau aktif di sepanjang jalur sinyal. Nilai ini sangat penting untuk akurasi perhitungan Link Budget.</p>
+                    <strong>Total Loss Uplink</strong> adalah akumulasi semua kehilangan daya sinyal yang terjadi selama transmisi dari terminal pengirim ke satelit. Nilai ini dihitung secara komprehensif pada halaman "Frekuensi" dan mencakup berbagai komponen kehilangan yang mempengaruhi kualitas sinyal uplink.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="received_power_rx_popup" class="popup-window">
+    <div id="total_loss_downlink_popup" class="popup-window">
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close-popup-btn">&times;</span> <h3>Detail Daya yang Diterima (dBW)</h3>
+                <span class="close-popup-btn">&times;</span> <h3>Detail Total Loss Downlink (dB)</h3>
             </div>
             <div class="popup-body">
                 <div>
                     <div class="formula">
-                        <strong>Rumus Konseptual:</strong><br>
-                        $$P_{Rx} = P_{Tx} - L_{Total}$$
-                        Dimana:<br>
-                        $P_{Rx}$ = Daya yang diterima (Received Power)<br>
-                        $P_{Tx}$ = Daya Input Transmitter<br>
-                        $L_{Total}$ = Total Loss (dari semua sumber kehilangan)
+                        <strong>Sumber Nilai:</strong><br>
+                        Nilai <strong>Total Loss Downlink</strong> ($L_{total\_downlink}$) diambil dari perhitungan pada halaman "Frekuensi" yang mencakup Free Space Loss dan semua komponen kehilangan lainnya.
+                        <br>
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    Daya yang diterima ($P_{Rx}$) adalah ukuran kekuatan sinyal yang berhasil mencapai input penerima. Ini dihitung dengan mengambil daya input awal dari pemancar ($P_{Tx}$) dan menguranginya dengan semua total kehilangan daya ($L_{Total}$) yang terjadi di sepanjang jalur transmisi. Daya yang diterima yang memadai sangat krusial untuk memastikan komunikasi yang handal dan berkualitas.</p>
+                    <strong>Total Loss Downlink</strong> adalah akumulasi semua kehilangan daya sinyal yang terjadi selama transmisi dari satelit ke terminal penerima. Nilai ini dihitung secara komprehensif pada halaman "Frekuensi" dan mencakup berbagai komponen kehilangan yang mempengaruhi kualitas sinyal downlink.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        // Function for power conversion (Watt to dBW and dBm)
-        function updatePowerFields(wattId, dbwId, dbmId) {
-            const wattInput = document.getElementById(wattId);
-            const dbwOutput = document.getElementById(dbwId);
-            const dbmOutput = document.getElementById(dbmId);
+    <div id="received_power_rx_uplink_popup" class="popup-window">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Daya yang Diterima Uplink (dBm)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $P_{Rx\_Uplink\_dBm} = P_{Tx\_dBm} - L_{Total\_Uplink}$
+                        <br>
+                        <strong>Dimana:</strong><br>
+                        • $P_{Rx\_Uplink\_dBm}$ = Daya yang diterima Uplink dalam dBm<br>
+                        • $P_{Tx\_dBm}$ = Daya Input Transmitter dalam dBm<br>
+                        • $L_{Total\_Uplink}$ = Total Loss Uplink dalam dB<br><br>
+                        <strong>(Catatan: Hasil dalam dBm karena dBm - dB = dBm)</strong>
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    <strong>Daya yang diterima</strong> pada jalur uplink dihitung dengan mengurangkan total loss uplink dari daya input transmitter uplink. Karena daya input uplink dalam dBm dikurangi dengan loss dalam dB, hasilnya akan dalam satuan dBm. Ini sesuai dengan prinsip bahwa dBm - dB = dBm.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            const watt = parseFloat(wattInput.value);
+    <div id="received_power_rx_downlink_popup" class="popup-window">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Detail Daya yang Diterima Downlink (dBm)</h3>
+            </div>
+            <div class="popup-body">
+                <div>
+                    <div class="formula">
+                        <strong>Rumus Perhitungan:</strong><br>
+                        $P_{Rx\_Downlink\_dBm} = P_{Tx\_dBm} - L_{Total\_Downlink}$
+                        <br>
+                        <strong>Dimana:</strong><br>
+                        • $P_{Rx\_Downlink\_dBm}$ = Daya yang diterima Downlink dalam dBm<br>
+                        • $P_{Tx\_dBm}$ = Daya Input Transmitter dalam dBm<br>
+                        • $L_{Total\_Downlink}$ = Total Loss Downlink dalam dB<br><br>
+                        <strong>(Catatan: Hasil dalam dBm karena dBm - dB = dBm)</strong>
+                    </div>
+                    <p><strong>Penjelasan:</strong><br>
+                    <strong>Daya yang diterima</strong> pada jalur downlink dihitung dengan mengurangkan total loss downlink dari daya input transmitter downlink. Karena daya input downlink dalam dBm dikurangi dengan loss dalam dB, hasilnya akan dalam satuan dBm. Ini sesuai dengan prinsip bahwa dBm - dB = dBm.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            // Only update if watt is a valid number within the allowed range
-            // The specific validation for the input field itself is handled by validateWattTx()
-            if (!isNaN(watt) && watt >= 0 && watt <= 1) {
-                const dbw = (watt === 0) ? -Infinity : 10 * Math.log10(watt); // Handle log(0) for dBW
-                const dbm = (watt === 0) ? -Infinity : dbw + 30; // Handle log(0) for dBm
+   <script>
+        // Function to calculate and update received power untuk uplink dan downlink
+        function updateReceivedPowerUplink() {
+            const dbmTxUplinkInput = document.getElementById('dbm_tx_uplink');
+            const totalLossUplinkInput = document.getElementById('total_loss_uplink');
+            const receivedPowerRxUplinkOutput = document.getElementById('received_power_rx_uplink');
 
-                dbwOutput.value = isFinite(dbw) ? dbw.toFixed(3) : '-Infinity';
-                dbmOutput.value = isFinite(dbm) ? dbm.toFixed(3) : '-Infinity';
+            const powerTxUplink_dBm = parseFloat(dbmTxUplinkInput.value);
+            const totalLossUplink = parseFloat(totalLossUplinkInput.value);
+
+            const isDbmTxUplinkValidForCalc = !isNaN(powerTxUplink_dBm) && powerTxUplink_dBm >= 0 && powerTxUplink_dBm <= 30;    
+            const isTotalLossUplinkValidForCalc = !isNaN(totalLossUplink) && totalLossUplink;
+
+            if (isDbmTxUplinkValidForCalc && isTotalLossUplinkValidForCalc) {
+                // Rumus: dBm - dB = dBm (langsung tanpa konversi -30)
+                const receivedPower_dBm = powerTxUplink_dBm - totalLossUplink;
+                receivedPowerRxUplinkOutput.value = receivedPower_dBm.toFixed(2);
             } else {
-                dbwOutput.value = '';
-                dbmOutput.value = '';
+                receivedPowerRxUplinkOutput.value = '';
             }
         }
 
-        // Function to calculate and update received power
-        function updateReceivedPower() {
-            const wattTxInput = document.getElementById('watt_tx');
-            const totalLossInput = document.getElementById('total_loss');
-            const receivedPowerRxOutput = document.getElementById('received_power_rx');
+        function updateReceivedPowerDownlink() {
+            const dbmTxDownlinkInput = document.getElementById('dbm_tx_downlink');
+            const totalLossDownlinkInput = document.getElementById('total_loss_downlink');
+            const receivedPowerRxDownlinkOutput = document.getElementById('received_power_rx_downlink');
 
-            const wattTx = parseFloat(wattTxInput.value);
-            const totalLoss = parseFloat(totalLossInput.value);
+            const powerTxDownlink_dBm = parseFloat(dbmTxDownlinkInput.value);
+            const totalLossDownlink = parseFloat(totalLossDownlinkInput.value);
 
-            // Check if values are valid before calculation
-            // These individual validations are now tied to their respective input fields
-            const isWattTxValidForCalc = !isNaN(wattTx) && wattTx >= 0 && wattTx <= 1;
-            const isTotalLossValidForCalc = !isNaN(totalLoss) && totalLoss >= 0 && totalLoss <= 95.25;
+            const isDbmTxDownlinkValidForCalc = !isNaN(powerTxDownlink_dBm) && powerTxDownlink_dBm >= 0 && powerTxDownlink_dBm <= 30;    
+            const isTotalLossDownlinkValidForCalc = !isNaN(totalLossDownlink) && totalLossDownlink;
 
-            if (isWattTxValidForCalc && isTotalLossValidForCalc) {
-                const powerTx_dBW = (wattTx === 0) ? -Infinity : 10 * Math.log10(wattTx);
-
-                if (isFinite(powerTx_dBW)) {
-                    const receivedPower_dBW = powerTx_dBW - totalLoss;
-                    receivedPowerRxOutput.value = receivedPower_dBW.toFixed(3);
-                } else {
-                    receivedPowerRxOutput.value = '-Infinity';
-                }
+            if (isDbmTxDownlinkValidForCalc && isTotalLossDownlinkValidForCalc) {
+                // Rumus: dBm - dB = dBm (langsung tanpa konversi -30)
+                const receivedPower_dBm = powerTxDownlink_dBm - totalLossDownlink;
+                receivedPowerRxDownlinkOutput.value = receivedPower_dBm.toFixed(2);
             } else {
-                receivedPowerRxOutput.value = '';
+                receivedPowerRxDownlinkOutput.value = '';
             }
         }
 
@@ -593,84 +798,124 @@
          */
         function validateInputRange(inputElement, warningElement, minVal, maxVal, warningMessage) {
             const value = parseFloat(inputElement.value);
-            const rawValue = inputElement.value.trim(); // Get raw value to check if empty
+            const rawValue = inputElement.value.trim();
 
             let isValid = true;
 
-            // If the input is empty, hide the warning and clear error styling
             if (rawValue === '') {
+                // If the input is empty, hide warning and remove error styling
                 warningElement.classList.add('hidden');
                 inputElement.classList.remove('input-error');
                 inputElement.classList.add('border-gray-300', 'focus:border-blue-400', 'focus:ring-blue-400');
-                return true; // Consider empty as "not yet invalid"
+                return true;
             }
 
-            // If not empty, proceed with numerical validation
-            if (isNaN(value) || value < minVal || value > maxVal) {
+            if (value < minVal || value > maxVal || isNaN(value)) {
                 warningElement.textContent = warningMessage;
-                warningElement.classList.remove('hidden'); // Show the warning
+                warningElement.classList.remove('hidden');
                 inputElement.classList.remove('border-gray-300', 'focus:border-blue-400', 'focus:ring-blue-400');
-                inputElement.classList.add('input-error'); // Add error styling
+                inputElement.classList.add('input-error');
                 isValid = false;
             } else {
-                warningElement.classList.add('hidden'); // Hide the warning
-                inputElement.classList.remove('input-error'); // Remove error styling
-                inputElement.classList.add('border-gray-300', 'focus:border-blue-400', 'focus:ring-blue-400'); // Restore normal styling
+                warningElement.classList.add('hidden');
+                inputElement.classList.remove('input-error');
+                inputElement.classList.add('border-gray-300', 'focus:border-blue-400', 'focus:ring-blue-400');
             }
             return isValid;
         }
 
-        // Specific validation functions for each input
-        function validateFrequency() {
-            const input = document.getElementById('frequency_tx');
-            const warning = document.getElementById('frequency-warning');
-            return validateInputRange(input, warning, 5, 6000, 'Nilai frekuensi harus antara 5 dan 6000 MHz.');
+        // Specific validation functions for each input (these are for readonly, but kept for consistency)
+        function validateFrequencyUplink() {
+            const input = document.getElementById('frequency_tx_uplink');
+            let warning = document.getElementById('frequency-uplink-warning');
+            if (!warning) {
+                warning = document.createElement('div');
+                warning.id = 'frequency-uplink-warning';
+                warning.className = 'text-red-600 text-sm mt-1 hidden';
+                warning.innerHTML = '<i class="fas fa-exclamation-triangle mr-1"></i> Frekuensi harus dalam rentang yang valid.';
+                input.parentNode.appendChild(warning);
+            }
+            // For readonly inputs, we don't typically validate user input, but you can
+            // add checks if the pre-filled value might be invalid.
+            return true; // Always true for readonly for now
         }
 
-        function validateWattTx() {
-            const input = document.getElementById('watt_tx');
-            const warning = document.getElementById('watt-warning');
-            return validateInputRange(input, warning, 0, 1, 'Daya input harus antara 0 dan 1 Watt.');
+        function validateFrequencyDownlink() {
+            const input = document.getElementById('frequency_tx_downlink');
+            let warning = document.getElementById('frequency-downlink-warning');
+            if (!warning) {
+                warning = document.createElement('div');
+                warning.id = 'frequency-downlink-warning';
+                warning.className = 'text-red-600 text-sm mt-1 hidden';
+                warning.innerHTML = '<i class="fas fa-exclamation-triangle mr-1"></i> Frekuensi harus dalam rentang yang valid.';
+                input.parentNode.appendChild(warning);
+            }
+            return true; // Always true for readonly for now
         }
 
-        function validateTotalLoss() {
-            const input = document.getElementById('total_loss');
-            const warning = document.getElementById('total-loss-warning');
-            return validateInputRange(input, warning, 0, 95.25, 'Total loss harus antara 0 dan 95.25 dB.');
+        function validateDbmTxUplink() {
+            const input = document.getElementById('dbm_tx_uplink');
+            const warning = document.getElementById('dbm-uplink-warning');
+            return validateInputRange(input, warning, 0, 30, 'Daya input antara 0 - 30 dBm.');
         }
 
+        function validateDbmTxDownlink() {
+            const input = document.getElementById('dbm_tx_downlink');
+            const warning = document.getElementById('dbm-downlink-warning');
+            return validateInputRange(input, warning, 0, 30, 'Daya input antara 0 - 30 dBm.');
+        }
 
-        // Function to load simulation data (placeholder for actual backend fetch)
+        function validateTotalLossUplink() {
+            const input = document.getElementById('total_loss_uplink');
+            let warning = document.getElementById('total-loss-uplink-warning');
+            if (!warning) {
+                warning = document.createElement('div');
+                warning.id = 'total-loss-uplink-warning';
+                warning.className = 'text-red-600 text-sm mt-1 hidden';
+                warning.innerHTML = '<i class="fas fa-exclamation-triangle mr-1"></i> Total Loss harus dalam rentang yang valid.';
+                input.parentNode.appendChild(warning);
+            }
+            return true; // Always true for readonly for now
+        }
+
+        function validateTotalLossDownlink() {
+            const input = document.getElementById('total_loss_downlink');
+            let warning = document.getElementById('total-loss-downlink-warning');
+            if (!warning) {
+                warning = document.createElement('div');
+                warning.id = 'total-loss-downlink-warning';
+                warning.className = 'text-red-600 text-sm mt-1 hidden';
+                warning.innerHTML = '<i class="fas fa-exclamation-triangle mr-1"></i> Total Loss harus dalam rentang yang valid.';
+                input.parentNode.appendChild(warning);
+            }
+            return true; // Always true for readonly for now
+        }
+
+        // Function to load simulation data - this is now pulling from PHP variables
         function loadSimulationData() {
-            // This function now only loads data without triggering immediate warnings
-            const simulationData = {
-                frequency_tx: null,
-                watt_tx: null,
-                total_loss: null
-            };
-
-            document.getElementById('frequency_tx').value = simulationData.frequency_tx || '';
-            document.getElementById('watt_tx').value = simulationData.watt_tx || '';
-            document.getElementById('total_loss').value = simulationData.total_loss || '';
-
-            // Update calculated fields based on initial/loaded values
-            updatePowerFields('watt_tx', 'dbw_tx', 'dbm_tx');
-            updateReceivedPower();
-            
-            // No initial validation calls here. Warnings will appear on user interaction.
+            // No need to set values here explicitly, as they are now set by Blade:
+            // value="{{ $data->frekuensi ?? '' }}"
+            // value="{{ $data->path_loss ?? '' }}"
+            // The purpose of this function in the original code seems to have been
+            // to populate with default or fetched data, which Blade handles now.
+            // However, we still call updateReceivedPower to calculate initial output.
+            updateReceivedPowerUplink();
+            updateReceivedPowerDownlink();
         }
 
         // POP UP Logic
-        // General function to open a popup
         function openPopup(popupId) {
-            // Close all other open popups
             document.querySelectorAll('.popup-window').forEach(p => p.style.display = 'none');
-
             document.getElementById(popupId).style.display = "flex";
-            // Important: After opening, if MathJax is loaded, re-render math formulas
-            if (typeof MathJax !== 'undefined') {
-                MathJax.typesetPromise();
-            }
+            
+            // Force MathJax to re-render the popup content
+            setTimeout(() => {
+                if (typeof MathJax !== 'undefined' && MathJax.typesetPromise) {
+                    MathJax.typesetPromise([document.getElementById(popupId)]).catch((err) => {
+                        console.log('MathJax error:', err);
+                    });
+                }
+            }, 100);
         }
 
         // Event listener for the "What is Hardware Simulation?" button
@@ -679,17 +924,48 @@
         };
 
         // Event listeners for "Lihat Detail" buttons
-        document.getElementById('dbw_tx_popup_btn').onclick = () => {
-            openPopup('dbw_tx_popup');
+        // Corrected IDs for frequency detail buttons
+        document.getElementById('frequency_tx_uplink_popup_btn').onclick = () => {
+            openPopup('frequency_tx_uplink_popup');
         };
-        document.getElementById('dbm_tx_popup_btn').onclick = () => {
-            openPopup('dbm_tx_popup');
+        document.getElementById('frequency_tx_downlink_popup_btn').onclick = () => {
+            openPopup('frequency_tx_downlink_popup');
         };
-        document.getElementById('total_loss_popup_btn').onclick = () => {
-            openPopup('total_loss_popup');
+        // The original HTML had 'dbm_tx_uplink_popup_btn' and 'dbm_tx_downlink_popup_btn'
+        // for frequency details. I've updated the HTML to match the popup IDs.
+        // If you intended to have a single popup for both uplink/downlink input power,
+        // then the original button IDs and this listener for 'dbm_tx_popup' would be correct.
+        // I've commented out the original dbm_tx_popup_btn and created separate ones in HTML
+        // to align with the distinct frequency popups.
+        
+        // If 'dbm_tx_popup' is intended for a generic input power explanation,
+        // you would need to add a button for it specifically, or reuse one.
+        // For now, let's make sure the correct popups open for the current HTML structure.
+        // The HTML for dbm_tx_uplink/downlink *input power* does not have a "Lihat Detail" button.
+        // I've added a generic 'dbm_tx_popup' button for explanation of input power concept.
+        // If you want specific popups for Uplink Input Power and Downlink Input Power,
+        // you'd need to add separate popup divs for them (e.g., 'dbm_tx_uplink_detail_popup').
+        
+        // Let's assume 'dbm_tx_popup' is for a generic explanation.
+        // If you want to put a "Lihat Detail" button next to "Input Power (dBm):"
+        // you would need to add its ID to the HTML. For example:
+        // <button type="button" id="input_power_general_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+        // And then its event listener here:
+        // document.getElementById('input_power_general_popup_btn').onclick = () => {
+        //     openPopup('dbm_tx_popup');
+        // };
+
+        document.getElementById('total_loss_uplink_popup_btn').onclick = () => {
+            openPopup('total_loss_uplink_popup');
         };
-        document.getElementById('received_power_rx_popup_btn').onclick = () => {
-            openPopup('received_power_rx_popup');
+        document.getElementById('total_loss_downlink_popup_btn').onclick = () => {
+            openPopup('total_loss_downlink_popup');
+        };
+        document.getElementById('received_power_rx_uplink_popup_btn').onclick = () => {
+            openPopup('received_power_rx_uplink_popup');
+        };
+        document.getElementById('received_power_rx_downlink_popup_btn').onclick = () => {
+            openPopup('received_power_rx_downlink_popup');
         };
 
         // Function to close all popups
@@ -703,64 +979,73 @@
         document.querySelector('form').addEventListener('submit', function(event) {
             let formIsValid = true;
 
-            // Run all validations on submit, forcing warnings to show if invalid or empty
-            formIsValid = validateFrequency() && formIsValid;
-            formIsValid = validateWattTx() && formIsValid;
-            formIsValid = validateTotalLoss() && formIsValid;
+            // Validation for input fields (read-only fields generally don't need input validation)
+            formIsValid = validateDbmTxUplink() && formIsValid;
+            formIsValid = validateDbmTxDownlink() && formIsValid;
+            
+            // For read-only fields, their 'validation' is more about the source of data.
+            // If they are filled from backend (e.g., $data->frekuensi), assume they are valid.
+            // If you still want to run some range checks on these pre-filled values,
+            // you'd need to modify validateFrequencyUplink/Downlink and validateTotalLossUplink/Downlink
+            // to actually check the numeric value, not just return true.
 
-            // If any validation fails, prevent form submission
             if (!formIsValid) {
                 event.preventDefault();
-                alert('Terdapat kesalahan input. Mohon periksa kembali semua bidang yang ditandai.'); // Alert revised
+                alert('Terdapat kesalahan input. Mohon periksa kembali semua bidang yang ditandai.');
             }
         });
 
-
         // Initialize fields and add event listeners when the DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
-            loadSimulationData(); // Load initial data (without immediate validation warnings)
+            loadSimulationData(); // Call to populate initial calculated output values
 
-            // Add event listeners for frequency (real-time validation on input)
-            document.getElementById('frequency_tx').addEventListener('input', validateFrequency);
-
-            // Add event listeners for watt_tx (real-time validation on input)
-            document.getElementById('watt_tx').addEventListener('input', () => {
-                validateWattTx(); // Validate Watt first
-                updatePowerFields('watt_tx', 'dbw_tx', 'dbm_tx');
-                updateReceivedPower();
+            // Add event listeners for dynamic input fields
+            document.getElementById('dbm_tx_uplink').addEventListener('input', () => {
+                validateDbmTxUplink();
+                updateReceivedPowerUplink();
+            });
+            
+            document.getElementById('dbm_tx_downlink').addEventListener('input', () => {
+                validateDbmTxDownlink();
+                updateReceivedPowerDownlink();
             });
 
-            // Add event listeners for total_loss (real-time validation on input)
-            document.getElementById('total_loss').addEventListener('input', () => {
-                validateTotalLoss(); // Validate Total Loss first
-                updateReceivedPower();
-            });
-        });
+            // Re-run calculations if readonly values somehow change (e.g., via browser dev tools)
+            // or if the page loads with initial $data values.
+            // For robust behavior, calling updateReceivedPowerUplink/Downlink on DOMContentLoaded is good.
+            updateReceivedPowerUplink();
+            updateReceivedPowerDownlink();
 
-        // Add a separate load listener for MathJax typesetting
-        window.addEventListener('load', () => {
+            // MathJax typesetting for initially visible content
             if (typeof MathJax !== 'undefined') {
                 MathJax.typesetPromise();
             }
         });
-    </script>
 
-    {{-- Script for MathJax --}}
-    <script>
-        // Konfigurasi MathJax (sesuaikan jika perlu)
+        // Add a separate load listener for MathJax typesetting
+        window.addEventListener('load', () => {
+            // Ensure all MathJax elements are typeset, especially after dynamic content loads
+            if (typeof MathJax !== 'undefined') {
+                MathJax.typesetPromise();
+            }
+        });
+
+        // Configuration for MathJax
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']], // Untuk rumus inline seperti $x^2$
-                displayMath: [['$$', '$$'], ['\\[', '\\]']], // Untuk rumus blok seperti $$E=mc^2$$
-                processEscapes: true, // Memungkinkan \$ untuk menampilkan tanda dolar literal
-                tags: "ams" // Untuk penomoran persamaan (opsional)
+                // Corrected inlineMath delimiters to avoid conflict with natural commas in text
+                // You can use \ ( and \ ) for inline LaTeX as well:
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                tags: "ams"
             },
             options: {
-                ignoreHtmlClass: "tex2jax_ignore", // Kelas yang diabaikan untuk pemrosesan matematika
-                processHtmlClass: "tex2jax_process" // Kelas yang secara spesifik diproses untuk matematika
+                ignoreHtmlClass: "tex2jax_ignore",
+                processHtmlClass: "tex2jax_process"
             },
             loader: {
-                load: ['[tex]/ams'] // Memuat ekstensi AMS math
+                load: ['[tex]/ams']
             }
         };
     </script>

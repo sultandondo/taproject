@@ -309,12 +309,12 @@
                             <input type="number" 
                                 name="apogee" 
                                 id="apogee" 
-                                value="{{ old('apogee', $data->apogee ?? request('apogee')) }}" 
+                                value="{{  $data->apogee ?? '' }}" 
                                 class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" 
                                 min="200" 
                                 max="2000" 
                                 step="0.1" 
-                                placeholder="{{ $data->apogee ?? 'Masukkan nilai antara 200-2000' }}">
+                                >
                             <span class="unit-text">km</span>
                         </div>
                         <div id="apogee-error" class="error-message">
@@ -329,12 +329,12 @@
                             <input type="number" 
                                 name="perigee" 
                                 id="perigee" 
-                                value="{{ old('perigee') ?? request('perigee') }}" 
+                                value="{{  $data->perigee ?? '' }}" 
                                 class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" 
                                 min="200" 
                                 max="2000" 
                                 step="0.1" 
-                                placeholder="{{ $data->perigee ?? 'Masukkan nilai antara 200-2000' }}">
+                                >
                             <span class="unit-text">km</span>
                         </div>
                         <div id="perigee-error" class="error-message">
@@ -357,7 +357,7 @@
                     <div id="argumenop_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Argument of Perigee (ω):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="argumenop" id="argumenop" value="{{ old('argumenop') ?? request('argumenop') }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" step="0.01" placeholder="{{ $data->argumenop ?? '' }}">
+                            <input type="number" name="argumenop" id="argumenop" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" step="0.01" value="{{ $data->argumenop ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -365,15 +365,15 @@
                     <div id="raan_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">R.A.A.N (Ω):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="raan" id="raan" value="{{ old('raan') ?? request('raan') }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" step="0.01" placeholder="{{ $data->raan ?? '' }}">
+                            <input type="number" name="raan" id="raan"  class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" step="0.01" value="{{ $data->raan ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
 
                     <div id="meananomaly_field" class="mb-4 relative">
-                        <label class="block font-medium mb-1 text-gray-700">True Anomaly (M):</label>
+                        <label class="block font-medium mb-1 text-gray-700">True Anomaly:</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="mean_anomaly" id="mean_anomaly" value="{{ old('mean_anomaly') ?? request('mean_anomaly') }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" step="0.01" placeholder="{{ $data->mean_anomaly ?? '' }}">
+                            <input type="number" name="mean_anomaly" id="mean_anomaly"  class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" step="0.01" value="{{ $data->mean_anomaly ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -381,7 +381,7 @@
                     <div id="inklinasi_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Inclination(°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="inklinasi" id="inklinasi" value="{{ old('inklinasi') ?? request('inklinasi') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->inklinasi ?? '' }}">
+                            <input type="number" name="inklinasi" id="inklinasi"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" value="{{ $data->inklinasi ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -389,7 +389,7 @@
                     <div id="altitude_field" class="mb-4">
                         <label for="altitude" class="block font-medium mb-1 text-gray-700">Mean Orbit Altitude:</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="altitude" id="altitude" value="{{ old('altitude') ?? request('altitude') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" readonly placeholder="{{ $data->altitude ?? '' }}">
+                            <input type="number" name="altitude" id="altitude"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" readonly value="{{ $data->altitude ?? '' }}">
                             <span class="unit-text">km</span>
                         </div>
                         <button type="button" id="popup_altitude_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -400,7 +400,7 @@
                     <div id="radius_field" class="mb-4">
                         <label for="radius" class="block font-medium mb-1 text-gray-700">Mean Orbit Radius:</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="radius" id="radius" value="{{ old('radius') ?? request('radius') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly placeholder="{{ $data->radius ?? '' }}">
+                            <input type="text" name="radius" id="radius"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly value="{{ $data->radius ?? '' }}">
                             <span class="unit-text">km</span>
                         </div>
                         <button type="button" id="popup_radius_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -433,7 +433,7 @@
                     <div id="ree_field" class="mb-4 relative">
                         <label for="re_geo" class="block font-medium mb-1 text-gray-700">Earth Radius (Re):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="re_geo" id="re_geo" value="6378" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly >
+                            <input type="text" name="re_geo" id="re_geo" value="6378.14" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly >
                             <span class="unit-text">km</span>
                         </div>
                         <button type="button" id="popup_re_geo_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -444,7 +444,7 @@
                     <div id="re_field" class="mb-4 relative">
                         <label for="re_leomeo" class="block font-medium mb-1 text-gray-700">Earth Radius (Re):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="re_leomeo" id="re_leomeo" value="6378" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly>
+                            <input type="text" name="re_leomeo" id="re_leomeo" value="6378.14" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly>
                             <span class="unit-text">km</span>
                         </div>
                         <button type="button" id="popup_re_leomeo_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -456,7 +456,7 @@
                     <div id="elevasi_field" class="mb-4 relative">
                         <label for="elevasi" class="block font-medium mb-1 text-gray-700">Elevation Angle (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="elevasi" id="elevasi" value="{{ old('elevasi') ?? request('elevasi') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->elevasi ?? '' }}">
+                            <input type="number" name="elevasi" id="elevasi"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" value="{{ $data->elevasi ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -464,7 +464,7 @@
                     <div id="slant_range_field" class="mb-4">
                         <label for="slant_range" class="block font-medium mb-1 text-gray-700">Slant Range (km):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="slant_range" id="slant_range" value="{{ old('slant_range') ?? request('slant_range') }}" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" readonly placeholder="{{ $data->slant_range ?? '' }}">
+                            <input type="number" name="slant_range" id="slant_range"  class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" readonly value="{{ $data->slant_range ?? '' }}">
                             <span class="unit-text">km</span>
                         </div>
                         <button type="button" id="popup_slant_range_leomeo_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -476,7 +476,7 @@
                     <div id="Latitude_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Latitude (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="latitude" id="latitude" value="{{ old('latitude') ?? request('latitude') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->latitude ?? '' }}">
+                            <input type="number" name="latitude" id="latitude"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" value="{{ $data->latitude ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -484,7 +484,7 @@
                     <div id="Longitude_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Longitude (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="longitude" id="longitude" value="{{ old('longitude') ?? request('longitude') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->longitude ?? '' }}">
+                            <input type="number" name="longitude" id="longitude"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" value="{{ $data->longitude ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -492,7 +492,7 @@
                     <div id="spclong_field" class="mb-4 relative"> 
                         <label class="block font-medium mb-1 text-gray-700">Spacecraft Slot (Longitude) (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="spclong" id="spclong" value="{{ old('spclong') ?? request('spclong') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->spacelot_up ?? '' }}">
+                            <input type="number" name="spclong" id="spclong"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" value="{{ $data->spacelot_up ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -500,15 +500,15 @@
                     <div id="azimuth_field" class="mb-4 relative">
                         <label for="azimuth" class="block font-medium mb-1 text-gray-700">Sudut Azimuth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="azimuth" id="azimuth" value="{{ old('azimuth') ?? request('azimuth') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->azimuth ?? '' }}">
+                            <input type="number" name="azimuth" id="azimuth"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" value="{{ $data->azimuth ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
 
                     <div id="sudutpusatbumi_field" class="mb-4 relative">
-                        <label for="sudutpusatbumi" class="block font-medium mb-1 text-gray-700">Central Earth Angle (°):</label>
+                        <label for="sudutpusatbumi" class="block font-medium mb-1 text-gray-700">Earth Central Angle (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="sudutpusatbumi" id="sudutpusatbumi" value="{{ old('sudutpusatbumi') ?? request('sudutpusatbumi') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->sudutpusatbumi ?? '' }}">
+                            <input type="number" name="sudutpusatbumi" id="sudutpusatbumi"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" value="{{ $data->sudutpusatbumi ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -521,21 +521,22 @@
                     <div id="userlat_up_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">User Latitude (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="userlat_up" id="userlat_up" value="{{ old('userlat_up') ?? request('userlat_up') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->userlat_up ?? '' }}">
+                            <input type="number" name="userlat_up" id="userlat_up"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50"  value="{{ $data->userlat_up ?? '' }}">
+                            
                             <span class="unit-text">°</span>
                         </div>
                     </div>
                     <div id="userlong_up_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">User Longitude (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="userlong_up" id="userlong_up" value="{{ old('userlong_up') ?? request('userlong_up') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->userlong_up ?? '' }}">
+                            <input type="number" name="userlong_up" id="userlong_up"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50"  value="{{ $data->userlong_up ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
                     <div id="spaceslot_up_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Spacecraft Slot (Longitude) (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="spaceslot_up" id="spaceslot_up" value="{{ old('spaceslot_up') ?? request('spaceslot_up') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->spacelot_up ?? '' }}">
+                            <input type="number" name="spaceslot_up" id="spaceslot_up"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50"  value="{{ $data->spacelot_up ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -544,7 +545,7 @@
                         <div id="slantrangetouser_up_field" class="mb-4">
                             <label for="slantrangetouser_up_input" class="block font-medium mb-1 text-gray-700">Slant Range to User (km):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="slantrangetouser_up" id="slantrangetouser_up_input" value="{{ old('slantrangetouser_up') ?? request('slantrangetouser_up') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly placeholder="{{ $data->slantrangetouser_up ?? '' }}">
+                                <input type="number" name="slantrangetouser_up_input" id="slantrangetouser_up_input"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly value="{{ $data->slantrangetouser_up_input ?? '' }}">
                                 <span class="unit-text">km</span>
                             </div>
                             <button type="button" id="popup_slantrangetouser_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -554,7 +555,7 @@
                         <div id="userelevationangel_up_field" class="mb-4">
                             <label for="userelevationangel_up_input" class="block font-medium mb-1 text-gray-700">User Elevation Angle (°):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="userelevationangel_up" id="userelevationangel_up_input" value="{{ old('userelevationangel_up') ?? request('userelevationangel_up') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly placeholder="{{ $data->userelevationangel_up ?? '' }}">
+                                <input type="number" name="userelevationangel_up_input" id="userelevationangel_up_input"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly value="{{ $data->userelevationangel_up_input ?? '' }}">
                                 <span class="unit-text">°</span>
                             </div>
                             <button type="button" id="popup_userelevationangel_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -565,7 +566,7 @@
                         <div id="earthcentralangle_up_field" class="mb-4">
                             <label for="earthcentralangle_up_input" class="block font-medium mb-1 text-gray-700">Earth Central Angle (°):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="earthcentralangle_up" id="earthcentralangle_up_input" value="{{ old('earthcentralangle_up') ?? request('earthcentralangle_up') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly placeholder="{{ $data->earthcentralangle_up ?? '' }}">
+                                <input type="number" name="earthcentralangle_up_input" id="earthcentralangle_up_input"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly value="{{ $data->earthcentralangle_up_input ?? '' }}">
                                 <span class="unit-text">°</span>
                             </div>
                             <button type="button" id="popup_earthcentralangle_up_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -582,21 +583,21 @@
                     <div id="userlat_down_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">User Latitude (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="userlat_down" id="userlat_down" value="{{ old('userlat_down') ?? request('userlat_down') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->userlat_down ?? '' }}">
+                            <input type="number" name="userlat_down" id="userlat_down"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50"  value="{{ $data->userlat_down ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
                     <div id="userlong_down_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">User Longitude (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="userlong_down" id="userlong_down" value="{{ old('userlong_down') ?? request('userlong_down') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->userlong_down ?? '' }}">
+                            <input type="number" name="userlong_down" id="userlong_down"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50"  value="{{ $data->userlong_down ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
                     <div id="spaceslot_down_field" class="mb-4 relative">
                         <label class="block font-medium mb-1 text-gray-700">Spacecraft Slot (Longitude) (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="spaceslot_down" id="spaceslot_down" value="{{ old('spaceslot_down') ?? request('spaceslot_down') }}" step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" min="0" placeholder="{{ $data->spacelot_down ?? '' }}">
+                            <input type="number" name="spaceslot_down" id="spaceslot_down"  step="0.000001" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50"  value="{{ $data->spacelot_down ?? '' }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -605,7 +606,7 @@
                         <div id="slantrangetouser_down_field" class="mb-4">
                             <label for="slantrangetouser_down_input" class="block font-medium mb-1 text-gray-700">Slant Range to User (km):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="slantrangetouser_down" id="slantrangetouser_down_input" value="{{ old('slantrangetouser_down') ?? request('slantrangetouser_down') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly placeholder="{{ $data->slantrangetouser_down ?? '' }}">
+                                <input type="number" name="slantrangetouser_down_input" id="slantrangetouser_down_input"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly value="{{ $data->slantrangetouser_down_input ?? '' }}">
                                 <span class="unit-text">km</span>
                             </div>
                             <button type="button" id="popup_slantrangetouser_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -615,7 +616,7 @@
                         <div id="userelevationangel_down_field" class="mb-4">
                             <label for="userelevationangel_down_input" class="block font-medium mb-1 text-gray-700">User Elevation Angle (°):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="userelevationangel_down" id="userelevationangel_down_input" value="{{ old('userelevationangel_down') ?? request('userelevationangel_down') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly placeholder="{{ $data->userelevationangel_down ?? '' }}">
+                                <input type="number" name="userelevationangel_down_input" id="userelevationangel_down_input"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly value="{{ $data->userelevationangel_down_input ?? '' }}">
                                 <span class="unit-text">°</span>
                             </div>
                             <button type="button" id="popup_userelevationangel_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -625,7 +626,7 @@
                         <div id="earthcentralangle_down_field" class="mb-4">
                             <label for="earthcentralangle_down_input" class="block font-medium mb-1 text-gray-700">Earth Central Angle (°):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="earthcentralangle_down" id="earthcentralangle_down_input" value="{{ old('earthcentralangle_down') ?? request('earthcentralangle_down') }}" step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly placeholder="{{ $data->earthcentralangle_down ?? '' }}">
+                                <input type="number" name="earthcentralangle_down_input" id="earthcentralangle_down_input"  step="0.01" class="border border-gray-300 p-3 w-full rounded-md bg-gray-50" readonly value="{{ $data->earthcentralangle_down_input ?? '' }}">
                                 <span class="unit-text">°</span>
                             </div>
                             <button type="button" id="popup_earthcentralangle_down_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">
@@ -684,7 +685,7 @@
                             <li><strong>Slant Range (d):</strong> Jarak langsung dari stasiun Bumi ke satelit</li>
                             <li><strong>Mean Orbit Altitude (havg):</strong> Ketinggian rata-rata satelit dari permukaan Bumi</li>
                             <li><strong>Mean Orbit Radius (r_avg):</strong> Jarak rata-rata satelit dari pusat Bumi</li>
-                            <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378 km)</li>
+                            <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378.14 km)</li>
                         </ul>
                     </div>
 
@@ -709,7 +710,7 @@
                             <li><strong>Slant Range (d):</strong> Jarak langsung dari stasiun Bumi ke satelit</li>
                             <li><strong>Mean Orbit Altitude (havg):</strong> Ketinggian rata-rata satelit dari permukaan Bumi</li>
                             <li><strong>Mean Orbit Radius (r_avg):</strong> Jarak rata-rata satelit dari pusat Bumi</li>
-                            <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378 km)</li>
+                            <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378.14 km)</li>
                         </ul>
                     </div>
 
@@ -724,7 +725,7 @@
                         <ul class="param-list">
                             <li><strong>Semi Major Axis ($a_{\text{GEO}}$):</strong> Jarak rata-rata dari pusat Bumi ke satelit (~42.164 km)</li>
                             <li><strong>Geostationary Altitude ($h_{\text{GEO}}$):</strong> Ketinggian nominal satelit GEO (~35.786 km)</li>
-                            <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378 km)</li>
+                            <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378.14 km)</li>
                             <li><strong>Latitude Stasiun Bumi ($\phi_L$):</strong> Garis lintang geografis stasiun Bumi</li>
                             <li><strong>Longitude Stasiun Bumi ($\lambda_L$):</strong> Garis bujur geografis stasiun Bumi</li>
                             <li><strong>Spacecraft Longitude ($\lambda_s$):</strong> Garis bujur satelit GEO di atas ekuator</li>
@@ -784,7 +785,7 @@
             </div>
             <div class="popup-body">
                 <div class="formula">
-                    $$R_e = 6378 \text{ km (Konstanta)}$$
+                    $$R_e = 6378.14 \text{ km (Konstanta)}$$
                 </div>
                 <p><strong>Penjelasan:</strong><br>Radius Bumi ($R_e$) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini adalah radius khatulistiwa Bumi yang umum digunakan dalam perhitungan orbit satelit LEO (Low Earth Orbit) dan MEO (Medium Earth Orbit). Dalam perhitungan orbit, Radius Bumi sangat penting karena merupakan titik referensi dari pusat Bumi untuk semua ketinggian satelit. Ketika ketinggian satelit diukur dari permukaan Bumi (misalnya apogee dan perigee), Radius Bumi ditambahkan untuk mendapatkan jarak total dari pusat Bumi, yang merupakan parameter kunci dalam hukum gerak orbital.</p>
             </div>
@@ -800,9 +801,9 @@
             </div>
             <div class="popup-body">
                 <div class="formula">
-                    $$R_e = 6378 \text{ km (Konstanta)}$$
+                    $$R_e = 6378.14 \text{ km (Konstanta)}$$
                 </div>
-                <p><strong>Penjelasan:</strong><br>Radius Bumi ($R_e$) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini digunakan dalam perhitungan orbit satelit di berbagai jenis orbit, yaitu: LEO (Low Earth Orbit), MEO (Medium Earth Orbit), dan GEO (Geostationary Earth Orbit). Bumi diperlakukan sebagai pusat referensi dengan radius tetap 6378 km, digunakan untuk satelit yang berada pada ketinggian 35,786 km.</p>
+                <p><strong>Penjelasan:</strong><br>Radius Bumi ($R_e$) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini digunakan dalam perhitungan orbit satelit di berbagai jenis orbit, yaitu: LEO (Low Earth Orbit), MEO (Medium Earth Orbit), dan GEO (Geostationary Earth Orbit). Bumi diperlakukan sebagai pusat referensi dengan radius tetap 6378.14 km, digunakan untuk satelit yang berada pada ketinggian 35,786 km.</p>
             </div>
         </div>
     </div>
@@ -995,7 +996,7 @@
         }
 
         // Helper function to set output value
-        function setOutput(id, value, precision = 2) {
+        function setOutput(id, value, precision = 1) {
             const el = document.getElementById(id);
             if (el) {
                 el.value = !isNaN(value) ? value.toFixed(precision) : '';
@@ -1043,7 +1044,7 @@
             //Tombol untuk button azimuth
             const azimuthButton = document.getElementById('azimuth_button');
             // Reset all input values
-            resetForm();
+            // resetForm();
 
             // --- BARIS PENTING: BERSIHKAN LOCAL STORAGE SAAT ORBIT BERUBAH ---
             localStorage.removeItem('slantRangeLEOMEO');
@@ -1057,8 +1058,8 @@
                 apogeeField, perigeeField, inklinasiField, eccentricityField, 
                 argumenopField, raanField, meananomalyField, 
                 altitudeField, radiusField, reeGeoField, 
-                smageoField, // Now only one instance of smageoField
-                geostanField, // Added geostanField here
+                smageoField, 
+                geostanField, 
                 reLeoMeoField, latitudeField, longitudeField, spclongField, 
                 elevasiField, slantRangeField, azimuthField, sudutpusatbumiField,
                 geoEarthStationLabel, uplinkLabel, downlinkLabel
@@ -1078,50 +1079,129 @@
             if (orbit) {
                 orbitFieldsContainer.style.display = 'block';
 
-                if (orbit === 'LEO' || orbit === 'MEO') {
-                    // Show LEO/MEO specific input fields
+                if (orbit === 'LEO') {
+                    // Show LEO specific input fields
                     apogeeField.style.display = 'block';
                     perigeeField.style.display = 'block';
                     inklinasiField.style.display = 'block';
                     eccentricityField.style.display = 'block';
                     argumenopField.style.display = 'block';
                     raanField.style.display = 'block';
-                    meananomalyField.style.display = 'block'; // SHOW Mean Anomaly for LEO/MEO
+                    meananomalyField.style.display = 'block'; 
                     altitudeField.style.display = 'block';
                     radiusField.style.display = 'block';
-                    reLeoMeoField.style.display = 'block'; // Re for LEO/MEO
+                    reLeoMeoField.style.display = 'block';
                     
-                    // Slant range related fields for LEO/MEO
-                    elevasiField.style.display = 'block'; // Elevation is general for LEO/MEO slant range
-                    slantRangeField.style.display = 'block'; // Slant range output for LEO/MEO
+                    elevasiField.style.display = 'block'; 
+                    slantRangeField.style.display = 'block';
 
                     // Hide GEO-specific fields
-                    smageoField.style.display = 'none'; // HIDE Semi Major Axis GEO
-                    geostanField.style.display = 'none'; // HIDE Geostationary Altitude
-                    reeGeoField.style.display = 'none'; // HIDE Radius Bumi GEO (only show Re LEO/MEO)
-                    azimuthButton.style.display = 'none'; //Hide azimuth button
+                    smageoField.style.display = 'none'; 
+                    geostanField.style.display = 'none'; 
+                    reeGeoField.style.display = 'none'; 
+                    azimuthButton.style.display = 'none';
+                    geoEarthStationLabel.style.display = 'none';
+                    latitudeField.style.display = 'none';
+                    longitudeField.style.display = 'none';
+                    spclongField.style.display = 'none';
+                    azimuthField.style.display = 'none';
+                    sudutpusatbumiField.style.display = 'none';
+                    uplinkLabel.style.display = 'none';
+                    uplinkInputs.forEach(input => input.style.display = 'none');
+                    downlinkLabel.style.display = 'none';
+                    downlinkInputs.forEach(input => input.style.display = 'none');
 
+                    // Set min/max for apogee/perigee for LEO
+                    document.getElementById('apogee').min = "200";
+                    document.getElementById('apogee').max = "2000";
+                    document.getElementById('perigee').min = "200";
+                    document.getElementById('perigee').max = "2000";
+                    document.getElementById('apogee').placeholder = "Masukkan nilai antara 200-2000";
+                    document.getElementById('perigee').placeholder = "Masukkan nilai antara 200-2000";
 
-                    // Attach event listeners for LEO/MEO specific calculations
+                    // Make eccentricity, altitude, radius readonly (calculated)
+                    document.getElementById('eccentricity').readOnly = true; 
+                    document.getElementById('altitude').readOnly = true;
+                    document.getElementById('radius').readOnly = true;
+                    document.getElementById('inklinasi').readOnly = false; // User can input inclination
+
+                    // Attach event listeners for LEO specific calculations
                     document.getElementById('apogee').addEventListener('input', calculateMeanOrbitAltitude);
                     document.getElementById('perigee').addEventListener('input', calculateMeanOrbitAltitude);
                     document.getElementById('elevasi').addEventListener('input', calculateSlantRange);
                     document.getElementById('apogee').addEventListener('input', calculateEccentricity);
                     document.getElementById('perigee').addEventListener('input', calculateEccentricity);
 
-                    // Panggil fungsi perhitungan awal agar nilai tersimpan di localStorage
-                    calculateMeanOrbitAltitude(); // Ini akan memicu calculateMeanOrbitRadius and calculateSlantRange
+                    calculateMeanOrbitAltitude();
                     calculateEccentricity();
-                    calculateSlantRange(); 
+                    calculateSlantRange();
+
+                } else if (orbit === 'MEO') {
+                    // Show MEO specific input fields
+                    apogeeField.style.display = 'block';
+                    perigeeField.style.display = 'block';
+                    inklinasiField.style.display = 'block';
+                    eccentricityField.style.display = 'block';
+                    argumenopField.style.display = 'block';
+                    raanField.style.display = 'block';
+                    meananomalyField.style.display = 'block'; 
+                    altitudeField.style.display = 'block';
+                    radiusField.style.display = 'block';
+                    reLeoMeoField.style.display = 'block';
+                    
+                    elevasiField.style.display = 'block'; 
+                    slantRangeField.style.display = 'block';
+
+                    // Hide GEO-specific fields
+                    smageoField.style.display = 'none'; 
+                    geostanField.style.display = 'none'; 
+                    reeGeoField.style.display = 'none'; 
+                    azimuthButton.style.display = 'none';
+                    geoEarthStationLabel.style.display = 'none';
+                    latitudeField.style.display = 'none';
+                    longitudeField.style.display = 'none';
+                    spclongField.style.display = 'none';
+                    azimuthField.style.display = 'none';
+                    sudutpusatbumiField.style.display = 'none';
+                    uplinkLabel.style.display = 'none';
+                    uplinkInputs.forEach(input => input.style.display = 'none');
+                    downlinkLabel.style.display = 'none';
+                    downlinkInputs.forEach(input => input.style.display = 'none');
+
+
+                    // Set min/max for apogee/perigee for MEO
+                    document.getElementById('apogee').min = "2001";
+                    document.getElementById('apogee').max = "35786";
+                    document.getElementById('perigee').min = "2001";
+                    document.getElementById('perigee').max = "35786";
+                    document.getElementById('apogee').placeholder = "Masukkan nilai antara 2001-35786";
+                    document.getElementById('perigee').placeholder = "Masukkan nilai antara 2001-35786";
+
+                    // Make eccentricity, altitude, radius readonly (calculated)
+                    document.getElementById('eccentricity').readOnly = true;
+                    document.getElementById('altitude').readOnly = true;
+                    document.getElementById('radius').readOnly = true;
+                    document.getElementById('inklinasi').readOnly = false; // User can input inclination
+
+                    // Attach event listeners for MEO specific calculations
+                    document.getElementById('apogee').addEventListener('input', calculateMeanOrbitAltitude);
+                    document.getElementById('perigee').addEventListener('input', calculateMeanOrbitAltitude);
+                    document.getElementById('elevasi').addEventListener('input', calculateSlantRange);
+                    document.getElementById('apogee').addEventListener('input', calculateEccentricity);
+                    document.getElementById('perigee').addEventListener('input', calculateEccentricity);
+
+                    calculateMeanOrbitAltitude(); 
+                    calculateEccentricity();
+                    calculateSlantRange();
 
                 } else if (orbit === 'GEO') {
                     // Show GEO specific read-only fields
-                    reeGeoField.style.display = 'block'; // Re for GEO
-                    smageoField.style.display = 'block'; // SMA for GEO (now uniquely here)
-                    geostanField.style.display = 'block'; // Show Geostationary Altitude
+                    reeGeoField.style.display = 'block'; 
+                    smageoField.style.display = 'block'; 
+                    geostanField.style.display = 'block'; 
                     azimuthButton.style.display = 'block';
                     
-                    // Set GEO specific values and make readonly
+                    // Set GEO specific default values and make readonly
                     document.getElementById('inklinasi').value = 0;
                     document.getElementById('inklinasi').readOnly = true;
                     document.getElementById('altitude').value = 35786.019; // Default GEO altitude
@@ -1133,16 +1213,12 @@
                     // Hide LEO/MEO specific fields for GEO
                     apogeeField.style.display = 'none';
                     perigeeField.style.display = 'none';
-                    altitudeField.style.display = 'none';
-                    radiusField.style.display = 'none';
-                    reLeoMeoField.style.display = 'none';
-                    eccentricityField.style.display = 'none';
                     argumenopField.style.display = 'none';
                     raanField.style.display = 'none';
-                    meananomalyField.style.display = 'none'; // HIDE Mean Anomaly for GEO
-                    elevasiField.style.display = 'none'; // Elevasi LEO/MEO tidak relevan di sini
-                    slantRangeField.style.display = 'none'; // Slant Range LEO/MEO tidak relevan di sini
-
+                    meananomalyField.style.display = 'none'; 
+                    elevasiField.style.display = 'none'; 
+                    slantRangeField.style.display = 'none'; 
+                    reLeoMeoField.style.display = 'none';
 
                     // Show GEO Earth Station Parameters
                     geoEarthStationLabel.style.display = 'none';
@@ -1175,86 +1251,97 @@
                 azimuthButton.style.display = 'none';
             }
         }
-
                 // Fungsi validasi untuk Apogee dan Perigee
             function validateApogeePerigee() {
-                const apogeeInput = document.getElementById('apogee');
-                const perigeeInput = document.getElementById('perigee');
-                const apogeeError = document.getElementById('apogee-error');
-                const perigeeError = document.getElementById('perigee-error');
-                const apogeeErrorText = document.getElementById('apogee-error-text');
-                const perigeeErrorText = document.getElementById('perigee-error-text');
+            const orbitType = document.getElementById('jenis_orbit').value;
+            const apogeeInput = document.getElementById('apogee');
+            const perigeeInput = document.getElementById('perigee');
+            const apogeeError = document.getElementById('apogee-error');
+            const perigeeError = document.getElementById('perigee-error');
+            const apogeeErrorText = document.getElementById('apogee-error-text');
+            const perigeeErrorText = document.getElementById('perigee-error-text');
             
-                if (!apogeeInput || !perigeeInput) return; // Guard untuk memastikan element ada
+            if (!apogeeInput || !perigeeInput) return true;
             
-                const apogeeValue = parseFloat(apogeeInput.value);
-                const perigeeValue = parseFloat(perigeeInput.value);
+            const apogeeValue = parseFloat(apogeeInput.value);
+            const perigeeValue = parseFloat(perigeeInput.value);
             
-                let apogeeValid = true;
-                let perigeeValid = true;
-            
-                // Reset styling
-                apogeeInput.classList.remove('input-error', 'input-valid');
-                perigeeInput.classList.remove('input-error', 'input-valid');
-                if (apogeeError) apogeeError.style.display = 'none';
-                if (perigeeError) perigeeError.style.display = 'none';
-            
-                // Validasi Apogee
-                if (apogeeInput.value !== '') {
-                    if (isNaN(apogeeValue) || apogeeValue < 200 || apogeeValue > 2000) {
-                        apogeeValid = false;
-                        apogeeInput.classList.add('input-error');
-                        if (apogeeError) {
-                            apogeeError.style.display = 'block';
-                            if (apogeeValue < 200) {
-                                apogeeErrorText.textContent = 'Nilai apogee tidak boleh kurang dari 200 km';
-                            } else if (apogeeValue > 2000) {
-                                apogeeErrorText.textContent = 'Nilai apogee tidak boleh lebih dari 2000 km';
-                            } else {
-                                apogeeErrorText.textContent = 'Masukkan nilai yang valid';
-                            }
-                        }
-                    } else {
-                        apogeeInput.classList.add('input-valid');
-                    }
-                }
-            
-                // Validasi Perigee
-                if (perigeeInput.value !== '') {
-                    if (isNaN(perigeeValue) || perigeeValue < 200 || perigeeValue > 2000) {
-                        perigeeValid = false;
-                        perigeeInput.classList.add('input-error');
-                        if (perigeeError) {
-                            perigeeError.style.display = 'block';
-                            if (perigeeValue < 200) {
-                                perigeeErrorText.textContent = 'Nilai perigee tidak boleh kurang dari 200 km';
-                            } else if (perigeeValue > 2000) {
-                                perigeeErrorText.textContent = 'Nilai perigee tidak boleh lebih dari 2000 km';
-                            } else {
-                                perigeeErrorText.textContent = 'Masukkan nilai yang valid';
-                            }
-                        }
-                    } else {
-                        perigeeInput.classList.add('input-valid');
-                    }
-                }
-            
-                // Validasi bahwa perigee tidak boleh lebih besar dari apogee
-                if (apogeeValid && perigeeValid && apogeeInput.value !== '' && perigeeInput.value !== '') {
-                    if (perigeeValue > apogeeValue) { 
-                        perigeeValid = false;
-                        perigeeInput.classList.remove('input-valid');
-                        perigeeInput.classList.add('input-error');
-                        if (perigeeError) {
-                            perigeeError.style.display = 'block';
-                            perigeeErrorText.textContent = 'Nilai perigee tidak boleh lebih besar dari apogee';
-                        }
-                    }
-                   
-                }
-            
-                return apogeeValid && perigeeValid;
+            let minVal, maxVal;
+            if (orbitType === 'LEO') {
+                minVal = 200;
+                maxVal = 2000;
+            } else if (orbitType === 'MEO') {
+                minVal = 2001;
+                maxVal = 35786;
+            } else {
+                return true; 
             }
+
+            let apogeeValid = true;
+            let perigeeValid = true;
+            
+            // Reset styling
+            apogeeInput.classList.remove('input-error', 'input-valid');
+            perigeeInput.classList.remove('input-error', 'input-valid');
+            if (apogeeError) apogeeError.style.display = 'none';
+            if (perigeeError) perigeeError.style.display = 'none';
+            
+            // Validasi Apogee
+            if (apogeeInput.value !== '') {
+                if (isNaN(apogeeValue) || apogeeValue < minVal || apogeeValue > maxVal) {
+                    apogeeValid = false;
+                    apogeeInput.classList.add('input-error');
+                    if (apogeeError) {
+                        apogeeError.style.display = 'block';
+                        if (isNaN(apogeeValue)) {
+                            apogeeErrorText.textContent = 'Masukkan nilai yang valid';
+                        } else if (apogeeValue < minVal) {
+                            apogeeErrorText.textContent = `Nilai apogee tidak boleh kurang dari ${minVal} km`;
+                        } else if (apogeeValue > maxVal) {
+                            apogeeErrorText.textContent = `Nilai apogee tidak boleh lebih dari ${maxVal} km`;
+                        }
+                    }
+                } else {
+                    apogeeInput.classList.add('input-valid');
+                }
+            }
+            
+            // Validasi Perigee
+            if (perigeeInput.value !== '') {
+                if (isNaN(perigeeValue) || perigeeValue < minVal || perigeeValue > maxVal) {
+                    perigeeValid = false;
+                    perigeeInput.classList.add('input-error');
+                    if (perigeeError) {
+                        perigeeError.style.display = 'block';
+                        if (isNaN(perigeeValue)) {
+                            perigeeErrorText.textContent = 'Masukkan nilai yang valid';
+                        } else if (perigeeValue < minVal) {
+                            perigeeErrorText.textContent = `Nilai perigee tidak boleh kurang dari ${minVal} km`;
+                        } else if (perigeeValue > maxVal) {
+                            perigeeErrorText.textContent = `Nilai perigee tidak boleh lebih dari ${maxVal} km`;
+                        }
+                    }
+                } else {
+                    perigeeInput.classList.add('input-valid');
+                }
+            }
+            
+            // Validasi bahwa perigee tidak boleh lebih besar dari apogee
+            if (apogeeValid && perigeeValid && apogeeInput.value !== '' && perigeeInput.value !== '') {
+                if (perigeeValue > apogeeValue) { 
+                    perigeeValid = false;
+                    perigeeInput.classList.remove('input-valid');
+                    perigeeInput.classList.add('input-error');
+                    if (perigeeError) {
+                        perigeeError.style.display = 'block';
+                        perigeeErrorText.textContent = 'Nilai perigee tidak boleh lebih besar dari apogee';
+                    }
+                }
+                
+            }
+            
+            return apogeeValid && perigeeValid;
+        }
 
 
         // Fungsi untuk menghitung Mean Orbit Altitude
@@ -1264,7 +1351,7 @@
 
             if (apogee > 0 && perigee > 0) {
                 const meanAltitude = (apogee + perigee) / 2;
-                document.getElementById('altitude').value = meanAltitude.toFixed(2);
+                document.getElementById('altitude').value = meanAltitude.toFixed(1);
                 calculateMeanOrbitRadius();
             } else {
                 document.getElementById('altitude').value = '';
@@ -1276,11 +1363,11 @@
         // Fungsi untuk menghitung Mean Orbit Radius
         function calculateMeanOrbitRadius() {
             const meanOrbitAltitude = parseFloat(document.getElementById('altitude').value) || 0;
-            let radiusBumi = 6378; // Default for LEO/MEO
+            let radiusBumi = 6378.14; // Default for LEO/MEO
 
             if (meanOrbitAltitude > 0 && radiusBumi > 0) {
                 const meanOrbitRadius = meanOrbitAltitude + radiusBumi;
-                document.getElementById('radius').value = meanOrbitRadius.toFixed(2);
+                document.getElementById('radius').value = meanOrbitRadius.toFixed(1);
             } else {
                 document.getElementById('radius').value = '';
             }
@@ -1291,7 +1378,7 @@
             const orbitType = document.getElementById('jenis_orbit').value;
             if (orbitType === 'GEO') return; // Only for LEO/MEO
 
-            let radiusBumi = parseFloat(document.getElementById('re_leomeo').value) || 6378; // Use the specific Re for LEO/MEO
+            let radiusBumi = parseFloat(document.getElementById('re_leomeo').value) || 6378.14; // Use the specific Re for LEO/MEO
             const meanOrbitRadius = parseFloat(document.getElementById('radius').value) || 0;
             const sudutElevasi = parseFloat(document.getElementById('elevasi').value) || 0; // This is a general elevation, used for LEO/MEO Slant Range
 
@@ -1326,7 +1413,7 @@
             if (orbitType === 'LEO' || orbitType === 'MEO') {
                 const apogee = parseFloat(document.getElementById('apogee').value) || 0;
                 const perigee = parseFloat(document.getElementById('perigee').value) || 0;
-                const re = parseFloat(document.getElementById('re_leomeo').value) || 6378;
+                const re = parseFloat(document.getElementById('re_leomeo').value) || 6378.14;
 
                 if (apogee > 0 && perigee > 0) {
                     const ra = apogee + re; // Jarak apogee dari pusat Bumi
@@ -1336,7 +1423,7 @@
 
                     if (denominator !== 0) {
                         const eccentricity = numerator / denominator;
-                        document.getElementById('eccentricity').value = eccentricity.toFixed(6);
+                        document.getElementById('eccentricity').value = eccentricity.toFixed(3);
                     } else {
                         document.getElementById('eccentricity').value = 'Error';
                     }
@@ -1353,7 +1440,7 @@
         // --- Perhitungan UPLINK GEO ---
         function calculateSlantRangeToUser() {
             const semiMajorAxisGEO = parseFloat(document.getElementById("smageo").value) || 42164.156;
-            const radiusBumi = parseFloat(document.getElementById("re_geo").value) || 6378;
+            const radiusBumi = parseFloat(document.getElementById("re_geo").value) || 6378.14;
             const earthCentralAngle = parseFloat(document.getElementById("earthcentralangle_up_input").value); // No || 0 here
 
             if (isNaN(earthCentralAngle) || earthCentralAngle === 0) { // Check for 0 or NaN
@@ -1367,7 +1454,7 @@
                 Math.pow(semiMajorAxisGEO, 2) + Math.pow(radiusBumi, 2) -
                 (2 * semiMajorAxisGEO * radiusBumi * Math.cos(earthCentralAngleRadians))
             );
-            document.getElementById('slantrangetouser_up_input').value = slantRangeToUser.toFixed(2);
+            document.getElementById('slantrangetouser_up_input').value = slantRangeToUser.toFixed(1);
 
             // --- SIMPAN KE LOCAL STORAGE UNTUK GEO UPLINK ---
             localStorage.setItem('lastSelectedOrbit', 'GEO');
@@ -1376,7 +1463,7 @@
 
         function calculateElevationAngleUplink() {
             const earthCentralAngle = parseFloat(document.getElementById('earthcentralangle_up_input').value); // No || 0 here
-            const re = parseFloat(document.getElementById('re_geo').value) || 6378;
+            const re = parseFloat(document.getElementById('re_geo').value) || 6378.14;
             const semiMajorAxisGeo = parseFloat(document.getElementById('smageo').value) || 42164.156;
 
             if (isNaN(earthCentralAngle) || earthCentralAngle === 0) { // Check for 0 or NaN
@@ -1401,7 +1488,7 @@
             }
 
             const elevationAngle = (180 / Math.PI) * Math.atan2(numerator, denominator); // Using atan2 for quadrant handling
-            document.getElementById('userelevationangel_up_input').value = elevationAngle.toFixed(2);
+            document.getElementById('userelevationangel_up_input').value = elevationAngle.toFixed(1);
         }
 
         function calculateUserAzimuthAngleUplink() {
@@ -1442,7 +1529,7 @@
             
             const azimuthAngleDeg = (azimuthAngleRad * (180 / Math.PI) + 360) % 360;
 
-            document.getElementById('userazimuthangle_up_input').value = azimuthAngleDeg.toFixed(2);
+            document.getElementById('userazimuthangle_up_input').value = azimuthAngleDeg.toFixed(1);
         }
 
 
@@ -1486,7 +1573,7 @@
         // --- Perhitungan DOWNLINK GEO ---
         function calculateSlantRangeToUserDownlink() {
             const semiMajorAxisGEO = parseFloat(document.getElementById("smageo").value) || 42164.156;
-            const radiusBumi = parseFloat(document.getElementById("re_geo").value) || 6378.137;
+            const radiusBumi = parseFloat(document.getElementById("re_geo").value) || 6378.14;
             const earthCentralAngle = parseFloat(document.getElementById("earthcentralangle_down_input").value); // No || 0 here
 
             if (isNaN(earthCentralAngle) || earthCentralAngle === 0) { // Check for 0 or NaN
@@ -1500,7 +1587,7 @@
                 Math.pow(semiMajorAxisGEO, 2) + Math.pow(radiusBumi, 2) -
                 (2 * semiMajorAxisGEO * radiusBumi * Math.cos(earthCentralAngleRadians))
             );
-            document.getElementById('slantrangetouser_down_input').value = slantRangeToUserDownlink.toFixed(2);
+            document.getElementById('slantrangetouser_down_input').value = slantRangeToUserDownlink.toFixed(1);
 
             // --- SIMPAN KE LOCAL STORAGE UNTUK GEO DOWNLINK ---
             localStorage.setItem('lastSelectedOrbit', 'GEO');
@@ -1509,7 +1596,7 @@
 
         function calculateElevationAngleDownlink() {
             const earthCentralAngle = parseFloat(document.getElementById('earthcentralangle_down_input').value); // No || 0 here
-            const re = parseFloat(document.getElementById('re_geo').value) || 6378;
+            const re = parseFloat(document.getElementById('re_geo').value) || 6378.14;
             const semiMajorAxisGeo = parseFloat(document.getElementById('smageo').value) || 42164.156;
 
             if (isNaN(earthCentralAngle) || earthCentralAngle === 0) { // Check for 0 or NaN
@@ -1534,7 +1621,7 @@
             }
 
             const elevationAngle = (180 / Math.PI) * Math.atan2(numerator, denominator); // Using atan2
-            document.getElementById('userelevationangel_down_input').value = elevationAngle.toFixed(2);
+            document.getElementById('userelevationangel_down_input').value = elevationAngle.toFixed(1);
         }
 
         function calculateUserAzimuthAngleDownlink() {
@@ -1566,7 +1653,7 @@
             const azimuthAngleRad = Math.atan2(numeratorAz, denominatorAz);
             let azimuthAngleDeg = (azimuthAngleRad * (180 / Math.PI) + 360) % 360;
 
-            document.getElementById('userazimuthangle_down_input').value = azimuthAngleDeg.toFixed(2);
+            document.getElementById('userazimuthangle_down_input').value = azimuthAngleDeg.toFixed(1);
         }
 
         function calculateEarthCentralAngleDownlink() {
@@ -1721,7 +1808,7 @@
                                 <li><strong>Slant Range (d):</strong> Jarak langsung dari stasiun Bumi ke satelit</li>
                                 <li><strong>Mean Orbit Altitude (havg):</strong> Ketinggian rata-rata satelit dari permukaan Bumi</li>
                                 <li><strong>Mean Orbit Radius (r_avg):</strong> Jarak rata-rata satelit dari pusat Bumi</li>
-                                <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378 km)</li>
+                                <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378.14 km)</li>
                             </ul>
                         </div>
 
@@ -1746,7 +1833,7 @@
                                 <li><strong>Slant Range (d):</strong> Jarak langsung dari stasiun Bumi ke satelit</li>
                                 <li><strong>Mean Orbit Altitude (havg):</strong> Ketinggian rata-rata satelit dari permukaan Bumi</li>
                                 <li><strong>Mean Orbit Radius (r_avg):</strong> Jarak rata-rata satelit dari pusat Bumi</li>
-                                <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378 km)</li>
+                                <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378.14 km)</li>
                             </ul>
                         </div>
 
@@ -1761,7 +1848,7 @@
                             <ul class="param-list">
                                 <li><strong>Semi Major Axis ($a_{\text{GEO}}$):</strong> Jarak rata-rata dari pusat Bumi ke satelit (~42.164 km)</li>
                                 <li><strong>Geostationary Altitude ($h_{\text{GEO}}$):</strong> Ketinggian nominal satelit GEO (~35.786 km)</li>
-                                <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378 km)</li>
+                                <li><strong>Radius Bumi ($R_e$):</strong> Radius rata-rata Bumi (6378.14 km)</li>
                                 <li><strong>Latitude Stasiun Bumi ($\phi_L$):</strong> Garis lintang geografis stasiun Bumi</li>
                                 <li><strong>Longitude Stasiun Bumi ($\lambda_L$):</strong> Garis bujur geografis stasiun Bumi</li>
                                 <li><strong>Spacecraft Longitude ($\lambda_s$):</strong> Garis bujur satelit GEO di atas ekuator</li>
@@ -1810,8 +1897,8 @@
         //Radius Bumi GEO 
         document.getElementById('popup_re_geo_btn').onclick = () => {
             updatePopupContent('popup_re_geo', 
-                `$$R_e = 6378 \\text{ km (Konstanta)}$$`,
-                `Radius Bumi ($R_e$) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini digunakan dalam perhitungan orbit satelit di berbagai jenis orbit, yaitu: LEO (Low Earth Orbit), MEO (Medium Earth Orbit), dan GEO (Geostationary Earth Orbit). Bumi diperlakukan sebagai pusat referensi dengan radius tetap 6378 km, digunakan untuk satelit yang berada pada ketinggian 35,786 km.`
+                `$$R_e = 6378.14 \\text{ km (Konstanta)}$$`,
+                `Radius Bumi ($R_e$) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini digunakan dalam perhitungan orbit satelit di berbagai jenis orbit, yaitu: LEO (Low Earth Orbit), MEO (Medium Earth Orbit), dan GEO (Geostationary Earth Orbit). Bumi diperlakukan sebagai pusat referensi dengan radius tetap 6378.14 km, digunakan untuk satelit yang berada pada ketinggian 35,786 km.`
             );
             openPopup('popup_re_geo');
         };
@@ -1856,7 +1943,7 @@
         // Radius Bumi (Re_leomeo) Popup
         document.getElementById('popup_re_leomeo_btn').onclick = () => {
             updatePopupContent('popup_re_leomeo', 
-                `$$R_e = 6378 \\text{ km (Konstanta)}$$`,
+                `$$R_e = 6378.14 \\text{ km (Konstanta)}$$`,
                 `Radius Bumi ($R_e$) adalah jarak rata-rata dari pusat Bumi ke permukaan Bumi. Nilai ini adalah radius khatulistiwa Bumi yang umum digunakan dalam perhitungan orbit satelit LEO (Low Earth Orbit) dan MEO (Medium Earth Orbit). Dalam perhitungan orbit, Radius Bumi sangat penting karena merupakan titik referensi dari pusat Bumi untuk semua ketinggian satelit. Ketika ketinggian satelit diukur dari permukaan Bumi (misalnya apogee dan perigee), Radius Bumi ditambahkan untuk mendapatkan jarak total dari pusat Bumi, yang merupakan parameter kunci dalam hukum gerak orbital.`
             );
             openPopup('popup_re_leomeo');
@@ -1924,7 +2011,6 @@
             );
             openPopup('popup_earthcentralangle_down');
         };
-
     </script>
 
     {{-- Script for MathJax --}}

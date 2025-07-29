@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" class="h-full bg-gray-100">
 <head>
-    <title>SkyLinkCal - Modern Navbar</title>
+    <title>SkyLinkCal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">    
-
+    <link rel="icon" href="{{ asset('public/favicon.ico') }}" type="image/x-icon">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -170,15 +170,22 @@
                     <p class="text-gray-400 text-sm">
                         © 2025 <strong class="text-white">Kelompok Website OrbitCal</strong>. All rights reserved.
                     </p>
-                    <div class="flex space-x-6 mt-4 md:mt-0">
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Privacy Policy</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Terms of Service</a>
-                        <a href="#" class="text-gray-400 hover:text-white text-sm transition">Cookie Policy</a>
-                    </div>
+                 
                 </div>
             </div>
         </div>
     </footer>
     </section>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const hamburgerBtn = document.getElementById('hamburger-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            hamburgerBtn.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+    </script>
+
 </body>
 </html>

@@ -49,9 +49,20 @@ class AuthController extends Controller
         // Coba login
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            
+            if ($request->filled('data_id')) {
+            $dataId = $request->input('data_id');
 
+            // Update user_id di data tersebut
+            $data = \App\Models\Data::find($dataId);
+
+            if ($data) {
+                $data->user_id = Auth::id();
+                $data->save();
+            }
+        }
             // Redirect ke halaman sebelumnya atau fallback
-            return redirect()->intended(url()->previous() ?? '/');
+            return redirect()->route('history');;
         }
 
         // Jika gagal login, kembalikan dengan pesan error
@@ -70,6 +81,6 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->intended(url()->previous() ?? '/');
+        return view('home');
     }
 }

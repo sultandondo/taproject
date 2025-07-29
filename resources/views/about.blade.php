@@ -203,6 +203,36 @@
             position: relative;
             z-index: 10;
         }
+
+        /* DITAMBAHKAN */
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* DIUBAH dari max-w-7xl yang ada */
+.max-w-7xl {
+    max-width: 100%;
+    width: 100%;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+}
+
+.container-full-width {
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
+}
     </style>
 </head>
 
@@ -212,11 +242,11 @@
     <section class="relative min-h-screen flex items-center justify-center hero-custom-bg">
         <div class="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto hero-section-content">
             <div class="mb-8 floating">
-    <div class="w-40 h-40 mx-auto bg-white/<div class="w-10 h-10 flex items-center justify-center>
-        <img src="{{ asset('img/LogoSLC.png') }}" alt="SkyLinkCal Logo" class="w-full h-full object-contain">
-    </div>
+            <div class="w-40 h-40 mx-auto bg-white/<div class="w-10 h-10 flex items-center justify-center>
+                <img src="{{ asset('img/LogoSLC.png') }}" alt="SkyLinkCal Logo" class="w-full h-full object-contain">
+            </div>
 
-</div>
+            </div>
 
             <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animate__animated animate__fadeInUp hero-text-gradient-custom">
                 SkyLinkCal
@@ -346,7 +376,7 @@
                     <p class="text-white/90 mb-2">1101213082</p>
                     <p class="text-white/80 text-sm mb-6">Team Development Calculation Website</p>
 
-                    <a href="mailto:iyanchyna24@email.com"
+                    <a href="mailto:iyancahyana@student.telkomuniversity.ac.id"
                         class="btn-contact inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
                         <i class="fas fa-envelope"></i>
                         Contact
@@ -365,7 +395,7 @@
                     <p class="text-white/90 mb-2">1101213142</p>
                     <p class="text-white/80 text-sm mb-6">Team Development Calculation Website</p>
 
-                    <a href="mailto:muhsultanpasha@email.com"
+                    <a href="mailto:sultanpasha@student.telkomuniversity.ac.id"
                         class="btn-contact inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-semibold">
                         <i class="fas fa-envelope"></i>
                         Contact

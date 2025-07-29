@@ -308,10 +308,10 @@
                     </button>
                 </div>
 
-                <form action="{{ route('animasi.show', $dataId) }}">
+                <form id="mainForm" method="POST" action="{{ route('systemsummary.store', ['id' => $dataId]) }}" onsubmit="return checkAuth(event)">
                     @csrf
                     <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
-                  
+                    
 
                     <div class="system-summary">
                         <div class="section-heading">
@@ -345,7 +345,7 @@
                                 </div>
                                 <div class="sn-link-margin-container"> {{-- Main container for S/N and Link Margin side-by-side --}}
                                     <div class="sn-link-margin-item">
-                                       <label for="uplink_sn_value">S/N Method:</label>
+                                       <label for="uplink_sn_value">S/N:</label>
                                     <div class="green-input-with-unit">
                                         <div class="sn-value-box">
                                             <input 
@@ -403,12 +403,12 @@
                                                 readonly>
                                         </div>
                                         <span class="outside-unit-text">Hz</span>
-                                    </div>
+                                        </div>
                                         <button type="button" id="brbpf_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                     <div class="relative">
                                         <label for="uplink_g_t">G/T:</label>
-                                    <div class="green-input-with-unit">
+                                        <div class="green-input-with-unit">
                                         <div class="sn-value-box">
                                             <input
                                                 type="number"
@@ -421,7 +421,7 @@
                                                 readonly>
                                         </div>
                                         <span class="outside-unit-text">dB/K</span>
-                                    </div>
+                                        </div>
                                         <button type="button" id="gt_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
@@ -451,11 +451,11 @@
                                                 <input
                                                     type="number"
                                                     name="uplink_t2nd_amp"
-                                                    id="2ndstagetemp_uprec"
+                                                    id="secondstagetemp_uprec"
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->two_nd_stage_temp_uprec ?? '' }}"
+                                                    placeholder="{{ $data->secondstagetemp_uprec ?? '' }}"
                                                     step="any"
-                                                    value="{{ $data->two_nd_stage_temp_uprec ?? '' }}"
+                                                    value="{{ $data->secondstagetemp_uprec ?? '' }}"
                                                     readonly>
                                             </div>
                                             <span class="outside-unit-text">K</span>
@@ -510,7 +510,7 @@
                                                 <input
                                                     type="number"
                                                     name="uplink_ltotal_line"
-                                                    id="antenna_to_lna_uprec"
+                                                    id="totlinelosses_up"
                                                     class="sn-value-input"
                                                     placeholder="{{ $data->antenna_to_lna_uprec ?? '' }}"
                                                     step="any"
@@ -789,9 +789,9 @@
                                                     name="uplink_tx_ltother"
                                                     id="devicee_up"
                                                     class="sn-value-input"
-                                                    placeholder="{{ number_format($data->devicee_up ?? '' ) }}"
+                                                    placeholder="{{ ($data->devicee_up ?? '' ) }}"
                                                     step= "any"
-                                                    value="{{ $data->devicee_up ?? '' }}"
+                                                    value="{{ ($data->devicee_up ?? '') }}"
                                                     readonly>
                                             </div>
                                             <span class="outside-unit-text">dB</span>
@@ -799,7 +799,7 @@
                                         <button type="button" id="tx_ltother_uplink_popup_btn" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                                     </div>
                                 </div>
-                        
+                                
                                 <div class="form-row">
                                     <div class="relative">
                                         <label for="uplink_device_name">Device Name:</label>
@@ -810,9 +810,9 @@
                                                         name="uplink_device_name"
                                                         id="device_up_name"
                                                         class="sn-value-input"
-                                                        placeholder="{{ ($data->device_up_name ?? '') }}"
+                                                        placeholder="{{ ($data->device_up ?? '') }}"
                                                         step="any"
-                                                        value="{{ ($data->device_up_name ?? '') }}"
+                                                        value="{{ ($data->device_up ?? '') }}"
                                                         readonly>
                                                 </div>
                                             </div>
@@ -958,9 +958,9 @@
                                                     name="downlink_tx_dc_pwr"
                                                     id="tx_dc_pwr_down" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    placeholder="" {{-- Placeholder removed as value is calculated by JS --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) }}" {{-- Value simplified --}}
+                                                    value="" {{-- Value removed as it's calculated by JS --}}
                                                     readonly
                                                 >
                                             </div>
@@ -980,9 +980,9 @@
                                                     name="downlink_tx_dissipation"
                                                     id="tx_dissipation_down" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) - ($data->watt_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    placeholder="" {{-- Placeholder removed as value is calculated by JS --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ ($data->watt_down ?? 0) + ($data->filter_down ?? 0) - ($data->watt_down ?? 0) }}" {{-- Value simplified --}}
+                                                    value="" {{-- Value removed as it's calculated by JS --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1021,9 +1021,9 @@
                                                     name="downlink_la"
                                                     id="la_downrec" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->la_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ ($data->guideloss_down ?? 0) * ($data->alength_down ?? 0) }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->la_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ ($data->guideloss_down ?? 0) * ($data->alength_down ?? 0) }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1062,9 +1062,9 @@
                                                     name="downlink_lb"
                                                     id="lb_downrec" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->lb_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ ($data->guideloss_down ?? 0) * ($data->blength_down ?? 0) }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->lb_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ ($data->guideloss_down ?? 0) * ($data->blength_down ?? 0) }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1103,8 +1103,8 @@
                                                 name="downlink_device_name"
                                                 id="device_down_name" {{-- ID added --}}
                                                 class="sn-value-input"
-                                                placeholder="{{ $data->device_down_name ?? '' }}" {{-- Placeholder added --}}
-                                                value="{{ $data->device_down_name ?? '' }}"
+                                                placeholder="{{ $data->device_down ?? '' }}" {{-- Placeholder added --}}
+                                                value="{{ $data->device_down ?? '' }}"
                                                 readonly
                                             >
                                         </div>
@@ -1141,9 +1141,9 @@
                                                     name="downlink_lc"
                                                     id="lc_downrec" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->lc_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ ($data->guideloss_down ?? 0) * ($data->clength_down ?? 0) }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->lc_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ ($data->guideloss_down ?? 0) * ($data->clength_down ?? 0) }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1158,11 +1158,11 @@
                                                 <input
                                                     type="number"
                                                     name="downlink_ltotal_line"
-                                                    id="antenna_to_lna_downrec" {{-- ID added --}}
+                                                    id="totlinelosses_down" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->antenna_to_lna_downrec ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ $data->totlinelosses_down ?? '' }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->antenna_to_lna_downrec ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ $data->totlinelosses_down ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1180,11 +1180,11 @@
                                                 <input
                                                     type="number"
                                                     name="downlink_tx_antenna_gt"
-                                                    id="scantennagain_down" {{-- ID added --}}
+                                                    id="gain_manual_downspacecraft" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->scantennagain_down ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ $data->gain_manual_downspacecraft ?? '' }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->scantennagain_down ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ $data->gain_manual_downspacecraft ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1279,9 +1279,9 @@
                                                     name="downlink_gr"
                                                     id="scantennaagain_down" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->scantennaagain_down ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ $data->gain_manual_upgrounds ?? '' }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->scantennaagain_down ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ $data->gain_manual_upgrounds ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1316,9 +1316,9 @@
                                                     name="downlink_rx_lc"
                                                     id="calculated_rx_lc_down" {{-- ID added, since it's a calculated field --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ ($data->guideloss_down ?? 0) * ($data->clength_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    placeholder="{{ $data->lc_downrec ?? '' }}" {{-- Placeholder added, calc simplified --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ ($data->guideloss_down ?? 0) * ($data->clength_down ?? 0) }}" {{-- Value simplified --}}
+                                                    value="{{ $data->lc_downrec ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1336,11 +1336,11 @@
                                                 <input
                                                     type="number"
                                                     name="downlink_lrother"
-                                                    id="lrother_down" {{-- ID added --}}
+                                                    id="lother_downrec" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->lrother_down ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ $data->lother_downrec ?? '' }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->lrother_down ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ $data->lother_downrec ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1357,9 +1357,9 @@
                                                     name="downlink_rx_lb"
                                                     id="calculated_rx_lb_down" {{-- ID added, since it's a calculated field --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ ($data->blength_down ?? 0) * ($data->guideloss_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    placeholder="{{ $data->lb_downrec ?? '' }}" {{-- Placeholder added, calc simplified --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ ($data->blength_down ?? 0) * ($data->guideloss_down ?? 0) }}" {{-- Value simplified --}}
+                                                    value="{{ $data->lb_downrec ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1400,9 +1400,9 @@
                                                     name="downlink_rx_la"
                                                     id="calculated_rx_la_down" {{-- ID added, since it's a calculated field --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ ($data->guideloss_down ?? 0) * ($data->alength_down ?? 0) }}" {{-- Placeholder added, calc simplified --}}
+                                                    placeholder="{{ $data->la_downrec ?? '' }}" {{-- Placeholder added, calc simplified --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ ($data->guideloss_down ?? 0) * ($data->alength_down ?? 0) }}" {{-- Value simplified --}}
+                                                    value="{{ $data->la_downrec ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1420,11 +1420,11 @@
                                                 <input
                                                     type="number"
                                                     name="downlink_ltotal"
-                                                    id="ltotal_down" {{-- ID added --}}
+                                                    id="antenna_to_lna_downrec" {{-- ID added --}}
                                                     class="sn-value-input"
-                                                    placeholder="{{ $data->ltotal_down ?? '' }}" {{-- Placeholder added --}}
+                                                    placeholder="{{ $data->antenna_to_lna_downrec ?? '' }}" {{-- Placeholder added --}}
                                                     step="any" {{-- Step changed --}}
-                                                    value="{{ $data->ltotal_down ?? '' }}" {{-- Value simplified --}}
+                                                    value="{{ $data->antenna_to_lna_downrec ?? '' }}" {{-- Value simplified --}}
                                                     readonly
                                                 >
                                             </div>
@@ -1519,7 +1519,7 @@
 
                                 <div class="sn-link-margin-container"> {{-- S/N and Link Margin side-by-side --}}
                                     <div class="sn-link-margin-item">
-                                        <label for="downlink_sn_value">S/N Method:</label>
+                                        <label for="downlink_sn_value">S/N:</label>
                                         <div class="green-input-with-unit">
                                             <div class="sn-value-box">
                                                 <input
@@ -1566,14 +1566,17 @@
                             </div>
                         </div>
                     </div>
-
                     <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-6">
-                        <i class=""></i> Selesai & Lihat Visualisasi Perhitungan
+                        <i class=""></i> History perhitungan
                     </button>
-                </form>
 
+                    
+                </form>
+                   <button onclick="window.location='{{ route('animasi.show', ['id' => $dataId]) }}'" type="button" class="bg-green-600 text-white px-8 py-4 rounded-lg hover:bg-green-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 mt-4">
+                    <i class=""></i> Selesai & Lihat Visualisasi Perhitungan
+                </button>
                 <div class="flex justify-between mt-6">
-                    <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <a href="/updownlinkbudgetatn/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                         <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                     </a>
 
@@ -1586,83 +1589,61 @@
         </div>
     </div>
 
-    {{-- Modal Login/Register hanya muncul jika belum login --}}
     @guest
-        <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg space-y-4">
-                
-                {{-- Login Form --}}
-                <div id="loginForm" class="{{ $errors->has('auth') ? '' : '' }}">
-                    <h2 class="text-xl font-bold text-center">Login</h2>
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg space-y-4">
 
-                    {{-- Tampilkan error login jika ada --}}
-                    @if ($errors->has('auth'))
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded text-sm mb-2">
-                            {{ $errors->first('auth') }}
-                        </div>
-                    @endif
+            {{-- Login Form --}}
+            <div id="loginForm">
+                <h2 class="text-xl font-bold text-center">Login</h2>
 
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded" value="{{ old('email') }}" required>
-                        <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 mt-4 rounded w-full">Login</button>
-                    </form>
+                @if ($errors->has('auth'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded text-sm mb-2">
+                        {{ $errors->first('auth') }}
+                    </div>
+                @endif
 
-                    <p class="text-sm text-center mt-2">
-                        Belum punya akun?
-                        <button onclick="showRegisterForm()" class="text-blue-600 underline">Register di sini</button>
-                    </p>
-                </div>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <input type="hidden" name="data_id" value="{{ $data->id ?? request('id') }}">
+                    <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded" value="{{ old('email') }}" required>
+                    <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 mt-4 rounded w-full">Login</button>
+                </form>
 
-                {{-- Register Form --}}
-                <div id="registerForm" class="hidden">
-                    <h2 class="text-xl font-bold text-center">Daftar Akun</h2>
+                <p class="text-sm text-center mt-2">
+                    Belum punya akun?
+                    <button onclick="showRegisterForm()" class="text-blue-600 underline">Daftar di sini</button>
+                </p>
+            </div>
 
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-                        <input name="name" type="text" placeholder="Nama" class="w-full p-2 border rounded" value="{{ old('name') }}" required>
-                        <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded mt-2" value="{{ old('email') }}" required>
-                        <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
-                        <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-4 rounded w-full">Register</button>
-                    </form>
+            {{-- Register Form --}}
+            <div id="registerForm" class="hidden">
+                <h2 class="text-xl font-bold text-center">Daftar Akun</h2>
 
-                    <p class="text-sm text-center mt-2">
-                        Sudah punya akun?
-                        <button onclick="showLoginForm()" class="text-blue-600 underline">Kembali ke Login</button>
-                    </p>
-                </div>
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <input name="name" type="text" placeholder="Nama" class="w-full p-2 border rounded" value="{{ old('name') }}" required>
+                    <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded mt-2" value="{{ old('email') }}" required>
+                    <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-4 rounded w-full">Register</button>
+                </form>
 
-                {{-- Tanpa login --}}
-                <div class="text-center mt-4">
-                    <button onclick="document.getElementById('authModal').remove()" class="text-red-600 underline">
-                        Lanjut tanpa login
-                    </button>
-                    <p class="text-sm text-gray-600 mt-1">⚠️ Data yang Anda input tidak akan disimpan!</p>
-                </div>
+                <p class="text-sm text-center mt-2">
+                    Sudah punya akun?
+                    <button onclick="showLoginForm()" class="text-blue-600 underline">Kembali ke Login</button>
+                </p>
+            </div>
+
+            {{-- Lanjut tanpa login --}}
+            <div class="text-center mt-4">
+                <button onclick="continueWithoutLogin()" class="text-red-600 underline">
+                    Lanjut tanpa login
+                </button>
+                <p class="text-sm text-gray-600 mt-1">⚠️ Data yang Anda input tidak akan disimpan!</p>
             </div>
         </div>
-
-        {{-- JS Toggle --}}
-        <script>
-            function showRegisterForm() {
-                document.getElementById('loginForm').classList.add('hidden');
-                document.getElementById('registerForm').classList.remove('hidden');
-            }
-
-            function showLoginForm() {
-                document.getElementById('registerForm').classList.add('hidden');
-                document.getElementById('loginForm').classList.remove('hidden');
-            }
-
-            // Jika ada error login atau register, tampilkan modal secara otomatis
-            @if ($errors->has('auth') || $errors->has('register'))
-                window.addEventListener('DOMContentLoaded', () => {
-                    const modal = document.getElementById('authModal');
-                    if (modal) modal.classList.remove('hidden');
-                });
-            @endif
-        </script>
+    </div>
     @endguest
 
     {{-- Popup for general Summary explanation --}}
@@ -1676,7 +1657,7 @@
                     <div class="section">
                         <h4 class="section-title">Ringkasan Kinerja Sistem</h4>
                         <p class="section-content">
-                            Halaman ini menampilkan nilai-nilai kunci yang berkaitan dengan kinerja Link Budget untuk jalur **Uplink** (dari stasiun bumi ke satelit) dan **Downlink** (dari satelit ke stasiun bumi). Ini berfungsi sebagai antarmuka untuk melihat dan memahami hasil akhir dari perhitungan link komunikasi berdasarkan data yang Anda input sebelumnya.
+                            Halaman ini menampilkan nilai-nilai kunci yang berkaitan dengan kinerja Link Budget untuk jalur <strong>Uplink</strong> (dari stasiun bumi ke satelit) dan  <strong>Downlink</strong> (dari satelit ke stasiun bumi). Ini berfungsi sebagai antarmuka untuk melihat dan memahami hasil akhir dari perhitungan link komunikasi berdasarkan data yang Anda input sebelumnya.
                         </p>
                     </div>
 
@@ -1688,7 +1669,7 @@
                         <p class="param-title">Parameter Utama yang Ditampilkan:</p>
                         <ul class="param-list">
                             <li><strong>Frequency:</strong> Frekuensi sinyal uplink yang digunakan.</li>
-                            <li><strong>S/N Method:</strong> Rasio Sinyal terhadap Noise yang dihasilkan untuk uplink.</li>
+                            <li><strong>S/N:</strong> Rasio Sinyal terhadap Noise yang dihasilkan untuk uplink.</li>
                             <li><strong>Link Margin:</strong> Selisih antara S/N yang diterima dan S/N minimum yang dibutuhkan. Indikator kesehatan link.</li>
                             <li><strong>BRbpf:</strong> Bandwidth noise pada Bandpass Filter di sisi penerima uplink.</li>
                             <li><strong>G/T:</strong> Figure of Merit sistem penerima satelit untuk uplink.</li>
@@ -1699,16 +1680,16 @@
                             <li><strong>Ltotal line:</strong> Total kehilangan daya pada jalur transmisi penerima satelit.</li>
                             <li><strong>Line A/B/C (LA/LB/LC):</strong> Kehilangan daya pada setiap segmen kabel/jalur transmisi penerima satelit.</li>
                             <li><strong>LTother:</strong> Kehilangan daya tambahan lainnya di jalur transmisi penerima satelit.</li>
-                            <li>**Receive Antenna GR:** Gain antena penerima di satelit.</li>
-                            <li>**Receive Antenna Polarization:** Polarisasi antena penerima di satelit.</li>
-                            <li>**Lp:** Kehilangan daya propagasi untuk jalur uplink.</li>
-                            <li>**Total Link Losses:** Total kerugian pada keseluruhan link uplink.</li>
-                            <li>**EIRPgs:** Effective Isotropic Radiated Power dari stasiun bumi.</li>
-                            <li>**GT (Transmit Antenna):** Gain antena pemancar di stasiun bumi.</li>
-                            <li>**Transmit Antenna Polarization:** Polarisasi antena pemancar di stasiun bumi.</li>
-                            <li>**Transmit Antenna Ltotal line:** Total kehilangan daya pada jalur transmisi pemancar di stasiun bumi.</li>
-                            <li>**Other In-Line Losses:** Kehilangan daya tambahan lainnya di jalur pemancar (gabungan Antenna Mismatch Losses, Filter Insertion Losses, dan Total Connector Loss).</li>
-                            <li>**PTx (Transmit Power):** Daya output pemancar di stasiun bumi.</li>
+                            <li><strong>Receive Antenna GR:</strong> Gain antena penerima di satelit.</li>
+                            <li><strong>Receive Antenna Polarization:</strong> Polarisasi antena penerima di satelit.</li>
+                            <li><strong>Lp:</strong> Kehilangan daya propagasi untuk jalur uplink.</li>
+                            <li><strong>Total Link Losses:</strong> Total kerugian pada keseluruhan link uplink.</li>
+                            <li><strong>EIRPgs:</strong> Effective Isotropic Radiated Power dari stasiun bumi.</li>
+                            <li><strong>GT (Transmit Antenna):</strong> Gain antena pemancar di stasiun bumi.</li>
+                            <li><strong>Transmit Antenna Polarization:</strong> Polarisasi antena pemancar di stasiun bumi.</li>
+                            <li><strong>Transmit Antenna Ltotal line:</strong> Total kehilangan daya pada jalur transmisi pemancar di stasiun bumi.</li>
+                            <li><strong>Other In-Line Losses:</strong> Kehilangan daya tambahan lainnya di jalur pemancar (gabungan Antenna Mismatch Losses, Filter Insertion Losses, dan Total Connector Loss).</li>
+                            <li><strong>PTx (Transmit Power):</strong> Daya output pemancar di stasiun bumi.</li>
                         </ul>
                     </div>
 
@@ -1719,38 +1700,194 @@
                         </p>
                         <p class="param-title">Parameter Utama yang Ditampilkan:</p>
                         <ul class="param-list">
-                            <li>**Frequency:** Frekuensi sinyal downlink yang digunakan.</li>
-                            <li>**ηTx (hTx):** Efisiensi transfer daya pemancar satelit.</li>
-                            <li>**Tx DC Pwr:** Daya DC yang dikonsumsi pemancar satelit.</li>
-                            <li>**Tx Dissipation:** Daya disipasi panas pada pemancar satelit.</li>
-                            <li>**PTx:** Daya output pemancar satelit.</li>
-                            <li>**Line A (LA):** Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
-                            <li>**LTXbpf:** Kehilangan daya pada filter bandpass pemancar satelit.</li>
-                            <li>**Line B (LB):** Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
-                            <li>**LTother:** Kehilangan daya tambahan lainnya di jalur pemancar satelit.</li>
-                            <li>**Device Name:** Nama perangkat inline pada jalur transmisi satelit (misal: Diplexer, Isolator).</li>
-                            <li>**Device Loss (dB):** Kehilangan daya yang disebabkan oleh perangkat in-line tersebut.</li>
-                            <li>**Line C (LC):** Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
-                            <li>**Ltotal line:** Total kehilangan daya pada jalur transmisi pemancar satelit.</li>
-                            <li>**GT (Transmit Antenna):** Gain antena pemancar di satelit.</li>
-                            <li>**Transmit Antenna Polarization:** Polarisasi antena pemancar di satelit.</li>
-                            <li>**EIRPS/C:** Effective Isotropic Radiated Power dari satelit.</li>
-                            <li>**Total Link Losses:** Total kerugian pada keseluruhan link downlink.</li>
-                            <li>**LP:** Kehilangan daya propagasi untuk jalur downlink.</li>
-                            <li>**GR:** Gain antena penerima di stasiun bumi.</li>
-                            <li>**Receive Antenna Polarization:** Polarisasi antena penerima di stasiun bumi.</li>
-                            <li>**Line C (RX):** Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
-                            <li>**LRother:** Kehilangan daya tambahan lainnya di jalur penerima stasiun bumi.</li>
-                            <li>**Line B (RX):** Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
-                            <li>**LRbpf:** Kehilangan daya pada filter bandpass penerima stasiun bumi.</li>
-                            <li>**Line A (RX):** Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
-                            <li>**Ltotal:** Total kerugian di sisi penerima stasiun bumi.</li>
-                            <li>**TLNA:** Suhu noise Low Noise Amplifier di sisi penerima stasiun bumi.</li>
-                            <li>**GLNA:** Gain Low Noise Amplifier di sisi penerima stasiun bumi.</li>
-                            <li>**T2nd amp:** Suhu noise amplifier kedua pada jalur penerima stasiun bumi.</li>
-                            <li>**BRbpf:** Bandwidth noise pada Bandpass Filter di sisi penerima stasiun bumi.</li>
-                            <li>**S/N Method:** Rasio Sinyal terhadap Noise yang dihasilkan untuk downlink.</li>
-                            <li>**Link Margin:** Selisih antara S/N yang diterima dan S/N minimum yang dibutuhkan untuk downlink.</li>
+                            <li><strong>Frequency:</strong> Frekuensi sinyal downlink yang digunakan.</li>
+                            <li><strong>ηTx (hTx):</strong> Efisiensi transfer daya pemancar satelit.</li>
+                            <li><strong>Tx DC Pwr:</strong> Daya DC yang dikonsumsi pemancar satelit.</li>
+                            <li><strong>Tx Dissipation:</strong> Daya disipasi panas pada pemancar satelit.</li>
+                            <li><strong>PTx:</strong> Daya output pemancar satelit.</li>
+                            <li><strong>Line A (LA):</strong> Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
+                            <li><strong>LTXbpf:</strong> Kehilangan daya pada filter bandpass pemancar satelit.</li>
+                            <li><strong>Line B (LB):</strong> Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
+                            <li><strong>LTother:</strong> Kehilangan daya tambahan lainnya di jalur pemancar satelit.</li>
+                            <li><strong>Device Name:</strong> Nama perangkat inline pada jalur transmisi satelit (misal: Diplexer, Isolator).</li>
+                            <li><strong>Device Loss (dB):</strong> Kehilangan daya yang disebabkan oleh perangkat in-line tersebut.</li>
+                            <li><strong>Line C (LC):</strong> Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
+                            <li><strong>Ltotal line:</strong> Total kehilangan daya pada jalur transmisi pemancar satelit.</li>
+                            <li><strong>GT (Transmit Antenna):</strong> Gain antena pemancar di satelit.</li>
+                            <li><strong>Transmit Antenna Polarization:</strong> Polarisasi antena pemancar di satelit.</li>
+                            <li><strong>EIRPS/C:</strong> Effective Isotropic Radiated Power dari satelit.</li>
+                            <li><strong>Total Link Losses:</strong> Total kerugian pada keseluruhan link downlink.</li>
+                            <li><strong>LP:</strong> Kehilangan daya propagasi untuk jalur downlink.</li>
+                            <li><strong>GR:</strong> Gain antena penerima di stasiun bumi.</li>
+                            <li><strong>Receive Antenna Polarization:</strong> Polarisasi antena penerima di stasiun bumi.</li>
+                            <li><strong>Line C (RX):</strong> Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
+                            <li><strong>LRother:</strong> Kehilangan daya tambahan lainnya di jalur penerima stasiun bumi.</li>
+                            <li><strong>Line B (RX):</strong> Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
+                            <li><strong>LRbpf:</strong> Kehilangan daya pada filter bandpass penerima stasiun bumi.</li>
+                            <li><strong>Line A (RX):</strong> Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
+                            <li><strong>Ltotal:</strong> Total kerugian di sisi penerima stasiun bumi.</li>
+                            <li><strong>TLNA:</strong> Suhu noise Low Noise Amplifier di sisi penerima stasiun bumi.</li>
+                            <li><strong>GLNA:</strong> Gain Low Noise Amplifier di sisi penerima stasiun bumi.</li>
+                            <li><strong>T2nd amp:</strong> Suhu noise amplifier kedua pada jalur penerima stasiun bumi.</li>
+                            <li><strong>BRbpf:</strong> Bandwidth noise pada Bandpass Filter di sisi penerima stasiun bumi.</li>
+                            <li><strong>S/N:</strong> Rasio Sinyal terhadap Noise yang dihasilkan untuk downlink.</li>
+                            <li><strong>Link Margin:</strong> Selisih antara S/N yang diterima dan S/N minimum yang dibutuhkan untuk downlink.</li>
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Catatan Penggunaan</h4>
+                        <p class="section-content">
+                            Setiap nilai yang ditampilkan di halaman ini adalah hasil dari perhitungan Link Budget berdasarkan input yang Anda berikan di halaman-halaman sebelumnya. Klik tombol "Lihat Detail" di samping setiap kolom untuk melihat rumus perhitungan dan penjelasan lebih lanjut mengenai nilai tersebut. Ini akan membantu Anda memahami bagaimana setiap parameter memengaruhi kinerja keseluruhan sistem komunikasi Anda.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @guest
+    <div id="authModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div class="bg-white w-full max-w-md p-6 rounded-lg shadow-lg space-y-4">
+
+            {{-- Login Form --}}
+            <div id="loginForm">
+                <h2 class="text-xl font-bold text-center">Login</h2>
+
+                @if ($errors->has('auth'))
+                    <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded text-sm mb-2">
+                        {{ $errors->first('auth') }}
+                    </div>
+                @endif
+
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded" value="{{ old('email') }}" required>
+                    <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 mt-4 rounded w-full">Login</button>
+                </form>
+
+                <p class="text-sm text-center mt-2">
+                    Belum punya akun?
+                    <button onclick="showRegisterForm()" class="text-blue-600 underline">Daftar di sini</button>
+                </p>
+            </div>
+
+            {{-- Register Form --}}
+            <div id="registerForm" class="hidden">
+                <h2 class="text-xl font-bold text-center">Daftar Akun</h2>
+
+                <form method="POST" action="{{ route('register') }}">
+                    @csrf
+                    <input name="name" type="text" placeholder="Nama" class="w-full p-2 border rounded" value="{{ old('name') }}" required>
+                    <input name="email" type="email" placeholder="Email" class="w-full p-2 border rounded mt-2" value="{{ old('email') }}" required>
+                    <input name="password" type="password" placeholder="Password" class="w-full p-2 border rounded mt-2" required>
+                    <button type="submit" class="bg-green-600 text-white px-4 py-2 mt-4 rounded w-full">Register</button>
+                </form>
+
+                <p class="text-sm text-center mt-2">
+                    Sudah punya akun?
+                    <button onclick="showLoginForm()" class="text-blue-600 underline">Kembali ke Login</button>
+                </p>
+            </div>
+
+            {{-- Lanjut tanpa login --}}
+            <div class="text-center mt-4">
+                <button onclick="continueWithoutLogin()" class="text-red-600 underline">
+                    Lanjut tanpa login
+                </button>
+                <p class="text-sm text-gray-600 mt-1">⚠️ Data yang Anda input tidak akan disimpan!</p>
+            </div>
+        </div>
+    </div>
+    @endguest
+
+    {{-- Popup for general Summary explanation --}}
+    <div id="popup_summary_general" class="popup-window">
+        <div class="popup-content">
+            <div class="popup-header">
+                <span class="close-popup-btn">&times;</span> <h3>Tentang Halaman Input Ringkasan Kinerja Sistem</h3>
+            </div>
+            <div class="popup-body">
+                <div class="summary-explanation">
+                    <div class="section">
+                        <h4 class="section-title">Ringkasan Kinerja Sistem</h4>
+                        <p class="section-content">
+                            Halaman ini menampilkan nilai-nilai kunci yang berkaitan dengan kinerja Link Budget untuk jalur <strong>Uplink</strong> dari stasiun bumi ke satelit) dan **Downlink** (dari satelit ke stasiun bumi). Ini berfungsi sebagai antarmuka untuk melihat dan memahami hasil akhir dari perhitungan link komunikasi berdasarkan data yang Anda input sebelumnya.
+                        </p>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Uplink System (Sistem Uplink)</h4>
+                        <p class="section-content">
+                            Bagian ini menyajikan parameter terkait kinerja transmisi dari stasiun bumi ke satelit. Setiap nilai adalah hasil perhitungan dari data yang Anda masukkan di halaman sebelumnya atau nilai standar sistem.
+                        </p>
+                        <p class="param-title">Parameter Utama yang Ditampilkan:</p>
+                        <ul class="param-list">
+                            <li><strong>Frequency:</strong> Frekuensi sinyal uplink yang digunakan.</li>
+                            <li><strong>S/N:</strong> Rasio Sinyal terhadap Noise yang dihasilkan untuk uplink.</li>
+                            <li><strong>Link Margin:</strong> Selisih antara S/N yang diterima dan S/N minimum yang dibutuhkan. Indikator kesehatan link.</li>
+                            <li><strong>BRbpf:</strong> Bandwidth noise pada Bandpass Filter di sisi penerima uplink.</li>
+                            <li><strong>G/T:</strong> Figure of Merit sistem penerima satelit untuk uplink.</li>
+                            <li><strong>Tsys:</strong> Suhu noise sistem total penerima satelit untuk uplink.</li>
+                            <li><strong>T2nd Amp:</strong> Suhu noise amplifier kedua pada jalur penerima uplink.</li>
+                            <li><strong>GLNA:</strong> Gain Low Noise Amplifier di sisi penerima uplink.</li>
+                            <li><strong>TLNA:</strong> Suhu noise Low Noise Amplifier di sisi penerima uplink.</li>
+                            <li><strong>Ltotal line:</strong> Total kehilangan daya pada jalur transmisi penerima satelit.</li>
+                            <li><strong>Line A/B/C (LA/LB/LC):</strong> Kehilangan daya pada setiap segmen kabel/jalur transmisi penerima satelit.</li>
+                            <li><strong>LTother:</strong> Kehilangan daya tambahan lainnya di jalur transmisi penerima satelit.</li>
+                            <li><strong>Receive Antenna GR:</strong> Gain antena penerima di satelit.</li>
+                            <li><strong>Receive Antenna Polarization:</strong> Polarisasi antena penerima di satelit.</li>
+                            <li><strong>Lp:</strong> Kehilangan daya propagasi untuk jalur uplink.</li>
+                            <li><strong>Total Link Losses:</strong> Total kerugian pada keseluruhan link uplink.</li>
+                            <li><strong>EIRPgs:</strong> Effective Isotropic Radiated Power dari stasiun bumi.</li>
+                            <li><strong>GT (Transmit Antenna):</strong> Gain antena pemancar di stasiun bumi.</li>
+                            <li><strong>Transmit Antenna Polarization:</strong> Polarisasi antena pemancar di stasiun bumi.</li>
+                            <li><strong>Transmit Antenna Ltotal line:</strong> Total kehilangan daya pada jalur transmisi pemancar di stasiun bumi.</li>
+                            <li><strong>Other In-Line Losses:</strong> Kehilangan daya tambahan lainnya di jalur pemancar (gabungan Antenna Mismatch Losses, Filter Insertion Losses, dan Total Connector Loss).</li>
+                            <li><strong>PTx (Transmit Power):</strong> Daya output pemancar di stasiun bumi.</li>
+                        </ul>
+                    </div>
+
+                    <div class="section">
+                        <h4 class="section-title">Downlink System (Sistem Downlink)</h4>
+                        <p class="section-content">
+                            Bagian ini menampilkan parameter terkait kinerja transmisi dari satelit ke stasiun bumi. Semua nilai adalah hasil perhitungan berdasarkan data yang Anda berikan.
+                        </p>
+                        <p class="param-title">Parameter Utama yang Ditampilkan:</p>
+                        <ul class="param-list">
+                            <li><strong>Frequency:</strong> Frekuensi sinyal downlink yang digunakan.</li>
+                            <li><strong>ηTx (hTx):</strong> Efisiensi transfer daya pemancar satelit.</li>
+                            <li><strong>Tx DC Pwr:</strong> Daya DC yang dikonsumsi pemancar satelit.</li>
+                            <li><strong>Tx Dissipation:</strong> Daya disipasi panas pada pemancar satelit.</li>
+                            <li><strong>PTx:</strong> Daya output pemancar satelit.</li>
+                            <li><strong>Line A (LA):</strong> Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
+                            <li><strong>LTXbpf:</strong> Kehilangan daya pada filter bandpass pemancar satelit.</li>
+                            <li><strong>Line B (LB):</strong> Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
+                            <li><strong>LTother:</strong> Kehilangan daya tambahan lainnya di jalur pemancar satelit.</li>
+                            <li><strong>Device Name:</strong> Nama perangkat inline pada jalur transmisi satelit (misal: Diplexer, Isolator).</li>
+                            <li><strong>Device Loss (dB):</strong> Kehilangan daya yang disebabkan oleh perangkat in-line tersebut.</li>
+                            <li><strong>Line C (LC):</strong> Kehilangan daya pada segmen kabel/jalur transmisi pemancar satelit.</li>
+                            <li><strong>Ltotal line:</strong> Total kehilangan daya pada jalur transmisi pemancar satelit.</li>
+                            <li><strong>GT (Transmit Antenna):</strong> Gain antena pemancar di satelit.</li>
+                            <li><strong>Transmit Antenna Polarization:</strong> Polarisasi antena pemancar di satelit.</li>
+                            <li><strong>EIRPS/C:</strong> Effective Isotropic Radiated Power dari satelit.</li>
+                            <li><strong>Total Link Losses:</strong> Total kerugian pada keseluruhan link downlink.</li>
+                            <li><strong>LP:</strong> Kehilangan daya propagasi untuk jalur downlink.</li>
+                            <li><strong>GR:</strong> Gain antena penerima di stasiun bumi.</li>
+                            <li><strong>Receive Antenna Polarization:</strong> Polarisasi antena penerima di stasiun bumi.</li>
+                            <li><strong>Line C (RX):</strong> Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
+                            <li><strong>LRother:</strong> Kehilangan daya tambahan lainnya di jalur penerima stasiun bumi.</li>
+                            <li><strong>Line B (RX):</strong> Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
+                            <li><strong>LRbpf:</strong> Kehilangan daya pada filter bandpass penerima stasiun bumi.</li>
+                            <li><strong>Line A (RX):</strong> Kehilangan daya pada segmen kabel/jalur transmisi penerima stasiun bumi.</li>
+                            <li><strong>Ltotal:</strong> Total kerugian di sisi penerima stasiun bumi.</li>
+                            <li><strong>TLNA:</strong> Suhu noise Low Noise Amplifier di sisi penerima stasiun bumi.</li>
+                            <li><strong>GLNA:</strong> Gain Low Noise Amplifier di sisi penerima stasiun bumi.</li>
+                            <li><strong>T2nd amp:</strong> Suhu noise amplifier kedua pada jalur penerima stasiun bumi.</li>
+                            <li><strong>BRbpf:</strong> Bandwidth noise pada Bandpass Filter di sisi penerima stasiun bumi.</li>
+                            <li><strong>S/N:</strong> Rasio Sinyal terhadap Noise yang dihasilkan untuk downlink.</li>
+                            <li><strong>Link Margin:</strong> Selisih antara S/N yang diterima dan S/N minimum yang dibutuhkan untuk downlink.</li>
                         </ul>
                     </div>
 
@@ -1780,7 +1917,7 @@
                         Nilai Frekuensi Uplink ($frekuensi$) diambil dari input "Frekuensi Uplink" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Frekuensi Uplink** adalah frekuensi sinyal yang digunakan untuk transmisi dari stasiun bumi ke satelit. Ini adalah parameter dasar yang mempengaruhi perhitungan path loss dan desain antena.</p>
+                    <strong>Frekuensi Uplink</strong> adalah frekuensi sinyal yang digunakan untuk transmisi dari stasiun bumi ke satelit. Ini adalah parameter dasar yang mempengaruhi perhitungan path loss dan desain antena.</p>
                 </div>
             </div>
         </div>
@@ -1789,7 +1926,7 @@
     <div id="popup_sn_uplink" class="popup-window">
         <div class="popup-content">
             <div class="popup-header">
-                <span class="close-popup-btn">&times;</span> <h3>Detail S/N Method (Uplink)</h3>
+                <span class="close-popup-btn">&times;</span> <h3>Detail S/N (Uplink)</h3>
             </div>
             <div class="popup-body">
                 <div>
@@ -1797,15 +1934,15 @@
                         <strong>Rumus Perhitungan S/N Ratio:</strong><br>
                         $$S/N = EIRP_{gs} + G/T_{sc} - L_{total} - k - BR_{bpf}$$
                         Dimana:<br>
-                        **S/N** = Signal-to-Noise Ratio (dB)<br>
-                        **EIRP_gs** = Effective Isotropic Radiated Power dari Ground Station (dBW)<br>
-                        **G/T_sc** = Gain-to-Noise Temperature Ratio Satelit (dB/K)<br>
-                        **L_total** = Total Link Losses Uplink (dB)<br>
-                        **k** = Konstanta Boltzmann ($1.38 \times 10^{-23}$ J/K atau -228.6 dBW/K/Hz)<br>
-                        **BR_bpf** = Bandwidth Noise Bandpass Filter (Hz)
+                        <strong>S/N</strong> = Signal-to-Noise Ratio (dB)<br>
+                        <strong>EIRP_gs</strong> = Effective Isotropic Radiated Power dari Ground Station (dBW)<br>
+                        <strong>G/T_sc</strong> = Gain-to-Noise Temperature Ratio Satelit (dB/K)<br>
+                        <strong>L_total</strong> = Total Link Losses Uplink (dB)<br>
+                        <strong>k</strong> = Konstanta Boltzmann ($1.38 \times 10^{-23}$ J/K atau -228.6 dBW/K/Hz)<br>
+                        <strong>BR_bpf</strong> = Bandwidth Noise Bandpass Filter (Hz)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **S/N (Signal-to-Noise) Ratio** mengukur kekuatan sinyal relatif terhadap noise. Nilai ini sangat penting untuk menentukan kualitas link komunikasi. Semakin tinggi S/N, semakin baik kualitas sinyal yang diterima. Perhitungan ini mempertimbangkan daya pancar, karakteristik penerima satelit, dan semua kerugian di jalur transmisi.</p>
+                    <strong>S/N (Signal-to-Noise) Ratio</strong> mengukur kekuatan sinyal relatif terhadap noise. Nilai ini sangat penting untuk menentukan kualitas link komunikasi. Semakin tinggi S/N, semakin baik kualitas sinyal yang diterima. Perhitungan ini mempertimbangkan daya pancar, karakteristik penerima satelit, dan semua kerugian di jalur transmisi.</p>
                 </div>
             </div>
         </div>
@@ -1822,8 +1959,8 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$Link\ Margin = S/N_{received} - S/N_{required}$$
                         Dimana:<br>
-                        **S/N_received** = S/N Ratio yang diterima (dB)<br>
-                        **S/N_required** = S/N Ratio yang dibutuhkan (misal: 14.4 dB untuk Uplink)
+                        <strong>S/N_received</strong> = S/N Ratio yang diterima (dB)<br>
+                        <strong>S/N_required</strong> = S/N Ratio yang dibutuhkan (misal: 14.4 dB untuk Uplink)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
                     **Link Margin** adalah selisih antara S/N yang diterima dengan S/N minimum yang diperlukan agar komunikasi dapat berjalan dengan baik. Nilai positif menunjukkan bahwa link memiliki cadangan daya yang cukup untuk mengatasi fading atau kondisi link yang memburuk. Status "LINK CLOSES", "MARGINAL LINK", atau "NO LINK !" menunjukkan kondisi link berdasarkan margin ini.</p>
@@ -1841,10 +1978,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **BRbpf** ($scbandwidth\_up$) diambil dari input "Bandwidth pada Ground Station (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>BRbpf</strong> ($scbandwidth\_up$) diambil dari input "Bandwidth pada Ground Station (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **BRbpf** (Bandwidth Noise pada Bandpass Filter) adalah lebar pita frekuensi di mana noise diukur pada sisi penerima. Ini secara langsung mempengaruhi jumlah noise yang diterima dan, oleh karena itu, S/N Ratio. Nilai ini digunakan dalam perhitungan S/N untuk mengkarakterisasi noise termal.</p>
+                    <strong>BRbpf</strong> (Bandwidth Noise pada Bandpass Filter) adalah lebar pita frekuensi di mana noise diukur pada sisi penerima. Ini secara langsung mempengaruhi jumlah noise yang diterima dan, oleh karena itu, S/N Ratio. Nilai ini digunakan dalam perhitungan S/N untuk mengkarakterisasi noise termal.</p>
                 </div>
             </div>
         </div>
@@ -1859,10 +1996,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **G/T** ($scgtratio\_up$) diambil dari input "Ground Station G/T (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>G/T</strong> ($scgtratio\_up$) diambil dari input "Ground Station G/T (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **G/T** (Gain-to-Noise Temperature Ratio) adalah ukuran kinerja stasiun bumi atau satelit penerima. Ini adalah rasio antara gain antena (**G**) dan suhu noise sistem (**T_sys**). Semakin tinggi nilai G/T, semakin baik sensitivitas penerima.</p>
+                    </strong>G/T<strong> (Gain-to-Noise Temperature Ratio) adalah ukuran kinerja stasiun bumi atau satelit penerima. Ini adalah rasio antara gain antena (**G**) dan suhu noise sistem (**T_sys**). Semakin tinggi nilai G/T, semakin baik sensitivitas penerima.</p>
                 </div>
             </div>
         </div>
@@ -1877,10 +2014,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Tsys** ($scnoisetemp\_up$) diambil dari input "Noise Temp. Receiver (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Tsys</strong> ($scnoisetemp\_up$) diambil dari input "Noise Temp. Receiver (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Tsys** (System Noise Temperature) adalah total suhu noise yang dihasilkan oleh semua komponen dalam sistem penerima. Suhu noise ini berkontribusi terhadap noise termal yang mengganggu sinyal. Semakin rendah Tsys, semakin baik kinerja sistem penerima.</p>
+                    <strong>Tsys</strong> (System Noise Temperature) adalah total suhu noise yang dihasilkan oleh semua komponen dalam sistem penerima. Suhu noise ini berkontribusi terhadap noise termal yang mengganggu sinyal. Semakin rendah Tsys, semakin baik kinerja sistem penerima.</p>
                 </div>
             </div>
         </div>
@@ -1895,10 +2032,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **T2nd Amp** ($two\_nd\_stage\_temp\_uprec$) diambil dari input "Suhu Noise Amplifier Kedua (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>T2nd Amp</strong> ($two\_nd\_stage\_temp\_uprec$) diambil dari input "Suhu Noise Amplifier Kedua (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **T2nd Amp** (Temperature of the Second Amplifier) adalah suhu noise yang dihasilkan oleh amplifier kedua dalam rantai penerima. Ini adalah salah satu komponen yang berkontribusi pada total suhu noise sistem (Tsys).</p>
+                    <strong>T2nd Amp</strong> (Temperature of the Second Amplifier) adalah suhu noise yang dihasilkan oleh amplifier kedua dalam rantai penerima. Ini adalah salah satu komponen yang berkontribusi pada total suhu noise sistem (Tsys).</p>
                 </div>
             </div>
         </div>
@@ -1913,10 +2050,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **GLNA** ($lnagain\_uprec$) diambil dari input "Gain LNA (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>GLNA</strong> ($lnagain\_uprec$) diambil dari input "Gain LNA (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **GLNA** (Gain Low Noise Amplifier) adalah penguatan sinyal yang diberikan oleh Low Noise Amplifier. LNA diposisikan dekat dengan antena penerima untuk memperkuat sinyal yang lemah sambil meminimalkan penambahan noise.</p>
+                    <strong>GLNA</strong> (Gain Low Noise Amplifier) adalah penguatan sinyal yang diberikan oleh Low Noise Amplifier. LNA diposisikan dekat dengan antena penerima untuk memperkuat sinyal yang lemah sambil meminimalkan penambahan noise.</p>
                 </div>
             </div>
         </div>
@@ -1931,10 +2068,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **TLNA** ($tlna\_uprec$) diambil dari input "Suhu LNA (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>TLNA</strong> ($tlna\_uprec$) diambil dari input "Suhu LNA (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **TLNA** (Temperature of Low Noise Amplifier) adalah suhu noise yang dihasilkan oleh Low Noise Amplifier. Ini merupakan komponen kunci dalam perhitungan total suhu noise sistem (Tsys), karena LNA adalah tahap pertama yang menerima sinyal lemah dan noise yang ditambahkan pada tahap ini sangat signifikan.</p>
+                    </strong>TLNA<strong> (Temperature of Low Noise Amplifier) adalah suhu noise yang dihasilkan oleh Low Noise Amplifier. Ini merupakan komponen kunci dalam perhitungan total suhu noise sistem (Tsys), karena LNA adalah tahap pertama yang menerima sinyal lemah dan noise yang ditambahkan pada tahap ini sangat signifikan.</p>
                 </div>
             </div>
         </div>
@@ -1949,10 +2086,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Ltotal line** ($antenna\_to\_lna\_uprec$) diambil dari input "Line Loss Rx (Antenna to LNA)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Ltotal line</strong> ($antenna\_to\_lna\_uprec$) diambil dari input "Line Loss Rx (Antenna to LNA)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Ltotal line** adalah total kehilangan daya pada jalur transmisi antara antena penerima dan Low Noise Amplifier (LNA). Ini mencakup kehilangan pada kabel, konektor, dan komponen pasif lainnya di jalur tersebut.</p>
+                    <strong>Ltotal line</strong> adalah total kehilangan daya pada jalur transmisi antara antena penerima dan Low Noise Amplifier (LNA). Ini mencakup kehilangan pada kabel, konektor, dan komponen pasif lainnya di jalur tersebut.</p>
                 </div>
             </div>
         </div>
@@ -1967,10 +2104,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Line A (LA)** ($la\_uprec$) diambil dari input "Line A (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Line A (LA)</strong> ($la\_uprec$) diambil dari input "Line A (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line A (LA)** adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur penerima uplink.</p>
+                    <strong>Line A (LA)</strong> adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur penerima uplink.</p>
                 </div>
             </div>
         </div>
@@ -1985,10 +2122,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LRbpf** ($lbpf\_uprec$) diambil dari input "BPF Loss Rec (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>LRbpf</strong> ($lbpf\_uprec$) diambil dari input "BPF Loss Rec (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LRbpf** (Loss of Receive Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi penerima uplink.</p>
+                    <strong>LRbpf</strong> (Loss of Receive Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi penerima uplink.</p>
                 </div>
             </div>
         </div>
@@ -2003,10 +2140,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Line B (LB)** ($lb\_uprec$) diambil dari input "Line B (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Line B (LB)</strong> ($lb\_uprec$) diambil dari input "Line B (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line B (LB)** adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur penerima uplink.</p>
+                    <strong>Line B (LB)</strong> adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur penerima uplink.</p>
                 </div>
             </div>
         </div>
@@ -2021,10 +2158,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LTother** ($lother\_uprec$) diambil dari input "Loss Other Components (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>LTother</strong> ($lother\_uprec$) diambil dari input "Loss Other Components (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LTother** (Loss of Other Components) adalah kehilangan daya tambahan yang disebabkan oleh komponen lain di jalur penerima uplink, selain kabel, konektor, dan filter bandpass.</p>
+                    <strong>LTother</strong> (Loss of Other Components) adalah kehilangan daya tambahan yang disebabkan oleh komponen lain di jalur penerima uplink, selain kabel, konektor, dan filter bandpass.</p>
                 </div>
             </div>
         </div>
@@ -2039,17 +2176,17 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Line C (LC)** ($lc\_uprec$) diambil dari input "Line C (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Line C (LC)</strong> ($lc\_uprec$) diambil dari input "Line C (Uplink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line C (LC)** adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur penerima uplink.</p>
+                    <strong>Line C (LC)</strong> adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur penerima uplink.</p>
                 </div>
             </div>
         </div>
     </div>
 
     {{-- The 'Other In-Line Device Type' popup is removed as the field itself is removed.
-         If you later re-add this field and need a popup for it, remember to re-create it. --}}
+        If you later re-add this field and need a popup for it, remember to re-create it. --}}
 
     <div id="popup_rx_ant_gr_uplink" class="popup-window">
         <div class="popup-content">
@@ -2060,10 +2197,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Receive Antenna GR** ($scantennagain\_up$) diambil dari input "Gain Antena (Uplink Ground Station)" pada halaman "Antenna".
+                        Nilai <strong>Receive Antenna GR</strong> ($scantennagain\_up$) diambil dari input "Gain Antena (Uplink Ground Station)" pada halaman "Antenna".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Receive Antenna GR** (Gain of Receive Antenna) adalah penguatan sinyal yang diberikan oleh antena penerima di satelit untuk jalur uplink. Ini adalah parameter kunci dalam menentukan seberapa efisien antena dapat menangkap sinyal yang dipancarkan.</p>
+                    <strong>Receive Antenna GR</strong> (Gain of Receive Antenna) adalah penguatan sinyal yang diberikan oleh antena penerima di satelit untuk jalur uplink. Ini adalah parameter kunci dalam menentukan seberapa efisien antena dapat menangkap sinyal yang dipancarkan.</p>
                 </div>
             </div>
         </div>
@@ -2078,10 +2215,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Receive Antenna Polarization** ($jenis\_polarizationgrounds\_up$) diambil dari input "Jenis Polarisasi (Uplink Receiver)" pada halaman "Ground Station".
+                        Nilai <strong>Receive Antenna Polarization</strong> ($jenis\_polarizationgrounds\_up$) diambil dari input "Jenis Polarisasi (Uplink Receiver)" pada halaman "Ground Station".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Polarisasi antena penerima** mengacu pada orientasi gelombang elektromagnetik yang dapat diterima oleh antena. Penting untuk dicocokkan dengan polarisasi antena pemancar untuk meminimalkan kerugian polarisasi.</p>
+                    <strong>Polarisasi antena penerima</strong> mengacu pada orientasi gelombang elektromagnetik yang dapat diterima oleh antena. Penting untuk dicocokkan dengan polarisasi antena pemancar untuk meminimalkan kerugian polarisasi.</p>
                 </div>
             </div>
         </div>
@@ -2096,10 +2233,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Lp** ($pathlosss\_up$) diambil dari input "Path Loss (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Lp</strong> ($pathlosss\_up$) diambil dari input "Path Loss (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Lp** (Path Loss) adalah kehilangan daya sinyal yang terjadi saat sinyal merambat melalui ruang bebas dari pemancar ke penerima. Ini adalah kerugian paling signifikan dalam Link Budget dan bergantung pada frekuensi serta jarak.</p>
+                    <strong>Lp</strong> (Path Loss) adalah kehilangan daya sinyal yang terjadi saat sinyal merambat melalui ruang bebas dari pemancar ke penerima. Ini adalah kerugian paling signifikan dalam Link Budget dan bergantung pada frekuensi serta jarak.</p>
                 </div>
             </div>
         </div>
@@ -2116,16 +2253,16 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{total\_link} = L_{pointing\_gs} + L_{polarization} + L_{path} + L_{atmospheric} + L_{ionospheric} + L_{rain} + L_{pointing\_sc}$$
                         Dimana:<br>
-                        **L_pointing_gs** = Ground Station Pointing Loss ($gspointingloss\_up$)<br>
-                        **L_polarization** = Polarization Losses ($polarizationlosses\_up$)<br>
-                        **L_path** = Path Loss ($pathlosss\_up$)<br>
-                        **L_atmospheric** = Atmospheric Losses ($atmosphericlosses\_up$)<br>
-                        **L_ionospheric** = Ionospheric Losses ($ionosphericlosses\_up$)<br>
-                        **L_rain** = Rain Losses ($rainlosses\_up$)<br>
-                        **L_pointing_sc** = Satellite Pointing Loss ($scpointingloss\_up$)
+                        <strong>L_pointing_gs</strong> = Ground Station Pointing Loss ($gspointingloss\_up$)<br>
+                        <strong>L_polarization</strong> = Polarization Losses ($polarizationlosses\_up$)<br>
+                        <strong>L_path</strong> = Path Loss ($pathlosss\_up$)<br>
+                        <strong>L_atmospheric</strong> = Atmospheric Losses ($atmosphericlosses\_up$)<br>
+                        <strong>L_ionospheric</strong> = Ionospheric Losses ($ionosphericlosses\_up$)<br>
+                        <strong>L_rain</strong> = Rain Losses ($rainlosses\_up$)<br>
+                        <strong>L_pointing_sc</strong> = Satellite Pointing Loss ($scpointingloss\_up$)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Total Link Losses** adalah penjumlahan dari semua kehilangan daya yang terjadi di sepanjang keseluruhan jalur uplink, dari pemancar stasiun bumi hingga penerima satelit. Ini mencakup path loss, kerugian atmosfer, kerugian polarisasi, dan kerugian penunjukan antena.</p>
+                    <strong>Total Link Losses</strong> adalah penjumlahan dari semua kehilangan daya yang terjadi di sepanjang keseluruhan jalur uplink, dari pemancar stasiun bumi hingga penerima satelit. Ini mencakup path loss, kerugian atmosfer, kerugian polarisasi, dan kerugian penunjukan antena.</p>
                 </div>
             </div>
         </div>
@@ -2140,10 +2277,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **EIRPgs** ($eirp\_up$) diambil dari input "EIRP Ground Station (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>EIRPgs</strong> ($eirp\_up$) diambil dari input "EIRP Ground Station (Uplink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **EIRPgs** (Effective Isotropic Radiated Power of Ground Station) adalah daya efektif yang dipancarkan oleh stasiun bumi ke segala arah secara isotropik (seragam). Ini memperhitungkan daya pemancar dan gain antena pengirim.</p>
+                    <strong>EIRPgs</strong> (Effective Isotropic Radiated Power of Ground Station) adalah daya efektif yang dipancarkan oleh stasiun bumi ke segala arah secara isotropik (seragam). Ini memperhitungkan daya pemancar dan gain antena pengirim.</p>
                 </div>
             </div>
         </div>
@@ -2158,10 +2295,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **GT (Transmit Antenna)** ($antennaagain\_up$) diambil dari input "Gain Antena (Uplink Transmit)" pada halaman "Antenna".
+                        Nilai <strong>GT (Transmit Antenna)</strong> ($antennaagain\_up$) diambil dari input "Gain Antena (Uplink Transmit)" pada halaman "Antenna".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **GT (Gain of Transmit Antenna)** adalah penguatan sinyal yang diberikan oleh antena pemancar di stasiun bumi untuk jalur uplink. Ini adalah ukuran seberapa efektif antena mengarahkan daya ke arah yang diinginkan.</p>
+                    <strong>GT (Gain of Transmit Antenna)</strong> adalah penguatan sinyal yang diberikan oleh antena pemancar di stasiun bumi untuk jalur uplink. Ini adalah ukuran seberapa efektif antena mengarahkan daya ke arah yang diinginkan.</p>
                 </div>
             </div>
         </div>
@@ -2176,10 +2313,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Transmit Antenna Polarization** ($jenis\_polarizationgrounds\_up$) diambil dari input "Jenis Polarisasi (Uplink Transmit)" pada halaman "Ground Station".
+                        Nilai <strong>Transmit Antenna Polarization</strong> ($jenis\_polarizationgrounds\_up$) diambil dari input "Jenis Polarisasi (Uplink Transmit)" pada halaman "Ground Station".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Polarisasi antena pemancar** mengacu pada orientasi gelombang elektromagnetik yang dipancarkan oleh antena. Pencocokan polarisasi antara antena pemancar dan penerima sangat penting untuk transmisi sinyal yang efisien.</p>
+                    <strong>Polarisasi antena pemancar</strong> mengacu pada orientasi gelombang elektromagnetik yang dipancarkan oleh antena. Pencocokan polarisasi antara antena pemancar dan penerima sangat penting untuk transmisi sinyal yang efisien.</p>
                 </div>
             </div>
         </div>
@@ -2196,15 +2333,15 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{total\_line\_tx} = L_{cable\_tx} + L_{connector\_tx} + L_{filter\_tx} + L_{device\_tx} + L_{mismatch\_tx}$$
                         Dimana:<br>
-                        **L_cable_tx** = Total Cable Loss Transmit ({{ number_format(($data->guideloss_up ?? 0) * (($data->alength_up ?? 0) + ($data->blength_up ?? 0) + ($data->clength_up ?? 0)), 3, '.', '') }} dB)<br>
-                        **L_connector_tx** = Total Connector Loss Transmit ({{ number_format(($data->connect_up ?? 0) * 0.05, 3, '.', '') }} dB)<br>
-                        **L_filter_tx** = Filter Insertion Losses Transmit ({{ number_format($data->filter_up ?? 0, 3, '.', '') }} dB)<br>
-                        **L_device_tx** = Device Loss Transmit ({{ number_format($data->devicee_up ?? 0, 3, '.', '') }} dB)<br>
-                        **L_mismatch_tx** = Antenna Mismatch Losses Transmit ({{ number_format($data->atn_up ?? 0, 3, '.', '') }} dB)<br><br>
+                        <strong>L_cable_tx</strong>= Total Cable Loss Transmit ({{ number_format(($data->guideloss_up ?? 0) * (($data->alength_up ?? 0) + ($data->blength_up ?? 0) + ($data->clength_up ?? 0)), 3, '.', '') }} dB)<br>
+                        <strong>L_connector_tx</strong> = Total Connector Loss Transmit ({{ number_format(($data->connect_up ?? 0) * 0.05, 3, '.', '') }} dB)<br>
+                        <strong>L_filter_tx</strong> = Filter Insertion Losses Transmit ({{ number_format($data->filter_up ?? 0, 3, '.', '') }} dB)<br>
+                        <strong>L_device_tx</strong> = Device Loss Transmit ({{ number_format($data->devicee_up ?? 0, 3, '.', '') }} dB)<br>
+                        <strong>L_mismatch_tx</strong> = Antenna Mismatch Losses Transmit ({{ number_format($data->atn_up ?? 0, 3, '.', '') }} dB)<br><br>
                         Nilai-nilai ini diambil dari hasil perhitungan pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Transmit Antenna Ltotal line** adalah total kehilangan daya yang terjadi pada semua komponen antara output pemancar dan input antena di stasiun bumi untuk jalur uplink. Ini mencakup kabel, konektor, filter, perangkat in-line lainnya, dan kerugian ketidaksesuaian antena.</p>
+                    <strong>Transmit Antenna Ltotal line</strong> adalah total kehilangan daya yang terjadi pada semua komponen antara output pemancar dan input antena di stasiun bumi untuk jalur uplink. Ini mencakup kabel, konektor, filter, perangkat in-line lainnya, dan kerugian ketidaksesuaian antena.</p>
                 </div>
             </div>
         </div>
@@ -2221,11 +2358,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{C\_tx} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line C Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_up ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line C Length** = {{ number_format($data->clength_up ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_up ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line C Length</strong> = {{ number_format($data->clength_up ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line C (TX)** adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur transmisi pemancar uplink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line C (TX)</strong> adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur transmisi pemancar uplink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2240,10 +2377,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LTother (TX)** ($devicee\_up$) diambil dari input "Device Loss (Uplink)" pada halaman "Transmitter".
+                        Nilai <strong>LTother (TX)</strong> ($devicee\_up$) diambil dari input "Device Loss (Uplink)" pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LTother (TX)** adalah kehilangan daya tambahan yang disebabkan oleh perangkat lain (selain kabel, konektor, dan filter) yang terhubung pada jalur transmisi pemancar uplink.</p>
+                    </strong>LTother (TX)<strong> adalah kehilangan daya tambahan yang disebabkan oleh perangkat lain (selain kabel, konektor, dan filter) yang terhubung pada jalur transmisi pemancar uplink.</p>
                 </div>
             </div>
         </div>
@@ -2260,13 +2397,13 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{other} = L_{mismatch} + L_{filter} + L_{connector}$$
                         Dimana:<br>
-                        **L_mismatch** = Antenna Mismatch Losses ({{ number_format($data->atn_up ?? 0, 3, '.', '') }} dB)<br>
-                        **L_filter** = Filter Insertion Losses ({{ number_format($data->filter_up ?? 0, 3, '.', '') }} dB)<br>
-                        **L_connector** = Total Connector Loss ({{ number_format(($data->connect_up ?? 0) * 0.05, 3, '.', '') }} dB)<br><br>
+                        <strong>L_mismatch</strong> = Antenna Mismatch Losses ({{ number_format($data->atn_up ?? 0, 3, '.', '') }} dB)<br>
+                        <strong>L_filter</strong> = Filter Insertion Losses ({{ number_format($data->filter_up ?? 0, 3, '.', '') }} dB)<br>
+                        <strong>L_connector</strong> = Total Connector Loss ({{ number_format(($data->connect_up ?? 0) * 0.05, 3, '.', '') }} dB)<br><br>
                         Nilai-nilai ini diambil dari hasil perhitungan pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **"Other In-Line Losses"** adalah total kerugian daya yang berasal dari berbagai komponen pasif lainnya di jalur transmisi uplink, seperti kerugian ketidaksesuaian antena, kerugian penyisipan filter, dan kerugian konektor.</p>
+                    <strong>"Other In-Line Losses"</strong> adalah total kerugian daya yang berasal dari berbagai komponen pasif lainnya di jalur transmisi uplink, seperti kerugian ketidaksesuaian antena, kerugian penyisipan filter, dan kerugian konektor.</p>
                 </div>
             </div>
         </div>
@@ -2283,11 +2420,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{B\_tx} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line B Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_up ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line B Length** = {{ number_format($data->blength_up ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_up ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line B Length</strong> = {{ number_format($data->blength_up ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line B (TX)** adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur transmisi pemancar uplink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line B (TX)</strong> adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur transmisi pemancar uplink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2302,10 +2439,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LTbpf** ($filter\_up$) diambil dari input "Filter Insertion Losses (Uplink)" pada halaman "Transmitter".
+                        Nilai <strong>LTbpf</strong> ($filter\_up$) diambil dari input "Filter Insertion Losses (Uplink)" pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LTbpf** (Loss of Transmit Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi pemancar uplink.</p>
+                    <strong>LTbpf</strong> (Loss of Transmit Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi pemancar uplink.</p>
                 </div>
             </div>
         </div>
@@ -2322,11 +2459,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{A\_tx} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line A Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_up ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line A Length** = {{ number_format($data->alength_up ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_up ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line A Length</strong> = {{ number_format($data->alength_up ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line A (TX)** adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur transmisi pemancar uplink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line A (TX)</strong> adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur transmisi pemancar uplink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2341,10 +2478,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **PTx** ($watt\_up$) diambil dari input "Transmitter Power (Watt)" yang dikonversi ke dB pada halaman "Transmitter".
+                        Nilai <strong>PTx</strong> ($watt\_up$) diambil dari input "Transmitter Power (Watt)" yang dikonversi ke dB pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **PTx** (Transmit Power) adalah daya output yang dihasilkan oleh pemancar di stasiun bumi untuk jalur uplink, setelah dikurangi semua kehilangan internal pada pemancar itu sendiri.</p>
+                    <strong>PTx</strong> (Transmit Power) adalah daya output yang dihasilkan oleh pemancar di stasiun bumi untuk jalur uplink, setelah dikurangi semua kehilangan internal pada pemancar itu sendiri.</p>
                 </div>
             </div>
         </div>
@@ -2361,10 +2498,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Frekuensi Downlink** ($frekuensi\_downlink$) diambil dari input "Frekuensi Downlink" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Frekuensi Downlink</strong> ($frekuensi\_downlink$) diambil dari input "Frekuensi Downlink" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Frekuensi Downlink** adalah frekuensi sinyal yang digunakan untuk transmisi dari satelit ke stasiun bumi. Sama seperti uplink, ini adalah parameter dasar yang mempengaruhi perhitungan path loss dan desain antena.</p>
+                    <strong>Frekuensi Downlink</strong> adalah frekuensi sinyal yang digunakan untuk transmisi dari satelit ke stasiun bumi. Sama seperti uplink, ini adalah parameter dasar yang mempengaruhi perhitungan path loss dan desain antena.</p>
                 </div>
             </div>
         </div>
@@ -2379,10 +2516,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **ηTx** ($effi\_down$) diambil dari input "Efisiensi Transmisi Satelit" pada halaman "Spacecraft".
+                        Nilai <strong>ηTx</strong> ($effi\_down$) diambil dari input "Efisiensi Transmisi Satelit" pada halaman "Spacecraft".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **ηTx (hTx)** adalah efisiensi transfer daya dari pemancar di satelit. Ini mengindikasikan seberapa banyak daya DC yang diubah menjadi daya RF yang efektif.</p>
+                    <strong>ηTx (hTx)</strong> adalah efisiensi transfer daya dari pemancar di satelit. Ini mengindikasikan seberapa banyak daya DC yang diubah menjadi daya RF yang efektif.</p>
                 </div>
             </div>
         </div>
@@ -2397,13 +2534,13 @@
                 <div>
                     <div class="formula">
                         <strong>Rumus Perhitungan:</strong><br>
-                        $$P_{DC} = P_{Tx} + L_{Tx\_BPF}$$
+                        $$P_{DC} = P_{Tx} / \eta_{Tx}$$
                         Dimana:<br>
-                        **P_Tx** = Transmitter Power ($watt\_down$) = {{ number_format($data->watt_down ?? 0, 1, '.', '') }} dB (dari Transmitter)<br>
-                        **L_Tx_BPF** = LTXbpf ($filter\_down$) = {{ number_format($data->filter_down ?? 0, 1, '.', '') }} dB (dari Transmitter)
+                        <strong>P_Tx</strong> = Transmitter Power ({{ number_format(isset($data->watt_down) ? pow(10, $data->watt_down / 10) : 0, 1, '.', '') }} Watt) (dari Transmitter, dikonversi dari dB)<br>
+                        <strong>ηTx</strong> = Efisiensi Transmisi Satelit ({{ number_format(($data->effi_down ?? 0) / 100, 2, '.', '') }}) (dari Spacecraft, dikonversi dari %)<br>
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Tx DC Pwr** (Transmit DC Power) adalah total daya DC yang dikonsumsi oleh pemancar satelit untuk menghasilkan daya RF, termasuk kerugian pada filter bandpass pemancar.</p>
+                    <strong>Tx DC Pwr</strong> (Transmit DC Power) adalah total daya DC yang dikonsumsi oleh pemancar satelit untuk menghasilkan daya RF. Ini dihitung dengan membagi daya output RF (PTx) dengan efisiensi transmitter.</p>
                 </div>
             </div>
         </div>
@@ -2420,11 +2557,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$P_{dissipation} = P_{DC} - P_{Tx}$$
                         Dimana:<br>
-                        **P_DC** = Tx DC Pwr = {{ number_format(($data->watt_down + $data->filter_down) ?? 0, 1, '.', '') }} dB<br>
-                        **P_Tx** = Transmitter Power ($watt\_down$) = {{ number_format($data->watt_down ?? 0, 1, '.', '') }} dB
+                        <strong>P_DC</.strong> = Tx DC Pwr ({{ number_format(isset($data->watt_down) && isset($data->effi_down) && $data->effi_down > 0 ? (pow(10, $data->watt_down / 10) / ($data->effi_down / 100)) : 0, 1, '.', '') }} Watt)<br>
+                        <strong>P_Tx</strong> = Transmitter Power ({{ number_format(isset($data->watt_down) ? pow(10, $data->watt_down / 10) : 0, 1, '.', '') }} Watt)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Tx Dissipation** adalah daya yang hilang sebagai panas dalam proses konversi daya DC menjadi daya RF oleh pemancar satelit. Ini menunjukkan inefisiensi dalam proses transmisi.</p>
+                    <strong>Tx Dissipation</strong> adalah daya yang hilang sebagai panas dalam proses konversi daya DC menjadi daya RF oleh pemancar satelit. Ini menunjukkan inefisiensi dalam proses transmisi, yaitu selisih antara total daya DC yang digunakan dan daya RF yang berhasil dipancarkan.</p>
                 </div>
             </div>
         </div>
@@ -2439,10 +2576,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **PTx** ($watt\_down$) diambil dari input "Transmitter Power (Watt)" yang dikonversi ke dB pada halaman "Transmitter".
+                        Nilai <strong>PTx</strong> ($watt\_down$) diambil dari input "Transmitter Power (Watt)" yang dikonversi ke dB pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **PTx** (Transmit Power) adalah daya output yang dihasilkan oleh pemancar di satelit untuk jalur downlink, setelah dikurangi semua kehilangan internal pada pemancar itu sendiri.</p>
+                    <strong>PTx</strong> (Transmit Power) adalah daya output yang dihasilkan oleh pemancar di satelit untuk jalur downlink, setelah dikurangi semua kehilangan internal pada pemancar itu sendiri.</p>
                 </div>
             </div>
         </div>
@@ -2459,11 +2596,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{A} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line A Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line A Length** = {{ number_format($data->alength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line A Length</strong> = {{ number_format($data->alength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line A (LA)** adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur transmisi downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line A (LA)</strong> adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur transmisi downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2478,10 +2615,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LTXbpf** ($filter\_down$) diambil dari input "Filter Insertion Losses (Downlink)" pada halaman "Transmitter".
+                        Nilai <strong>LTXbpf</strong> ($filter\_down$) diambil dari input "Filter Insertion Losses (Downlink)" pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LTXbpf** (Loss of Transmit Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi pemancar downlink di satelit.</p>
+                    <strong>LTXbpf</strong> (Loss of Transmit Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi pemancar downlink di satelit.</p>
                 </div>
             </div>
         </div>
@@ -2498,11 +2635,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{B} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line B Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line B Length** = {{ number_format($data->blength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line B Length</strong> = {{ number_format($data->blength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line B (LB)** adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur transmisi downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line B (LB)</strong> adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur transmisi downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2517,10 +2654,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LTother** ($devicee\_down$) diambil dari input "Device Loss (Downlink)" pada halaman "Transmitter".
+                        Nilai <strong>LTother</strong> ($devicee\_down$) diambil dari input "Device Loss (Downlink)" pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LTother** (Loss of Other Components) adalah kehilangan daya tambahan yang disebabkan oleh perangkat lain (selain kabel, konektor, dan filter) yang terhubung pada jalur transmisi pemancar downlink.</p>
+                    <strong>LTother</strong> (Loss of Other Components) adalah kehilangan daya tambahan yang disebabkan oleh perangkat lain (selain kabel, konektor, dan filter) yang terhubung pada jalur transmisi pemancar downlink.</p>
                 </div>
             </div>
         </div>
@@ -2535,7 +2672,7 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Device Name** ($device\_down\_name$) diambil dari input "Device Name (Downlink)" pada halaman "Transmitter".
+                        Nilai <strong>Device Name</strong> ($device\_down\_name$) diambil dari input "Device Name (Downlink)" pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
                     Ini mengacu pada jenis perangkat lain yang terhubung secara in-line pada jalur sinyal downlink (misalnya, diplexer, isolator, atau attenuator), yang dapat menyebabkan kehilangan daya.</p>
@@ -2553,10 +2690,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Device Loss** ($devicee\_down$) diambil dari input "Device Loss (Downlink)" pada halaman "Transmitter".
+                        Nilai <strong>Device Loss</strong> ($devicee\_down$) diambil dari input "Device Loss (Downlink)" pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Device Loss** adalah kehilangan daya yang disebabkan oleh perangkat in-line tertentu pada jalur sinyal downlink. Nilai ini biasanya spesifik untuk jenis perangkat tersebut.</p>
+                    <strong>Device Loss</strong> adalah kehilangan daya yang disebabkan oleh perangkat in-line tertentu pada jalur sinyal downlink. Nilai ini biasanya spesifik untuk jenis perangkat tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2573,11 +2710,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{C} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line C Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line C Length** = {{ number_format($data->clength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line C Length</strong> = {{ number_format($data->clength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line C (LC)** adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur transmisi downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line C (LC)</strong> adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur transmisi downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2592,10 +2729,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Ltotal line** ($antenna\_to\_lna\_downrec$) diambil dari input "Line Loss Tx (Antenna to LNA)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Ltotal line</strong> ($antenna\_to\_lna\_downrec$) diambil dari input "Line Loss Tx (Antenna to LNA)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Ltotal line** adalah total kehilangan daya pada jalur transmisi antara antena pemancar dan LNA di satelit. Ini mencakup kehilangan pada kabel, konektor, dan komponen pasif lainnya di jalur tersebut.</p>
+                    <strong>Ltotal line</strong> adalah total kehilangan daya pada jalur transmisi antara antena pemancar dan LNA di satelit. Ini mencakup kehilangan pada kabel, konektor, dan komponen pasif lainnya di jalur tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2610,10 +2747,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **GT (Transmit Antenna)** ($scantennagain\_down$) diambil dari input "Gain Antena (Downlink Spacecraft)" pada halaman "Spacecraft".
+                        Nilai <strong>GT (Transmit Antenna)</strong> ($scantennagain\_down$) diambil dari input "Gain Antena (Downlink Spacecraft)" pada halaman "Spacecraft".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **GT (Gain of Transmit Antenna)** adalah penguatan sinyal yang diberikan oleh antena pemancar di satelit untuk jalur downlink. Ini adalah ukuran seberapa efektif antena mengarahkan daya ke arah yang diinginkan.</p>
+                    <strong>GT (Gain of Transmit Antenna)</strong> adalah penguatan sinyal yang diberikan oleh antena pemancar di satelit untuk jalur downlink. Ini adalah ukuran seberapa efektif antena mengarahkan daya ke arah yang diinginkan.</p>
                 </div>
             </div>
         </div>
@@ -2628,10 +2765,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Transmit Antenna Polarization** ($jenis\_polarizationspacecraft\_down$) diambil dari input "Jenis Polarisasi (Downlink Transmit)" pada halaman "Spacecraft".
+                        Nilai <strong>Transmit Antenna Polarization</strong> ($jenis\_polarizationspacecraft\_down$) diambil dari input "Jenis Polarisasi (Downlink Transmit)" pada halaman "Spacecraft".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Polarisasi antena pemancar** mengacu pada orientasi gelombang elektromagnetik yang dipancarkan oleh antena. Pencocokan polarisasi antara antena pemancar dan penerima sangat penting untuk transmisi sinyal yang efisien.</p>
+                    <strong>Polarisasi antena pemancar</strong> mengacu pada orientasi gelombang elektromagnetik yang dipancarkan oleh antena. Pencocokan polarisasi antara antena pemancar dan penerima sangat penting untuk transmisi sinyal yang efisien.</p>
                 </div>
             </div>
         </div>
@@ -2646,10 +2783,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **EIRPS/C** ($sceirp\_down$) diambil dari input "EIRP Spacecraft (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>EIRPS/C</strong> ($sceirp\_down$) diambil dari input "EIRP Spacecraft (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **EIRPS/C** (Effective Isotropic Radiated Power of Spacecraft) adalah daya efektif yang dipancarkan oleh satelit ke segala arah secara isotropik. Ini memperhitungkan daya pemancar satelit dan gain antena pengirimnya.</p>
+                    <strong>EIRPS/C</strong> (Effective Isotropic Radiated Power of Spacecraft) adalah daya efektif yang dipancarkan oleh satelit ke segala arah secara isotropik. Ini memperhitungkan daya pemancar satelit dan gain antena pengirimnya.</p>
                 </div>
             </div>
         </div>
@@ -2666,16 +2803,16 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{total\_link} = L_{pointing\_gs} + L_{polarization} + L_{path} + L_{atmospheric} + L_{ionospheric} + L_{rain} + L_{pointing\_sc}$$
                         Dimana:<br>
-                        **L_pointing_gs** = Ground Station Pointing Loss ($gspointingloss\_down$)<br>
-                        **L_polarization** = Polarization Losses ($polarizationlosses\_down$)<br>
-                        **L_path** = Path Loss ($pathlosss\_down$)<br>
-                        **L_atmospheric** = Atmospheric Losses ($atmosphericlosses\_down$)<br>
-                        **L_ionospheric** = Ionospheric Losses ($ionosphericlosses\_down$)<br>
-                        **L_rain** = Rain Losses ($rainlosses\_down$)<br>
-                        **L_pointing_sc** = Satellite Pointing Loss ($scpointingloss\_down$)
+                        <strong>L_pointing_gs</strong> = Ground Station Pointing Loss ($gspointingloss\_down$)<br>
+                        <strong>L_polarization</strong> = Polarization Losses ($polarizationlosses\_down$)<br>
+                        <strong>L_path</strong> = Path Loss ($pathlosss\_down$)<br>
+                        <strong>L_atmospheric</strong> = Atmospheric Losses ($atmosphericlosses\_down$)<br>
+                        <strong>L_ionospheric/<strong> = Ionospheric Losses ($ionosphericlosses\_down$)<br>
+                        <strong>L_rain</strong> = Rain Losses ($rainlosses\_down$)<br>
+                        <strong>L_pointing_sc</strong> = Satellite Pointing Loss ($scpointingloss\_down$)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Total Link Losses** adalah penjumlahan dari semua kehilangan daya yang terjadi di sepanjang keseluruhan jalur downlink, dari pemancar satelit hingga penerima stasiun bumi. Ini mencakup path loss, kerugian atmosfer, kerugian polarisasi, dan kerugian penunjukan antena.</p>
+                    <strong>Total Link Losses</strong> adalah penjumlahan dari semua kehilangan daya yang terjadi di sepanjang keseluruhan jalur downlink, dari pemancar satelit hingga penerima stasiun bumi. Ini mencakup path loss, kerugian atmosfer, kerugian polarisasi, dan kerugian penunjukan antena.</p>
                 </div>
             </div>
         </div>
@@ -2690,10 +2827,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Lp** ($pathlosss\_down$) diambil dari input "Path Loss (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Lp</strong> ($pathlosss\_down$) diambil dari input "Path Loss (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Lp** (Path Loss) adalah kehilangan daya sinyal yang terjadi saat sinyal merambat melalui ruang bebas dari pemancar ke penerima. Ini adalah kerugian paling signifikan dalam Link Budget dan bergantung pada frekuensi serta jarak.</p>
+                    <strong>Lp</strong> (Path Loss) adalah kehilangan daya sinyal yang terjadi saat sinyal merambat melalui ruang bebas dari pemancar ke penerima. Ini adalah kerugian paling signifikan dalam Link Budget dan bergantung pada frekuensi serta jarak.</p>
                 </div>
             </div>
         </div>
@@ -2708,10 +2845,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **GR** ($scantennaagain\_down$) diambil dari input "Gain Antena (Downlink Ground Station)" pada halaman "Antenna".
+                        Nilai <strong>GR</strong> ($scantennaagain\_down$) diambil dari input "Gain Antena (Downlink Ground Station)" pada halaman "Antenna".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **GR** (Gain of Receive Antenna) adalah penguatan sinyal yang diberikan oleh antena penerima di stasiun bumi untuk jalur downlink. Ini adalah parameter kunci dalam menentukan seberapa efisien antena dapat menangkap sinyal yang dipancarkan.</p>
+                    <strong>GR</strong> (Gain of Receive Antenna) adalah penguatan sinyal yang diberikan oleh antena penerima di stasiun bumi untuk jalur downlink. Ini adalah parameter kunci dalam menentukan seberapa efisien antena dapat menangkap sinyal yang dipancarkan.</p>
                 </div>
             </div>
         </div>
@@ -2726,10 +2863,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Receive Antenna Polarization** ($jenis\_polarizationgrounds\_down$) diambil dari input "Jenis Polarisasi (Downlink Receiver)" pada halaman "Ground Station".
+                        Nilai <strong>Receive Antenna Polarization</strong> ($jenis\_polarizationgrounds\_down$) diambil dari input "Jenis Polarisasi (Downlink Receiver)" pada halaman "Ground Station".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Polarisasi antena penerima** mengacu pada orientasi gelombang elektromagnetik yang dapat diterima oleh antena. Penting untuk dicocokkan dengan polarisasi antena pemancar untuk meminimalkan kerugian polarisasi.</p>
+                    <strong>Polarisasi antena penerima</strong> mengacu pada orientasi gelombang elektromagnetik yang dapat diterima oleh antena. Penting untuk dicocokkan dengan polarisasi antena pemancar untuk meminimalkan kerugian polarisasi.</p>
                 </div>
             </div>
         </div>
@@ -2746,11 +2883,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{C\_rx} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line C Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line C Length** = {{ number_format($data->clength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line C Length</strong> = {{ number_format($data->clength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line C (RX)** adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur penerima downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line C (RX)</strong> adalah kehilangan daya yang terjadi pada segmen ketiga kabel atau waveguide di jalur penerima downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2765,17 +2902,17 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LRother** ($lrother\_down$) diambil dari input "Loss Other Components (Downlink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>LRother</strong> ($lrother\_down$) diambil dari input "Loss Other Components (Downlink Receiver)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LRother** (Loss of Other Components at Receiver) adalah kehilangan daya tambahan yang disebabkan oleh komponen lain di jalur penerima downlink, selain kabel, konektor, dan filter bandpass.</p>
+                    <strong>LRother</strong> (Loss of Other Components at Receiver) adalah kehilangan daya tambahan yang disebabkan oleh komponen lain di jalur penerima downlink, selain kabel, konektor, dan filter bandpass.</p>
                 </div>
             </div>
         </div>
     </div>
 
     {{-- The 'Other In-Line Device Type' popup is removed as the field itself is removed.
-         If you later re-add this field and need a popup for it, remember to re-create it. --}}
+        If you later re-add this field and need a popup for it, remember to re-create it. --}}
 
     <div id="popup_rx_lb_downlink" class="popup-window">
         <div class="popup-content">
@@ -2788,11 +2925,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{B\_rx} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line B Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line B Length** = {{ number_format($data->blength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line B Length</strong> = {{ number_format($data->blength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line B (RX)** adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur penerima downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line B (RX)</strong> adalah kehilangan daya yang terjadi pada segmen kedua kabel atau waveguide di jalur penerima downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2807,10 +2944,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **LRbpf** ($filter\_down$) diambil dari input "Filter Insertion Losses (Downlink)" pada halaman "Transmitter".
+                        Nilai <strong>LRbpf</strong> ($filter\_down$) diambil dari input "Filter Insertion Losses (Downlink)" pada halaman "Transmitter".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **LRbpf** (Loss of Receive Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi penerima downlink.</p>
+                    <strong>LRbpf</strong> (Loss of Receive Bandpass Filter) adalah kehilangan daya yang terjadi saat sinyal melewati filter bandpass pada sisi penerima downlink.</p>
                 </div>
             </div>
         </div>
@@ -2827,11 +2964,11 @@
                         <strong>Rumus Perhitungan:</strong><br>
                         $$L_{A\_rx} = \text{Cable/Waveguide Loss (dB/m)} \times \text{Line A Length (m)}$$
                         Dimana:<br>
-                        **Cable/Waveguide Loss** = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
-                        **Line A Length** = {{ number_format($data->alength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
+                        <strong>Cable/Waveguide Loss</strong> = {{ number_format($data->guideloss_down ?? 0, 3, '.', '') }} dB/m (dari Transmitter)<br>
+                        <strong>Line A Length</strong> = {{ number_format($data->alength_down ?? 0, 3, '.', '') }} m (dari Transmitter)
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Line A (RX)** adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur penerima downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
+                    <strong>Line A (RX)</strong> adalah kehilangan daya yang terjadi pada segmen pertama kabel atau waveguide di jalur penerima downlink. Nilai ini dihitung berdasarkan kehilangan per meter dari jenis kabel yang digunakan dan panjang segmen kabel tersebut.</p>
                 </div>
             </div>
         </div>
@@ -2846,10 +2983,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **Ltotal** ($ltotal\_down$) diambil dari input "Total Loss Receiver (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>Ltotal</strong> ($ltotal\_down$) diambil dari input "Total Loss Receiver (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **Ltotal** adalah total kehilangan daya yang terjadi di sisi penerima downlink, termasuk kehilangan pada antena, jalur transmisi, dan komponen penerima lainnya sebelum sinyal diproses lebih lanjut.</p>
+                    <strong>Ltotal</strong> adalah total kehilangan daya yang terjadi di sisi penerima downlink, termasuk kehilangan pada antena, jalur transmisi, dan komponen penerima lainnya sebelum sinyal diproses lebih lanjut.</p>
                 </div>
             </div>
         </div>
@@ -2867,7 +3004,7 @@
                         Nilai **TLNA** ($tlna\_downrec$) diambil dari input "Suhu LNA (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **TLNA** (Temperature of Low Noise Amplifier) adalah suhu noise yang dihasilkan oleh Low Noise Amplifier di sisi penerima downlink. Ini merupakan kontributor utama terhadap total suhu noise sistem (Tsys) penerima.</p>
+                    <strong>TLNA</strong> (Temperature of Low Noise Amplifier) adalah suhu noise yang dihasilkan oleh Low Noise Amplifier di sisi penerima downlink. Ini merupakan kontributor utama terhadap total suhu noise sistem (Tsys) penerima.</p>
                 </div>
             </div>
         </div>
@@ -2882,10 +3019,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **GLNA** ($lnagain\_downrec$) diambil dari input "Gain LNA (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>GLNA</strong> ($lnagain\_downrec$) diambil dari input "Gain LNA (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **GLNA** (Gain Low Noise Amplifier) adalah penguatan sinyal yang diberikan oleh Low Noise Amplifier di sisi penerima downlink. LNA berperan penting dalam memperkuat sinyal lemah yang diterima.</p>
+                    <strong>GLNA</strong> (Gain Low Noise Amplifier) adalah penguatan sinyal yang diberikan oleh Low Noise Amplifier di sisi penerima downlink. LNA berperan penting dalam memperkuat sinyal lemah yang diterima.</p>
                 </div>
             </div>
         </div>
@@ -2900,10 +3037,10 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **T2nd Amp** ($tcomrcvr\_downrec$) diambil dari input "Suhu Noise Amplifier Kedua (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>T2nd Amp</strong> ($tcomrcvr\_downrec$) diambil dari input "Suhu Noise Amplifier Kedua (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **T2nd Amp** (Temperature of the Second Amplifier) adalah suhu noise yang dihasilkan oleh amplifier kedua dalam rantai penerima downlink. Ini adalah salah satu komponen yang berkontribusi pada total suhu noise sistem (Tsys).</p>
+                    <strong>T2nd Amp</strong> (Temperature of the Second Amplifier) adalah suhu noise yang dihasilkan oleh amplifier kedua dalam rantai penerima downlink. Ini adalah salah satu komponen yang berkontribusi pada total suhu noise sistem (Tsys).</p>
                 </div>
             </div>
         </div>
@@ -2918,15 +3055,44 @@
                 <div>
                     <div class="formula">
                         <strong>Sumber Nilai:</strong><br>
-                        Nilai **BRbpf** ($gsbandwidth\_down$) diambil dari input "Bandwidth pada Ground Station (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
+                        Nilai <strong>BRbpf</strong> ($gsbandwidth\_down$) diambil dari input "Bandwidth pada Ground Station (Downlink)" pada halaman "Link Budget Calculation - Input Mode".
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    **BRbpf** (Bandwidth Noise pada Bandpass Filter) adalah lebar pita frekuensi di mana noise diukur pada sisi penerima downlink. Ini secara langsung mempengaruhi jumlah noise yang diterima dan, oleh karena itu, S/N Ratio. Nilai ini digunakan dalam perhitungan S/N untuk mengkarakterisasi noise termal.</p>
+                    <strong>BRbpf</strong> (Bandwidth Noise pada Bandpass Filter) adalah lebar pita frekuensi di mana noise diukur pada sisi penerima downlink. Ini secara langsung mempengaruhi jumlah noise yang diterima dan, oleh karena itu, S/N Ratio. Nilai ini digunakan dalam perhitungan S/N untuk mengkarakterisasi noise termal.</p>
                 </div>
             </div>
         </div>
     </div>
+    
+    <script>
+        function checkAuth(event) {
+            const isLoggedIn = {{ auth()->check() ? 'true' : 'false' }};
 
+            if (!isLoggedIn) {
+                event.preventDefault(); // Stop form submit
+                const modal = document.getElementById('authModal');
+                if (modal) modal.classList.remove('hidden');
+                return false;
+            }
+
+            return true; // lanjutkan submit jika login
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.remove('hidden');
+        }
+
+        function showLoginForm() {
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('loginForm').classList.remove('hidden');
+        }
+
+        function continueWithoutLogin() {
+            alert("⚠️ Data yang Anda input tidak akan disimpan!");
+            document.getElementById('authModal').classList.add('hidden');
+        }
+    </script>
 
     <script>
         // Konfigurasi MathJax (sesuaikan jika perlu)
@@ -3068,34 +3234,35 @@
             });
 
             // --- Link Margin Calculation and Status Update ---
-            const uplinkSnValueInput = document.getElementById('uplink_sn_value');
-            const uplinkLinkMarginInput = document.getElementById('uplink_sn_link_margin');
+            const uplinkSnValueInput = document.getElementById('snrratio_up');
+            const uplinkLinkMarginInput = document.getElementById('linkmargin_up');
             const uplinkLinkStatusSpan = document.getElementById('uplink_sn_link_status');
 
-            const downlinkSnValueInput = document.getElementById('downlink_sn_value');
-            const downlinkLinkMarginInput = document.getElementById('downlink_sn_link_margin');
+            const downlinkSnValueInput = document.getElementById('snrratio_down');
+            const downlinkLinkMarginInput = document.getElementById('linkmargin_down');
             const downlinkLinkStatusSpan = document.getElementById('downlink_sn_link_status');
 
-            const requiredSnUplink = 14.4; // Example value, adjust as per your actual system requirements
-            const requiredSnDownlink = 9.6; // Example value, adjust as per your actual system requirements
+            // const requiredSnUplink = 14.4; // Ambang batas S/N yang diperlukan untuk Uplink
+            // const requiredSnDownlink = 9.6; // Ambang batas S/N yang diperlukan untuk Downlink
 
-            function updateLinkMarginStatus(snValueInput, linkMarginInput, linkStatusSpan, requiredSn) {
-                const snValue = parseFloat(snValueInput.value);
+
+            function updateLinkMarginStatus(snValueInput, linkMarginInput, linkStatusSpan) {
+                const snValue = parseFloat(linkMarginInput.value);
                 let linkMargin = NaN;
                 let statusText = '';
                 let statusClass = '';
 
-                if (!isNaN(snValue)) {
-                    linkMargin = snValue - requiredSn;
+                if (!isNaN(snValue)) { 
+                    linkMargin = snValue; 
                     linkMarginInput.value = linkMargin.toFixed(1);
 
                     if (linkMargin < 0) {
                         statusText = "NO LINK !";
                         statusClass = "no-link";
-                    } else if (linkMargin < 6) {
+                    } else if (linkMargin < 6) { // This means 0 <= linkMargin < 6
                         statusText = "MARGINAL LINK";
                         statusClass = "marginal-link";
-                    } else {
+                    } else { // linkMargin >= 6
                         statusText = "LINK CLOSES";
                         statusClass = "link-closes";
                     }
@@ -3106,44 +3273,68 @@
                 }
 
                 linkStatusSpan.textContent = statusText;
-                linkStatusSpan.className = 'link-status-text';
+                linkStatusSpan.className = 'link-status-text'; // Reset classes
                 if (statusClass) {
-                    linkStatusSpan.classList.add(statusClass);
+                    linkStatusSpan.classList.add(statusClass); // Add specific status class
                 }
             }
 
             // --- Calculation for Downlink Tx DC Pwr and Tx Dissipation ---
             function calculateDownlinkTxPowers() {
-                // These fields are now readonly, their values are directly from $data object
-                // The values are calculated in backend or previous pages.
-                // We just need to update the display if there's any dynamic change,
-                // but since they're readonly and pre-filled, this function primarily ensures
-                // consistency in display if any underlying data changes from non-JS sources (e.g. initial load).
-                const ptx = parseFloat(document.querySelector('input[name="downlink_ptx"]').value);
-                const ltxbpf = parseFloat(document.querySelector('input[name="downlink_ltxbpf"]').value);
+                // Ambil nilai input PTx (dalam dB)
+                const ptxDb = parseFloat(document.querySelector('input[name="downlink_ptx"]').value);
+                // Ambil nilai efisiensi ηTx (dalam persentase, misal 70 untuk 70%)
+                const etaTxPercentage = parseFloat(document.querySelector('input[name="downlink_htx"]').value);
 
-                const txDcPwrOutput = document.getElementById('downlink_tx_dc_pwr');
-                const txDissipationOutput = document.getElementById('downlink_tx_dissipation');
+                // Dapatkan elemen output
+                const txDcPwrOutput = document.getElementById('tx_dc_pwr_down'); // Menggunakan ID yang benar
+                const txDissipationOutput = document.getElementById('tx_dissipation_down'); // Menggunakan ID yang benar
 
-                if (!isNaN(ptx) && !isNaN(ltxbpf)) {
-                    // Tx DC Pwr = PTx (dB) + LTXbpf (dB)
-                    const txDcPwr = ptx + ltxbpf;
-                    txDcPwrOutput.value = txDcPwr.toFixed(1);
+                if (!isNaN(ptxDb) && !isNaN(etaTxPercentage) && etaTxPercentage > 0) {
+                    // Konversi ηTx dari persentase menjadi desimal (e.g., 70% -> 0.7)
+                    const etaTx = etaTxPercentage / 100;
 
-                    // Tx Dissipation = Tx DC Pwr (dB) - PTx (dB)
-                    const txDissipation = txDcPwr - ptx;
-                    txDissipationOutput.value = txDissipation.toFixed(1);
+                    // Konversi PTx dari dB ke linear Watt
+                    // Rumus: P_linear = 10^(P_dB / 10)
+                    const ptxLinear = ptxDb;
+
+                    // Hitung Tx DC Pwr dalam Watt
+                    // Rumus: Tx DC Pwr (Watt) = PTx (Watt) / ηTx (desimal)
+                    const txDcPwrLinear = ptxLinear / etaTx;
+
+                    // Hitung Tx Dissipation dalam Watt
+                    // Rumus: Tx Dissipation (Watt) = Tx DC Pwr (Watt) - PTx (Watt)
+                    const txDissipationLinear = txDcPwrLinear - ptxLinear;
+
+                    // Tampilkan hasil di halaman web (dengan 1 angka di belakang koma)
+                    txDcPwrOutput.value = txDcPwrLinear.toFixed(1);
+                    txDissipationOutput.value = txDissipationLinear.toFixed(1);
                 } else {
+                    // Jika input tidak valid, kosongkan output
                     txDcPwrOutput.value = '';
                     txDissipationOutput.value = '';
                 }
             }
 
-            // --- Pemicu perhitungan saat halaman dimuat ---
-            updateLinkMarginStatus(uplinkSnValueInput, uplinkLinkMarginInput, uplinkLinkStatusSpan, requiredSnUplink);
-            updateLinkMarginStatus(downlinkSnValueInput, downlinkLinkMarginInput, downlinkLinkStatusSpan, requiredSnDownlink);
+            // Panggil fungsi perhitungan saat halaman pertama kali dimuat
+            calculateDownlinkTxPowers();
+
+            // Tambahkan event listener agar perhitungan otomatis diperbarui
+            // setiap kali nilai pada input PTx (downlink_ptx) atau ηTx (downlink_htx) berubah
+            const ptxInput = document.querySelector('input[name="downlink_ptx"]');
+            if (ptxInput) {
+                ptxInput.addEventListener('input', calculateDownlinkTxPowers);
+            }
+
+            const etaTxInput = document.querySelector('input[name="downlink_htx"]'); // Gunakan 'downlink_htx' sesuai HTML Anda
+            if (etaTxInput) {
+                etaTxInput.addEventListener('input', calculateDownlinkTxPowers);
+            }
             
-            calculateDownlinkTxPowers(); // Ensure this is run on load
+            // Pemicu untuk pembaruan status Link Margin (sesuai kode Anda sebelumnya)
+            updateLinkMarginStatus(uplinkSnValueInput, uplinkLinkMarginInput, uplinkLinkStatusSpan);
+            updateLinkMarginStatus(downlinkSnValueInput, downlinkLinkMarginInput, downlinkLinkStatusSpan);
+
 
             // MathJax rendering for popups on load
             if (typeof MathJax !== 'undefined') {

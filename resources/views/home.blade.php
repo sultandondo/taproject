@@ -1,4 +1,206 @@
 <x-layout>
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SkyLinkCal - Perhitungan Satelit Praktis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Container fixes */
+        .container-full-width {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        .max-w-7xl {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .max-w-7xl {
+                max-width: 1280px;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .max-w-7xl {
+                padding-left: 2rem;
+                padding-right: 2rem;
+            }
+        }
+
+        .max-w-5xl {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .max-w-5xl {
+                max-width: 1024px;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        .max-w-4xl {
+            max-width: 100%;
+            width: 100%;
+            margin: 0 auto;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+
+        @media (min-width: 640px) {
+            .max-w-4xl {
+                max-width: 896px;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+            }
+        }
+
+        /* Fix hero logo container */
+        .hero-logo-container {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-logo-container {
+                width: 160px;
+                height: 160px;
+            }
+        }
+
+        /* Fix why choose us image */
+        .why-choose-image {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+
+        .circle-animation {
+            width: 280px;
+            height: 280px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        @media (min-width: 640px) {
+            .circle-animation {
+                width: 320px;
+                height: 320px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .circle-animation {
+                width: 384px;
+                height: 384px;
+            }
+        }
+
+        /* Mobile responsive improvements */
+        @media (max-width: 640px) {
+            .hover\:scale-105:hover {
+                transform: none;
+            }
+            
+            .hover\:-translate-y-2:hover {
+                transform: none;
+            }
+            
+            .animate-pulse {
+                animation: none;
+            }
+            
+            .animate-bounce {
+                animation: none;
+            }
+        }
+
+        /* Ensure all sections stay within viewport */
+        section {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        /* Fix grid overflow issues */
+        .grid {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Responsive background pattern */
+        .bg-pattern {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .bg-pattern .grid {
+            height: 100%;
+            width: 100%;
+        }
+
+        /* Better button sizing for mobile */
+        .mobile-button {
+            font-size: 0.875rem;
+            padding: 0.75rem 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .mobile-button {
+                font-size: 1rem;
+                padding: 0.75rem 2rem;
+            }
+        }
+
+        /* Fix modal responsive */
+        .modal-container {
+            margin: 1rem;
+            max-width: calc(100vw - 2rem);
+        }
+
+        @media (min-width: 640px) {
+            .modal-container {
+                margin: 0;
+                max-width: 28rem;
+            }
+        }
+    </style>
+</head>
     <body class="bg-gray-100">
     
 
@@ -68,16 +270,17 @@
                 </div>
 
                 <!-- Features Grid -->
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+               
                     <!-- Feature 1: Calculator -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 hover:-translate-y-2">
-                        <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas fa-calculator text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Kalkulator Parameter</h3>
-                        <p class="text-gray-600 mb-6 leading-relaxed">
-                            Hitung link budget berdasarkan parameter satelit secara cepat dengan interface yang intuitif.
-                        </p>
+              
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8"> <div class="grid grid-cols-1 md:grid-cols-2 gap-8"> <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-blue-200 hover:-translate-y-2">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mb-6">
+                    <i class="fas fa-calculator text-white text-2xl"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Kalkulator Parameter</h3>
+                <p class="text-gray-600 mb-6 leading-relaxed">
+                    Hitung link budget berdasarkan parameter satelit secara cepat dengan interface yang intuitif.
+                </p>
                         <a href="{{ route('calc.show', ['id' => 0]) }}" class="bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white px-6 py-3 rounded-full font-semibold transition transform hover:scale-105 flex items-center justify-center">
         Hitung Sekarang
                         </a>
@@ -105,33 +308,7 @@
 
                     </div>
 
-                    <!-- Feature 3: Contact Form -->
-                    <div class="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200 md:col-span-2 lg:col-span-1">
-                        <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mb-6">
-                            <i class="fas fa-envelope text-white text-2xl"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6">Hubungi Tim Ahli</h3>
-                        
-                        <form action="{{ route('contact.send') }}" method="POST" class="space-y-4">
-                            @csrf
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Nama Lengkap</label>
-                                <input type="text" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" placeholder="Masukkan nama Anda">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Email Address</label>
-                                <input type="email" class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" placeholder="nama@email.com">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-semibold text-gray-700 mb-2">Pesan</label>
-                                <textarea class="w-full px-4 py-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition" rows="4" placeholder="Tulis pertanyaan atau feedback Anda..."></textarea>
-                            </div>
-                            <button type="submit" class="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white px-6 py-3 rounded-lg font-semibold transition transform hover:scale-105">
-                                <i class="fas fa-paper-plane mr-2"></i>
-                                Kirim Pesan
-                            </button>
-                        </form>
-                    </div>
+                  
                 </div>
             </div>
         </section>
@@ -180,7 +357,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="relative">
+                    <div class="mx-auto relative">
                         <div class="w-96 h-96 mx-auto relative">
                             <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 animate-pulse"></div>
                             <div class="absolute inset-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full opacity-30 animate-pulse" style="animation-delay: 1s;"></div>

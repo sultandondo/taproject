@@ -277,6 +277,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" id="watt_up" name="watt_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->watt_up ?? '' }}"
                                         placeholder="Masukkan nilai Watt" oninput="calculatePowerUp()">
                                     <span class="unit-text">W</span>
                                 </div>
@@ -286,6 +287,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="text" id="dbw_up" name="dbw_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                        value="{{ $data->dbw_up ?? '' }}"
                                         placeholder="Hasil dBW" readonly>
                                     <span class="unit-text">dBW</span>
                                 </div>
@@ -296,6 +298,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="text" id="dbm_up" name="dbm_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                        value="{{ $data->dbm_up ?? '' }}"
                                         placeholder="Hasil dBm" readonly>
                                     <span class="unit-text">dBm</span>
                                 </div>
@@ -309,6 +312,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="alength_up" name="alength_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->alength_up ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLengthUp();">
                                     <span class="unit-text">m</span>
                                 </div>
@@ -318,6 +322,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="blength_up" name="blength_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->blength_up ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLengthUp();">
                                     <span class="unit-text">m</span>
                                 </div>
@@ -327,6 +332,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="clength_up" name="clength_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->clength_up ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLengthUp();">
                                     <span class="unit-text">m</span>
                                 </div>
@@ -338,6 +344,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="text" id="totlength_up" name="totlength_up"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                    value="{{ $data->totlength_up ?? '' }}"
                                     placeholder="Hasil Total Length" readonly>
                                 <span class="unit-text">m</span>
                             </div>
@@ -346,13 +353,14 @@
 
                         <div class="relative mt-4">
                             <label for="cabletype_up" class="block font-medium mb-2 text-gray-700">Cable/Waveguide Type:</label>
-                            <input type="text" name="cabletype_up" id="cabletype_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm" placeholder="Jenis Kabel/Waveguide">
+                            <input type="text" value="{{ $data->cabletype_up ?? '' }}" name="cabletype_up" id="cabletype_up" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm" placeholder="Jenis Kabel/Waveguide">
                         </div>
 
                         <div class="input-group flex flex-col md:flex-row md:space-x-6 items-start mt-4"> <div class="w-full md:w-1/2 relative"> <label for="guideloss_up" class="block font-medium mb-2 text-gray-700">Cable/Waveguide Loss (dB/m):</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="guideloss_up" name="guideloss_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->guideloss_up ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLossUp();">
                                     <span class="unit-text">dB/m</span>
                                 </div>
@@ -362,6 +370,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="text" id="totalloss_up" name="totalloss_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                        value="{{ $data->totalloss_up ?? '' }}"
                                         placeholder="Hasil Total Loss" readonly>
                                     <span class="unit-text">dB</span>
                                 </div>
@@ -375,6 +384,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="1" id="connect_up" name="connect_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->connect_up ?? '' }}"
                                         placeholder="Jumlah Konektor" oninput="calculateTotalConnectorUp();">
                                     <span class="unit-text">unit</span>
                                 </div>
@@ -396,6 +406,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="number" step="0.001" name="filter_up" id="filter_up"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    value="{{ $data->filter_up ?? '' }}"
                                     placeholder="Masukkan Nilai" oninput="calculateTotalLineLossesUp()">
                                 <span class="unit-text">dB</span>
                             </div>
@@ -406,12 +417,14 @@
                         <div class="input-group flex flex-col md:flex-row md:space-x-6"> <div class="relative w-full md:w-1/2"> <label for="device_up_name" class="block font-medium mb-2 text-gray-700">Device Name:</label>
                                 <input type="text" name="device_up" id="device_up_name"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    value="{{ $data->device_up ?? '' }}"
                                     placeholder="Masukkan nama device">
                             </div>
                             <div class="relative w-full md:w-1/2 mt-4 md:mt-0"> <label for="devicee_up" class="block font-medium mb-2 text-gray-700">Device Loss (dB):</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" name="devicee_up" id="devicee_up"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->devicee_up ?? '' }}"
                                         placeholder="Masukkan nilai" oninput="calculateTotalLineLossesUp()">
                                     <span class="unit-text">dB</span>
                                 </div>
@@ -423,6 +436,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="number" step="0.001" name="atn_up" id="atn_up"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    value="{{ $data->atn_up ?? '' }}"
                                     placeholder="Masukkan Nilai" oninput="calculateTotalLineLossesUp()">
                                 <span class="unit-text">dB</span>
                             </div>
@@ -444,6 +458,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="number" name="totpowerdeliv_up" id="totpowerdeliv_up"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                    value="{{ $data->totpowerdeliv_up ?? '' }}"
                                     placeholder="Hasil Total Power Delivered" readonly>
                                 <span class="unit-text">dBW</span>
                             </div>
@@ -460,8 +475,9 @@
                         </div>
                         <div class="input-group flex flex-col md:flex-row md:space-x-6"> <div class="relative w-full md:w-1/3"> <label for="watt_down" class="block font-medium mb-2 text-gray-700">Transmitter Power (Watt):</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" id="watt_down" name="watt_down"
+                                    <input type="number" step="0.01" id="watt_down" name="watt_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->watt_down ?? '' }}"
                                         placeholder="Masukkan nilai Watt" oninput="calculatePowerDown()">
                                     <span class="unit-text">W</span>
                                 </div>
@@ -471,6 +487,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="text" id="dbw_down" name="dbw_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                        value="{{ $data->dbw_down ?? '' }}"
                                         placeholder="Hasil dBW" readonly>
                                     <span class="unit-text">dBW</span>
                                 </div>
@@ -494,6 +511,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="alength_down" name="alength_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->alength_down ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLengthDown();">
                                     <span class="unit-text">m</span>
                                 </div>
@@ -503,6 +521,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="blength_down" name="blength_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->blength_down ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLengthDown();">
                                     <span class="unit-text">m</span>
                                 </div>
@@ -512,6 +531,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="clength_down" name="clength_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->clength_down ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLengthDown();">
                                     <span class="unit-text">m</span>
                                 </div>
@@ -523,6 +543,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="text" id="totlength_down" name="totlength_down"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                    value="{{ $data->totlength_down ?? '' }}"
                                     placeholder="Hasil Total Length" readonly>
                                 <span class="unit-text">m</span>
                             </div>
@@ -531,13 +552,14 @@
 
                         <div class="relative mt-4">
                             <label for="cabletype_down" class="block font-medium mb-2 text-gray-700">Cable/Waveguide Type:</label>
-                            <input type="text" name="cabletype_down" id="cabletype_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm" placeholder="Jenis Kabel/Waveguide">
+                            <input type="text" name="cabletype_down" value="{{ $data->cabletype_down ?? '' }}" id="cabletype_down" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm" placeholder="Jenis Kabel/Waveguide">
                         </div>
 
                         <div class="input-group flex flex-col md:flex-row md:space-x-6 items-start mt-4"> <div class="w-full md:w-1/2 relative"> <label for="guideloss_down" class="block font-medium mb-2 text-gray-700">Cable/Waveguide Loss (dB/m):</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" id="guideloss_down" name="guideloss_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->guideloss_down ?? '' }}"
                                         placeholder="Masukkan Nilai" oninput="calculateTotalLossDown();">
                                     <span class="unit-text">dB/m</span>
                                 </div>
@@ -561,6 +583,7 @@
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="1" id="connect_down" name="connect_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->connect_down ?? '' }}"
                                         placeholder="Jumlah Konektor" oninput="calculateTotalConnectorDown();">
                                     <span class="unit-text">unit</span>
                                 </div>
@@ -582,6 +605,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="number" step="0.001" name="filter_down" id="filter_down"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    value="{{ $data->filter_down ?? '' }}"
                                     placeholder="Masukkan Nilai" oninput="calculateTotalLineLossesDown()">
                                 <span class="unit-text">dB</span>
                             </div>
@@ -592,12 +616,14 @@
                         <div class="input-group flex flex-col md:flex-row md:space-x-6"> <div class="relative w-full md:w-1/2"> <label for="device_down_name" class="block font-medium mb-2 text-gray-700">Device Name:</label>
                                 <input type="text" name="device_down" id="device_down_name"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    value="{{ $data->device_down ?? '' }}"
                                     placeholder="Masukkan nama device">
                             </div>
                             <div class="relative w-full md:w-1/2 mt-4 md:mt-0"> <label for="devicee_down" class="block font-medium mb-2 text-gray-700">Device Loss (dB):</label>
                                 <div class="input-with-unit-wrapper">
                                     <input type="number" step="0.001" name="devicee_down" id="devicee_down"
                                         class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        value="{{ $data->devicee_down ?? '' }}"
                                         placeholder="Masukkan nilai" oninput="calculateTotalLineLossesDown()">
                                     <span class="unit-text">dB</span>
                                 </div>
@@ -609,6 +635,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="number" step="0.001" name="atn_down" id="atn_down"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    value="{{ $data->atn_down ?? '' }}"
                                     placeholder="Masukkan Nilai" oninput="calculateTotalLineLossesDown()">
                                 <span class="unit-text">dB</span>
                             </div>
@@ -619,6 +646,7 @@
                             <div class="input-with-unit-wrapper">
                                 <input type="number" name="totlinelosses_down" id="totlinelosses_down"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                    value="{{ $data->totlinelosses_down ?? '' }}"
                                     placeholder="Hasil Total Line Losses" readonly>
                                 <span class="unit-text">dB</span>
                             </div>
@@ -628,8 +656,9 @@
                         <div class="relative mt-4">
                             <label class="block font-medium mb-2 text-gray-700">Total RF Power Deliver to Antenna (dBW):</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="totrfrpowerdeliv_down" id="totrfpowerdeliv_down"
+                                <input type="number" name="totrfpowerdeliv_down" id="totrfpowerdeliv_down"
                                     class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm"
+                                    value="{{ $data->totrfpowerdeliv_down ?? '' }}"
                                     placeholder="Hasil Total RF Power Delivered" readonly>
                                 <span class="unit-text">dBW</span>
                             </div>
@@ -1045,8 +1074,8 @@
                 const dbw = 10 * Math.log10(watt); // Menghitung dBW
                 const dbm = dbw + 30; // Menghitung dBm
 
-                document.getElementById('dbw_up').value = dbw.toFixed(3); // Menampilkan dBW untuk Uplink
-                document.getElementById('dbm_up').value = dbm.toFixed(3); // Menampilkan dBm untuk Uplink
+                document.getElementById('dbw_up').value = dbw.toFixed(2); // Menampilkan dBW untuk Uplink
+                document.getElementById('dbm_up').value = dbm.toFixed(2); // Menampilkan dBm untuk Uplink
             } else {
                 document.getElementById('dbw_up').value = ''; // Kosongkan jika input invalid
                 document.getElementById('dbm_up').value = ''; // Kosongkan jika input invalid
@@ -1061,8 +1090,8 @@
                 const dbw = 10 * Math.log10(watt); // Menghitung dBW
                 const dbm = dbw + 30; // Menghitung dBm
 
-                document.getElementById('dbw_down').value = dbw.toFixed(3); // Menampilkan dBW untuk Downlink
-                document.getElementById('dbm_down').value = dbm.toFixed(3); // Menampilkan dBm untuk Downlink
+                document.getElementById('dbw_down').value = dbw.toFixed(2); // Menampilkan dBW untuk Downlink
+                document.getElementById('dbm_down').value = dbm.toFixed(2); // Menampilkan dBm untuk Downlink
             } else {
                 document.getElementById('dbw_down').value = ''; // Kosongkan jika input invalid
                 document.getElementById('dbm_down').value = ''; // Kosongkan jika input invalid
@@ -1077,7 +1106,7 @@
             const clength_up = parseFloat(document.getElementById('clength_up').value) || 0;
 
             const totlength_up = alength_up + blength_up + clength_up;
-            document.getElementById('totlength_up').value = totlength_up.toFixed(3); // Menampilkan total panjang
+            document.getElementById('totlength_up').value = totlength_up.toFixed(2); // Menampilkan total panjang
             calculateTotalLossUp(); // Ensure cable loss is recalculated when length changes
         }
 
@@ -1088,7 +1117,7 @@
             const clength_down = parseFloat(document.getElementById('clength_down').value) || 0;
 
             const totlength_down = alength_down + blength_down + clength_down;
-            document.getElementById('totlength_down').value = totlength_down.toFixed(3); // Menampilkan total panjang
+            document.getElementById('totlength_down').value = totlength_down.toFixed(2); // Menampilkan total panjang
             calculateTotalLossDown(); // Ensure cable loss is recalculated when length changes
         }
 
@@ -1098,7 +1127,7 @@
             const totlength_up = parseFloat(document.getElementById('totlength_up').value) || 0;
 
             const totalloss_up = guideloss_up * totlength_up;
-            document.getElementById('totalloss_up').value = totalloss_up.toFixed(3); // Menampilkan Total Cable Loss untuk Uplink
+            document.getElementById('totalloss_up').value = totalloss_up.toFixed(1); // Menampilkan Total Cable Loss untuk Uplink
             calculateTotalLineLossesUp(); // Recalculate total line losses
         }
 
@@ -1116,7 +1145,7 @@
         function calculateTotalConnectorUp() {
             const connectors = parseFloat(document.getElementById('connect_up').value) || 0;
             const totalConnectorLoss_up = connectors * 0.05; // Assuming 0.05 dB loss per connector
-            document.getElementById('totconnect_up').value = totalConnectorLoss_up.toFixed(3); // Menampilkan Total Penurunan Daya untuk Uplink
+            document.getElementById('totconnect_up').value = totalConnectorLoss_up.toFixed(1); // Menampilkan Total Penurunan Daya untuk Uplink
             calculateTotalLineLossesUp(); // Recalculate total line losses
         }
 
@@ -1124,7 +1153,7 @@
         function calculateTotalConnectorDown() {
             const connectors = parseFloat(document.getElementById('connect_down').value) || 0;
             const totalConnectorLoss_down = connectors * 0.05; // Assuming 0.05 dB loss per connector
-            document.getElementById('totconnect_down').value = totalConnectorLoss_down.toFixed(3); // Menampilkan Total Penurunan Daya untuk Downlink
+            document.getElementById('totconnect_down').value = totalConnectorLoss_down.toFixed(1); // Menampilkan Total Penurunan Daya untuk Downlink
             calculateTotalLineLossesDown(); // Recalculate total line losses
         }
 
@@ -1137,12 +1166,12 @@
             const antennaMismatchLoss_up = parseFloat(document.getElementById('atn_up').value) || 0;
 
             const totalLineLosses_up = totalCableLoss_up + totalConnectorLoss_up + filterLoss_up + otherInlineLoss_up + antennaMismatchLoss_up;
-            document.getElementById('totlinelosses_up').value = totalLineLosses_up.toFixed(3); // Menampilkan Total Line Losses untuk Uplink
+            document.getElementById('totlinelosses_up').value = totalLineLosses_up.toFixed(1); // Menampilkan Total Line Losses untuk Uplink
 
             // Fungsi untuk Menghitung Total Power Delivered to Antenna Uplink
             const transmitterPower_dbw_up = parseFloat(document.getElementById('dbw_up').value) || 0;
             const totalPowerDelivered_up = transmitterPower_dbw_up - totalLineLosses_up;
-            document.getElementById('totpowerdeliv_up').value = totalPowerDelivered_up.toFixed(3); // Menampilkan total power delivered Uplink
+            document.getElementById('totpowerdeliv_up').value = totalPowerDelivered_up.toFixed(1); // Menampilkan total power delivered Uplink
         }
 
         // Fungsi untuk menghitung Total Line Losses Downlink
@@ -1159,7 +1188,7 @@
             // Menghitung Total RF Power Delivered to Antenna Downlink
             const transmitterPower_dbw_down = parseFloat(document.getElementById('dbw_down').value) || 0;
             const totalPowerDelivered_down = transmitterPower_dbw_down - totalLineLosses_down;
-            document.getElementById('totrfpowerdeliv_down').value = totalPowerDelivered_down.toFixed(3); // Menampilkan total power delivered Downlink
+            document.getElementById('totrfpowerdeliv_down').value = totalPowerDelivered_down.toFixed(1); // Menampilkan total power delivered Downlink
         }
 
         // Call calculation functions on page load to ensure initial values are correct

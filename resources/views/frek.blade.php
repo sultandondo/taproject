@@ -247,18 +247,18 @@
 
             {{-- Uplink Frekuensi --}}
             <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
-                <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink Frekuensi</h2>
+                <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink Frequency</h2>
 
                 <div class="input-group">
                     <div class="relative">
-                        <label for="frekuensi" class="block font-medium mb-2 text-gray-700">Frekuensi:</label>
+                        <label for="frekuensi" class="block font-medium mb-2 text-gray-700">Frequency:</label>
                         <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
-                            <input type="number" step="0.001" name="frekuensi" id="frekuensi" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi" oninput="hitungPerhitungan()">
+                            <input type="number" step="0.001" name="frekuensi" id="frekuensi" value="{{ $data->frekuensi ?? '' }}" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi" oninput="hitungPerhitungan()">
                             <span class="unit-text">MHz</span> {{-- Unit di luar input --}}
                         </div>
                     </div>
                     <div class="relative">
-                        <label for="panjang_gelombang" class="block font-medium mb-2 text-gray-700">Panjang Gelombang (λ):</label>
+                        <label for="panjang_gelombang" class="block font-medium mb-2 text-gray-700">Wave Length (λ):</label>
                         <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
                             <input type="text" name="panjang_gelombang" id="panjang_gelombang" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                             <span class="unit-text">Meter</span> {{-- Unit di luar input --}}
@@ -269,7 +269,7 @@
                     </div>
                     {{-- DISPLAY Slant Range dari halaman Orbit (Opsional) --}}
                     <div class="relative">
-                        <label for="display_slant_range_uplink" class="block font-medium mb-2 text-gray-700">Slant Range Uplink (dari Orbit):</label>
+                        <label for="display_slant_range_uplink" class="block font-medium mb-2 text-gray-700">Slant Range Uplink (Orbit):</label>
                         <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
                             <input type="text" id="display_slant_range_uplink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm">
                             <span class="unit-text">km</span> {{-- Unit di luar input --}}
@@ -290,18 +290,18 @@
 
             {{-- Downlink Frekuensi --}}
             <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
-                <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink Frekuensi</h2>
+                <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink Frequency</h2>
 
                 <div class="input-group">
                     <div class="relative">
-                        <label for="frekuensi_downlink" class="block font-medium mb-2 text-gray-700">Frekuensi:</label>
+                        <label for="frekuensi_downlink" class="block font-medium mb-2 text-gray-700">Frequency:</label>
                         <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
-                            <input type="number" step="0.001" name="frekuensi_downlink" id="frekuensi_downlink" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi" oninput="hitungPerhitungan()">
+                            <input type="number" step="0.001" name="frekuensi_downlink" id="frekuensi_downlink" value="{{ $data->frekuensi_downlink ?? '' }}" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" placeholder="Masukkan Frekuensi" oninput="hitungPerhitungan()">
                             <span class="unit-text">MHz</span> {{-- Unit di luar input --}}
                         </div>
                     </div>
                     <div class="relative">
-                        <label for="panjang_gelombang_downlink" class="block font-medium mb-2 text-gray-700">Panjang Gelombang (λ):</label>
+                        <label for="panjang_gelombang_downlink" class="block font-medium mb-2 text-gray-700">Wave Length  (λ):</label>
                         <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
                             <input type="text" name="panjang_gelombang_downlink" id="panjang_gelombang_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
                             <span class="unit-text">Meter</span> {{-- Unit di luar input --}}
@@ -312,7 +312,7 @@
                     </div>
                     {{-- DISPLAY Slant Range dari halaman Orbit (Opsional) --}}
                     <div class="relative">
-                        <label for="display_slant_range_downlink" class="block font-medium mb-2 text-gray-700">Slant Range Downlink (dari Orbit):</label>
+                        <label for="display_slant_range_downlink" class="block font-medium mb-2 text-gray-700">Slant Range Downlink (Orbit):</label>
                         <div class="input-with-unit-wrapper"> {{-- Pembungkus baru --}}
                             <input type="text" id="display_slant_range_downlink" readonly class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm">
                             <span class="unit-text">km</span> {{-- Unit di luar input --}}
@@ -359,7 +359,7 @@
                         <div class="section">
                             <h4 class="section-title">Frekuensi</h4>
                             <p class="section-content">
-                                <strong>Frekuensi</strong> adalah jumlah siklus gelombang per detik, diukur dalam Hertz (Hz). Dalam komunikasi satelit, frekuensi adalah parameter fundamental yang menentukan bagaimana sinyal merambat dan berinteraksi dengan lingkungan. Frekuensi yang berbeda digunakan untuk <strong>uplink</strong> (dari bumi ke satelit) dan <strong>downlink</strong> (dari satelit ke bumi) untuk menghindari interferensi.
+                                <strong>Frekuensi</strong> adalah jumlah siklus gelombang per detik, diukur dalam Hertz (MHz). Dalam komunikasi satelit, frekuensi adalah parameter fundamental yang menentukan bagaimana sinyal merambat dan berinteraksi dengan lingkungan. Frekuensi yang berbeda digunakan untuk <strong>uplink</strong> (dari bumi ke satelit) dan <strong>downlink</strong> (dari satelit ke bumi) untuk menghindari interferensi.
                             </p>
                         </div>
 
@@ -417,7 +417,7 @@
                             Dimana:<br>
                             $\lambda$ = Panjang gelombang (meter)<br>
                             $c$ = Kecepatan cahaya (~299.8 m/s)<br>
-                            $f$ = Frekuensi (Hz)
+                            $f$ = Frekuensi (MHz)
                         </div>
                         <p><strong>Penjelasan:</strong><br>
                         Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
@@ -465,7 +465,7 @@
                             Dimana:<br>
                             $\lambda$ = Panjang gelombang (meter)<br>
                             $c$ = Kecepatan cahaya (~299.8 m/s)<br>
-                            $f$ = Frekuensi (Hz)
+                            $f$ = Frekuensi (MHz)
                         </div>
                         <p><strong>Penjelasan:</strong><br>
                         Panjang gelombang adalah jarak antara titik-titik yang berurutan dari suatu gelombang yang memiliki fasa yang sama. Parameter ini sangat penting dalam desain antena karena dimensi fisik antena seringkali merupakan kelipatan dari panjang gelombang.</p>
@@ -523,10 +523,10 @@
 
             // Tampilkan nilai slant range yang diambil dari localStorage ke input display
             if (document.getElementById('display_slant_range_uplink')) {
-                document.getElementById('display_slant_range_uplink').value = currentSlantRangeUplink > 0 ? currentSlantRangeUplink.toFixed(3) : '';
+                document.getElementById('display_slant_range_uplink').value = currentSlantRangeUplink > 0 ? currentSlantRangeUplink.toFixed(1) : '';
             }
             if (document.getElementById('display_slant_range_downlink')) {
-                document.getElementById('display_slant_range_downlink').value = currentSlantRangeDownlink > 0 ? currentSlantRangeDownlink.toFixed(3) : '';
+                document.getElementById('display_slant_range_downlink').value = currentSlantRangeDownlink > 0 ? currentSlantRangeDownlink.toFixed(1) : '';
             }
             // --- AKHIR PENGAMBILAN DARI LOCAL STORAGE ---
 
@@ -534,10 +534,10 @@
             // Perhitungan untuk uplink
             if (!isNaN(frekuensi) && frekuensi > 0 && currentSlantRangeUplink > 0) {
                 const panjangGelombang = c_effective / frekuensi;
-                document.getElementById('panjang_gelombang').value = panjangGelombang.toFixed(5); // 5 desimal
+                document.getElementById('panjang_gelombang').value = panjangGelombang.toFixed(2); 
                 
                 const pathLoss = 22 + 20 * Math.log10((currentSlantRangeUplink * 1000) / panjangGelombang);
-                document.getElementById('path_loss').value = pathLoss.toFixed(5); // 5 desimal
+                document.getElementById('path_loss').value = pathLoss.toFixed(1); 
             } else {
                 document.getElementById('panjang_gelombang').value = '';
                 document.getElementById('path_loss').value = '';
@@ -546,10 +546,10 @@
             // Perhitungan untuk downlink
             if (!isNaN(frekuensi_downlink) && frekuensi_downlink > 0 && currentSlantRangeDownlink > 0) {
                 const panjangGelombangDownlink = c_effective / frekuensi_downlink;
-                document.getElementById('panjang_gelombang_downlink').value = panjangGelombangDownlink.toFixed(5); // 5 desimal
+                document.getElementById('panjang_gelombang_downlink').value = panjangGelombangDownlink.toFixed(2); 
 
                 const pathLossDownlink = 22 + 20 * Math.log10((currentSlantRangeDownlink * 1000) / panjangGelombangDownlink);
-                document.getElementById('path_loss_downlink').value = pathLossDownlink.toFixed(5); // 5 desimal
+                document.getElementById('path_loss_downlink').value = pathLossDownlink.toFixed(1); 
             } else {
                 document.getElementById('panjang_gelombang_downlink').value = '';
                 document.getElementById('path_loss_downlink').value = '';

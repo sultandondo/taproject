@@ -211,43 +211,46 @@
 
                 {{-- Uplink Antenna Sistem (Gabungan dalam satu kolom biru) --}}
                 <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink Antenna Sistem</h2>
-                    
+                    <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Uplink Antenna System</h2>
+
                     {{-- Ground Station (Uplink) --}}
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Uplink):</label>
                     </div>
 
                     <div class="mb-6">
-                        <label for="jenis_polarizationgrounds_up_poin" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
+                        <label for="jenis_polarizationgrounds_up_poin" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
                         <select name="jenis_polarizationgrounds_up_poin" id="jenis_polarizationgrounds_up_poin" onchange="handlePolarizationChange('grounds', 'up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
-                            <option value="RHCP">RHCP</option>
-                            <option value="LHCP">LHCP</option>
-                            <option value="Linear">Linear</option>
+                            <option value="RHCP" {{ old('jenis_polarizationgrounds_up_poin', $data->jenis_polarizationgrounds_up_poin ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                            <option value="LHCP" {{ old('jenis_polarizationgrounds_up_poin', $data->jenis_polarizationgrounds_up_poin ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                            <option value="Linear" {{ old('jenis_polarizationgrounds_up_poin', $data->jenis_polarizationgrounds_up_poin ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Frekuensi Uplink (MHz):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Uplink Frequency (MHz):</label>
                         <div class="input-with-unit-wrapper">
-                             <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->frekuensi ?? '' }}" step="any" value="{{ $data->frekuensi ?? '' }}" readonly>
+                            {{-- Menggunakan 'frekuensi' sebagai nama kolom dari $data --}}
+                            <input type="number" name="frequency_upgrounds_poin" id="frequency_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->frekuensi ?? '' }}" step="any" value="{{ old('frequency_upgrounds_poin', $data->frekuensi ?? '') }}" readonly>
                             <span class="unit-text">MHz</span>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ) (m):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Wave Length (λ) (m):</label>
                         <div class="input-with-unit-wrapper">
-                             <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->panjang_gelombang ?? '' }}" step="any" value="{{ $data->panjang_gelombang ?? '' }}" readonly>
+                            {{-- Menggunakan 'panjang_gelombang' sebagai nama kolom dari $data --}}
+                            <input type="number" name="wavelength_upgrounds_poin" id="wavelength_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->panjang_gelombang ?? '' }}" step="any" value="{{ old('wavelength_upgrounds_poin', $data->panjang_gelombang ?? '') }}" readonly>
                             <span class="unit-text">m</span>
                         </div>
                         <button type="button" onclick="showWavelengthDetail('up')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Antenna Gain (dBiC):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_upgrounds_poin" id="gain_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_upgrounds ?? '' }}" value="{{ $data->gain_manual_upgrounds ?? '' }}" readonly>
+                            {{-- Menggunakan 'gain_manual_upgrounds' sebagai nama kolom dari $data --}}
+                            <input type="number" name="gain_upgrounds_poin" id="gain_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_upgrounds ?? '' }}" value="{{ old('gain_upgrounds_poin', $data->gain_manual_upgrounds ?? '') }}" readonly>
                             <span class="unit-text">dBiC</span>
                         </div>
                     </div>
@@ -255,7 +258,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_upgrounds_poin" id="beamwidth_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_upgrounds ?? '' }}" value="{{ $data->beamwidth_manual_upgrounds ?? '' }}" readonly>
+                            {{-- Menggunakan 'beamwidth_manual_upgrounds' sebagai nama kolom dari $data --}}
+                            <input type="number" name="beamwidth_upgrounds_poin" id="beamwidth_upgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_upgrounds ?? '' }}" value="{{ old('beamwidth_upgrounds_poin', $data->beamwidth_manual_upgrounds ?? '') }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -263,7 +267,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Estimated Pointing Error (θ1) (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="estimedpointingerror_upgrounds_θ1_poin" id="estimedpointingerror_upgrounds_θ1_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan estimasi kesalahan pointing dalam derajat" required>
+                            {{-- Menggunakan 'estimedpointingerror_upgrounds_θ1_poin' sebagai nama kolom dari $data --}}
+                            <input type="number" name="estimedpointingerror_upgrounds_θ1_poin" id="estimedpointingerror_upgrounds_θ1_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan estimasi kesalahan pointing dalam derajat" required value="{{ old('estimedpointingerror_upgrounds_θ1_poin', $data->estimedpointingerror_upgrounds_θ1_poin ?? '') }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -271,7 +276,8 @@
                     <div class="mb-4">
                         <label for="annrolloff_upgrounds_poin" class="block font-medium mb-1 text-gray-700">Antenna Roll-Off (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="annrolloff_upgrounds_poin" id="annrolloff_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                            {{-- Menggunakan 'annrolloff_upgrounds_poin' sebagai nama kolom dari $data --}}
+                            <input type="text" name="annrolloff_upgrounds_poin" id="annrolloff_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" value="{{ old('annrolloff_upgrounds_poin', $data->annrolloff_upgrounds_poin ?? '') }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                         <button type="button" onclick="showRollOffDetail('upgrounds')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -280,30 +286,32 @@
                     <div class="mb-4">
                         <label for="approxannpoinloss_upgrounds_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="approxannpoinloss_upgrounds_poin" id="approxannpoinloss_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                            {{-- Menggunakan 'approxannpoinloss_upgrounds_poin' sebagai nama kolom dari $data --}}
+                            <input type="text" name="approxannpoinloss_upgrounds_poin" id="approxannpoinloss_upgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" value="{{ old('approxannpoinloss_upgrounds_poin', $data->approxannpoinloss_upgrounds_poin ?? '') }}" readonly>
                             <span class="unit-text">dB</span>
                         </div>
                         <button type="button" onclick="showPointingLossDetail('upgrounds')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                     </div>
 
                     {{-- Spacecraft (Uplink) --}}
-                    <div class="mb-4 mt-8"> {{-- Added mt-8 for spacing between sub-sections --}}
+                    <div class="mb-4 mt-8">
                         <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Uplink):</label>
                     </div>
 
                     <div class="mb-6">
-                        <label for="jenis_polarizationspacecraft_up_poin" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
+                        <label for="jenis_polarizationspacecraft_up_poin" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
                         <select name="jenis_polarizationspacecraft_up_poin" id="jenis_polarizationspacecraft_up_poin" onchange="handlePolarizationChange('spacecraft', 'up')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
-                            <option value="RHCP">RHCP</option>
-                            <option value="LHCP">LHCP</option>
-                            <option value="Linear">Linear</option>
+                            <option value="RHCP" {{ old('jenis_polarizationspacecraft_up_poin', $data->jenis_polarizationspacecraft_up_poin ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                            <option value="LHCP" {{ old('jenis_polarizationspacecraft_up_poin', $data->jenis_polarizationspacecraft_up_poin ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                            <option value="Linear" {{ old('jenis_polarizationspacecraft_up_poin', $data->jenis_polarizationspacecraft_up_poin ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBi):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Antenna Gain (dBi):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_upspacecraft_poin" id="gain_upspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_upspacecraft ?? '' }}" value="{{ $data->gain_manual_upspacecraft ?? '' }}" readonly>
+                            {{-- Menggunakan 'gain_manual_upspacecraft' sebagai nama kolom dari $data --}}
+                            <input type="number" name="gain_upspacecraft_poin" id="gain_upspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_upspacecraft ?? '' }}" value="{{ old('gain_upspacecraft_poin', $data->gain_manual_upspacecraft ?? '') }}" readonly>
                             <span class="unit-text">dBi</span>
                         </div>
                     </div>
@@ -311,7 +319,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_upspacecraft_poin" id="beamwidth_upspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_upspacecraft ?? '' }}" value="{{ $data->beamwidth_manual_upspacecraft ?? '' }}" readonly>
+                            {{-- Menggunakan 'beamwidth_manual_upspacecraft' sebagai nama kolom dari $data --}}
+                            <input type="number" name="beamwidth_upspacecraft_poin" id="beamwidth_upspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_upspacecraft ?? '' }}" value="{{ old('beamwidth_upspacecraft_poin', $data->beamwidth_manual_upspacecraft ?? '') }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -319,7 +328,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Angle between S/C antenna symmetry axis and vector from S/C to gnd. station (θ2) (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="upspacecraft_θ2_poin" id="upspacecraft_θ2_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan sudut dalam derajat" required>
+                            {{-- Menggunakan 'upspacecraft_θ2_poin' sebagai nama kolom dari $data --}}
+                            <input type="number" name="upspacecraft_θ2_poin" id="upspacecraft_θ2_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan sudut dalam derajat" required value="{{ old('upspacecraft_θ2_poin', $data->upspacecraft_θ2_poin ?? '') }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -327,7 +337,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Calculation Formulas (dB):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="calculation_formulas_upspacecraft_poin" id="calculation_formulas_upspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan nilai pointing loss manual" required>
+                            {{-- Menggunakan 'calculation_formulas_upspacecraft_poin' sebagai nama kolom dari $data --}}
+                            <input type="number" name="calculation_formulas_upspacecraft_poin" id="calculation_formulas_upspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan nilai pointing loss manual" required value="{{ old('calculation_formulas_upspacecraft_poin', $data->calculation_formulas_upspacecraft_poin ?? '') }}">
                             <span class="unit-text">dB</span>
                         </div>
                     </div>
@@ -335,7 +346,8 @@
                     <div class="mb-4">
                         <label for="approxannpoinloss_upspacecraft_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="approxannpoinloss_upspacecraft_poin" id="approxannpoinloss_upspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                            {{-- Menggunakan 'approxannpoinloss_upspacecraft_poin' sebagai nama kolom dari $data --}}
+                            <input type="text" name="approxannpoinloss_upspacecraft_poin" id="approxannpoinloss_upspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" value="{{ old('approxannpoinloss_upspacecraft_poin', $data->approxannpoinloss_upspacecraft_poin ?? '') }}" readonly>
                             <span class="unit-text">dB</span>
                         </div>
                         <button type="button" onclick="showPointingLossDetail('upspacecraft')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -362,35 +374,36 @@
 
                 {{-- Downlink Antenna Sistem --}}
                 <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-6">
-                    <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink Antenna Sistem</h2>
-                    
+                    <h2 class="text-lg font-semibold mb-3 text-gray-800 text-center">Downlink Antenna System</h2>
+
                     {{-- Spacecraft (Downlink) Section --}}
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Downlink):</label>
                     </div>
 
                     <div class="mb-6">
-                        <label for="jenis_polarizationspacecraft_down_poin" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
+                        <label for="jenis_polarizationspacecraft_down_poin" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
                         <select name="jenis_polarizationspacecraft_down_poin" id="jenis_polarizationspacecraft_down_poin" onchange="handlePolarizationChange('spacecraft', 'down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
-                            <option value="RHCP">RHCP</option>
-                            <option value="LHCP">LHCP</option>
-                            <option value="Linear">Linear</option>
+                            <option value="RHCP" {{ old('jenis_polarizationspacecraft_down_poin', $data->jenis_polarizationspacecraft_down_poin ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                            <option value="LHCP" {{ old('jenis_polarizationspacecraft_down_poin', $data->jenis_polarizationspacecraft_down_poin ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                            <option value="Linear" {{ old('jenis_polarizationspacecraft_down_poin', $data->jenis_polarizationspacecraft_down_poin ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Antenna Gain (dBiC):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_downspacecraft_poin" id="gain_downspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_downspacecraft ?? '' }}" value="{{ $data->gain_manual_downspacecraft ?? '' }}" readonly>
+                            {{-- Menggunakan 'gain_manual_downspacecraft' sebagai nama kolom dari $data --}}
+                            <input type="number" name="gain_downspacecraft_poin" id="gain_downspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_downspacecraft ?? '' }}" value="{{ old('gain_downspacecraft_poin', $data->gain_manual_downspacecraft ?? '') }}" readonly>
                             <span class="unit-text">dBiC</span>
                         </div>
                     </div>
-                  
 
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_downspacecraft_poin" id="beamwidth_downspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_downspacecraft ?? '' }}" value="{{ $data->beamwidth_manual_downspacecraft ?? '' }}" readonly>
+                            {{-- Menggunakan 'beamwidth_manual_downspacecraft' sebagai nama kolom dari $data --}}
+                            <input type="number" name="beamwidth_downspacecraft_poin" id="beamwidth_downspacecraft_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_downspacecraft ?? '' }}" value="{{ old('beamwidth_downspacecraft_poin', $data->beamwidth_manual_downspacecraft ?? '') }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -398,7 +411,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Angle between S/C antenna symmetry axis and vector from S/C to gnd. station (θ3) (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="downspacecraft_θ3_poin" id="downspacecraft_θ3_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan sudut dalam derajat" required>
+                            {{-- Menggunakan 'downspacecraft_θ3_poin' sebagai nama kolom dari $data --}}
+                            <input type="number" name="downspacecraft_θ3_poin" id="downspacecraft_θ3_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan sudut dalam derajat" required value="{{ old('downspacecraft_θ3_poin', $data->downspacecraft_θ3_poin ?? '') }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -406,7 +420,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Calculation Formulas (dB):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="calculation_formulas_downspacecraft_poin" id="calculation_formulas_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan nilai pointing loss manual" required>
+                            {{-- Menggunakan 'calculation_formulas_downspacecraft_poin' sebagai nama kolom dari $data --}}
+                            <input type="number" name="calculation_formulas_downspacecraft_poin" id="calculation_formulas_downspacecraft_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan nilai pointing loss manual" required value="{{ old('calculation_formulas_downspacecraft_poin', $data->calculation_formulas_downspacecraft_poin ?? '') }}">
                             <span class="unit-text">dB</span>
                         </div>
                     </div>
@@ -414,47 +429,51 @@
                     <div class="mb-4">
                         <label for="approxannpoinloss_downspacecraft_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="approxannpoinloss_downspacecraft_poin" id="approxannpoinloss_downspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                            {{-- Menggunakan 'approxannpoinloss_downspacecraft_poin' sebagai nama kolom dari $data --}}
+                            <input type="text" name="approxannpoinloss_downspacecraft_poin" id="approxannpoinloss_downspacecraft_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" value="{{ old('approxannpoinloss_downspacecraft_poin', $data->approxannpoinloss_downspacecraft_poin ?? '') }}" readonly>
                             <span class="unit-text">dB</span>
                         </div>
                         <button type="button" onclick="showPointingLossDetail('downspacecraft')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                     </div>
 
                     {{-- Ground Station (Downlink) Section --}}
-                    <div class="mb-4 mt-8"> {{-- Added mt-8 for spacing --}}
+                    <div class="mb-4 mt-8">
                         <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Downlink):</label>
                     </div>
 
                     <div class="mb-6">
-                        <label for="jenis_polarizationgrounds_down_poin" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
+                        <label for="jenis_polarizationgrounds_down_poin" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
                         <select name="jenis_polarizationgrounds_down_poin" id="jenis_polarizationgrounds_down_poin" onchange="handlePolarizationChange('grounds', 'down')" required class="border border-gray-300 p-3 w-full rounded bg-gray-50">
-                            <option value="RHCP">RHCP</option>
-                            <option value="LHCP">LHCP</option>
-                            <option value="Linear">Linear</option>
+                            <option value="RHCP" {{ old('jenis_polarizationgrounds_down_poin', $data->jenis_polarizationgrounds_down_poin ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                            <option value="LHCP" {{ old('jenis_polarizationgrounds_down_poin', $data->jenis_polarizationgrounds_down_poin ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                            <option value="Linear" {{ old('jenis_polarizationgrounds_down_poin', $data->jenis_polarizationgrounds_down_poin ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
                         </select>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Frekuensi Downlink (MHz):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Downlink Frequency (MHz):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->frekuensi_downlink ?? '' }}" step="any" value="{{ $data->frekuensi_downlink ?? '' }}" readonly>
+                            {{-- Menggunakan 'frekuensi_downlink' sebagai nama kolom dari $data --}}
+                            <input type="number" name="frequency_downlinks_poin" id="frequency_downlinks_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->frekuensi_downlink ?? '' }}" step="any" value="{{ old('frequency_downlinks_poin', $data->frekuensi_downlink ?? '') }}" readonly>
                             <span class="unit-text">MHz</span>
                         </div>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ) (m):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Wave Length (λ) (m):</label>
                         <div class="input-with-unit-wrapper">
-                             <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->panjang_gelombang_downlink ?? '' }}" step="any" value="{{ $data->panjang_gelombang_downlink ?? '' }}" readonly>
+                            {{-- Menggunakan 'panjang_gelombang_downlink' sebagai nama kolom dari $data --}}
+                            <input type="number" name="wavelength_downlinks_poin" id="wavelength_downlinks_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->panjang_gelombang_downlink ?? '' }}" step="any" value="{{ old('wavelength_downlinks_poin', $data->panjang_gelombang_downlink ?? '') }}" readonly>
                             <span class="unit-text">m</span>
                         </div>
                         <button type="button" onclick="showWavelengthDetail('down')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                     </div>
 
                     <div class="mb-4">
-                        <label class="block font-medium mb-1 text-gray-700">Gain Antena (dBiC):</label>
+                        <label class="block font-medium mb-1 text-gray-700">Antenna Gain (dBiC):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="gain_downgrounds_poin" id="gain_downgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_downgrounds ?? '' }}" step="any" value="{{ $data->gain_manual_downgrounds ?? '' }}" readonly>
+                            {{-- Menggunakan 'gain_manual_downgrounds' sebagai nama kolom dari $data --}}
+                            <input type="number" name="gain_downgrounds_poin" id="gain_downgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->gain_manual_downgrounds ?? '' }}" step="any" value="{{ old('gain_downgrounds_poin', $data->gain_manual_downgrounds ?? '') }}" readonly>
                             <span class="unit-text">dBiC</span>
                         </div>
                     </div>
@@ -462,7 +481,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Beamwidth (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="beamwidth_downgrounds_poin" id="beamwidth_downgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_downgrounds ?? '' }}" value="{{ $data->beamwidth_manual_downgrounds ?? '' }}" readonly>
+                            {{-- Menggunakan 'beamwidth_manual_downgrounds' sebagai nama kolom dari $data --}}
+                            <input type="number" name="beamwidth_downgrounds_poin" id="beamwidth_downgrounds_poin" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->beamwidth_manual_downgrounds ?? '' }}" value="{{ old('beamwidth_downgrounds_poin', $data->beamwidth_manual_downgrounds ?? '') }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -470,7 +490,8 @@
                     <div class="mb-4">
                         <label class="block font-medium mb-1 text-gray-700">Estimated Pointing Error (θ4) (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="number" name="estimedpointingerror_downgrounds_θ4_poin" id="estimedpointingerror_downgrounds_θ4_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan estimasi kesalahan pointing dalam derajat" required>
+                            {{-- Menggunakan 'estimedpointingerror_downgrounds_θ4_poin' sebagai nama kolom dari $data --}}
+                            <input type="number" name="estimedpointingerror_downgrounds_θ4_poin" id="estimedpointingerror_downgrounds_θ4_poin" class="border border-gray-300 p-3 w-full rounded bg-gray-50" step="0.01" placeholder="Masukkan estimasi kesalahan pointing dalam derajat" required value="{{ old('estimedpointingerror_downgrounds_θ4_poin', $data->estimedpointingerror_downgrounds_θ4_poin ?? '') }}">
                             <span class="unit-text">°</span>
                         </div>
                     </div>
@@ -478,7 +499,8 @@
                     <div class="mb-4">
                         <label for="annrolloff_downgrounds_poin" class="block font-medium mb-1 text-gray-700">Antenna Roll-Off (°):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="annrolloff_downgrounds_poin" id="annrolloff_downgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                            {{-- Menggunakan 'annrolloff_downgrounds_poin' sebagai nama kolom dari $data --}}
+                            <input type="text" name="annrolloff_downgrounds_poin" id="annrolloff_downgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" value="{{ old('annrolloff_downgrounds_poin', $data->annrolloff_downgrounds_poin ?? '') }}" readonly>
                             <span class="unit-text">°</span>
                         </div>
                         <button type="button" onclick="showRollOffDetail('downgrounds')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -487,7 +509,8 @@
                     <div class="mb-4">
                         <label for="approxannpoinloss_downgrounds_poin" class="block font-medium mb-1 text-gray-700">Approx. Antenna Pointing Loss (dB):</label>
                         <div class="input-with-unit-wrapper">
-                            <input type="text" name="approxannpoinloss_downgrounds_poin" id="approxannpoinloss_downgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" readonly>
+                            {{-- Menggunakan 'approxannpoinloss_downgrounds_poin' sebagai nama kolom dari $data --}}
+                            <input type="text" name="approxannpoinloss_downgrounds_poin" id="approxannpoinloss_downgrounds_poin" step="0.01" class="border border-gray-300 p-3 w-full rounded bg-gray-50" value="{{ old('approxannpoinloss_downgrounds_poin', $data->approxannpoinloss_downgrounds_poin ?? '') }}" readonly>
                             <span class="unit-text">dB</span>
                         </div>
                         <button type="button" onclick="showPointingLossDetail('downgrounds')" class="text-blue-600 hover:text-blue-800 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -517,11 +540,11 @@
                 </button>
             </form>
             <div class="flex justify-between mt-6">
-                <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                <a href="/antennagain/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                     <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                 </a>
 
-                {{-- Uncomment this if you have a next page
+                {{--
                 <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
                     Halaman Selanjutnya <i class="fas fa-arrow-right ml-2"></i>
                 </a>
@@ -702,7 +725,7 @@
                 const c = 299792458; // Speed of light in m/s
                 const frequencyHz = frequency * 1e6; // Convert MHz to Hz
                 const wavelength = c / frequencyHz;
-                wavelengthField.value = wavelength.toFixed(6);
+                wavelengthField.value = wavelength.toFixed(2);
             } else {
                 wavelengthField.value = '';
             }
@@ -739,7 +762,7 @@
             if (!isNaN(estimatedPointingError) && !isNaN(beamwidth) && beamwidth > 0) {
                 // Rumus baru: Roll-Off = 2 * (Estimated Pointing Error * (79.76 / Beamwidth))
                 const rollOff = 2 * (estimatedPointingError * (79.76 / beamwidth));
-                rollOffField.value = rollOff.toFixed(6);
+                rollOffField.value = rollOff.toFixed(1);
             } else {
                 rollOffField.value = '';
             }
@@ -782,7 +805,7 @@
                         // Pastikan argumen log10 tidak nol atau negatif
                         if (3282.81 * fraction > 0) {
                             const loss = -10 * Math.log10(3282.81 * fraction);
-                            lossField.value = loss.toFixed(2);
+                            lossField.value = loss.toFixed(1);
                         } else {
                             lossField.value = 'Infinity'; // Atau pesan error lainnya
                         }
@@ -801,7 +824,7 @@
                 
                 if (!isNaN(calculationValue)) {
                     // Untuk Spacecraft, nilai loss langsung diambil dari Calculation Formulas
-                    lossField.value = calculationValue.toFixed(6);
+                    lossField.value = calculationValue.toFixed(1);
                 } else {
                     lossField.value = '';
                 }

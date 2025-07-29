@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DataController;
+use App\Http\Controllers\ArduinoController;
 use App\Http\Controllers\ContactController;
 Route::post('/contact', [ContactController::class, 'sendEmail'])->name('contact.send');
 
@@ -17,6 +18,9 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/about', function () {
     return view('about', ['title' => 'About Us']);
 });
+Route::get('/getData', [ArduinoController::class, 'getData']);
+Route::post('/postResult/{idt}', [ArduinoController::class, 'postResult'])->name('arduino');
+
 
 
 Route::get('/animasi/{id}', [DataController::class, 'showAnimasiPage'])->name('animasi.show');
@@ -66,7 +70,7 @@ Route::post('/receiver/{id}', [DataController::class, 'store_receiver'])->name('
 //     return view('calcazimuth', ['title' => 'Lets Calculate Receiver']);
 // })->name('calcazimuth.show');
 Route::get('/calcazimuth/{id}', [DataController::class, 'showAzimuthForm'])->name('calcazimuth.show');
-Route::post('/calcazimuth', [DataController::class, 'store_calcazimuth'])->name('calcazimuth.store'); // Menangani form dengan POST
+Route::post('/calcazimuth/{id}', [DataController::class, 'store_calcazimuth'])->name('calcazimuth.store'); // Menangani form dengan POST
 
 Route::get('/antena', function () {
     return view('antena', ['title'=> 'Lets Antena!']);

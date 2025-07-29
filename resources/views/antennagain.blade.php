@@ -282,181 +282,223 @@
                 </button>
             </div>
 
-            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Uplink Antenna Sistem</h2>
+            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Uplink Antenna System</h2>
             <div class="bg-blue-50 shadow-lg rounded-lg p-6 mb-8 border border-blue-200">
-                <form method="POST" action="{{ route('antennagain.store', ['id' => $dataId]) }}" id="antennaForm">
-                    @csrf
-                    <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
+            <form method="POST" action="{{ route('antennagain.store', ['id' => $dataId]) }}" id="antennaForm">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ auth()->id() ?? 1 }}">
 
-                    <div class="mb-8">
+                <div class="mb-8">
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Uplink):</label>
+                    </div>
+
+                    <div class="mb-6">
+                        <label for="jenis_polarizationgrounds_up" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
+                        <select name="jenis_polarizationgrounds_up" id="jenis_polarizationgrounds_up" onchange="handlePolarizationChange('grounds', 'up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <option value="RHCP" {{ old('jenis_polarizationgrounds_up', $data->jenis_polarizationgrounds_up ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                            <option value="LHCP" {{ old('jenis_polarizationgrounds_up', $data->jenis_polarizationgrounds_up ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                            <option value="Linear" {{ old('jenis_polarizationgrounds_up', $data->jenis_polarizationgrounds_up ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Antenna Type (Optional):</label>
+                        <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <option value="" {{ old('jenis_antenagrounds_up', $data->jenis_antenagrounds_up ?? '') == '' ? 'selected' : '' }}>-- Pilih Jenis Antena --</option>
+                            <option value="Yagi" {{ old('jenis_antenagrounds_up', $data->jenis_antenagrounds_up ?? '') == 'Yagi' ? 'selected' : '' }}>Yagi Antenna</option>
+                            <option value="Helix" {{ old('jenis_antenagrounds_up', $data->jenis_antenagrounds_up ?? '') == 'Helix' ? 'selected' : '' }}>Helix Antenna</option>
+                            <option value="Parabolic" {{ old('jenis_antenagrounds_up', $data->jenis_antenagrounds_up ?? '') == 'Parabolic' ? 'selected' : '' }}>Parabolic Reflector</option>
+                        </select>
+                    </div>
+
+                    <div id="calculator_link_upgrounds" class="mb-6" style="display: none;">
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-purple-800 mb-2">Kalkulator Khusus</h4>
+                            <p class="text-sm text-purple-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
+                            <a id="calculator_link_btn_upgrounds" href="#" target="_blank" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                                <span id="calculator_link_text_upgrounds">Buka Kalkulator</span> →
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700">Uplink Frequency:</label>
+                        <div class="input-with-unit-wrapper">
+                            <input type="number"
+                                name="frequency_upgrounds"
+                                id="frequency_upgrounds"
+                                class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"
+                                placeholder="{{ $data->frekuensi ?? '' }}"
+                                step="any"
+                                value="{{ old('frequency_upgrounds', $data->frekuensi ?? '') }}"
+                                readonly>
+                            <span class="unit-text">MHz</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700">Wave Length (λ):</label>
+                        <div class="input-with-unit-wrapper">
+                            <input type="number"
+                                name="wave_length_upgrounds"
+                                id="wave_length_upgrounds"
+                                class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"
+                                placeholder="{{ $data->panjang_gelombang ?? '' }}"
+                                step="any"
+                                value="{{ old('wave_length_upgrounds', $data->panjang_gelombang ?? '') }}"
+                                readonly>
+                            <span class="unit-text">m</span>
+                        </div>
+                        <button type="button" onclick="showWavelengthDetail('up')" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail Perhitungan <i class="fas fa-info-circle ml-1"></i></button>
+                    </div>
+
+                    <div id="user_defined_fields_upgrounds">
+                        <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
+                            <h4 class="font-semibold text-purple-800 mb-2">Input Manual - Ground Station (Uplink)</h4>
+                            <p class="text-sm text-purple-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
+                        </div>
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Uplink):</label>
-                        </div>
-
-                        <div class="mb-6">
-                            <label for="jenis_polarizationgrounds_up" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
-                            <select name="jenis_polarizationgrounds_up" id="jenis_polarizationgrounds_up" onchange="handlePolarizationChange('grounds', 'up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="RHCP">RHCP</option>
-                                <option value="LHCP">LHCP</option>
-                                <option value="Linear">Linear</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-4">
-                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="">-- Pilih Jenis Antena --</option>
-                                <option value="Yagi">Yagi Antenna</option>
-                                <option value="Helix">Helix Antenna</option>
-                                <option value="Parabolic">Parabolic Reflector</option>
-                            </select>
-                        </div>
-
-                        <div id="calculator_link_upgrounds" class="mb-6" style="display: none;">
-                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4">
-                                <h4 class="font-semibold text-purple-800 mb-2">Kalkulator Khusus</h4>
-                                <p class="text-sm text-purple-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
-                                <a id="calculator_link_btn_upgrounds" href="#" target="_blank" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                                    <span id="calculator_link_text_upgrounds">Buka Kalkulator</span> →
-                                </a>
-                            </div>
-                        </div>
-
-                        <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Frekuensi Uplink:</label>
+                            <label class="block font-medium mb-1 text-gray-700">Gain:</label>
                             <div class="input-with-unit-wrapper">
-                                <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->frekuensi ?? '' }}" step="any" value="{{ $data->frekuensi ?? '' }}" readonly>
-                                <span class="unit-text">MHz</span>
+                                <input type="number"
+                                    name="gain_manual_upgrounds"
+                                    id="gain_manual_upgrounds"
+                                    class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    step="0.01"
+                                    placeholder="Masukkan gain"
+                                    required
+                                    value="{{ old('gain_manual_upgrounds', $data->gain_manual_upgrounds ?? '') }}">
+                                <span class="unit-text">dBiC</span>
                             </div>
                         </div>
-
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ):</label>
+                            <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
                             <div class="input-with-unit-wrapper">
-                               <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->panjang_gelombang ?? '' }}" step="any" value="{{ $data->panjang_gelombang ?? '' }}" readonly>
-                            </div>
-                            <button type="button" onclick="showWavelengthDetail('up')" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail Perhitungan <i class="fas fa-info-circle ml-1"></i></button>
-                        </div>
-
-                        <div id="user_defined_fields_upgrounds">
-                            <div class="bg-purple-50 border border-purple-200 rounded-lg p-4 mb-4">
-                                <h4 class="font-semibold text-purple-800 mb-2">Input Manual - Ground Station (Uplink)</h4>
-                                <p class="text-sm text-purple-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Gain:</label>
-                                <div class="input-with-unit-wrapper">
-                                    <input type="number" name="gain_manual_upgrounds" id="gain_manual_upgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
-                                    <span class="unit-text">dBiC</span>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
-                                <div class="input-with-unit-wrapper">
-                                    <input type="number" name="beamwidth_manual_upgrounds" id="beamwidth_manual_upgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
-                                    <span class="unit-text">°</span>
-                                </div>
+                                <input type="number"
+                                    name="beamwidth_manual_upgrounds"
+                                    id="beamwidth_manual_upgrounds"
+                                    class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    step="0.01"
+                                    placeholder="Masukkan beamwidth"
+                                    required
+                                    value="{{ old('beamwidth_manual_upgrounds', $data->beamwidth_manual_upgrounds ?? '') }}">
+                                <span class="unit-text">°</span>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="mb-8">
+                <div class="mb-8">
+                    <div class="mb-4">
+                        <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Uplink):</label>
+                    </div>
+                    <div class="mb-6">
+                        <label for="jenis_polarizationspacecraft_up" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
+                        <select name="jenis_polarizationspacecraft_up" id="jenis_polarizationspacecraft_up" onchange="handlePolarizationChange('spacecraft', 'up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <option value="RHCP" {{ old('jenis_polarizationspacecraft_up', $data->jenis_polarizationspacecraft_up ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                            <option value="LHCP" {{ old('jenis_polarizationspacecraft_up', $data->jenis_polarizationspacecraft_up ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                            <option value="Linear" {{ old('jenis_polarizationspacecraft_up', $data->jenis_polarizationspacecraft_up ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <label for="jenis_antenaspacecraft_up" class="block font-medium mb-1 text-gray-700">Antenna Type (Optional):</label>
+                        <select name="jenis_antenaspacecraft_up" id="jenis_antenaspacecraft_up" onchange="handleAntennaChangeSpacecraft('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                            <option value="" {{ old('jenis_antenaspacecraft_up', $data->jenis_antenaspacecraft_up ?? '') == '' ? 'selected' : '' }}>-- Pilih Jenis Antena --</option>
+                            <option value="Monopole" {{ old('jenis_antenaspacecraft_up', $data->jenis_antenaspacecraft_up ?? '') == 'Monopole' ? 'selected' : '' }}>Monopole Antenna</option>
+                            <option value="Dipole" {{ old('jenis_antenaspacecraft_up', $data->jenis_antenaspacecraft_up ?? '') == 'Dipole' ? 'selected' : '' }}>Dipole Antenna</option>
+                            <option value="Patch" {{ old('jenis_antenaspacecraft_up', $data->jenis_antenaspacecraft_up ?? '') == 'Patch' ? 'selected' : '' }}>Patch Antenna</option>
+                            <option value="Parabolic" {{ old('jenis_antenaspacecraft_up', $data->jenis_antenaspacecraft_up ?? '') == 'Parabolic' ? 'selected' : '' }}>Parabolic Reflector</option>
+                        </select>
+                    </div>
+                    <div id="calculator_link_upspacecraft" class="mb-6" style="display: none;">
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                            <h4 class="font-semibold text-green-800 mb-2">Kalkulator Khusus Spacecraft</h4>
+                            <p class="text-sm text-green-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
+                            <a id="calculator_link_btn_upspacecraft" href="#" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                                <span id="calculator_link_text_upspacecraft">Buka Kalkulator</span> →
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="user_defined_fields_upspacecraft">
+                        <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                            <h4 class="font-semibold text-green-800 mb-2">Input Manual - Spacecraft (Uplink)</h4>
+                            <p class="text-sm text-green-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
+                        </div>
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Uplink):</label>
-                        </div>
-                        <div class="mb-6">
-                            <label for="jenis_polarizationspacecraft_up" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
-                            <select name="jenis_polarizationspacecraft_up" id="jenis_polarizationspacecraft_up" onchange="handlePolarizationChange('spacecraft', 'up')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="RHCP">RHCP</option>
-                                <option value="LHCP">LHCP</option>
-                                <option value="Linear">Linear</option>
-                            </select>
+                            <label class="block font-medium mb-1 text-gray-700">Gain:</label>
+                            <div class="input-with-unit-wrapper">
+                                <input type="number"
+                                    name="gain_manual_upspacecraft"
+                                    id="gain_manual_upspacecraft"
+                                    class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    step="0.01"
+                                    placeholder="Masukkan gain"
+                                    required
+                                    value="{{ old('gain_manual_upspacecraft', $data->gain_manual_upspacecraft ?? '') }}">
+                                <span class="unit-text">dBiC</span>
+                            </div>
                         </div>
                         <div class="mb-4">
-                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="">-- Pilih Jenis Antena --</option>
-                                <option value="Yagi">Yagi Antenna</option>
-                                <option value="Helix">Helix Antenna</option>
-                                <option value="Parabolic">Parabolic Reflector</option>
-                            </select>
-                        </div>
-
-                        <div id="calculator_link_upspacecraft" class="mb-6" style="display: none;">
-                            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
-                                <h4 class="font-semibold text-green-800 mb-2">Kalkulator Khusus Spacecraft</h4>
-                                <p class="text-sm text-green-600 mb-3">Klik tombol di bawah untuk membuka kalkulator khusus, hitung parameter antena, lalu kembali ke sini untuk input manual:</p>
-                                <a id="calculator_link_btn_upspacecraft" href="#" target="_blank" class="inline-block bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
-                                    <span id="calculator_link_text_upspacecraft">Buka Kalkulator</span> →
-                                </a>
+                            <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
+                            <div class="input-with-unit-wrapper">
+                                <input type="number"
+                                    name="beamwidth_manual_upspacecraft"
+                                    id="beamwidth_manual_upspacecraft"
+                                    class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                    step="0.01"
+                                    placeholder="Masukkan beamwidth"
+                                    required
+                                    value="{{ old('beamwidth_manual_upspacecraft', $data->beamwidth_manual_upspacecraft ?? '') }}">
+                                <span class="unit-text">°</span>
                             </div>
                         </div>
+                    </div>
+                </div>
 
-                        <div id="user_defined_fields_upspacecraft">
-                            <div class="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
-                                <h4 class="font-semibold text-green-800 mb-2">Input Manual - Spacecraft (Uplink)</h4>
-                                <p class="text-sm text-green-600">Masukkan spesifikasi antena secara manual. Gunakan kalkulator khusus di atas untuk mendapatkan nilai.</p>
+                <div id="polarization_warning_up" class="mb-6" style="display: none;">
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                </svg>
                             </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Gain:</label>
-                                <div class="input-with-unit-wrapper">
-                                    <input type="number" name="gain_manual_upspacecraft" id="gain_manual_upspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
-                                    <span class="unit-text">dBiC</span>
-                                </div>
-                            </div>
-                            <div class="mb-4">
-                                <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
-                                <div class="input-with-unit-wrapper">
-                                    <input type="number" name="beamwidth_manual_upspacecraft" id="beamwidth_manual_upspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
-                                    <span class="unit-text">°</span>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">Peringatan Ketidaksesuaian Polarisasi (Uplink)</h3>
+                                <div class="mt-2 text-sm text-yellow-700">
+                                    <p id="polarization_warning_text_up"></p>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                    <div id="polarization_warning_up" class="mb-6" style="display: none;">
-                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                            <div class="flex">
-                                <div class="flex-shrink-0">
-                                    <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
-                                    </svg>
-                                </div>
-                                <div class="ml-3">
-                                    <h3 class="text-sm font-medium text-yellow-800">Peringatan Ketidaksesuaian Polarisasi (Uplink)</h3>
-                                    <div class="mt-2 text-sm text-yellow-700">
-                                        <p id="polarization_warning_text_up"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
+                </div>
 
 
-            <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Downlink Antenna Sistem</h2>
-            <div class="bg-blue-50 shadow-lg rounded-lg p-6 mb-8 border border-blue-200">
+                <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Downlink Antenna Sistem</h2>
+                <div class="bg-blue-50 shadow-lg rounded-lg p-6 mb-8 border border-blue-200">
                     <div class="mb-8">
                         <div class="mb-4">
                             <label class="block font-medium mb-1 text-gray-700 text-lg">Ground Station (Downlink):</label>
                         </div>
 
                         <div class="mb-6">
-                            <label for="jenis_polarizationgrounds_down" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
+                            <label for="jenis_polarizationgrounds_down" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
                             <select name="jenis_polarizationgrounds_down" id="jenis_polarizationgrounds_down" onchange="handlePolarizationChange('grounds', 'down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="RHCP">RHCP</option>
-                                <option value="LHCP">LHCP</option>
-                                <option value="Linear">Linear</option>
+                                <option value="RHCP" {{ old('jenis_polarizationgrounds_down', $data->jenis_polarizationgrounds_down ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                                <option value="LHCP" {{ old('jenis_polarizationgrounds_down', $data->jenis_polarizationgrounds_down ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                                <option value="Linear" {{ old('jenis_polarizationgrounds_down', $data->jenis_polarizationgrounds_down ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
                             </select>
                         </div>
 
                         <div class="mb-4">
-                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="">-- Pilih Jenis Antena --</option>
-                                <option value="Yagi">Yagi Antenna</option>
-                                <option value="Helix">Helix Antenna</option>
-                                <option value="Parabolic">Parabolic Reflector</option>
+                            <label for="jenis_antenagrounds_down" class="block font-medium mb-1 text-gray-700">Antenna Type (Optional):</label>
+                            <select name="jenis_antenagrounds_down" id="jenis_antenagrounds_down" onchange="handleAntennaChangeGrounds('down')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                                <option value="" {{ old('jenis_antenagrounds_down', $data->jenis_antenagrounds_down ?? '') == '' ? 'selected' : '' }}>-- Pilih Jenis Antena --</option>
+                                <option value="Yagi" {{ old('jenis_antenagrounds_down', $data->jenis_antenagrounds_down ?? '') == 'Yagi' ? 'selected' : '' }}>Yagi Antenna</option>
+                                <option value="Helix" {{ old('jenis_antenagrounds_down', $data->jenis_antenagrounds_down ?? '') == 'Helix' ? 'selected' : '' }}>Helix Antenna</option>
+                                <option value="Parabolic" {{ old('jenis_antenagrounds_down', $data->jenis_antenagrounds_down ?? '') == 'Parabolic' ? 'selected' : '' }}>Parabolic Reflector</option>
                             </select>
                         </div>
 
@@ -471,17 +513,31 @@
                         </div>
 
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Frekuensi Downlink:</label>
+                            <label class="block font-medium mb-1 text-gray-700">Downlink Frequency:</label>
                             <div class="input-with-unit-wrapper">
-                                 <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->frekuensi_downlink ?? '' }}" step="any" value="{{ $data->frekuensi_downlink ?? '' }}" readonly>
+                                <input type="number"
+                                    name="frequency_downgrounds" {{-- Perbaikan: Nama dan ID unik --}}
+                                    id="frequency_downgrounds" {{-- Perbaikan: Nama dan ID unik --}}
+                                    class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"
+                                    placeholder="{{ $data->frekuensi_downlink ?? '' }}"
+                                    step="any"
+                                    value="{{ old('frequency_downgrounds', $data->frekuensi_downlink ?? '') }}"
+                                    readonly>
                                 <span class="unit-text">MHz</span>
                             </div>
                         </div>
 
                         <div class="mb-4">
-                            <label class="block font-medium mb-1 text-gray-700">Panjang Gelombang (λ):</label>
+                            <label class="block font-medium mb-1 text-gray-700">Wave Length (λ):</label>
                             <div class="input-with-unit-wrapper">
-                                 <input type="number" name="frequency_upgrounds" id="frequency_upgrounds" class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed" placeholder="{{ $data->panjang_gelombang_downlink ?? '' }}" step="any" value="{{ $data->panjang_gelombang_downlink ?? '' }}" readonly>
+                                <input type="number"
+                                    name="wave_length_downgrounds" {{-- Perbaikan: Nama dan ID unik --}}
+                                    id="wave_length_downgrounds" {{-- Perbaikan: Nama dan ID unik --}}
+                                    class="w-full p-3 border-green-300 rounded-lg bg-green-100 text-green-700 cursor-not-allowed"
+                                    placeholder="{{ $data->panjang_gelombang_downlink ?? '' }}"
+                                    step="any"
+                                    value="{{ old('wave_length_downgrounds', $data->panjang_gelombang_downlink ?? '') }}"
+                                    readonly>
                                 <span class="unit-text">m</span>
                             </div>
                             <button type="button" onclick="showWavelengthDetail('down')" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail Perhitungan <i class="fas fa-info-circle ml-1"></i></button>
@@ -495,14 +551,28 @@
                             <div class="mb-4">
                                 <label class="block font-medium mb-1 text-gray-700">Gain:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" name="gain_manual_downgrounds" id="gain_manual_downgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
+                                    <input type="number"
+                                        name="gain_manual_downgrounds"
+                                        id="gain_manual_downgrounds"
+                                        class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        step="0.01"
+                                        placeholder="Masukkan gain"
+                                        required
+                                        value="{{ old('gain_manual_downgrounds', $data->gain_manual_downgrounds ?? '') }}">
                                     <span class="unit-text">dBiC</span>
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" name="beamwidth_manual_downgrounds" id="beamwidth_manual_downgrounds" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
+                                    <input type="number"
+                                        name="beamwidth_manual_downgrounds"
+                                        id="beamwidth_manual_downgrounds"
+                                        class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        step="0.01"
+                                        placeholder="Masukkan beamwidth"
+                                        required
+                                        value="{{ old('beamwidth_manual_downgrounds', $data->beamwidth_manual_downgrounds ?? '') }}">
                                     <span class="unit-text">°</span>
                                 </div>
                             </div>
@@ -514,20 +584,22 @@
                             <label class="block font-medium mb-1 text-gray-700 text-lg">Spacecraft (Downlink):</label>
                         </div>
                         <div class="mb-6">
-                            <label for="jenis_polarizationspacecraft_down" class="block font-medium mb-2 text-gray-700">Jenis Polarisasi:</label>
+                            <label for="jenis_polarizationspacecraft_down" class="block font-medium mb-2 text-gray-700">Polarization Type:</label>
                             <select name="jenis_polarizationspacecraft_down" id="jenis_polarizationspacecraft_down" onchange="handlePolarizationChange('spacecraft', 'down')" required class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="RHCP">RHCP</option>
-                                <option value="LHCP">LHCP</option>
-                                <option value="Linear">Linear</option>
+                                <option value="RHCP" {{ old('jenis_polarizationspacecraft_down', $data->jenis_polarizationspacecraft_down ?? '') == 'RHCP' ? 'selected' : '' }}>RHCP</option>
+                                <option value="LHCP" {{ old('jenis_polarizationspacecraft_down', $data->jenis_polarizationspacecraft_down ?? '') == 'LHCP' ? 'selected' : '' }}>LHCP</option>
+                                <option value="Linear" {{ old('jenis_polarizationspacecraft_down', $data->jenis_polarizationspacecraft_down ?? '') == 'Linear' ? 'selected' : '' }}>Linear</option>
                             </select>
                         </div>
+
                         <div class="mb-4">
-                            <label for="jenis_antenagrounds_up" class="block font-medium mb-1 text-gray-700">Jenis Antena (Opsional):</label>
-                            <select name="jenis_antenagrounds_up" id="jenis_antenagrounds_up" onchange="handleAntennaChangeGrounds('up')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                                <option value="">-- Pilih Jenis Antena --</option>
-                                <option value="Yagi">Yagi Antenna</option>
-                                <option value="Helix">Helix Antenna</option>
-                                <option value="Parabolic">Parabolic Reflector</option>
+                            <label for="jenis_antenaspacecraft_down" class="block font-medium mb-1 text-gray-700">Antenna Type (Optional):</label>
+                            <select name="jenis_antenaspacecraft_down" id="jenis_antenaspacecraft_down" onchange="handleAntennaChangeSpacecraft('down')" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
+                                <option value="" {{ old('jenis_antenaspacecraft_down', $data->jenis_antenaspacecraft_down ?? '') == '' ? 'selected' : '' }}>-- Pilih Jenis Antena --</option>
+                                <option value="Monopole" {{ old('jenis_antenaspacecraft_down', $data->jenis_antenaspacecraft_down ?? '') == 'Monopole' ? 'selected' : '' }}>Monopole Antenna</option>
+                                <option value="Dipole" {{ old('jenis_antenaspacecraft_down', $data->jenis_antenaspacecraft_down ?? '') == 'Dipole' ? 'selected' : '' }}>Dipole Antenna</option>
+                                <option value="Patch" {{ old('jenis_antenaspacecraft_down', $data->jenis_antenaspacecraft_down ?? '') == 'Patch' ? 'selected' : '' }}>Patch Antenna</option>
+                                <option value="Parabolic" {{ old('jenis_antenaspacecraft_down', $data->jenis_antenaspacecraft_down ?? '') == 'Parabolic' ? 'selected' : '' }}>Parabolic Reflector</option>
                             </select>
                         </div>
 
@@ -549,14 +621,28 @@
                             <div class="mb-4">
                                 <label class="block font-medium mb-1 text-gray-700">Gain:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" name="gain_manual_downspacecraft" id="gain_manual_downspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan gain" required>
+                                    <input type="number"
+                                        name="gain_manual_downspacecraft"
+                                        id="gain_manual_downspacecraft"
+                                        class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        step="0.01"
+                                        placeholder="Masukkan gain"
+                                        required
+                                        value="{{ old('gain_manual_downspacecraft', $data->gain_manual_downspacecraft ?? '') }}">
                                     <span class="unit-text">dBiC</span>
                                 </div>
                             </div>
                             <div class="mb-4">
                                 <label class="block font-medium mb-1 text-gray-700">Beamwidth:</label>
                                 <div class="input-with-unit-wrapper">
-                                    <input type="number" name="beamwidth_manual_downspacecraft" id="beamwidth_manual_downspacecraft" class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none" step="0.01" placeholder="Masukkan beamwidth" required>
+                                    <input type="number"
+                                        name="beamwidth_manual_downspacecraft"
+                                        id="beamwidth_manual_downspacecraft"
+                                        class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                        step="0.01"
+                                        placeholder="Masukkan beamwidth"
+                                        required
+                                        value="{{ old('beamwidth_manual_downspacecraft', $data->beamwidth_manual_downspacecraft ?? '') }}">
                                     <span class="unit-text">°</span>
                                 </div>
                             </div>
@@ -582,9 +668,9 @@
                     </div>
                 </div>
                 <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                                <i class=""></i> Hitung & Simpan
-                            </button>
-                        </form>
+                    <i class=""></i> Hitung & Simpan
+                </button>
+            </form>
                         <div class="flex justify-between mt-6">
                             <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
                                 <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
@@ -818,6 +904,50 @@
         }
 
         // Fungsi untuk handle perubahan antena spacecraft
+        function handleAntennaChangeSpacecraft(linkDirection) {
+            const antennaType = document.getElementById(`jenis_antenaspacecraft_${linkDirection}`)?.value;
+            const calculatorLinkDiv = document.getElementById(`calculator_link_${linkDirection}spacecraft`);
+            const calculatorLinkBtn = document.getElementById(`calculator_link_btn_${linkDirection}spacecraft`);
+            const calculatorLinkText = document.getElementById(`calculator_link_text_${linkDirection}spacecraft`);
+            
+            if (!antennaType || antennaType === 'User Defined') {
+                if (calculatorLinkDiv) calculatorLinkDiv.style.display = 'none';
+                return;
+            }
+            
+            // Show calculator link and set appropriate URL and text
+            if (calculatorLinkDiv) calculatorLinkDiv.style.display = 'block';
+            
+            let calculatorUrl = '';
+            let calculatorText = '';
+            
+            switch(antennaType) {
+                case 'Monopole':
+                    calculatorUrl = 'https://www.changpuak.ch/electronics/lambda_4_gp.php';
+                    calculatorText = 'Kalkulator Monopole';
+                    break;
+                case 'Dipole':
+                    calculatorUrl = 'https://www.changpuak.ch/electronics/Dipole_straight.php';
+                    calculatorText = 'Kalkulator Dipole';
+                    break;
+                case 'Patch':
+                    calculatorUrl = 'https://www.changpuak.ch/electronics/Microstrip_Patch_Antenna_Calculator.php';
+                    calculatorText = 'Kalkulator Patch';
+                    break;
+                case 'Parabolic':
+                    calculatorUrl = 'https://www.satsig.net/pointing/antenna-beamwidth-calculator.htm';
+                    calculatorText = 'Kalkulator Parabolic';
+                    break;
+                default:
+                    calculatorUrl = '#';
+                    calculatorText = 'Kalkulator';
+            }
+            
+            if (calculatorLinkBtn) calculatorLinkBtn.href = calculatorUrl;
+            if (calculatorLinkText) calculatorLinkText.textContent = calculatorText;
+        }
+
+         // Fungsi untuk handle perubahan antena spacecraft
         function handleAntennaChangeSpacecraft(linkDirection) {
             const antennaType = document.getElementById(`jenis_antenaspacecraft_${linkDirection}`)?.value;
             const calculatorLinkDiv = document.getElementById(`calculator_link_${linkDirection}spacecraft`);

@@ -49,8 +49,8 @@
             border-bottom: 1px solid #E5E7EB; /* gray-200 */
         }
 
-         /* Popup Styles */
-         .popup-window {
+        /* Popup Styles */
+        .popup-window {
             display: none;
             position: fixed;
             top: 0;
@@ -63,51 +63,51 @@
             align-items: center;
         }
         .popup-content {
-            position: relative; /* Ini penting agar absolute positioning tombol X bekerja relatif terhadapnya */
+            position: relative;
             background-color: white;
             border-radius: 8px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
             width: 80%;
-            max-width: 600px;
-            max-height: 80vh; /* Tinggi maksimum popup, sisanya akan menggulir */
-            display: flex; /* Gunakan flexbox untuk layout header dan body */
-            flex-direction: column; /* Susun header dan body secara vertikal */
+            max-width: 800px;
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
             animation: fadeInScale 0.3s ease-out;
         }
         
         /* Gaya untuk header popup yang tidak akan menggulir */
         .popup-header {
-            padding: 20px 30px 10px; /* Padding untuk header */
-            border-bottom: 1px solid #eee; /* Garis bawah pada header */
-            position: relative; /* Penting untuk posisi absolut tombol X */
-            flex-shrink: 0; /* Pastikan header tidak menyusut */
+            padding: 20px 30px 10px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            flex-shrink: 0;
         }
 
         .popup-header h3 {
-            margin-top: 0; /* Hapus margin top yang mungkin mengganggu */
+            margin-top: 0;
             color: #2c3e50;
-            padding-bottom: 0; /* Hapus padding-bottom default dari h3 di sini */
+            padding-bottom: 0;
         }
 
         /* Gaya untuk tombol tutup (X) */
         .close-popup-btn {
-            position: absolute; /* Tetap absolute relatif terhadap popup-header */
-            top: 15px;    /* Sesuaikan posisi vertikal dari atas popup-header */
-            right: 15px;  /* Sesuaikan posisi horizontal dari kanan popup-header */
+            position: absolute;
+            top: 15px;
+            right: 15px;
             font-size: 24px;
             font-weight: bold;
             color: #555;
             cursor: pointer;
             transition: color 0.2s ease;
-            z-index: 1001; /* Pastikan tombol di atas konten popup */
-            background-color: white; /* Memberikan latar belakang */
-            border-radius: 50%; /* Membuat tombol lingkaran */
+            z-index: 1001;
+            background-color: white;
+            border-radius: 50%;
             width: 30px;
             height: 30px;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* Memberikan sedikit bayangan */
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
 
         .close-popup-btn:hover {
@@ -116,9 +116,9 @@
 
         /* Gaya untuk body popup yang akan menggulir */
         .popup-body {
-            padding: 20px 30px 30px; /* Padding untuk konten body */
-            overflow-y: auto; /* Ini yang memungkinkan konten body discroll */
-            flex-grow: 1; /* Biarkan body mengisi sisa ruang yang tersedia */
+            padding: 20px 30px 30px;
+            overflow-y: auto;
+            flex-grow: 1;
         }
 
         .formula {
@@ -129,7 +129,19 @@
             margin: 15px 0;
             font-family: 'Cambria Math', 'Times New Roman', serif;
         }
+        
+        .popup-content table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
 
+        .popup-content th, .popup-content td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
         .popup-content p {
             margin: 8px 0;
             line-height: 1.5;
@@ -204,94 +216,163 @@
             <h2 class="text-2xl font-bold mb-6 text-center text-gray-800 animate__animated animate__fadeIn">Loss due to Atmospheric Gases</h2>
 
             <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm mb-8 animate__animated animate__fadeInUp">
-                <h3 class="text-lg font-bold text-center text-gray-800 mb-3">Uplink and Downlink:</h3>
+                <h3 class="text-lg font-bold text-center text-gray-800 mb-3">Tabel Kehilangan Atmosfer</h3>
 
-                <div class="overflow-hidden rounded-lg border border-gray-200 mb-6">
-                    <div class="grid grid-cols-3 font-bold bg-blue-600 text-white py-3 text-base text-center">
-                        <div>Elevation Angle:</div>
-                        <div>Loss:</div>
-                        <div>Unit:</div>
-                    </div>
-
-                    <div class="text-base bg-gray-50">
-                        <div class="grid grid-cols-3 py-2 border-b border-gray-200 text-center">
-                            <div>0°</div>
-                            <div>10.2</div>
-                            <div>dB</div>
-                        </div>
-                        <div class="grid grid-cols-3 py-2 border-b border-gray-200 text-center">
-                            <div>2.5°</div>
-                            <div>4.6</div>
-                            <div>dB</div>
-                        </div>
-                        <div class="grid grid-cols-3 py-2 border-b border-gray-200 text-center">
-                            <div>5°</div>
-                            <div>2.1</div>
-                            <div>dB</div>
-                        </div>
-                        <div class="grid grid-cols-3 py-2 border-b border-gray-200 text-center">
-                            <div>10°</div>
-                            <div>1.1</div>
-                            <div>dB</div>
-                        </div>
-                        <div class="grid grid-cols-3 py-2 border-b border-gray-200 text-center">
-                            <div>30°</div>
-                            <div>0.4</div>
-                            <div>dB</div>
-                        </div>
-                        <div class="grid grid-cols-3 py-2 border-b border-gray-200 text-center">
-                            <div>45°</div>
-                            <div>0.3</div>
-                            <div>dB</div>
-                        </div>
-                        <div class="grid grid-cols-3 py-2 text-center">
-                            <div>90°</div>
-                            <div>0.0</div>
-                            <div>dB</div>
-                        </div>
-                    </div>
+                {{-- The table from the user's image --}}
+                <div class="overflow-x-auto rounded-lg border border-gray-200 mb-6">
+                    <table class="w-full text-sm text-gray-700">
+                        <thead class="bg-blue-600 text-white text-center">
+                            <tr>
+                                <th rowspan="2" class="p-3 border-b border-r border-blue-400">Frequency (GHz)</th>
+                                <th colspan="6" class="p-3 border-b border-blue-400">Elevation Angle</th>
+                            </tr>
+                            <tr>
+                                <th class="p-3 border-r border-blue-400">0°</th>
+                                <th class="p-3 border-r border-blue-400">5°</th>
+                                <th class="p-3 border-r border-blue-400">10°</th>
+                                <th class="p-3 border-r border-blue-400">30°</th>
+                                <th class="p-3 border-r border-blue-400">45°</th>
+                                <th class="p-3">90°</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-gray-50 text-center">
+                            @php
+                                $atmosphericData = [
+                                    ['freq' => 1000, 'loss' => [10.17, 2.14, 1.12, 0.39, 0.28, 0.03]],
+                                    ['freq' => 2000, 'loss' => [10.88, 2.31, 1.22, 0.42, 0.30, 0.03]],
+                                    ['freq' => 4000, 'loss' => [11.36, 2.19, 1.14, 0.40, 0.28, 0.04]],
+                                    ['freq' => 6000, 'loss' => [11.76, 2.18, 1.13, 0.39, 0.28, 0.04]],
+                                    ['freq' => 12000, 'loss' => [15.08, 2.44, 1.26, 0.44, 0.31, 0.06]],
+                                    ['freq' => 15000, 'loss' => [19.43, 2.95, 1.51, 0.53, 0.37, 0.08]],
+                                    ['freq' => 20000, 'loss' => [61.28, 8.73, 4.47, 1.55, 1.10, 0.28]],
+                                    ['freq' => 30000, 'loss' => [50.64, 7.18, 3.68, 1.28, 0.90, 0.24]],
+                                    ['freq' => 41000, 'loss' => [94.81, 14.53, 7.47, 2.59, 1.83, 0.41]],
+                                ];
+                            @endphp
+                            @foreach ($atmosphericData as $row)
+                            <tr>
+                                <td class="p-3 border-r border-gray-200">{{ $row['freq'] }}</td>
+                                @foreach ($row['loss'] as $loss)
+                                <td class="p-3 border-r border-gray-200">{{ $loss }}</td>
+                                @endforeach
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
 
                 <form method="POST" action="{{ route('attmosionos.store', ['id' => $dataId]) }}" class="space-y-6">
                     @csrf
                     <input type="hidden" name="user_id" value="{{auth()->id() ?? 1}}">
 
+                    {{-- Atmospheric Uplink Section --}}
+                    <h3 class="text-lg font-bold text-center text-gray-800 mb-3">Atmospheric Losses (Uplink)</h3>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="relative">
-                            <label for="min_elevation_angle" class="block font-medium mb-2 text-gray-700">Min. Elev. Angle:</label>
+                            <label for="uplink_atmospheric_frequency" class="block font-medium mb-2 text-gray-700">Frequency:</label>
                             <input
                                 type="number"
-                                name="min_elevation_angle"
-                                id="min_elevation_angle"
+                                name="uplink_atmospheric_frequency"
+                                id="uplink_atmospheric_frequency"
+                                step="0.1"
+                                min="1"
+                                max="41"
+                                class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value="{{ old('uplink_frequency', $data->frekuensi ?? '') }}"
+                                required
+                                oninput="updateUplinkAtmosphericLoss()"
+                                placeholder="{{ $data->frekuensi?? '' }}" readonly>
+                            
+                            <span class="input-unit right-3">GHz</span>
+                        </div>
+                        <div class="relative">
+                            <label for="uplink_min_elevation_angle" class="block font-medium mb-2 text-gray-700">Min. Elev. Angle:</label>
+                            <input
+                                type="number"
+                                name="uplink_min_elevation_angle"
+                                id="uplink_min_elevation_angle"
                                 step="0.1"
                                 min="0"
                                 max="90"
                                 class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                                value=""
+                                value="{{ old('uplink_min_elevation_angle', $data->uplink_min_elevation_angle ?? '') }}"
                                 required
-                                oninput="updateAtmosphericLoss()"
+                                oninput="updateUplinkAtmosphericLoss()"
                                 placeholder="Enter angle"
                             >
                             <span class="input-unit right-3">deg.</span>
                         </div>
-
-                        <div class="relative">
-                            <label for="loss_determined_atmospheric" class="block font-medium mb-2 text-gray-700">Loss Determined:</label>
+                        <div class="relative col-span-1 md:col-span-2">
+                            <label for="uplink_loss_determined_atmospheric" class="block font-medium mb-2 text-gray-700">Loss Determined:</label>
                             <input
                                 type="text"
-                                name="loss_determined_atmospheric"
-                                id="loss_determined_atmospheric"
+                                name="uplink_loss_determined_atmospheric"
+                                id="uplink_loss_determined_atmospheric"
                                 class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pr-16"
-                                value=""
+                                value="{{ old('uplink_loss_determined_atmospheric', $data->uplink_loss_determined_atmospheric ?? '') }}"
                                 readonly
                             >
-                            <button type="button" id="la_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                            <button type="button" id="uplink_la_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
+                            <span class="input-unit right-3">dB</span>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-200 my-6"></div>
+
+                    {{-- Atmospheric Downlink Section --}}
+                    <h3 class="text-lg font-bold text-center text-gray-800 mb-3">Atmospheric Losses (Downlink)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="relative">
+                            <label for="downlink_atmospheric_frequency" class="block font-medium mb-2 text-gray-700">Frequency:</label>
+                            <input
+                                type="number"
+                                name="downlink_atmospheric_frequency"
+                                id="downlink_atmospheric_frequency"
+                                step="0.1"
+                                min="1"
+                                max="41"
+                                class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value="{{ old('downlink_frequency', $data->frekuensi_downlink ?? '') }}"
+                                required
+                                oninput="updateDownlinkAtmosphericLoss()"
+                                placeholder="{{ $data->frekuensi_downlink?? '' }}" readonly>
+                            
+                            <span class="input-unit right-3">GHz</span>
+                        </div>
+                        <div class="relative">
+                            <label for="downlink_min_elevation_angle" class="block font-medium mb-2 text-gray-700">Min. Elev. Angle:</label>
+                            <input
+                                type="number"
+                                name="downlink_min_elevation_angle"
+                                id="downlink_min_elevation_angle"
+                                step="0.1"
+                                min="0"
+                                max="90"
+                                class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pl-4 pr-16 focus:ring-2 focus:ring-blue-400 focus:outline-none"
+                                value="{{ old('downlink_min_elevation_angle', $data->downlink_min_elevation_angle ?? '') }}"
+                                required
+                                oninput="updateDownlinkAtmosphericLoss()"
+                                placeholder="Enter angle"
+                            >
+                            <span class="input-unit right-3">deg.</span>
+                        </div>
+                        <div class="relative col-span-1 md:col-span-2">
+                            <label for="downlink_loss_determined_atmospheric" class="block font-medium mb-2 text-gray-700">Loss Determined:</label>
+                            <input
+                                type="text"
+                                name="downlink_loss_determined_atmospheric"
+                                id="downlink_loss_determined_atmospheric"
+                                class="border border-gray-300 p-3 w-full rounded-lg bg-gray-50 shadow-sm pr-16"
+                                value="{{ old('downlink_loss_determined_atmospheric', $data->downlink_loss_determined_atmospheric ?? '') }}"
+                                readonly
+                            >
+                            <button type="button" id="downlink_la_popup_btn" class="text-blue-500 mt-2 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
                             <span class="input-unit right-3">dB</span>
                         </div>
                     </div>
                 
             </div>
-
+            
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                 <div class="bg-blue-50 p-6 rounded-lg border border-blue-200 shadow-sm animate__animated animate__fadeInLeft">
                     <h3 class="text-lg font-bold text-center text-gray-800 mb-3">Loss due to Ionosphere:</h3>
@@ -301,7 +382,7 @@
                         <div class="flex justify-between items-center mb-2">
                             <span>Uplink Loss Determined:</span>
                             <span id="uplink_loss_determined_display" class="border border-gray-300 p-3 w-24 rounded bg-gray-50 text-center font-bold"
-                            style="background-color: #e6f4e1; color:rgb(22, 101, 52); border-color: #81c784;">0.0 dB</span>
+                            style="background-color: #e6f4e1; color:rgb(22, 101, 52); border-color: #81c784;">{{ $data->uplink_loss_determined_display ?? '0.0' }} dB</span>
                         </div>
                         <div class="text-right">
                             <button type="button" id="uplink_detail_btn" class="text-blue-500 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -324,10 +405,9 @@
                                         step="0.1"
                                         min="0"
                                         class="w-full bg-blue-100 border border-blue-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 p-2"
-                                        value=""
+                                        value="{{ old('uplink_frequency', $data->frekuensi ?? '') }}"
                                         oninput="updateUplinkIonosphericLoss()"
-                                        placeholder="{{ $data->frekuensi ?? '' }}" step="any" value="{{ $data->frekuensi ?? '' }}" readonly>
-
+                                        placeholder="{{ $data->frekuensi ?? '' }}" readonly>
                                     
                                     <span class="input-unit right-3">MHz</span>
                                 </div>
@@ -339,7 +419,7 @@
                                         step="0.1"
                                         min="0"
                                         class="w-full bg-blue-100 border border-blue-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 p-2"
-                                        value=""
+                                        value="{{ old('uplink_loss_ionosphere', $data->uplink_loss_ionosphere ?? '') }}"
                                         oninput="updateUplinkIonosphericLoss()"
                                         placeholder="Input Nilai Loss"
                                     >
@@ -367,7 +447,7 @@
                         <div class="flex justify-between items-center mb-2">
                             <span>Downlink Loss Determined:</span>
                             <span id="downlink_loss_determined_display" class="border border-gray-300 p-3 w-24 rounded bg-gray-50 text-center font-bold"
-                            style="background-color: #e6f4e1; color:rgb(22, 101, 52); border-color: #81c784;">0.0 dB</span>
+                            style="background-color: #e6f4e1; color:rgb(22, 101, 52); border-color: #81c784;">{{ $data->downlink_loss_determined_display ?? '0.0' }} dB</span>
                         </div>
                         <div class="text-right">
                             <button type="button" id="downlink_detail_btn" class="text-blue-500 text-sm font-semibold transition-colors duration-200">Lihat Detail <i class="fas fa-info-circle ml-1"></i></button>
@@ -390,10 +470,9 @@
                                         step="0.1"
                                         min="0"
                                         class="w-full bg-blue-100 border border-blue-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 p-2"
-                                        value=""
+                                        value="{{ old('downlink_frequency', $data->frekuensi_downlink ?? '') }}"
                                         oninput="updateDownlinkIonosphericLoss()"
-                                        placeholder="{{ $data->frekuensi_downlink?? '' }}" step="any" value="{{ $data->frekuensi_downlink ?? '' }}" readonly>
-        
+                                        placeholder="{{ $data->frekuensi_downlink?? '' }}" readonly>
                                     <span class="input-unit right-3">MHz</span>
                                 </div>
                                 <div class="py-2 bg-gray-50 relative">
@@ -404,7 +483,7 @@
                                         step="0.1"
                                         min="0"
                                         class="w-full bg-blue-100 border border-blue-300 rounded text-center focus:outline-none focus:ring-2 focus:ring-blue-500 p-2"
-                                        value=""
+                                        value="{{ old('downlink_loss_ionosphere', $data->downlink_loss_ionosphere ?? '') }}"
                                         oninput="updateDownlinkIonosphericLoss()"
                                         placeholder="Input Nilai Loss"
                                     >
@@ -424,18 +503,15 @@
                     </div>
                 </div>
             </div>
-               <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
-                        <i class=""></i> Hitung & Simpan
-                    </button>
+            
+            <button type="submit" class="bg-blue-600 text-white px-8 py-4 rounded-lg hover:bg-blue-700 w-full font-bold text-xl transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
+                <i class=""></i> Hitung & Simpan
+            </button>
             </form>
             <div class="flex justify-between mt-6">
-                <a href="/calc/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
-                    <i class="fas fa-arrow-left mr-2"></i> Previous Page
+                <a href="/annpolaloss/{{$dataId}}" class="inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700 transition-colors duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i> Halaman Sebelumnya
                 </a>
-                {{-- If you have a next page, uncomment and adjust the link below --}}
-                {{-- <a href="/next-page/{{$dataId}}" class="inline-flex items-center justify- Pelajaran selanjutnya px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 transition-colors duration-200">
-                    Next Page <i class="fas fa-arrow-right ml-2"></i>
-                </a> --}}
             </div>
         </div>
     </div>
@@ -451,11 +527,12 @@
                     <div class="section">
                         <h4 class="section-title">Loss due to Atmospheric Gases (Kehilangan Akibat Gas Atmosfer)</h4>
                         <p class="section-content">
-                            Sinyal satelit yang melewati atmosfer bumi akan mengalami redaman atau kehilangan daya akibat penyerapan oleh gas-gas atmosfer seperti uap air dan oksigen. Besarnya kehilangan ini sangat bergantung pada sudut elevasi (elevation angle) dan frekuensi sinyal.
+                            Sinyal satelit yang melewati atmosfer bumi akan mengalami redaman atau kehilangan daya akibat penyerapan oleh gas-gas atmosfer seperti uap air dan oksigen. Besarnya kehilangan ini sangat bergantung pada frekuensi dan sudut elevasi (elevation angle) sinyal.
                         </p>
                         <ul class="param-list">
-                            <li><strong>Min. Elev. Angle:</strong> Sudut elevasi minimum antena bumi terhadap satelit. Semakin rendah sudut elevasi, semakin panjang jalur sinyal melalui atmosfer, dan semakin besar kehilangan yang terjadi.</li>
-                            <li><strong>Loss Determined:</strong> Nilai kehilangan daya (dalam dB) yang dihitung berdasarkan sudut elevasi yang diberikan, menggunakan tabel lookup atau interpolasi.</li>
+                            <li><strong>Frequency (MHz):</strong> Frekuensi sinyal yang digunakan. Kehilangan atmosfer meningkat secara signifikan pada frekuensi yang lebih tinggi.</li>
+                            <li><strong>Elevation Angle:</strong> Sudut elevasi antena bumi terhadap satelit. Semakin rendah sudut elevasi, semakin panjang jalur sinyal melalui atmosfer, dan semakin besar kehilangan yang terjadi.</li>
+                            <li><strong>Loss Determined:</strong> Nilai kehilangan daya (dalam dB) yang dihitung berdasarkan frekuensi dan sudut elevasi yang diberikan, menggunakan tabel lookup dan interpolasi.</li>
                         </ul>
                     </div>
 
@@ -498,29 +575,34 @@
                 <div>
                     <div class="formula">
                         <strong>Rumus Perhitungan:</strong><br>
-                        Nilai kehilangan atmosfer ditentukan berdasarkan tabel lookup dan interpolasi linear dari data empiris.<br>
-                        Untuk $\text{Min. Elev. Angle} < 2.5^\circ$, $\text{Loss} = 4.6 \text{ dB}$.<br>
-                        Untuk sudut elevasi $\ge 2.5^\circ$, nilai diambil dari tabel lookup berikut:<br>
+                        Nilai kehilangan atmosfer ditentukan berdasarkan interpolasi linear pada frekuensi dan pencarian nilai terdekat pada sudut elevasi, menggunakan tabel data empiris berikut:<br>
                         <table style="width:100%; border-collapse: collapse; margin-top: 10px;">
                             <thead>
                                 <tr style="background-color: #f2f2f2;">
-                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Elevation Angle ($^\circ$)</th>
-                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Loss (dB)</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">Frequency (GHz)</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">0°</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">5°</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">10°</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">30°</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">45°</th>
+                                    <th style="border: 1px solid #ddd; padding: 8px; text-align: center;">90°</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">0</td><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">10.2</td></tr>
-                                <tr><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">2.5</td><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">4.6</td></tr>
-                                <tr><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">5</td><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">2.1</td></tr>
-                                <tr><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">10</td><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">1.1</td></tr>
-                                <tr><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">30</td><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">0.4</td></tr>
-                                <tr><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">45</td><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">0.3</td></tr>
-                                <tr><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">90</td><td style="border: 1px solid #ddd; padding: 8px; text-align: center;">0.0</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">1</td><td class="p-3 border-r border-gray-200">10.17</td><td class="p-3 border-r border-gray-200">2.14</td><td class="p-3 border-r border-gray-200">1.12</td><td class="p-3 border-r border-gray-200">0.39</td><td class="p-3 border-r border-gray-200">0.28</td><td class="p-3 border-r border-gray-200">0.03</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">2</td><td class="p-3 border-r border-gray-200">10.88</td><td class="p-3 border-r border-gray-200">2.31</td><td class="p-3 border-r border-gray-200">1.22</td><td class="p-3 border-r border-gray-200">0.42</td><td class="p-3 border-r border-gray-200">0.30</td><td class="p-3 border-r border-gray-200">0.03</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">4</td><td class="p-3 border-r border-gray-200">11.36</td><td class="p-3 border-r border-gray-200">2.19</td><td class="p-3 border-r border-gray-200">1.14</td><td class="p-3 border-r border-gray-200">0.40</td><td class="p-3 border-r border-gray-200">0.28</td><td class="p-3 border-r border-gray-200">0.04</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">6</td><td class="p-3 border-r border-gray-200">11.76</td><td class="p-3 border-r border-gray-200">2.18</td><td class="p-3 border-r border-gray-200">1.13</td><td class="p-3 border-r border-gray-200">0.39</td><td class="p-3 border-r border-gray-200">0.28</td><td class="p-3 border-r border-gray-200">0.04</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">12</td><td class="p-3 border-r border-gray-200">15.08</td><td class="p-3 border-r border-gray-200">2.44</td><td class="p-3 border-r border-gray-200">1.26</td><td class="p-3 border-r border-gray-200">0.44</td><td class="p-3 border-r border-gray-200">0.31</td><td class="p-3 border-r border-gray-200">0.06</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">15</td><td class="p-3 border-r border-gray-200">19.43</td><td class="p-3 border-r border-gray-200">2.95</td><td class="p-3 border-r border-gray-200">1.51</td><td class="p-3 border-r border-gray-200">0.53</td><td class="p-3 border-r border-gray-200">0.37</td><td class="p-3 border-r border-gray-200">0.08</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">20</td><td class="p-3 border-r border-gray-200">61.28</td><td class="p-3 border-r border-gray-200">8.73</td><td class="p-3 border-r border-gray-200">4.47</td><td class="p-3 border-r border-gray-200">1.55</td><td class="p-3 border-r border-gray-200">1.10</td><td class="p-3 border-r border-gray-200">0.28</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">30</td><td class="p-3 border-r border-gray-200">50.64</td><td class="p-3 border-r border-gray-200">7.18</td><td class="p-3 border-r border-gray-200">3.68</td><td class="p-3 border-r border-gray-200">1.28</td><td class="p-3 border-r border-gray-200">0.90</td><td class="p-3 border-r border-gray-200">0.24</td></tr>
+                                <tr><td class="p-3 border-r border-gray-200">41</td><td class="p-3 border-r border-gray-200">94.81</td><td class="p-3 border-r border-gray-200">14.53</td><td class="p-3 border-r border-gray-200">7.47</td><td class="p-3 border-r border-gray-200">2.59</td><td class="p-3 border-r border-gray-200">1.83</td><td class="p-3 border-r border-gray-200">0.41</td></tr>
                             </tbody>
                         </table>
                     </div>
                     <p><strong>Penjelasan:</strong><br>
-                    Kehilangan atmosfer terjadi karena penyerapan sinyal oleh molekul oksigen dan uap air di atmosfer bumi. Semakin rendah sudut elevasi, sinyal harus menempuh jalur yang lebih panjang melalui atmosfer padat, menyebabkan kehilangan yang lebih besar. Pada $90^\circ$ (zenith), kehilangan minimal karena jalur terpendek melalui atmosfer.</p>
+                    Kehilangan atmosfer terjadi karena penyerapan sinyal oleh molekul oksigen dan uap air di atmosfer bumi. Nilai kehilangan bergantung pada frekuensi dan jalur yang ditempuh sinyal. Semakin tinggi frekuensi dan semakin rendah sudut elevasi, sinyal harus menempuh jalur yang lebih panjang melalui atmosfer padat, menyebabkan kehilangan yang lebih besar. Pada 90° (zenith), kehilangan minimal karena jalur terpendek melalui atmosfer.</p>
                 </div>
             </div>
         </div>
@@ -572,65 +654,97 @@
 
     <script>
         /**
-         * Calculates the atmospheric loss based on the given minimum elevation angle
-         * using a lookup table and interpolation logic similar to the provided Excel formula.
+         * Calculates the atmospheric loss based on the given frequency and elevation angle.
          *
-         * @param {number} minElevationAngle - The minimum elevation angle in degrees.
-         * @returns {number} The calculated loss in dB, rounded to one decimal place.
+         * @param {number} freqGHz - The input frequency in GHz.
+         * @param {number} elev - The input elevation angle in degrees.
+         * @returns {number} The calculated loss in dB.
          */
-        function calculateAtmosphericLoss(minElevationAngle) {
-            // Define the lookup table data from your image
-            const elevationAngles = [0, 2.5, 5, 10, 30, 45, 90];
-            const losses = [10.2, 4.6, 2.1, 1.1, 0.4, 0.3, 0.0];
+        function calculateAtmosphericLoss(freqGHz, elev) {
+            const frequenciesGHz = [1000, 2000, 4000, 6000, 12000, 15000, 20000, 30000, 41000];
+            const elevationAngles = [0, 5, 10, 30, 45, 90];
+            const lossGrid = [
+                [10.17, 2.14, 1.12, 0.39, 0.28, 0.03],
+                [10.88, 2.31, 1.22, 0.42, 0.30, 0.03],
+                [11.36, 2.19, 1.14, 0.40, 0.28, 0.04],
+                [11.76, 2.18, 1.13, 0.39, 0.28, 0.04],
+                [15.08, 2.44, 1.26, 0.44, 0.31, 0.06],
+                [19.43, 2.95, 1.51, 0.53, 0.37, 0.08],
+                [61.28, 8.73, 4.47, 1.55, 1.10, 0.28],
+                [50.64, 7.18, 3.68, 1.28, 0.90, 0.24],
+                [94.81, 14.53, 7.47, 2.59, 1.83, 0.41],
+            ];
 
-            // Get the value of B8 from the table, which is elevationAngles[1] (2.5 degrees)
-            const B8_elevationAngle = elevationAngles[1]; // 2.5
+            // Clamp the input values to the table range
+            freqGHz = Math.max(frequenciesGHz[0], Math.min(frequenciesGHz[frequenciesGHz.length - 1], freqGHz));
+            elev = Math.max(elevationAngles[0], Math.min(elevationAngles[elevationAngles.length - 1], elev));
 
-            // Excel formula: IF(D21 < B8, 4.6, ...)
-            if (minElevationAngle < B8_elevationAngle) {
-                // The value 4.6 is hardcoded in the Excel formula for this condition.
-                return 4.6;
+            // Find the closest frequency indices for interpolation
+            let i = 0;
+            while (i < frequenciesGHz.length - 1 && frequenciesGHz[i + 1] < freqGHz) {
+                i++;
+            }
+            const f1 = frequenciesGHz[i];
+            const f2 = frequenciesGHz[i + 1] || f1;
+            
+            // Find the elevation angle index by finding the largest angle <= input elev
+            let j = 0;
+            while (j < elevationAngles.length - 1 && elevationAngles[j + 1] <= elev) {
+                j++;
+            }
+            
+            // Get the loss values for the selected elevation column
+            const L1 = lossGrid[i][j];
+            const L2 = (i + 1 < frequenciesGHz.length) ? lossGrid[i + 1][j] : L1;
+
+            let finalLoss;
+            if (f1 === f2) {
+                // Exact frequency match, no interpolation needed
+                finalLoss = L1;
             } else {
-                // Excel formula: INDEX(D6:D18, MATCH(D21, B6:B18, 1), 1)
+                // Perform linear interpolation for frequency
+                const t_freq = (freqGHz - f1) / (f2 - f1);
+                finalLoss = L1 + t_freq * (L2 - L1);
+            }
+            
+            return parseFloat(finalLoss.toFixed(2));
+        }
 
-                let matchIndex = -1;
-                // The MATCH function with type 1 finds the largest value that is less than or equal to lookup_value.
-                // We need to iterate through elevationAngles to find this.
-                for (let i = 0; i < elevationAngles.length; i++) {
-                    if (minElevationAngle >= elevationAngles[i]) {
-                        matchIndex = i;
-                    } else {
-                        // Since the elevationAngles are sorted, we can break once we exceed minElevationAngle
-                        break;
-                    }
-                }
+        /**
+         * Updates the "Loss Determined" input field for Atmospheric Loss (Uplink).
+         */
+        function updateUplinkAtmosphericLoss() {
+            const frequencyInput = document.getElementById('uplink_atmospheric_frequency');
+            const elevationInput = document.getElementById('uplink_min_elevation_angle');
+            const lossDeterminedInput = document.getElementById('uplink_loss_determined_atmospheric');
 
-                if (matchIndex !== -1) {
-                    // Return the corresponding loss from the losses array
-                    // Round to one decimal place as seen in your example data
-                    return parseFloat(losses[matchIndex].toFixed(1));
-                } else {
-                    console.warn("Could not find a matching elevation angle for lookup.");
-                    return 0.0; // Default or error handling
-                }
+            const frequency = parseFloat(frequencyInput.value);
+            const elevation = parseFloat(elevationInput.value);
+
+            if (!isNaN(frequency) && !isNaN(elevation)) {
+                const calculatedLoss = calculateAtmosphericLoss(frequency, elevation);
+                lossDeterminedInput.value = calculatedLoss;
+            } else {
+                lossDeterminedInput.value = ''; // Clear if any input is not a valid number
             }
         }
 
         /**
-         * Updates the "Loss Determined" input field for Atmospheric Loss
-         * based on the "Min. Elev. Angle" input.
+         * Updates the "Loss Determined" input field for Atmospheric Loss (Downlink).
          */
-        function updateAtmosphericLoss() {
-            const minElevationAngleInput = document.getElementById('min_elevation_angle');
-            const lossDeterminedInput = document.getElementById('loss_determined_atmospheric');
+        function updateDownlinkAtmosphericLoss() {
+            const frequencyInput = document.getElementById('downlink_atmospheric_frequency');
+            const elevationInput = document.getElementById('downlink_min_elevation_angle');
+            const lossDeterminedInput = document.getElementById('downlink_loss_determined_atmospheric');
 
-            const minElevationAngle = parseFloat(minElevationAngleInput.value);
+            const frequency = parseFloat(frequencyInput.value);
+            const elevation = parseFloat(elevationInput.value);
 
-            if (!isNaN(minElevationAngle)) {
-                const calculatedLoss = calculateAtmosphericLoss(minElevationAngle);
+            if (!isNaN(frequency) && !isNaN(elevation)) {
+                const calculatedLoss = calculateAtmosphericLoss(frequency, elevation);
                 lossDeterminedInput.value = calculatedLoss;
             } else {
-                lossDeterminedInput.value = ''; // Clear if input is not a valid number
+                lossDeterminedInput.value = ''; // Clear if any input is not a valid number
             }
         }
 
@@ -668,38 +782,37 @@
 
         // Call the functions once when the page loads to set the initial values
         document.addEventListener('DOMContentLoaded', () => {
-            updateAtmosphericLoss();
+            updateUplinkAtmosphericLoss();
+            updateDownlinkAtmosphericLoss();
             updateUplinkIonosphericLoss();
             updateDownlinkIonosphericLoss();
 
-            // Re-render MathJax on load for all popups
             if (typeof MathJax !== 'undefined') {
                 MathJax.typesetPromise();
             }
         });
 
         // POP UP Logic
-        // Fungsi umum untuk membuka pop-up
         function openPopup(popupId) {
-            // Tutup semua popup lain yang mungkin terbuka, untuk memastikan hanya satu popup yang terlihat
             document.querySelectorAll('.popup-window').forEach(p => p.style.display = 'none'); 
-            
             document.getElementById(popupId).style.display = "flex";
-            // Penting: Setelah membuka, jika MathJax dimuat, render ulang rumus matematika
             if (typeof MathJax !== 'undefined') {
                 MathJax.typesetPromise();
             }
         }
 
-        // Event listener for "Apa itu Perhitungan Atmospheric & Ionospheric Losses?"
         document.getElementById('info_atmoss_ionoss_general_btn').onclick = () => {
             openPopup('popup_atmoss_ionoss_general');
         };
 
-        // Event listener for "Lihat Detail" buttons
-        document.getElementById('la_popup_btn').onclick = () => {
+        // Event listeners for the new atmospheric popup buttons
+        document.getElementById('uplink_la_popup_btn').onclick = () => {
             openPopup('la_popup');
         };
+        document.getElementById('downlink_la_popup_btn').onclick = () => {
+            openPopup('la_popup');
+        };
+
         document.getElementById('uplink_detail_btn').onclick = () => {
             openPopup('uplink_detail_popup');
         };
@@ -707,7 +820,6 @@
             openPopup('downlink_detail_popup');
         };
 
-        // Fungsi untuk menutup semua popup
         document.querySelectorAll('.close-popup-btn').forEach(btn => {
             btn.onclick = () => {
                 document.querySelectorAll('.popup-window').forEach(p => p.style.display = 'none');
@@ -717,20 +829,19 @@
 
     {{-- Script for MathJax --}}
     <script>
-        // Konfigurasi MathJax (sesuaikan jika perlu)
         window.MathJax = {
             tex: {
-                inlineMath: [['$', '$'], ['\\(', '\\)']], // Untuk rumus inline seperti $x^2$
-                displayMath: [['$$', '$$'], ['\\[', '\\]']], // Untuk rumus blok seperti $$E=mc^2$$
-                processEscapes: true, // Memungkinkan \$ untuk menampilkan tanda dolar literal
-                tags: "ams" // Untuk penomoran persamaan (opsional)
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true,
+                tags: "ams"
             },
             options: {
-                ignoreHtmlClass: "tex2jax_ignore", // Kelas yang diabaikan untuk pemrosesan matematika
-                processHtmlClass: "tex2jax_process" // Kelas yang secara spesifik diproses untuk matematika
+                ignoreHtmlClass: "tex2jax_ignore",
+                processHtmlClass: "tex2jax_process"
             },
             loader: {
-                load: ['[tex]/ams'] // Memuat ekstensi AMS math
+                load: ['[tex]/ams']
             }
         };
     </script>

@@ -115,7 +115,7 @@ return new class extends Migration
             $table->double('tlna_uprec')->nullable();
             $table->double('lnagain_uprec')->nullable();
             $table->double('glna_uprec')->nullable();
-            $table->double('2ndstagetemp_uprec')->nullable();
+            $table->double('secondstagetemp_uprec')->nullable();
             $table->double('ts_uprec')->nullable();
 
             //Database Receiver Downlink
@@ -154,16 +154,16 @@ return new class extends Migration
             $table->double('eastofsat2_up')->nullable();
             $table->double('sat_in_quad_up')->nullable();
             $table->double('quad_result_up')->nullable();
-            $table->double('quad_angle_range_up')->nullable();
+            $table->string('quad_angle_range_up')->nullable();
             $table->double('sat_in_quad_value_up')->nullable();
             $table->double('quad_result_value_up')->nullable();
-            $table->double('quad_angle_range_value_up')->nullable();
+            $table->string('quad_angle_range_value_up')->nullable();
             $table->double('sat_in_quad_value2_up')->nullable();
             $table->double('quad_result_value2_up')->nullable();
-            $table->double('quad_angle_range_value2_up')->nullable();
+            $table->string('quad_angle_range_value2_up')->nullable();
             $table->double('sat_in_quad_value3_up')->nullable();
             $table->double('quad_result_value3_up')->nullable();
-            $table->double('quad_angle_range_value3_up')->nullable();
+            $table->string('quad_angle_range_value3_up')->nullable();
             $table->double('azimuthcalc_up')->nullable();
             $table->double('azimuthresult_up')->nullable();
         
@@ -177,16 +177,16 @@ return new class extends Migration
             $table->double('eastofsat2_down')->nullable();
             $table->double('sat_in_quad_down')->nullable();
             $table->double('quad_result_down')->nullable();
-            $table->double('quad_angle_range_down')->nullable();
+            $table->string('quad_angle_range_down')->nullable();
             $table->double('sat_in_quad_value_down')->nullable();
             $table->double('quad_result_value_down')->nullable();
-            $table->double('quad_angle_range_value_down')->nullable();
+            $table->string('quad_angle_range_value_down')->nullable();
             $table->double('sat_in_quad_value2_down')->nullable();
             $table->double('quad_result_value2_down')->nullable();
-            $table->double('quad_angle_range_value2_down')->nullable();
+            $table->string('quad_angle_range_value2_down')->nullable();
             $table->double('sat_in_quad_value3_down')->nullable();
             $table->double('quad_result_value3_down')->nullable();
-            $table->double('quad_angle_range_value3_down')->nullable();
+            $table->string('quad_angle_range_value3_down')->nullable();
             $table->double('azimuthcalc_down')->nullable();
             $table->double('azimuthresult_down')->nullable();
 
@@ -267,7 +267,7 @@ return new class extends Migration
             $table->double('wavelength_downgrounds_poin')->nullable();
             $table->double('gain_downgrounds_poin')->nullable();
             $table->double('beamwidth_downgrounds_poin')->nullable();
-            $table->double('upgrounds_θ4_poin')->nullable();
+            $table->double('estimedpointingerror_downgrounds_θ4_poin')->nullable();
             $table->double('annrolloff_downgrounds_poin')->nullable();
             $table->double('approxannpoinloss_downgrounds_poin')->nullable();
 
